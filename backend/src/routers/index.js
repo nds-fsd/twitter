@@ -1,10 +1,10 @@
 const express = require("express");
-// const meawRouter = require("./meaw");
+const miauRouter = require("./miau");
 const userRouter = require("./user");
 
 const router = express.Router();
 
-// router.use("/meaw", meawRouter);
+router.use("/miau", miauRouter)
 router.use("/user", userRouter);
 
 module.exports = router;
