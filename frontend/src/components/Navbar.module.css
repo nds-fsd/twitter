@@ -1,0 +1,51 @@
+:root {
+    --main-blue: #00A9A5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+}
+
+.options {
+    display: flex;
+    margin: 15px;
+    padding: 15px;
+    width: fit-content;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.options:hover {
+    background-color: rgb(34, 34, 34);
+}
+
+.navbar button {
+    margin-left: 15px;
+    width: 220px;
+    height: 55px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    background-color: var(--main-blue);
+}
+
+.navbar button:hover {
+    background-color: #008b89;
+}
+
+.usuario {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 5px;
+    left: 20px;
+}

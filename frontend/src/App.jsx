@@ -1,8 +1,11 @@
+import Navbar from "./components/Navbar"
+import styles from "./App.module.css";
+
 
 function App() {
     return (
     <div>
-        Your App here
+        <Navbar />
     </div>
 
 
