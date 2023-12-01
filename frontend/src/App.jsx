@@ -26,11 +26,18 @@ useEffect(()=> {
         console.log(error)
         setError(true)
      }
+
+     
    
           }
    getAllMeows()
 
 }, [])
+
+
+   if (error) return(
+      <div>Ops, Something went wrong!</div>
+   )
    
          return (
          
