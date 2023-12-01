@@ -5,27 +5,44 @@ import { meowApi } from "./meowsApi/apiiWrapper"
 
 function App() {
 
-  const [mewos, setMeows] = useState('');
+  const [meows, setMeows] = useState('');
   const [error, setError] = useState(false)
 
+
+
+useEffect(()=> {
    const getAllMeows = async ()=> {
 
-    try{
-        const res = await meowApi.get('/')
-   } catch(error){
-      setError(true);
-      console.log(error)
-   }
-        
-}
-
-   return (
-    <div>
+      try{
+          const res = await meowApi.get('/');
+          const data = res.data
+  
+          console.log(data)
+          setMeows(data)
+         
+     } catch(error){
        
-    </div>
+        console.log(error)
+     }
+   
+          }
+   getAllMeows()
 
+}, [])
+   
+         return (
+         
+            meows&&meows.map( meow =>{
 
-  )
+               return <div>
+                  {meow.text}<br/>
+                  {meow.date}
+               </div>
+
+               
+            }))
+ 
+    
 }
 
 export default App
