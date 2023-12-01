@@ -17,12 +17,14 @@ useEffect(()=> {
           const res = await meowApi.get('/');
           const data = res.data
   
-          console.log(data)
+          
           setMeows(data)
+          
          
      } catch(error){
        
         console.log(error)
+        setError(true)
      }
    
           }
@@ -34,7 +36,7 @@ useEffect(()=> {
          
             meows&&meows.map( meow =>{
 
-               return <div>
+               return <div key={meow._id}>
                   {meow.text}<br/>
                   {meow.date}
                </div>
