@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useEffect } from "react";
 import { meowApi } from "./meowsApi/apiiWrapper"
+import { postMeow, updateMeow, deleteMeow } from "./meowsApi/meowsRequests";
 
 
 function App() {
@@ -15,7 +16,7 @@ useEffect(()=> {
    const getAllMeows = async ()=> {
 
       try{
-          const res = await meowApi.get('/s');
+          const res = await meowApi.get('/');
           const data = res.data
   
           
