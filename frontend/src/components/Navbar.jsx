@@ -1,11 +1,12 @@
 import styles from "./Navbar.module.css";
+import home from "./assets/hogar.png"
 
 function Navbar() {
     return (
     <div className={styles.container}>
         <img src="" alt="logo" />
         <nav className={styles.navbar}>
-            <div className={styles.options} ><img src="" alt="."/><p>Home</p></div>
+            <div className={styles.options}><img src={home} alt="."/><p>Home</p></div>
             <div className={styles.options}><img src="" alt="."/><p>Explore</p></div>
             <div className={styles.options}><img src="" alt="."/><p>Notifications</p></div>
             <div className={styles.options}><img src="" alt="."/><p>Messages</p></div>
