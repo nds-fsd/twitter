@@ -16,8 +16,8 @@ const VistaUnMeow = ( {meow} )=>{
             </div>
           
             <div className={styles.stats}>
-                <span>💬​Reply</span><span>Repost</span><span>Likes</span>
-                <span>View</span><span>Bookmark</span><span>Share</span>
+                <span>💬​Reply</span><span>🔁Repost</span><span>❤️Likes</span>
+                <span>🔖Bookmark</span><span>🔗Share</span>
             </div>
 
             <div className={styles.replies}>
