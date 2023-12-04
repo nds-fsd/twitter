@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar"
-import Hashtag from "./Component-hashtags/Hashtags"
-import WhoToFollow from "./Component-who_to_follow/Who-to-follow"
+import Hashtag from "./components/Hashtags"
+import WhoToFollow from "./components/Who-to-follow"
 import styles from "./App.module.css";
 
 
