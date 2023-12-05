@@ -22,22 +22,25 @@ const RegisterForm = ()=> {
         <div >
             <h2>Create your account</h2>
            
-           <h3 style={{color: "white"}}>Personal details</h3>
+           
+           
             <form onSubmit={handleSubmit(onSubmit)}>
+
+            <h3 style={{color: "white"}}>Personal details</h3>
                 
                     <div>
-                    <input type="text" name="" placeholder="Name"  {...register("name", { required: true, })}  />
+                    <input maxLength={30} type="text" name="" placeholder="Name"  {...register("name", { required: true })}  />
                     {errors.name?.type === 'required' && <p className={styles.error}>Name is required</p>}
                     </div>
                    
                    
                    <div> 
-                   <input type="text" name="" placeholder="Surname" {...register("surname", { required: true, })} />
+                   <input maxLength={30} type="text" name="" placeholder="Surname" {...register("surname", { required: true, })} />
                    {errors.surname?.type === 'required' && <p className={styles.error}>Surname is required</p>} 
                    </div>
 
                   <div>
-                    <input type="text" name="" placeholder="Email" {...register("mail", { required: true, })} />
+                    <input maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true, })} />
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required</p>}
                   </div>
                   
@@ -52,19 +55,18 @@ const RegisterForm = ()=> {
                   <h3  style={{color: "white"}}>Username and password</h3>
 
                   <div>
-                    <input type="text" placeholder='Username' {...register("username", { required: true, })} />
+                    <input maxLength={20} type="text" placeholder='Username' {...register("username", { required: true, })} />
                     {errors.username?.type === 'required' && <p className={styles.error}>Username is required</p>}
                   </div>
 
                       <div>
-                      <input type="password" placeholder='Password' {...register("password", { required: true,
+                      <input maxLength={30} type="password" placeholder='Password' {...register("password", { required: true,
                       minLength: 8 })} />
                       {errors.password?.type === 'required' && <p className={styles.error}>Password is required</p>}
-                      {errors.password?.type === 'minLength' && <p className={styles.error}>Passwrod must be 8 caracters long</p>}
                       </div>
                      
                       <div>
-                    <input type="password" placeholder='Confirm your password' {...register("passwordConfirm",
+                    <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
                     { required: true, })} />
                       {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password</p>}
                   </div>
