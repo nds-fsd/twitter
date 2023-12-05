@@ -21,11 +21,10 @@ const VistaUnMeow = ( {meow} )=>{
             </div>
 
             <div className={styles.replies}>
-               <textarea name="" id="" cols="50" rows="5" placeholder="Post your reply"></textarea>
+               <textarea style={{fontSize: "20px"}} name="" id="" cols="50" rows="5" placeholder="Post your reply"></textarea>
                <button>Reply</button>
             </div>
-
-        </div>
+            </div>
     )
 }
 
