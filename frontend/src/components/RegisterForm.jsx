@@ -7,10 +7,11 @@ import React, { useState } from "react";
 
 const RegisterForm = ()=> {
 
- 
+   
     const { register, formState: { errors }, handleSubmit } = useForm();
 
        const onSubmit = (data)=> {
+
 
         console.log(data)
 
@@ -75,7 +76,7 @@ const RegisterForm = ()=> {
                     <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
                     { required: true, })} />
                       {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password</p>}
-                  </div>
+                    </div>
 
                   <div>
                   <input className={styles.submit} type="submit" value={"Sign up"}></input>
