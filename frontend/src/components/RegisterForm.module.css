@@ -7,13 +7,39 @@
 h2{
     color: white;
     font-weight: bold;
+    font-size: 2rem;
 }
 
 .date > label{
     color: white;
+    display: block;
 
 }
 
+form > div{
+
+    margin-top: 1rem;
+
+}
+
+
+input{
+    width: 20rem;
+    height: 2rem;
+
+}
+
+.submit {
+    border-radius: 3rem;
+    width: 8rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.submit:hover{
+    background-color: rgb(4, 78, 4);
+    transition: 500ms;
+}
 .error{
     color: red;
     font-size: 13px;
