@@ -18,9 +18,9 @@ const RegisterForm = ()=> {
 
        }
 
-// Hay medidas provisionales que hay que eliminar, como en el primer div(los pixels)
+// Hay medidas provisionales que hay que modificar, como en el primer div(los pixels)
        return(
-        <div style={{marginLeft: "500px", marginTop: "40px"}}> 
+        <div style={{marginLeft: "10rem", marginTop: "3rem"}}> 
             <h2>Create your account</h2>
 
             <br />
@@ -45,14 +45,14 @@ const RegisterForm = ()=> {
 
                   <div>
                     <input maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true,
-                    pattern: '/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' })} />
+                    pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/  })} />
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
                     {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p>}
                   </div>
                   
                    <div className={styles.date}>
                    <label htmlFor="">Date of birth</label>
-                   <input type="date" {...register("date", { required: true, })} />
+                   <input type="date"  {...register("date", { required: true, })} />
                    {errors.date?.type === 'required' && <p className={styles.error}>Date is required</p>}
                   </div>
                    <br />
@@ -92,4 +92,6 @@ const RegisterForm = ()=> {
     )
 }
 
-export default RegisterForm;
+export default RegisterForm;  
+
+// /[a-zA-Z0-9\.]+@+[a-zA-Z0-9]+\.+[a-zA-Z]{2,5}/g

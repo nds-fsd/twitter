@@ -4,11 +4,13 @@
     padding: 0;
 }
 
+
 h2{
     color: white;
     font-weight: bold;
     font-size: 2rem;
 }
+
 
 .date > label{
     color: white;
@@ -26,6 +28,8 @@ form > div{
 input{
     width: 20rem;
     height: 2rem;
+    background-color:  #9bdddc;
+    
 
 }
 
@@ -35,13 +39,14 @@ input{
     font-weight: bold;
     font-size: 1rem;
     cursor: pointer;
+    background-color:  #00A9A5;
 }
-.submit:hover{
+/* .submit:hover{
     background-color: rgb(4, 78, 4);
     transition: 500ms;
-}
+} */
 .error{
     color: red;
     font-size: 13px;
-    font-weight: bold;
+   font-weight: 700;
 }
