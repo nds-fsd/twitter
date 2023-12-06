@@ -21,12 +21,14 @@ const RegisterForm = ()=> {
 
       
      const onSubmit = (data)=> {
-       console.log(data)
+      let date = new Date().toDateString();
+      console.log(data)
+
        const createUser = async () => {
 
         try{
          
-          const res = await userApi.post('/', data);
+          const res = await userApi.post('/',{...data, dateOfRegister: date} );
            console.log(res)
            if(res.status === 201){
             setSuccess(true)

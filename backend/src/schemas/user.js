@@ -8,7 +8,7 @@ const userSchema = new Schema({
   mail: { type: String, required: true },
   password: { type: String, required: true },
   description: { type: String, required: false },
-  dateOfRegister: { type: String, required: false },
+  dateOfRegister: { type: String, required: true },
 });
 
 const User = model("user", userSchema);
