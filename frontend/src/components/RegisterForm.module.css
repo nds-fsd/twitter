@@ -48,6 +48,7 @@ input{
    font-weight: 700;
 }
 
+
 .success{
     align-self: center;
     margin-top: 20rem;
@@ -63,4 +64,11 @@ input{
     font-weight: bold;
     border: 2px solid white;
 
+}
+
+.errorSubmit{
+    margin-top: 20rem;
+    margin-left: 20rem;
+    font-size: 2rem;
+    color: red;
 }

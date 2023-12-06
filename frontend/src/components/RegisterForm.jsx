@@ -14,7 +14,8 @@ import axios from 'axios';
 
 const RegisterForm = ()=> {
 
-  const [success, setSuccess] = useState('')
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState(false);
 
    
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -28,13 +29,13 @@ const RegisterForm = ()=> {
 
         try{
          
-          const res = await userApi.post('/',{...data, dateOfRegister: date} );
+          const res = await userApi.post('/s',{...data, dateOfRegister: date} );
            console.log(res)
            if(res.status === 201){
             setSuccess(true)
            }
         } catch(error){
-      
+          setError(true)
           console.log(error);
       
         }
@@ -52,9 +53,10 @@ const RegisterForm = ()=> {
         return(
           <div className={styles.success}>Account created <br/>successfully! </div>
         )
+      
        }
       
-
+         if (error) return ( <div className={styles.errorSubmit}>Sorry, something went wrong!</div> )
 
 
 
