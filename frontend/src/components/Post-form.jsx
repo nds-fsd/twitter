@@ -12,7 +12,7 @@ function PostForm () {
             </div>
             <div className={styles.containerButtons}>
                 <div>
-                    <p>icon</p>
+                    <p>text</p>
                 </div>                
                 <button className={styles.postButton}>Post</button>
             </div>
