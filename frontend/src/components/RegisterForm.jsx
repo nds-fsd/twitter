@@ -7,16 +7,23 @@ import React, { useState } from "react";
 
 const RegisterForm = ()=> {
 
+  const [success, setSuccess] = useState('')
+
    
     const { register, formState: { errors }, handleSubmit } = useForm();
 
        const onSubmit = (data)=> {
-
-
+       
         console.log(data)
+
+        setSuccess(true)
 
 
        }
+       
+       if (success) return (
+        <div>User</div>
+       )
 
 // Hay medidas provisionales que hay que modificar, como en el primer div(los pixels)
        return(
@@ -94,4 +101,3 @@ const RegisterForm = ()=> {
 
 export default RegisterForm;  
 
-// /[a-zA-Z0-9\.]+@+[a-zA-Z0-9]+\.+[a-zA-Z]{2,5}/g
