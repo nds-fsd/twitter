@@ -1,15 +1,15 @@
 import styles from "./VistaUnMeow.module.css"
 
-const VistaUnMeow = ( {meow} )=>{
+const VistaUnMeow = ( {meow, user} )=>{
     return (
         <div className={styles.container}>
 
-            <p className={styles.user}>USER</p>
+             <img src="https://t3.ftcdn.net/jpg/05/17/79/88/360_F_517798849_WuXhHTpg2djTbfNf0FQAjzFEoluHpnct.jpg" alt="" />     <p className={styles.user}>USER.name</p>
 
-            <p className="meow">Lorem ipsum dolor sit, amet consec
+            <p className={styles.meow}>Lorem ipsum dolor sit, amet consec
                adipisicing elit. Sit, voluptatibus! Lorem ipsum dolor sit
                onsectetur adipisicing elit. Tempore, aliquam.asdad
-               asdsad dsadadsa dsadsad dsadsadasdsa d sadsadsadasds
+               asdsad dsadadsan dsadsad dsadsadasdsa d sadsadsadasds
                sadsadsadasdss</p>
             <div className={styles.dateAndViews}>
             <span>11:34 AM 20/11/2023</span><span className="views">Views</span>
