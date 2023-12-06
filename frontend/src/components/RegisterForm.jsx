@@ -16,12 +16,17 @@ const RegisterForm = ()=> {
 
   const [success, setSuccess] = useState('');
   const [error, setError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
    
     const { register, formState: { errors }, handleSubmit } = useForm();
 
       
      const onSubmit = (data)=> {
+      if(data.password !== data.passwordConfirm){
+        setPasswordError(true)
+        return;
+      }
       let date = new Date().toDateString();
       console.log(data)
 
@@ -29,7 +34,7 @@ const RegisterForm = ()=> {
 
         try{
          
-          const res = await userApi.post('/s',{...data, dateOfRegister: date} );
+          const res = await userApi.post('/',{...data, dateOfRegister: date} );
            console.log(res)
            if(res.status === 201){
             setSuccess(true)
@@ -118,6 +123,7 @@ const RegisterForm = ()=> {
                     <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
                     { required: true, })} />
                       {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password</p>}
+                      {passwordError&& <p className={styles.error}>Passwords do not match</p>}
                     </div>
 
                   <div>
