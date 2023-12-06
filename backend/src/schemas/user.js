@@ -7,7 +7,7 @@ const userSchema = new Schema({
   birthday: { type: String, required: true },
   mail: { type: String, required: true },
   password: { type: String, required: true },
-  description: { type: String, required: true },
+  description: { type: String, required: false },
   dateOfRegister: { type: String, required: false },
 });
 

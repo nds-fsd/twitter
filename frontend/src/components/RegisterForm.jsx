@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import axios from 'axios';
 
-export const UserApi = axios.create({
+ const userApi = axios.create({
     baseURL: 'http://localhost:3001/user',
     headers: {'Content-Type': 'application/json',}
 });
@@ -19,18 +19,42 @@ const RegisterForm = ()=> {
    
     const { register, formState: { errors }, handleSubmit } = useForm();
 
-       const onSubmit = (data)=> {
+      
+     const onSubmit = (data)=> {
+       console.log(data)
+       const createUser = async () => {
+
+        try{
+         
+          const res = await userApi.post('/', data);
+           console.log(res)
+           if(res.status === 201){
+            setSuccess(true)
+           }
+        } catch(error){
+      
+          console.log(error);
+      
+        }
+      }
+      
+          
+       createUser();
        
-        console.log(data)
 
-        setSuccess(true)
-
+   
 
        }
        
-       if (success) return (
-        <div>User</div>
-       )
+       if (success) {
+        return(
+          <div className={styles.success}>Account created <br/>successfully! </div>
+        )
+       }
+      
+
+
+
 
 // Hay medidas provisionales que hay que modificar, como en el primer div(los pixels)
        return(
@@ -66,7 +90,7 @@ const RegisterForm = ()=> {
                   
                    <div className={styles.date}>
                    <label htmlFor="">Date of birth</label>
-                   <input type="date"  {...register("date", { required: true, })} />
+                   <input type="date"  {...register("birthday", { required: true, })} />
                    {errors.date?.type === 'required' && <p className={styles.error}>Date is required</p>}
                   </div>
                    <br />

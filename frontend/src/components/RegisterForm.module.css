@@ -41,12 +41,26 @@ input{
     cursor: pointer;
     background-color:  #00A9A5;
 }
-/* .submit:hover{
-    background-color: rgb(4, 78, 4);
-    transition: 500ms;
-} */
+
 .error{
     color: red;
     font-size: 13px;
    font-weight: 700;
+}
+
+.success{
+    align-self: center;
+    margin-top: 20rem;
+    padding: 2rem;
+    color: green;
+    font-size: 3rem;
+    margin-left: 20rem;
+    width: fit-content;
+    height: fit-content;
+    background-color: #00A9A5;
+    text-align: center;
+    border-radius: 3rem;
+    font-weight: bold;
+    border: 2px solid white;
+
 }
