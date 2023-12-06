@@ -1,6 +1,13 @@
 import styles from './RegisterForm.module.css'
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
+import axios from 'axios';
+
+export const UserApi = axios.create({
+    baseURL: 'http://localhost:3001/user',
+    headers: {'Content-Type': 'application/json',}
+});
+
 
 
 
