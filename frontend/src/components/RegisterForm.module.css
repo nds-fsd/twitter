@@ -48,8 +48,12 @@ input{
    font-weight: 700;
 }
 
+.ok{
+    background-color: #a90068 !important;
+}
 
-.success{
+
+/* .success{
     align-self: center;
     margin-top: 20rem;
     padding: 2rem;
@@ -64,7 +68,7 @@ input{
     font-weight: bold;
     border: 2px solid white;
 
-}
+} */
 
 .errorSubmit{
     margin-top: 20rem;

@@ -2,6 +2,7 @@ import styles from './RegisterForm.module.css'
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
  const userApi = axios.create({
     baseURL: 'http://localhost:3001/user',
@@ -14,7 +15,7 @@ import axios from 'axios';
 
 const RegisterForm = ()=> {
 
-  const [success, setSuccess] = useState('');
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
@@ -53,15 +54,28 @@ const RegisterForm = ()=> {
    
 
        }
-       
+
        if (success) {
-        return(
-          <div className={styles.success}>Account created <br/>successfully! </div>
-        )
+       Swal.fire({
+        title: "Welcome to Meower!",
+        text: "User created successfully.",
+        icon: "success",
+       confirmButtonColor: "#00A9A5"
+
+       })
+       
+      }
+    
       
-       }
-      
-         if (error) return ( <div className={styles.errorSubmit}>Sorry, something went wrong!</div> )
+         if (error) {
+          Swal.fire({
+            text: "Ops, something went wrong!",
+            icon: "error",
+            confirmButtonColor: "#00A9A5",
+            timer: "3000"
+          })
+          setError(false)
+          }
 
 
 
@@ -100,7 +114,7 @@ const RegisterForm = ()=> {
                    <div className={styles.date}>
                    <label htmlFor="">Date of birth</label>
                    <input type="date"  {...register("birthday", { required: true, })} />
-                   {errors.date?.type === 'required' && <p className={styles.error}>Date is required</p>}
+                   {errors.birthday?.type === 'required' && <p className={styles.error}>Date is required</p>}
                   </div>
                    <br />
                    <br />
@@ -113,11 +127,18 @@ const RegisterForm = ()=> {
                   </div>
 
                       <div>
-                      <input maxLength={30} type="password" placeholder='Password' {...register("password", { required: true,
-                      minLength: 8 })} />
+                      <input maxLength={30} type="password" placeholder='Password' {...register("password",
+                       {
+                         required: true,
+                         minLength: 8,
+                         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/ })} />
                       {errors.password?.type === 'required' && <p className={styles.error}>Password is required</p>}
                       {errors.password?.type === 'minLength' && <p className={styles.error}>Password must be 8 to 30 character long.</p>}
-                      </div>
+                      {errors.password?.type === 'pattern' &&  <p style={{fontSize:'12px', color: 'red', fontWeight: 'bold'}}>
+                        Passwrod must contain one lower case,
+                       one upper<br/> case, one number and one special character.</p> }
+                     
+                       </div>
                      
                       <div>
                     <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
