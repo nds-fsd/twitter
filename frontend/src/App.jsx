@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar"
 import Hashtag from "./components/Hashtags"
 import WhoToFollow from "./components/Who-to-follow"
 import VistaUnMeow from "./components/VistaUnMeow";
+import Meows from "./components/Meows"
 
 import styles from "./App.module.css";
 
@@ -13,12 +14,16 @@ function App() {
         <div>
           <p>List of meows</p>          
         </div>
+  <div>
+               <Meows />
+            </div>
         <div>
           <WhoToFollow />
           <Hashtag />
         </div>
       </div>
   )
+
 }
 
 export default App
