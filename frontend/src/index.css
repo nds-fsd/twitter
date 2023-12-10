@@ -11,6 +11,14 @@
 }
 
 body {
+  display: flex;
   background-color: black;
   height: 100vh;
+  background-color: black;
+  color: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
 }
