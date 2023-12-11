@@ -15,8 +15,8 @@
 .options {
     display: flex;
     align-items: center;
-    margin: 10%;
-    padding: 20%;
+    margin: 10px;
+    padding: 20px;
     width: fit-content;
     border-radius: 20px;
     cursor: pointer;
