@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const meowSchema = new Schema({
+const likeSchema = new Schema({
   text: { type: String, required: true },
   reposts: { type: Number, required: false },
   likes: { type: Number, required: false },
@@ -8,6 +8,6 @@ const meowSchema = new Schema({
   date: { type: String, required: true },
 });
 
-const Meow = model("meow", meowSchema);
+const Like = model("like", likeSchema);
 
-module.exports = Meow;
+module.exports = Like;

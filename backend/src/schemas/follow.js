@@ -8,6 +8,6 @@ const followSchema = new Schema({
   date: { type: String, required: true },
 });
 
-const Meow = model("meow", followSchema);
+const Follow = model("follow", followSchema);
 
-module.exports = Meow;
+module.exports = Follow;
