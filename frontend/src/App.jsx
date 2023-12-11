@@ -10,12 +10,21 @@ function App() {
   return (
     <>
       <div className={styles.mainContainer}>
-        <WhoToFollow />
-        <Hashtag />
-        <Meows />
-        <Navbar />
-        <RegisterForm />
-        <VistaUnMeow />
+        <div>
+         <Navbar /> 
+        </div>
+        <div>
+          <Meows />
+        </div>
+        <div>
+          <WhoToFollow />
+          <Hashtag />
+        </div>
+        
+        
+        {/* <VistaUnMeow /> */}
+        {/* <RegisterForm /> */}
+       
       </div>
     </>
   );
