@@ -1,11 +1,20 @@
 const { Schema, model } = require("mongoose");
 
 const likeSchema = new Schema({
-  text: { type: String, required: true },
-  reposts: { type: Number, required: false },
-  likes: { type: Number, required: false },
-  views: { type: Number, required: false },
-  date: { type: String, required: true },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
+  meowId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "meow",
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Like = model("like", likeSchema);

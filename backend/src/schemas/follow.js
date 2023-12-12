@@ -1,11 +1,20 @@
 const { Schema, model } = require("mongoose");
 
 const followSchema = new Schema({
-  text: { type: String, required: true },
-  reposts: { type: Number, required: false },
-  likes: { type: Number, required: false },
-  views: { type: Number, required: false },
-  date: { type: String, required: true },
+  follower: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
+  following: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Follow = model("follow", followSchema);
