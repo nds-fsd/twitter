@@ -1,5 +1,5 @@
 import styles from "./Post-form.module.css";
-import image from './assets/Elon-Musk.jpg';
+import image from '../assets/Elon-Musk.jpg';
 
 function PostForm () {
 

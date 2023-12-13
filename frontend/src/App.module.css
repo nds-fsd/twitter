@@ -1,8 +1,8 @@
 body {
-    background-color: black;
-    color: white;
-} 
+  background-color: black;
+  color: white;
+}
 .mainContainer {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+  display: grid;
+  grid-template-columns: 5% 1fr 2fr 1fr 5%;
 }

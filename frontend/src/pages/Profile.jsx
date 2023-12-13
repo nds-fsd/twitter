@@ -1,12 +1,7 @@
 import styles from "./Profile.module.css";
-import 
 
-function Profile () {
-
-    return (
-        
-    )
+function Profile() {
+  return <></>;
 }
 
-
-export default Profile
+export default Profile;

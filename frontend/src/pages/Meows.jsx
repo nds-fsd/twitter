@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { meowApi } from "../meowsApi/apiiWrapper"
 import { postMeow, updateMeow, deleteMeow } from "../meowsApi/meowsRequests"
 import styles from "./Meows.module.css"
-import user from "./assets/user.png"
+import user from "../assets/user.png"
 
 
 function Meows() {
