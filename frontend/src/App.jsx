@@ -11,29 +11,28 @@ import Buscador from "./components/Buscador";
 
 function App() {
   return (
-    <>
       <div className={styles.mainContainer}>
-        <div></div>
-        <div>
-         <Navbar /> 
-        </div>
-        <div>
-          <PostForm />
-          <Meows />
-        </div>
-        <div>
-          <Buscador />
-          <WhoToFollow />
-          <Hashtag />
-        </div>
-        <div></div>
-        
-        
-        {/* <VistaUnMeow /> */}
-        {/* <RegisterForm /> */}
+          <div></div>
+          <div>
+          <Navbar /> 
+          </div>
+          <div>
+            <PostForm />
+            <Meows />
+          </div>
+          <div>
+            <Buscador />
+            <WhoToFollow />
+            <Hashtag />
+          </div>
+          <div></div>
+          
+
+          {/* <VistaUnMeow /> */}
+          {/* <RegisterForm /> */}
        
       </div>
-    </>
+    
   );
 }
 

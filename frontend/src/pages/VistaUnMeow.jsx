@@ -1,6 +1,13 @@
 import styles from "./VistaUnMeow.module.css"
 
 const VistaUnMeow = ( {meow, user} )=>{
+    
+    function handleKeyDown(e) {
+        e.target.style.height = 'inherit';
+        e.target.style.height = `${e.target.scrollHeight}px`;
+    }
+
+
     return (
         <div className={styles.container}>
 
@@ -21,7 +28,7 @@ const VistaUnMeow = ( {meow, user} )=>{
             </div>
 
             <div className={styles.replies}>
-               <textarea style={{fontSize: "20px"}} name="" id="" cols="50" rows="5" placeholder="Post your reply"></textarea>
+               <textarea onChange={handleKeyDown} style={{fontSize: "20px"}} name="" id="" cols="50" rows="5" placeholder="Post your reply"></textarea>
                <button>Reply</button>
             </div>
             </div>

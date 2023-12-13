@@ -32,6 +32,9 @@
     border: transparent;
     font-size: 17px;
     width: 700px;
+    /* overflow: hidden;
+    resize: none; */
+    
 }
 
 .containerButtons{
