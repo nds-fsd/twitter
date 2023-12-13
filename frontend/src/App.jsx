@@ -7,6 +7,7 @@ import VistaUnMeow from "./components/VistaUnMeow";
 import Meows from "./components/Meows";
 import PostForm from "./components/Post-form";
 import styles from "./App.module.css";
+import Buscador from "./components/Buscador";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Meows />
         </div>
         <div>
+          <Buscador />
           <WhoToFollow />
           <Hashtag />
         </div>

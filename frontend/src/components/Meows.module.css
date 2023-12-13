@@ -12,6 +12,24 @@
     border: 1px solid rgb(44, 44, 44);
 }
 
+.userContainer {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.userContainer img {
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.userContainer p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
 .likesContainer {
     display: flex;
 }
