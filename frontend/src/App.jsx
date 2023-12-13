@@ -1,25 +1,36 @@
-import Navbar from "./components/Navbar"
-import Hashtag from "./components/Hashtags"
-import WhoToFollow from "./components/Who-to-follow"
+
+import Navbar from "./components/Navbar";
+import RegisterForm from "./components/RegisterForm";
+import Hashtag from "./components/Hashtags";
+import WhoToFollow from "./components/Who-to-follow";
+import VistaUnMeow from "./components/VistaUnMeow";
+import Meows from "./components/Meows";
 import PostForm from "./components/Post-form";
 import styles from "./App.module.css";
 
-
 function App() {
-    return (
-    <div className={styles.mainContainer}>
-        <Navbar />
+  return (
+    <>
+      <div className={styles.mainContainer}>
         <div>
-          <p>List of meows</p>
+         <Navbar /> 
+        </div>
+        <div>
           <PostForm />
+          <Meows />
         </div>
         <div>
           <WhoToFollow />
           <Hashtag />
         </div>
-    </div>
-
-  )
+        
+        
+        {/* <VistaUnMeow /> */}
+        {/* <RegisterForm /> */}
+       
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
