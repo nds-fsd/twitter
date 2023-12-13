@@ -9,6 +9,7 @@
     flex-direction: column;
     gap: 20px;
     border: 1px solid var(--sections-hover);
+    margin-right: 5%;
 }
 
 .containerPost{
