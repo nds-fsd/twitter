@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { meowApi } from "../meowsApi/apiiWrapper"
 import { postMeow, updateMeow, deleteMeow } from "../meowsApi/meowsRequests"
 import styles from "./Meows.module.css"
+import user from "./assets/user.png"
+
 
 function Meows() {
     const [meows, setMeows] = useState('');
@@ -50,7 +52,11 @@ function Meows() {
                 return (
                     <div key={meow._id} className={styles.container}>
                 <div className={styles.meowsContainer} >
-                    <p>user</p>
+                    <div className={styles.userContainer}>
+                        <img src={user} />
+                        <p>user</p>
+                    </div>
+                    
                     <p>{meow.text}</p>
                 </div>
                 <div className={styles.likesContainer}>
