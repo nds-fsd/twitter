@@ -1,0 +1,51 @@
+:root {
+    --sections-color: #222222;
+    --sections-hover: #2F2F2F;
+    --main-color:#00A9A5;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid var(--sections-hover);
+    margin-right: 5%;
+}
+
+.containerPost{
+    border: 1px solid var(--sections-hover);
+    display: flex;
+    gap: 20px;
+    padding:10px;
+
+}
+
+.accountImage {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.postInput {
+    background-color: black;
+    color: white;
+    border: transparent;
+    font-size: 17px;
+    width: 700px;
+}
+
+.containerButtons{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 0 20px 20px 20px;
+}
+
+.postButton{
+    background-color: var(--main-color);
+    border: solid 1px var(--main-color);
+    border-radius: 20px;
+    height: 40px;
+    width: 100px;
+}
+
