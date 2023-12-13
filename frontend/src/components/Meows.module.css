@@ -1,0 +1,21 @@
+.bigContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 20px;
+    border: 1px solid rgb(44, 44, 44);
+}
+
+.likesContainer {
+    display: flex;
+}
+
+.likesContainer p {
+    margin: 0 10px 0 0;
+}
