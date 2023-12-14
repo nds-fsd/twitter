@@ -29,7 +29,7 @@ const RegisterForm = ()=> {
         return;
       }
       let date = new Date().toDateString();
-      console.log(data)
+      
 
        const createUser = async () => {
 
@@ -49,6 +49,8 @@ const RegisterForm = ()=> {
       
           
        createUser();
+
+       
        
 
    
@@ -106,7 +108,7 @@ const RegisterForm = ()=> {
 
                   <div>
                     <input maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true,
-                    pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/  })} />
+                    pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
                     {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p>}
                   </div>
