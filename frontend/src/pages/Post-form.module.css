@@ -52,7 +52,13 @@
     background-color: var(--main-color);
     border: solid 1px var(--main-color);
     border-radius: 20px;
+    cursor: pointer;
     height: 40px;
     width: 100px;
+}
+
+.postButton:hover{
+    background-color: #008b89;
+    border: solid 1px #008b89;
 }
 
