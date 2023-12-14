@@ -1,8 +1,29 @@
 body {
   background-color: black;
   color: white;
+  margin: 15px;
 }
 .mainContainer {
   display: grid;
-  grid-template-columns: 5% 1fr 2fr 1fr 5%;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 70%;
+}
+
+.centerContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  align-items: center;
+  border-right: 1px solid;
+  display: flex;
+  flex-direction: column;
+  padding-right: 15px;
+}
+
+.right {
+  border-left: 1px solid;
+  padding-left: 15px;
 }
