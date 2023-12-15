@@ -1,4 +1,3 @@
-
 import Navbar from "./components/Navbar";
 import RegisterForm from "./pages/RegisterForm";
 import Hashtag from "./components/Hashtags";
@@ -8,31 +7,29 @@ import Meows from "./pages/Meows";
 import PostForm from "./pages/Post-form";
 import styles from "./App.module.css";
 import Buscador from "./components/Buscador";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
+    <div className={styles.centerContainer}>
       <div className={styles.mainContainer}>
-          <div></div>
-          <div>
-          <Navbar /> 
-          </div>
-          <div>
-            <PostForm />
-            <Meows />
-          </div>
-          <div>
-            <Buscador />
-            <WhoToFollow />
-            <Hashtag />
-          </div>
-          <div></div>
-          
-
+        <div className={styles.navbar}>
+          <Navbar />
+        </div>
+        <div>
+          {/* <PostForm /> */}
+          {/* <Meows /> */}
+          <Profile />
           {/* <VistaUnMeow /> */}
           {/* <RegisterForm /> */}
-       
+        </div>
+        <div className={styles.right}>
+          <Buscador />
+          <WhoToFollow />
+          <Hashtag />
+        </div>
       </div>
-    
+    </div>
   );
 }
 
