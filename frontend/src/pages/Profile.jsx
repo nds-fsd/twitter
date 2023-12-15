@@ -46,14 +46,14 @@ function Profile() {
               <img src={location} alt="." className={styles.options} />
               <p>Caldes de Malavella</p>
               <img src={calendar} alt="." className={styles.options} />
-              <p>Se unió en diciembre de 2013</p>
+              <p>Joined December 2013</p>
             </div>
             <div className={styles.info}>
               <p className={styles.grayFont}>
-                <span>10 </span>Seguidores
+                <span>10 </span>Following
               </p>
               <p className={styles.grayFont}>
-                <span>10 </span>Siguiendo
+                <span>10 </span>Followers
               </p>
             </div>
           </div>
