@@ -1,3 +1,7 @@
+:root {
+  --divMargin: 5%;
+}
+
 body {
   background-color: black;
   color: white;
@@ -26,4 +30,4 @@ body {
 .right {
   border-left: 1px solid;
   padding-left: 15px;
-}
+

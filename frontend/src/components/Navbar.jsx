@@ -23,7 +23,7 @@ function Navbar() {
             <div className={styles.options}><img src={marcador} alt="."/><p>Booksmarks</p></div> */}
             <div className={styles.options}><img src={usuario} alt="."/><p>Profile</p></div>
             {/* <div className={styles.options}><img src={menu} alt="."/><p>More</p></div> */}
-            <button>Post</button>
+            {/* <button>Post</button> */}
         </nav>
         <div className={styles.usuario}>
             <img className={styles.user} src={user} alt="." />
