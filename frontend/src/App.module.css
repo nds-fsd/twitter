@@ -20,13 +20,13 @@ body {
 
 .navbar {
   align-items: center;
-  border-right: 1px solid;
+  border-right: 1px solid #2F2F2F;
   display: flex;
   flex-direction: column;
   padding-right: 15px;
 }
 
 .right {
-  border-left: 1px solid;
+  border-left: 1px solid #2F2F2F;
   padding-left: 15px;
 }

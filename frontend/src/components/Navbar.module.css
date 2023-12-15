@@ -12,6 +12,13 @@
   width: 20%;
 }
 
+.logo {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  position: fixed;
+}
+
 .options {
   align-items: center;
   border-radius: 20px;
@@ -28,9 +35,14 @@
 }
 
 .options img {
-  height: 40%;
+  height: 15%;
   margin-right: 15px;
-  width: 40%;
+  width: 15%;
+}
+
+.navigator {
+  position: fixed;
+  margin-top: 50px;
 }
 
 .navbar button {
@@ -53,8 +65,8 @@
   align-items: center;
   bottom: 1%;
   display: flex;
-  left: 1%;
-  position: absolute;
+  left: 10%;
+  position: fixed ;
 }
 
 .user {

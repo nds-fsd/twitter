@@ -2,7 +2,10 @@ import styles from "./Buscador.module.css";
 
 function Buscador() {
     return (
-        <input className={styles.buscador} placeholder="Search" type="text"></input>
+        <div className={styles.search}>
+            <input className={styles.buscador} placeholder="Search" type="text"></input>
+        </div>
+        
     )
 }
 
