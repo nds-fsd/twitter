@@ -10,7 +10,6 @@ body {
 .mainContainer {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  width: 70%;
 }
 
 .centerContainer {
@@ -30,4 +29,4 @@ body {
 .right {
   border-left: 1px solid;
   padding-left: 15px;
-
+}

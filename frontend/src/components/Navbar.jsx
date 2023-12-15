@@ -28,8 +28,8 @@ function Navbar() {
         <div className={styles.usuario}>
             <img className={styles.user} src={user} alt="." />
             <div>
-                <p>nombre</p>
-                <p>@usuario.random</p>
+                <p>Name Surname</p>
+                <p>@Account_Name</p>
             </div>
         </div>
     </div>

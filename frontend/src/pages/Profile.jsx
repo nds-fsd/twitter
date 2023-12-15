@@ -31,7 +31,7 @@ function Profile() {
             />
             <div className={styles.photoContainer}>
               <img src={user} alt="user" className={styles.photoProfile} />
-              <button className={styles.editProfile}>Editar perfil</button>
+              <button className={styles.editProfile}>Edit profile</button>
             </div>
           </div>
           <div>
