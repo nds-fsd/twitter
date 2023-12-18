@@ -1,0 +1,77 @@
+:root {
+  --main-blue: #00a9a5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  height: 100%;
+  width: 20%;
+}
+
+.logo {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  position: fixed;
+}
+
+.options {
+  align-items: center;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  font-size: 100%;
+  margin: 10px;
+  padding: 20px;
+  width: 100%;
+}
+
+.options:hover {
+  background-color: rgb(34, 34, 34);
+}
+
+.options img {
+  height: 15%;
+  margin-right: 15px;
+  width: 15%;
+}
+
+.navigator {
+  position: fixed;
+  margin-top: 50px;
+}
+
+.navbar button {
+  background-color: var(--main-blue);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 110%;
+  font-weight: bold;
+  height: 55px;
+  margin-left: 15px;
+  width: 270%;
+}
+
+.navbar button:hover {
+  background-color: #008b89;
+}
+
+.usuario {
+  align-items: center;
+  bottom: 1%;
+  display: flex;
+  left: 10%;
+  position: fixed ;
+}
+
+.user {
+  border-radius: 20px;
+  height: 7%;
+  margin-right: 15px;
+  width: 7%;
+}

@@ -1,0 +1,20 @@
+/* .search {
+    position: fixed;
+} */
+
+.buscador {
+    background-color: #222222;
+    border: none;
+    border-radius: 20px;
+    height: 40px;
+    width: 90%;
+    padding-left: 25px;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.buscador::placeholder {
+    color: white;
+    font-size: 15px;
+    font-weight: lighter;
+}
