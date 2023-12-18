@@ -17,9 +17,9 @@ function App() {
           <Navbar />
         </div>
         <div>
-          <PostForm />
-          <Meows />
-          {/* <Profile /> */}
+          {/* <PostForm />
+          <Meows /> */}
+          <Profile />
           {/* <VistaUnMeow /> */}
           {/* <RegisterForm /> */}
         </div>
