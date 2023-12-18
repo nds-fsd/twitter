@@ -16,7 +16,7 @@
     display: flex;
     gap: 20px;
     padding:20px;
-    width: 80%;
+    width: 95%;
 }
 
 .containerPost textarea::placeholder {
@@ -45,7 +45,7 @@
     justify-content: space-between;
     align-content: center;
     padding: 20px;
-    width: 80%;
+    width: 95%;
 }
 
 .postButton{
