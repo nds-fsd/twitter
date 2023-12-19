@@ -18,6 +18,13 @@ const RegisterForm = ()=> {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [dataStep1, setdataStep1] = useState({
+    'name': '',
+    'surname': '',
+    'birthday': ''
+    
+  })
+  const [next, setNext] = useState(false)
 
    
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -79,84 +86,101 @@ const RegisterForm = ()=> {
           setError(false)
           }
 
+          const Next = ()=> {
+
+            
+                    
+            setNext(!next)
+            
+          }
+  console.log(dataStep1)
 
 
 // Hay medidas provisionales que hay que modificar, como en el primer div(los pixels)
        return(
         <div style={{marginLeft: "10rem", marginTop: "3rem"}}> 
-            <h2>Create your account</h2>
+        <header>
+          <p>Step 1 of 2</p>
+          <button>x</button>
+        </header>
+        <div>
+        <h2>Create your account</h2>
 
-            <br />
-            <br />
-           
-           
-           
-            <form onSubmit={handleSubmit(onSubmit)}>
+<br />
+<br />
 
-            <h3 style={{color: "white"}}>Personal details</h3>
-                
-                    <div>
-                    <input maxLength={30} type="text" name="" placeholder="Name"  {...register("name", { required: true })}  />
-                    {errors.name?.type === 'required' && <p className={styles.error}>Name is required.</p>}
-                    </div>
-                   
-                   
-                   <div> 
-                   <input maxLength={30} type="text" name="" placeholder="Surname" {...register("surname", { required: true, })} />
-                   {errors.surname?.type === 'required' && <p className={styles.error}>Surname is required.</p>} 
-                   </div>
 
-                  <div>
-                    <input maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true,
-                    pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
-                    {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
-                    {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p>}
-                  </div>
-                  
-                   <div className={styles.date}>
-                   <label htmlFor="">Date of birth</label>
-                   <input type="date"  {...register("birthday", { required: true, })} />
-                   {errors.birthday?.type === 'required' && <p className={styles.error}>Date is required</p>}
-                  </div>
-                   <br />
-                   <br />
 
-                  <h3  style={{color: "white"}}>Username and password</h3>
+<form onSubmit={handleSubmit(onSubmit)}>
 
-                  <div>
-                    <input maxLength={20} type="text" placeholder='Username' {...register("username", { required: true })}/>
-                    {errors.username?.type === 'required' && <p className={styles.error}>Username is required</p>}
-                  </div>
+<h3 style={{color: "white"}}>Personal details</h3>
+    
+        <div>
+        <input onChange={(e)=> {setdataStep1({...dataStep1,name: e.target.value})}} maxLength={30} value={dataStep1} type="text" name="name" placeholder="Name"  {...register("name", { required: true })}  />
+        {errors.name?.type === 'required' && <p className={styles.error}>Name is required.</p>}
+        </div>
+       
+       
+       <div> 
+       <input onChange={(e)=> {setdataStep1({...dataStep1,name: e.target.value})}} maxLength={30} type="text" name="Surname" placeholder="Surname" {...register("surname", { required: true, })} />
+       {errors.surname?.type === 'required' && <p className={styles.error}>Surname is required.</p>} 
+       </div>
 
-                      <div>
-                      <input maxLength={30} type="password" placeholder='Password' {...register("password",
-                       {
-                         required: true,
-                         minLength: 8,
-                         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/ })} />
-                      {errors.password?.type === 'required' && <p className={styles.error}>Password is required</p>}
-                      {errors.password?.type === 'minLength' && <p className={styles.error}>Password must be 8 to 30 character long.</p>}
-                      {errors.password?.type === 'pattern' &&  <p style={{fontSize:'12px', color: 'red', fontWeight: 'bold'}}>
-                        Passwrod must contain one lower case,
-                       one upper<br/> case, one number and one special character.</p> }
-                     
-                       </div>
-                     
-                      <div>
-                    <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
-                    { required: true, })} />
-                      {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password</p>}
-                      {passwordError&& <p className={styles.error}>Passwords do not match</p>}
-                    </div>
+      {/* <div>
+        <input maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true,
+        pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
+        {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
+        {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p>}
+      </div>
+       */}
+       <div className={styles.date}>
+       <label htmlFor="">Date of birth</label>
+       <input onChange={(e)=> {setdataStep1({...dataStep1,name: e.target.value})}} type="date"  {...register("birthday", { required: true, })} />
+       {errors.birthday?.type === 'required' && <p className={styles.error}>Date is required</p>}
+      </div>
+       {/* <br />
+       <br />
 
-                  <div>
-                  <input className={styles.submit} type="submit" value={"Sign up"}></input>
-                  </div>
-              
+      <h3  style={{color: "white"}}>Username and password</h3>
 
-                  
-                
-                </form>
+      <div>
+        <input maxLength={20} type="text" placeholder='Username' {...register("username", { required: true })}/>
+        {errors.username?.type === 'required' && <p className={styles.error}>Username is required</p>}
+      </div>
+
+          <div>
+          <input maxLength={30} type="password" placeholder='Password' {...register("password",
+           {
+             required: true,
+             minLength: 8,
+             pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/ })} />
+          {errors.password?.type === 'required' && <p className={styles.error}>Password is required</p>}
+          {errors.password?.type === 'minLength' && <p className={styles.error}>Password must be 8 to 30 character long.</p>}
+          {errors.password?.type === 'pattern' &&  <p style={{fontSize:'12px', color: 'red', fontWeight: 'bold'}}>
+            Passwrod must contain one lower case,
+           one upper<br/> case, one number and one special character.</p> }
+         
+           </div>
+         
+          <div>
+        <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
+        { required: true, })} />
+          {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password</p>}
+          {passwordError&& <p className={styles.error}>Passwords do not match</p>}
+        </div>
+
+      <div>
+      <input className={styles.submit} type="submit" value={"Sign up"}></input>
+      </div>
+   */}
+
+      
+    
+    </form>
+    <button onClick={Next}>Next</button>
+
+        </div>
+            
         
         </div>
 
