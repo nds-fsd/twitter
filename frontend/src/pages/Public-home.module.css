@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-}
+   }
 
 
 
@@ -12,7 +12,19 @@
     height: 100%;
     background-color: rgb(0, 0, 0);
     display: flex;
+    flex-wrap: wrap;
+
 }
+.containerOp{
+    user-select: none;
+    position: relative;
+    width: 100vw;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+
+}
+
 
 .container > img {
    height: 80%;

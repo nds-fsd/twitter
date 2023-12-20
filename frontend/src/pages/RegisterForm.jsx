@@ -13,7 +13,7 @@ import Swal from 'sweetalert2'
 
 
 
-const RegisterForm = ({close})=> {
+const RegisterForm = ({close, opacity})=> {
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -94,7 +94,7 @@ const RegisterForm = ({close})=> {
 
 // Hay medidas provisionales que hay que modificar, como en el primer div(los pixels)
        return(
-        <div  className={styles.container}> 
+        <div  className={styles.container} > 
           
 
            

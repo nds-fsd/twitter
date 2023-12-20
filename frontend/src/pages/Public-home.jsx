@@ -2,11 +2,15 @@ import styles from './Public-home.module.css'
 import Cat from '../assets/Cat.png'
 import RegisterForm from './RegisterForm'
 import { useState } from 'react'
+ 
 
 const PublicHome = ( ) => {
 
      const [popUp, setpopUp] = useState(false);
-   
+
+     
+     
+  
 
 window.addEventListener('keydown', (e)=>{
     if (e.key === 'Escape') setpopUp(!popUp)
@@ -14,8 +18,8 @@ window.addEventListener('keydown', (e)=>{
 
 
     return(
-        
-          <div  className={styles.container}>
+        <>
+           <div    className={styles.container} style={{ opacity: popUp ? '0.7' : '1' }}>
            
            <img src={Cat} />
 
@@ -29,8 +33,11 @@ window.addEventListener('keydown', (e)=>{
              </div>
 
            </div>
-           {popUp&&(<RegisterForm close={()=> setpopUp(!popUp)} />)}
+          
          </div>
+         {popUp&&(<RegisterForm close={()=> setpopUp(!popUp)} />)}
+        </>
+       
         
          
       
