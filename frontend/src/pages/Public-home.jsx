@@ -6,14 +6,16 @@ import { useState } from 'react'
 const PublicHome = ( ) => {
 
      const [popUp, setpopUp] = useState(false);
+   
 
- 
-    
+window.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape') setpopUp(!popUp)
+})
 
 
     return(
         
-          <div className={styles.container}>
+          <div  className={styles.container}>
            
            <img src={Cat} />
 

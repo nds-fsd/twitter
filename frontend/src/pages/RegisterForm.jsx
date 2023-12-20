@@ -19,9 +19,19 @@ const RegisterForm = ({close})=> {
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
+  
 
    
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { watch, register, formState: { errors, isValid }, handleSubmit } = useForm({mode: 'all'});
+
+    const handleNext = () =>{
+      if(isValid){
+        setFormStep(1)
+
+      }
+      
+
+    }
 
       
      const onSubmit = (data)=> {
@@ -84,7 +94,7 @@ const RegisterForm = ({close})=> {
 
 // Hay medidas provisionales que hay que modificar, como en el primer div(los pixels)
        return(
-        <div className={styles.container}> 
+        <div  className={styles.container}> 
           
 
            
@@ -113,7 +123,7 @@ const RegisterForm = ({close})=> {
                   <input type="date"  {...register("birthday", { required: true, })} />
                   {errors.birthday?.type === 'required' && <p className={styles.error}>Date is required</p>}
                  </div>
-                 <input className={styles.submit} onClick={()=> setFormStep(1)} value={'Next'} />
+                 <button className={styles.submit} style={{userSelect: 'none'}} onClick={handleNext}>Next</button>
                  <footer>
                   <p>If you already have an account, <span style={{color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
 
