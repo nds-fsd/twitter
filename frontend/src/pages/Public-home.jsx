@@ -7,40 +7,32 @@ const PublicHome = ( ) => {
 
      const [popUp, setpopUp] = useState(false);
 
-     const registerForm = ()=> {
-        setpopUp(!popUp)
-
-     }
-   
-     if(popUp) {
-        return(
-            <RegisterForm></RegisterForm>
-           
-        )
-
-     }
+ 
+    
 
 
     return(
-        <div className={styles.container}>
+        
+          <div className={styles.container}>
            
-            <img src={Cat} />
+           <img src={Cat} />
 
-            <div className={styles.right}>
-                <h1>Happening now</h1>
-              <div className={styles.buttons}>
-                <button style={{backgroundColor: "#00A9A5"}} onClick={()=>{registerForm()}} >Create account</button>
-                <p>Or</p>
-                <button>Login</button>
+           <div className={styles.right}>
+               <h1>Happening now</h1>
+             <div className={styles.buttons}>
+               <button style={{backgroundColor: "#00A9A5"}} onClick={()=>{setpopUp(!popUp)}} >Create account</button>
+               <p>Or</p>
+               <button>Login</button>
 
-              </div>
+             </div>
 
-            </div>
-          
+           </div>
+           {popUp&&(<RegisterForm close={()=> setpopUp(!popUp)} />)}
+         </div>
+        
          
-           
-
-        </div>
+      
+          
     )
 }
 

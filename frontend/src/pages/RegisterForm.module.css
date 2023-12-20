@@ -3,12 +3,29 @@
     margin: 0;
     padding: 0;
 }
+.container{ 
+    background-color: black;
+    padding-top: 1rem;
+padding-right: 2rem;
+padding-left: 2rem;
+padding-bottom: 2rem;
+position: absolute;
+border: 2px solid red;
+top: 32%;
+left: 50%;
+width: 300px;
+height: 25rem;
+margin-top: -75px;
+margin-left: -150px;
+border-radius: 40px;
+}
 
 
 h2{
     color: white;
     font-weight: bold;
     font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
 
@@ -26,20 +43,38 @@ form > div{
 
 
 input{
-    width: 20rem;
+    width: 18rem;
     height: 2rem;
-    background-color:  #9bdddc;
+    margin-bottom: 1rem;
+    
     
 
 }
+header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    font-weight: bold;
+}
+.x{
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+    user-select: none;
+   
+    
+}
+
 
 .submit {
+    text-align: center;
+    color: black;
     border-radius: 3rem;
-    width: 8rem;
-    font-weight: bold;
-    font-size: 1rem;
+    width: 18rem;
+    height: 3.4rem;
+    font-size: 1.6rem;
     cursor: pointer;
-    background-color:  #00A9A5;
+    background-color:  #858585;
 }
 
 .error{
@@ -53,22 +88,6 @@ input{
 }
 
 
-/* .success{
-    align-self: center;
-    margin-top: 20rem;
-    padding: 2rem;
-    color: green;
-    font-size: 3rem;
-    margin-left: 20rem;
-    width: fit-content;
-    height: fit-content;
-    background-color: #00A9A5;
-    text-align: center;
-    border-radius: 3rem;
-    font-weight: bold;
-    border: 2px solid white;
-
-} */
 
 .errorSubmit{
     margin-top: 20rem;
