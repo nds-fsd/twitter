@@ -114,6 +114,11 @@ const RegisterForm = ({close})=> {
                   {errors.birthday?.type === 'required' && <p className={styles.error}>Date is required</p>}
                  </div>
                  <input className={styles.submit} onClick={()=> setFormStep(1)} value={'Next'} />
+                 <footer>
+                  <p>If you already have an account, <span style={{color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
+
+                  </footer>
+        
 
                </section>
             )}
@@ -165,7 +170,11 @@ const RegisterForm = ({close})=> {
                   <div>
                   <input className={styles.submit} type="submit" value={"Sign up"}></input>
                   </div>
-              
+                  <footer>
+                  <p>If you already have an account, <span style={{color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
+
+                  </footer>
+               
 
                     </section>
                   )}
