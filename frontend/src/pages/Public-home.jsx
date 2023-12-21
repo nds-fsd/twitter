@@ -27,7 +27,11 @@ const PublicHome = ( ) => {
   
 
 window.addEventListener('keydown', (e)=>{
-    if (e.key === 'Escape') setpopUp(!popUp)
+    if (e.key === 'Escape'){
+      setpopUp(false)
+      setpopUp2(false)
+
+    } 
 })
 
 
