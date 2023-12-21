@@ -19,7 +19,7 @@ const RegisterForm = ({close, opacity})=> {
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
-  
+  // coment
 
    
     const { watch, register, formState: { errors, isValid }, handleSubmit } = useForm({mode: 'onBlur', reValidateMode: 'onBlur'});
@@ -143,7 +143,7 @@ const RegisterForm = ({close, opacity})=> {
                     <input maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true,
                     pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
-                    {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p>}
+                    {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p> }
                   </div>
                   
               
