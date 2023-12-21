@@ -19,7 +19,7 @@ const RegisterForm = ({close, opacity})=> {
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
-  // cosment
+  // cosmentdsddsdsd
 
    
     const { watch, register, formState: { errors, isValid }, handleSubmit } = useForm({mode: 'onBlur', reValidateMode: 'onBlur'});
