@@ -1,12 +1,26 @@
 import styles from './Public-home.module.css'
 import Cat from '../assets/Cat.png'
 import RegisterForm from './RegisterForm'
+import LoginForm from './LoginForm'
 import { useState } from 'react'
  
 
 const PublicHome = ( ) => {
 
      const [popUp, setpopUp] = useState(false);
+     const [popUp2, setpopUp2] = useState(false);
+
+   const handlePopUpClick = ()=>{
+    setpopUp(!popUp);
+    setpopUp2(false)
+
+   }
+
+   const handlePopUp2Click = ()=>{
+    setpopUp2(!popUp2);
+    setpopUp(false)
+
+   }
 
      
      
@@ -19,16 +33,16 @@ window.addEventListener('keydown', (e)=>{
 
     return(
         <>
-           <div    className={styles.container} style={{ opacity: popUp ? '0.8' : '1', backgroundColor: popUp ? 'grey' : 'black' }} >
+           <div    className={styles.container} style={{ opacity: popUp||popUp2 ? '0.8' : '1', backgroundColor: popUp||popUp2 ? 'grey' : 'black' }} >
            
            <img src={Cat} />
 
            <div className={styles.right}>
                <h1>Happening now</h1>
              <div className={styles.buttons}>
-               <button style={{backgroundColor: "#00A9A5"}} onClick={()=>{setpopUp(!popUp)}} >Create account</button>
+               <button disabled={popUp||popUp2} style={{backgroundColor: "#00A9A5"}} onClick={handlePopUpClick} >Create account</button>
                <p>Or</p>
-               <button>Login</button>
+               <button disabled={popUp||popUp2} onClick={handlePopUp2Click}>Login</button>
 
              </div>
 
@@ -36,6 +50,8 @@ window.addEventListener('keydown', (e)=>{
           
          </div>
          {popUp&&(<RegisterForm close={()=> setpopUp(!popUp)} />)}
+         {popUp2&&(<LoginForm close={()=> setpopUp2(!popUp2)} />)}
+
         </>
        
         

@@ -10,6 +10,7 @@ import Buscador from "./components/Buscador";
 import Profile from "./pages/Profile";
 import PublicHome from "./pages/Public-home";
 
+
 function App() {
   return (
     <PublicHome></PublicHome>

@@ -99,8 +99,11 @@ footer{
     margin-left: 1rem;
     font-size: 0.9rem;
     user-select: none;
+    margin-top: 0.8rem;
 }
-
+footer > span{
+    cursor: pointer;
+}
 
 .error{
     color: red;
