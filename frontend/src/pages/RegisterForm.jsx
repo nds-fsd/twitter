@@ -22,7 +22,7 @@ const RegisterForm = ({close, opacity})=> {
   
 
    
-    const { watch, register, formState: { errors, isValid }, handleSubmit } = useForm({mode: 'all'});
+    const { watch, register, formState: { errors, isValid }, handleSubmit } = useForm({mode: 'onBlur', reValidateMode: 'onBlur'});
 
     const handleNext = () =>{
       if(isValid){

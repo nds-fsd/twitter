@@ -19,7 +19,7 @@ window.addEventListener('keydown', (e)=>{
 
     return(
         <>
-           <div    className={styles.container} style={{ opacity: popUp ? '0.7' : '1' }}>
+           <div    className={styles.container} style={{ opacity: popUp ? '0.8' : '1', backgroundColor: popUp ? 'grey' : 'black' }} >
            
            <img src={Cat} />
 
