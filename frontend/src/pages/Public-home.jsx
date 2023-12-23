@@ -12,16 +12,25 @@ const PublicHome = ( ) => {
 
    const handlePopUpClick = ()=>{
     setpopUp(!popUp);
-    setpopUp2(false)
+    setpopUp2(false);
 
    }
 
    const handlePopUp2Click = ()=>{
     setpopUp2(!popUp2);
-    setpopUp(false)
+    setpopUp(false);
 
    }
 
+   const changeToLoginForm = ()=> {
+    setpopUp(false);
+    setpopUp2(true);
+   }
+
+   const changeToRegisterForm = ()=> {
+    setpopUp2(false);
+    setpopUp(true);
+   }
      
      
   
@@ -53,8 +62,8 @@ window.addEventListener('keydown', (e)=>{
            </div>
           
          </div>
-         {popUp&&(<RegisterForm close={()=> setpopUp(!popUp)} />)}
-         {popUp2&&(<LoginForm close={()=> setpopUp2(!popUp2)} />)}
+         {popUp&&(<RegisterForm close={()=> setpopUp(!popUp)} change={changeToLoginForm}/>)}
+         {popUp2&&(<LoginForm close={()=> setpopUp2(!popUp2)} change={changeToRegisterForm}/>)}
 
         </>
        

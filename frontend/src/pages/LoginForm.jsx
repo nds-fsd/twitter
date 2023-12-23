@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 
 
-const LoginForm = ({close})=> {
+const LoginForm = ({close, change})=> {
 
 
     const { register, formState: { errors }, handleSubmit } = useForm({mode: 'onSubmit'});
@@ -35,7 +35,7 @@ const LoginForm = ({close})=> {
                   <input style={{width: '20.5rem'}} className={styles.submit} type="submit" value={"Log in"}></input>
                   </div>
                   <footer>
-                  <p>If you don't have an account, <span style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}> register here</span></p>
+                  <p>If you don't have an account, <span onClick={change} style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}> register here</span></p>
 
                   </footer>
 

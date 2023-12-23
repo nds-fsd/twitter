@@ -13,7 +13,7 @@ import Swal from 'sweetalert2'
 
 
 
-const RegisterForm = ({close, opacity})=> {
+const RegisterForm = ({close, change})=> {
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -125,7 +125,7 @@ const RegisterForm = ({close, opacity})=> {
                  </div>
                  <button className={styles.submit} style={{userSelect: 'none'}} onClick={handleNext}>Next</button>
                  <footer>
-                  <p>If you already have an account, <span style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
+                  <p>If you already have an account, <span onClick={change} style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
 
                   </footer>
         
