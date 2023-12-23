@@ -125,7 +125,7 @@ const RegisterForm = ({close, opacity})=> {
                  </div>
                  <button className={styles.submit} style={{userSelect: 'none'}} onClick={handleNext}>Next</button>
                  <footer>
-                  <p>If you already have an account, <span style={{color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
+                  <p>If you already have an account, <span style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
 
                   </footer>
         
@@ -181,7 +181,7 @@ const RegisterForm = ({close, opacity})=> {
                   <input className={styles.submit} type="submit" value={"Sign up"}></input>
                   </div>
                   <footer>
-                  <p>If you already have an account, <span style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>lere</span></p>
+                  <p>If you already have an account, <span style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
 
                   </footer>
                
