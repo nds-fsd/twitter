@@ -10,6 +10,8 @@ const PublicHome = ( ) => {
      const [popUp, setpopUp] = useState(false);
      const [popUp2, setpopUp2] = useState(false);
 
+    
+
    const handlePopUpClick = ()=>{
     setpopUp(!popUp);
     setpopUp2(false);
