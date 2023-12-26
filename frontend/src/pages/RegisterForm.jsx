@@ -181,7 +181,7 @@ const RegisterForm = ({close, change})=> {
                   <input className={styles.submit} type="submit" value={"Sign up"}></input>
                   </div>
                   <footer>
-                  <p>If you already have an account, <span style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
+                  <p>If you already have an account, <span onClick={change} style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}>log in here</span></p>
 
                   </footer>
                
