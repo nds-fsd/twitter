@@ -121,7 +121,7 @@ const RegisterForm = ({close, change})=> {
                   <div className={styles.date}>
                   <label htmlFor="">Date of birth</label>
                   <input type="date"  {...register("birthday", { required: true, })} />
-                  {errors.birthday?.type === 'required' && <p className={styles.error}>Date is required</p>}
+                  {errors.birthday?.type === 'required' && <p className={styles.error}>Date is required.</p>}
                  </div>
                  <button className={styles.submit} style={{userSelect: 'none'}} onClick={handleNext}>Next</button>
                  <footer>
@@ -143,7 +143,7 @@ const RegisterForm = ({close, change})=> {
                     <input maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true,
                     pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
-                    {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p> }
+                    {errors.mail?.type === 'pattern' && <p className={styles.error}>Please, enter a valid email.</p> }
                   </div>
                   
               
@@ -153,7 +153,7 @@ const RegisterForm = ({close, change})=> {
 
                   <div>
                     <input maxLength={20} type="text" placeholder='Username' {...register("username", { required: true })}/>
-                    {errors.username?.type === 'required' && <p className={styles.error}>Username is required</p>}
+                    {errors.username?.type === 'required' && <p className={styles.error}>Username is required.</p>}
                   </div>
 
                       <div>
@@ -162,7 +162,7 @@ const RegisterForm = ({close, change})=> {
                          required: true,
                          minLength: 8,
                          pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/ })} />
-                      {errors.password?.type === 'required' && <p className={styles.error}>Password is required</p>}
+                      {errors.password?.type === 'required' && <p className={styles.error}>Password is required.</p>}
                       {errors.password?.type === 'minLength' && <p className={styles.error}>Password must be 8 to 30 character long.</p>}
                       {errors.password?.type === 'pattern' &&  <p style={{fontSize:'12px', color: 'red', fontWeight: 'bold'}}>
                         Passwrod must contain one lower case,
@@ -173,8 +173,8 @@ const RegisterForm = ({close, change})=> {
                       <div>
                     <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
                     { required: true, })} />
-                      {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password</p>}
-                      {passwordError&& <p className={styles.error}>Passwords do not match</p>}
+                      {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password.</p>}
+                      {passwordError&& <p className={styles.error}>Passwords do not match.</p>}
                     </div>
 
                   <div>
