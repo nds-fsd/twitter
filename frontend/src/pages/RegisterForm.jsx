@@ -5,7 +5,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2'
 
  const userApi = axios.create({
-    baseURL: 'http://localhost:3001/user',
+    baseURL: 'http://localhost:3001/user/register',
     headers: {'Content-Type': 'application/json',}
 });
 
