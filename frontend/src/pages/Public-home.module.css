@@ -30,7 +30,10 @@
     flex-wrap: wrap;
 
 }
-
+.logo{
+    padding-left: 5%;
+    width: 45%;
+}
 
 .container > img {
    height: 80%;
