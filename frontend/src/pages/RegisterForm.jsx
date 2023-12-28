@@ -17,6 +17,8 @@ const RegisterForm = ({close, change})=> {
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
+  const [usernameAlreadyRegistered, setUsernameAlreadyRegistered] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
   
@@ -52,8 +54,19 @@ const RegisterForm = ({close, change})=> {
             setSuccess(true)
            }
         } catch(error){
+          if(error.response.data.error.errors.mail){
+            setEmailAlreadyRegistered(true);
+          }
+          if    (error.response.data.error.errors.username) {
+            setUsernameAlreadyRegistered(true);
+            return;
+          }
+     
+          
+          
+          
+
           setError(true)
-          console.log(error);
       
         }
       }
@@ -116,6 +129,7 @@ const RegisterForm = ({close, change})=> {
                   <div> 
                   <input maxLength={30} type="text" name="" placeholder="Surname" {...register("surname", { required: true, })} />
                   {errors.surname?.type === 'required' && <p className={styles.error}>Surname is required.</p>} 
+                
                   </div>
 
                   <div className={styles.date}>
@@ -144,6 +158,7 @@ const RegisterForm = ({close, change})=> {
                     pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
                     {errors.mail?.type === 'pattern' && <p className={styles.error}>Please, enter a valid email.</p> }
+                    {emailAlreadyRegistered&& <p className={styles.error}>Email already registered.</p>}
                   </div>
                   
               
@@ -154,6 +169,7 @@ const RegisterForm = ({close, change})=> {
                   <div>
                     <input maxLength={20} type="text" placeholder='Username' {...register("username", { required: true })}/>
                     {errors.username?.type === 'required' && <p className={styles.error}>Username is required.</p>}
+                    {usernameAlreadyRegistered&& <p className={styles.error}>This username is not available.</p>}
                   </div>
 
                       <div>

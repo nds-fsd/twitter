@@ -1,4 +1,5 @@
 const express = require("express");
+const User = require('../schemas/user.js');
 
 
 
@@ -18,9 +19,11 @@ const validateUser = (req, res, next) => {
   const {body} = req;
   const {name, surname, birthday, username, mail, password} = body;
   
+  
   User.findOne({mail: mail})
   .then((user)=>{
     if(user){
+      
       return res.status(400).json({error: {mail: 'Email already registered'}});
     }
   });
@@ -28,6 +31,7 @@ const validateUser = (req, res, next) => {
   User.findOne({username: username})
   .then((user)=>{
     if(user){
+     
       return res.status(400).json({error: {username: 'Username already registered'}});
     }
   });
@@ -42,7 +46,7 @@ const validateUser = (req, res, next) => {
 
  console.log(!mail.match(patternEmail))
  if(!mail.match(patternEmail)) {
-  res.status(400).json({message: "email is not valid"});
+  res.status(400).json({message: "Email is not valid"});
   return;
  } 
  
