@@ -18,27 +18,30 @@ const validateUser = (req, res, next) => {
  
   const {body} = req;
   const {name, surname, birthday, username, mail, password} = body;
-  
-  
+
   User.findOne({mail: mail})
   .then((user)=>{
     if(user){
       
       return res.status(400).json({error: {mail: 'Email already registered'}});
-    }
-  });
+       
+    
+  }});
+
 
   User.findOne({username: username})
   .then((user)=>{
     if(user){
      
       return res.status(400).json({error: {username: 'Username already registered'}});
+       
     }
-  });
- 
+  }); 
+
+   
   if(!name || !surname || !birthday || !username) {
-    res.status(400).json({message: "missing required fields"});
-    return;
+   return res.status(400).json({message: "missing required fields"});
+    
  } 
 
  const patternEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -46,14 +49,19 @@ const validateUser = (req, res, next) => {
 
  console.log(!mail.match(patternEmail))
  if(!mail.match(patternEmail)) {
-  res.status(400).json({message: "Email is not valid"});
-  return;
+ return res.status(400).json({message: "Email is not valid"});
+  
  } 
  
  if(!password.match(patternPassword)) {
-  res.status(400).json({message: "Password must be 8 to 30 character long, contain one lower case, one upper case, one number and one special character."})
-  return;
+  return res.status(400).json({message: "Password must be 8 to 30 character long, contain one lower case, one upper case, one number and one special character."})
+  
  }
+
+
+  
+
+
 
  next();
 };

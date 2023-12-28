@@ -24,9 +24,13 @@ const getUserById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+   
+  
   try {
 
     const body = req.body;
+      
+
     
     const userToSave = new User(body);
     await userToSave.save();

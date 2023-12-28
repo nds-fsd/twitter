@@ -44,8 +44,7 @@ const RegisterForm = ({close, change})=> {
       let date = new Date().toDateString();
       
 
-       const createUser = async () => {
-        
+      const createUser = async () => {
 
         try{
          
@@ -55,18 +54,18 @@ const RegisterForm = ({close, change})=> {
             setSuccess(true)
            }
         } catch(error){
-          if(error.response.data.error.errors.mail){
+          
+          console.log(error)
+          
+          if(error.response.data.error.mail) {
             setEmailAlreadyRegistered(true);
-          }
-          if    (error.response.data.error.errors.username) {
+            return;
+
+          } 
+          if(error.response.data.error.username){
             setUsernameAlreadyRegistered(true);
             return;
-          }
-     
-          
-          
-          
-
+          } 
           setError(true)
       
         }
@@ -104,9 +103,6 @@ const RegisterForm = ({close, change})=> {
           setError(false)
           }
 
-
-
-// Hay medidas provisionales que hay que modificar, como en el primer div(los pixels)
        return(
         <div  className={styles.container} > 
           
@@ -162,9 +158,9 @@ const RegisterForm = ({close, change})=> {
                     {emailAlreadyRegistered&& <p className={styles.error}>Email already registered.</p>}
                   </div>
                   
-              
                  
-
+                 
+             
                 
 
                   <div>
@@ -178,7 +174,8 @@ const RegisterForm = ({close, change})=> {
                        {
                          required: true,
                          minLength: 8,
-                         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/ })} />
+                         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/ 
+                        })} />
                       {errors.password?.type === 'required' && <p className={styles.error}>Password is required.</p>}
                       {errors.password?.type === 'minLength' && <p className={styles.error}>Password must be 8 to 30 character long.</p>}
                       {errors.password?.type === 'pattern' &&  <p style={{fontSize:'12px', color: 'red', fontWeight: 'bold'}}>
