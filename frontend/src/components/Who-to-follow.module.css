@@ -64,7 +64,9 @@
     border: solid 1px var(--sections-color);
     border-radius: 20px;
     color: var(--sections-color);
-    font-weight: bold;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+    font-weight: bolder;
     height: 40px;
     margin-right: 10px;
     width: 100px;
@@ -80,9 +82,14 @@
 .showMore {
     background-color: transparent;
     border: transparent;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
     color: #00A9A5;
     cursor: pointer;
     margin: 0 0 20px 20px;
+    width: auto;
+    height: auto;
 }
 
 .showMore:hover {
