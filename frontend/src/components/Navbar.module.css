@@ -8,6 +8,7 @@
 }
 
 .container {
+  margin-top: 15px;
   height: 100%;
   width: 20%;
 }
@@ -65,7 +66,7 @@
   align-items: center;
   bottom: 1%;
   display: flex;
-  left: 10%;
+  left: 9%;
   position: fixed ;
 }
 
