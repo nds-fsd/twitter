@@ -17,8 +17,20 @@ const validateUser = (req, res, next) => {
  
   const {body} = req;
   const {name, surname, birthday, username, mail, password} = body;
-  console.log(body.mail);
-  console.log(typeof body.mail)
+  
+  User.findOne({mail: mail})
+  .then((user)=>{
+    if(user){
+      return res.status(400).json({error: {mail: 'Email already registered'}});
+    }
+  });
+
+  User.findOne({username: username})
+  .then((user)=>{
+    if(user){
+      return res.status(400).json({error: {username: 'Username already registered'}});
+    }
+  });
  
   if(!name || !surname || !birthday || !username) {
     res.status(400).json({message: "missing required fields"});
