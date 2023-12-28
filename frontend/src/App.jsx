@@ -18,11 +18,11 @@ function App() {
           <Navbar />
         </div>
         <div>
-          <MeowsFilter />
+          {/* <MeowsFilter />
           <PostForm />
-          <Meows />
+          <Meows /> */}
           {/* <Profile /> */}
-          {/* <VistaUnMeow /> */}
+          <VistaUnMeow />
           {/* <RegisterForm /> */}
         </div>
         <div className={styles.right}>
