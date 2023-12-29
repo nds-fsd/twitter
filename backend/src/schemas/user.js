@@ -12,6 +12,7 @@ const userSchema = new Schema({
   dateOfRegister: { type: String, required: true },
 });
 
+
 userSchema.pre('save', function(next) {
   const user = this;
 

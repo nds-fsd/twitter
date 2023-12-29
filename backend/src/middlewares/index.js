@@ -19,6 +19,8 @@ const validateUser = (req, res, next) => {
   const {body} = req;
   const {name, surname, birthday, username, mail, password} = body;
 
+  
+
   User.findOne({mail: mail})
   .then((user)=>{
     if(user){
@@ -57,11 +59,6 @@ const validateUser = (req, res, next) => {
   return res.status(400).json({message: "Password must be 8 to 30 character long, contain one lower case, one upper case, one number and one special character."})
   
  }
-
-
-  
-
-
 
  next();
 };
