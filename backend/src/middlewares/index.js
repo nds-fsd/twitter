@@ -21,17 +21,17 @@ const validateUser = async (req, res, next) => {
 
   
 
- const userMail = await User.findOne({mail: mail})
+ const userMailError = await User.findOne({mail: mail})
   
-    if(userMail) return res.status(400).json({error: {mail: 'Email already registered'}});
+    if(userMailError) return res.status(400).json({error: {mail: 'Email already registered'}});
        
     
   
 
 
-  const userName = await User.findOne({username: username})
+  const userNameError = await User.findOne({username: username})
   
-    if(userName)  return res.status(400).json({error: {username: 'Username already registered'}});
+    if(userNameError)  return res.status(400).json({error: {username: 'Username already registered'}});
       
 
    
