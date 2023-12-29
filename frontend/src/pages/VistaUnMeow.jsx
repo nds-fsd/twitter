@@ -1,4 +1,6 @@
 import styles from "./VistaUnMeow.module.css"
+import userpic from "../assets/user.png";
+import flecha from "../assets/flecha-izquierda.png";
 
 const VistaUnMeow = ( {meow, user} )=>{
     
@@ -10,8 +12,20 @@ const VistaUnMeow = ( {meow, user} )=>{
 
     return (
         <div className={styles.container}>
-
-             <img src="https://t3.ftcdn.net/jpg/05/17/79/88/360_F_517798849_WuXhHTpg2djTbfNf0FQAjzFEoluHpnct.jpg" alt="" />     <p className={styles.user}>USER.name</p>
+            <div className={styles.firstContainer}>
+                <div className={styles.postContainer}>
+                <div className={styles.post}>
+                    <img src={flecha} alt="flecha"/>
+                    <p>Post</p>
+                </div>
+            </div>
+            </div>
+            
+            <div className={styles.username}>
+                <img src={userpic} alt="user"/>
+                <p className={styles.user}>user.name</p>
+            </div>
+             
 
             <p className={styles.meow}>Lorem ipsum dolor sit, amet consec
                adipisicing elit. Sit, voluptatibus! Lorem ipsum dolor sit
@@ -28,7 +42,8 @@ const VistaUnMeow = ( {meow, user} )=>{
             </div>
 
             <div className={styles.replies}>
-               <textarea onChange={handleKeyDown} style={{fontSize: "20px"}} name="" id="" cols="50" rows="5" placeholder="Post your reply"></textarea>
+                <img src={userpic} alt="" />
+               <textarea onChange={handleKeyDown} className={styles.textarea} placeholder="Post your reply"></textarea>
                <button>Reply</button>
             </div>
             </div>
