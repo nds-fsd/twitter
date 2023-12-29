@@ -7,7 +7,7 @@ import Meows from "./pages/Meows";
 import PostForm from "./pages/Post-form";
 import styles from "./App.module.css";
 import Buscador from "./components/Buscador";
-import Profile from "./pages/Profile";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <div>
           {/* <PostForm />
           <Meows /> */}
-          <Profile />
+          <UserProfile />
           {/* <VistaUnMeow /> */}
           {/* <RegisterForm /> */}
         </div>

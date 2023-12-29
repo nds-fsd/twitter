@@ -1,17 +1,8 @@
 import styles from './RegisterForm.module.css'
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
-import axios from 'axios';
+import { userApi } from '../apis/apiWrapper';
 import Swal from 'sweetalert2'
-
- const userApi = axios.create({
-    baseURL: 'http://localhost:3001/user',
-    headers: {'Content-Type': 'application/json',}
-});
-
-
-
-
 
 const RegisterForm = ()=> {
 

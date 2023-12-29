@@ -11,6 +11,7 @@
   height: 70px;
   width: 50%;
   background-color: black;
+  padding-left: 20px;
 }
 
 .container {
@@ -21,8 +22,11 @@
   width: 80%;
 }
 
-.name {
+.profileInfo {
   padding-left: 20px;
+}
+
+.name {
   cursor: pointer;
   font-size: 25px;
   font-weight: bold;
@@ -37,7 +41,6 @@
   color: gray;
   cursor: pointer;
   font-size: 14px;
-  padding-left: 20px;
 }
 
 .relativeContainer {
@@ -89,7 +92,7 @@
 
 .editProfile:hover {
   cursor: pointer;
-  background-color: #2F2F2F;
+  background-color: #2f2f2f;
 }
 
 .info {

@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Tabs.module.css";
+import styles from "./TabsProfile.module.css";
 
-const Tabs = ({ tabs }) => {
+const TabsProfile = ({ tabs }) => {
   return (
     <ul className={styles.tab}>
       {tabs.map((tab, index) => (
@@ -13,4 +13,4 @@ const Tabs = ({ tabs }) => {
   );
 };
 
-export default Tabs;
+export default TabsProfile;
