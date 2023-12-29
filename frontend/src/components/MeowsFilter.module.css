@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    height: 8%;
+    position: fixed;
+    width: 50%;
+    background-color: black;
+    z-index: 1;
+}
+
+.options {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.options:nth-child(1) {
+    border-right: 1px solid #2F2F2F;
+}
+
+
+.options p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
