@@ -5,121 +5,45 @@
 }
 
 .container {
-    width: 100%;
+    width: 40rem;
     color: rgb(255, 255, 255);
+    margin-left: 5rem;
+    margin-top: 10rem;
 }
-.firstContainer {
-    height: 8%;
-    display: flex;
-}
-
-.postContainer {
-    display: flex;
-    height: 8%;
-    background-color: black;
-    position: fixed;
-    width: 50%;
-    z-index: 1;
-}
-
-.post {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 17px;
-    cursor: pointer;
-    padding-left: 20px;
-}
-
-.post img {
-    width: 30px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.post p {
-    font-size: 20px;
-}
-
-.username {
-    display: flex;
-    align-items: center;
-    margin: 70px 0 20px 0;
-    font-size: 17px;
-    font-weight: bold;
-    padding: 20px 0 0 20px;
-    border-top: 1px solid #2F2F2F;
-}
-
-.username img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 20px;
-}
-
 .meow{
     margin-top: 1rem;
-    padding: 0 20px;
-
+}
+.container > img{
+    width: 3rem;
+    height: 3rem;
+    display: inline;
+    
+}
+.user{
+   margin-bottom: 3rem;
+   display: inline;
 }
 
 .dateAndViews{
     margin-right: 5rem;
     margin-top: 2rem;
-    padding: 0 20px;
-
 }
-.dateAndViews span{
+.dateAndViews > span{
     margin-right: 3rem;
 }
 .stats{
-    border-top: 1px solid #2F2F2F;
-    border-bottom: 1px solid #2F2F2F;
-    padding: 20px;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
-.stats span{
+.stats > span{
     margin-right: 3rem;
     
 }
 
 .replies{
     display: flex;
-    align-content: center;
-    padding: 0  0 15px 20px;
-    border-bottom: 1px solid #2F2F2F;
 }
-
-.textarea {
-    width: 80%;
-    background-color: black;
-    border: none;
-    padding: 5px; 
-}
-
-.textarea:active {
-    border: 1px solid #2F2F2F;
-}
-
-.textarea::placeholder {
-    color: #2F2F2F;
-    font-size: 17px;
-    font-weight: bold
-}
-
-.replies img {
-    width: 30px;
-    height: 30px;
-    border-radius: 20px;
-    margin-right: 10px;
-}
-
-.replies button {
+.replies > button {
     margin-top: 1rem;
     margin-left: 1rem;
     width: 4rem;
@@ -129,6 +53,30 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
-    border: 0;
+    border: 2px solid rgb(255, 255, 255);
 }
 
+
+
+::-webkit-input-placeholder {
+    color: rgb(128, 2, 2);
+    font-family: Arial;
+    font-size: 23px;
+    font-weight:bold;
+    opacity: 0.6;
+    }
+    ::-moz-placeholder {
+    color: rgb(128, 2, 2);
+    font-family: Arial;
+    font-size: 23px;
+    font-weight: bold;
+    opacity: 0.6;
+    
+    }
+    :-ms-input-placeholder {
+    color: rgb(128, 2, 2);
+    font-family: Arial;
+    font-size: 23px;
+    font-weight: bold;
+    opacity: 0.6;
+    }

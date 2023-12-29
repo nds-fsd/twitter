@@ -2,15 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  /* margin: 10px; */
-}
-
-.nameContainer {
-  position: fixed;
-  z-index: 1;
-  height: 70px;
-  width: 50%;
-  background-color: black;
+  margin: 10px;
 }
 
 .container {
@@ -22,7 +14,6 @@
 }
 
 .name {
-  padding-left: 20px;
   cursor: pointer;
   font-size: 25px;
   font-weight: bold;
@@ -37,7 +28,6 @@
   color: gray;
   cursor: pointer;
   font-size: 14px;
-  padding-left: 20px;
 }
 
 .relativeContainer {
@@ -46,7 +36,6 @@
 }
 
 .imageContainer {
-  margin-top: 75px;
   height: 100%;
   object-fit: contain;
   width: 100%;

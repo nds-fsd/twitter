@@ -8,16 +8,15 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 8%;
+    margin-top: 5%;
 }
 
 .containerPost{
-    border-top: 1px solid var(--sections-hover);
-    border-bottom: 1px solid var(--sections-hover);
+    border: 1px solid var(--sections-hover);
     display: flex;
     gap: 20px;
     padding:20px;
-    width: 95%;
+    width: 80%;
 }
 
 .containerPost textarea::placeholder {
@@ -41,12 +40,12 @@
 }
 
 .containerButtons{
-    border-bottom: 1px solid var(--sections-hover);
+    border: 1px solid var(--sections-hover);
     display: flex;
     justify-content: space-between;
     align-content: center;
     padding: 20px;
-    width: 95%;
+    width: 80%;
 }
 
 .postButton{

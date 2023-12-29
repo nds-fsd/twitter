@@ -8,7 +8,6 @@ import PostForm from "./pages/Post-form";
 import styles from "./App.module.css";
 import Buscador from "./components/Buscador";
 import Profile from "./pages/Profile";
-import MeowsFilter from "./components/MeowsFilter";
 
 function App() {
   return (
@@ -18,11 +17,10 @@ function App() {
           <Navbar />
         </div>
         <div>
-          {/* <MeowsFilter />
-          <PostForm />
-          <Meows /> */}
-          {/* <Profile /> */}
-          <VistaUnMeow />
+          {/* <PostForm /> */}
+          {/* <Meows /> */}
+          <Profile />
+          {/* <VistaUnMeow /> */}
           {/* <RegisterForm /> */}
         </div>
         <div className={styles.right}>

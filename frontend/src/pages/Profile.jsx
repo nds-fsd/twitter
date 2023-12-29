@@ -19,7 +19,7 @@ function Profile() {
     <div>
       <div className={styles.bigContainer}>
         <div>
-          <div className={styles.nameContainer}>
+          <div>
             <p className={styles.name}>Name Surname</p>
             <p className={styles.grayFont}>Number of posts</p>
           </div>
