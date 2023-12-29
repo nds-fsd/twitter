@@ -61,6 +61,7 @@
 
 .buttonFollow {
     background-color: white;
+    font-family: 'Ubuntu', sans-serif;
     border: solid 1px var(--sections-color);
     border-radius: 20px;
     color: var(--sections-color);
@@ -80,6 +81,7 @@
 
 
 .showMore {
+    font-family: 'Ubuntu', sans-serif;
     background-color: transparent;
     border: transparent;
     font-family: 'Ubuntu', sans-serif;
