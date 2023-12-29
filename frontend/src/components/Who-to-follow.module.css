@@ -12,7 +12,7 @@
 .container {
     background-color: var(--sections-color);
     border-radius: 25px;
-    margin: 80px 20px 0 0;
+    margin: 20px 20px 0 0;
 }
 
 .title {
@@ -61,7 +61,6 @@
 
 .buttonFollow {
     background-color: white;
-    font-family: 'Ubuntu', sans-serif;
     border: solid 1px var(--sections-color);
     border-radius: 20px;
     color: var(--sections-color);
@@ -79,7 +78,6 @@
 
 
 .showMore {
-    font-family: 'Ubuntu', sans-serif;
     background-color: transparent;
     border: transparent;
     color: #00A9A5;
