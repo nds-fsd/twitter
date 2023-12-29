@@ -14,31 +14,25 @@ const consoleLogType = (req, res, next) => {
 
 
 
-const validateUser = (req, res, next) => {
+const validateUser = async (req, res, next) => {
  
   const {body} = req;
   const {name, surname, birthday, username, mail, password} = body;
 
   
 
-  User.findOne({mail: mail})
-  .then((user)=>{
-    if(user){
-      
-      return res.status(400).json({error: {mail: 'Email already registered'}});
+ const userMail = await User.findOne({mail: mail})
+  
+    if(userMail) return res.status(400).json({error: {mail: 'Email already registered'}});
        
     
-  }});
+  
 
 
-  User.findOne({username: username})
-  .then((user)=>{
-    if(user){
-     
-      return res.status(400).json({error: {username: 'Username already registered'}});
-       
-    }
-  }); 
+  const userName = await User.findOne({username: username})
+  
+    if(userName)  return res.status(400).json({error: {username: 'Username already registered'}});
+      
 
    
   if(!name || !surname || !birthday || !username) {
