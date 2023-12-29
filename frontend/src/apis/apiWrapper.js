@@ -1,5 +1,15 @@
 import axios from "axios";
 
+export const userApi = axios.create({
+  baseURL: "http://localhost:3001/user",
+  headers: { "Content-Type": "application/json" },
+});
+
+export const userRegisterApi = axios.create({
+  baseURL: 'http://localhost:3001/user/register',
+  headers: {'Content-Type': 'application/json',}
+});
+
 export const meowApi = axios.create({
   baseURL: "http://localhost:3001/meow",
   headers: { "Content-Type": "application/json" },
@@ -7,11 +17,6 @@ export const meowApi = axios.create({
 
 export const followApi = axios.create({
   baseURL: "http://localhost:3001/follow",
-  headers: { "Content-Type": "application/json" },
-});
-
-export const userApi = axios.create({
-  baseURL: "http://localhost:3001/user",
   headers: { "Content-Type": "application/json" },
 });
 

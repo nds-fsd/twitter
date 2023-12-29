@@ -8,6 +8,7 @@
   height: fit-content;
   margin-top: 50px;
   padding: 5px 15px;
+  width: max-content;
 }
 
 .followButton:hover {
