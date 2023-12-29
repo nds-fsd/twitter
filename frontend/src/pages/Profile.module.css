@@ -21,6 +21,7 @@
   width: 80%;
 }
 
+
 .name {
   padding-left: 20px;
   cursor: pointer;
@@ -85,6 +86,7 @@
   height: fit-content;
   margin-top: 50px;
   padding: 5px 15px;
+  width: max-content;
 }
 
 .editProfile:hover {
