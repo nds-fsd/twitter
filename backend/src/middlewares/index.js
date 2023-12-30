@@ -24,12 +24,8 @@ const validateUser = async (req, res, next) => {
  const userMailError = await User.findOne({mail: mail})
   
     if(userMailError) return res.status(400).json({error: {mail: 'Email already registered'}});
-       
-    
-  
 
-
-  const userNameError = await User.findOne({username: username})
+    const userNameError = await User.findOne({username: username})
   
     if(userNameError)  return res.status(400).json({error: {username: 'Username already registered'}});
       
