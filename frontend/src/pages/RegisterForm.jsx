@@ -51,25 +51,34 @@ const RegisterForm = ({close, change})=> {
           const res = await userApi.post('/',{...data, dateOfRegister: date} );
            console.log(res)
            if(res.status === 201){
+            setError(false)
             setSuccess(true)
+            
            }
         } catch(error){
           
           console.log(error)
+          if(error.response.status !== 201 && error.response.status !== 400) setError(true)
+          
+          
           
           if(error.response.data.error.mail) {
             setEmailAlreadyRegistered(true);
           }else{
             setEmailAlreadyRegistered(false)
           } 
+          
+          
+          
           if(error.response.data.error.username){
             setUsernameAlreadyRegistered(true);
             
           } else {
             setUsernameAlreadyRegistered(false)
+          }
           
-           if(!emailAlreadyRegistered&&!usernameAlreadyRegistered) setError(true)
-            }
+           
+          
         }
       }
       
