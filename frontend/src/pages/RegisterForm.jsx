@@ -59,19 +59,17 @@ const RegisterForm = ({close, change})=> {
           
           if(error.response.data.error.mail) {
             setEmailAlreadyRegistered(true);
-            return;
-
-          } else {
+          }else{
             setEmailAlreadyRegistered(false)
-          }
+          } 
           if(error.response.data.error.username){
             setUsernameAlreadyRegistered(true);
-            return;
+            
           } else {
             setUsernameAlreadyRegistered(false)
-          }
-          setError(true)
-      
+          
+           if(!emailAlreadyRegistered&&!usernameAlreadyRegistered) setError(true)
+            }
         }
       }
       
