@@ -86,8 +86,9 @@ const createUser = async (req, res) => {
    expirationDate.setDate(today.getDate() + 60);
 
    let payload = {
-    name: body.name,
-    email: body.mail,
+    name: newUser.name,
+    email: newUser.mail,
+    id: newUser._id
 
   };
 
