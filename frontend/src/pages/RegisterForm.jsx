@@ -35,11 +35,15 @@ const RegisterForm = ({close, change})=> {
 
     }
 
+
+
       
      const onSubmit = (data)=> {
       if(data.password !== data.passwordConfirm){
         setPasswordError(true)
         return;
+      }else {
+        setPasswordError(false);
       }
       let date = new Date().toDateString();
       
@@ -175,7 +179,7 @@ const RegisterForm = ({close, change})=> {
                 
 
                   <div>
-                    <input maxLength={20} type="text" placeholder='Username' {...register("username", { required: true })}/>
+                    <input  maxLength={20} type="text" placeholder='Username' {...register("username", { required: true })}/>
                     {errors.username?.type === 'required' && <p className={styles.error}>Username is required.</p>}
                     {usernameAlreadyRegistered&& <p className={styles.error}>This username is not available.</p>}
                   </div>
@@ -196,7 +200,7 @@ const RegisterForm = ({close, change})=> {
                        </div>
                      
                       <div>
-                    <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
+                    <input onFocus={()=>setPasswordError(false)}  maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
                     { required: true, })} />
                       {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password.</p>}
                       {passwordError&& <p className={styles.error}>Passwords do not match.</p>}
