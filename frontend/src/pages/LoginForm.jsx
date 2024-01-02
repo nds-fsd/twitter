@@ -1,6 +1,6 @@
 import styles from './LoginForm.module.css'
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Swal from 'sweetalert2'
 
@@ -17,9 +17,19 @@ const LoginForm = ({close, change})=> {
     const [invalidPassword, setInvalidPassword] = useState(false);
     const [emailNotFound, setEmailNotFound] = useState(false);
     const [serverError, setServerError] = useState(false);
+    const [disabled, setDisabled] = useState(false)
 
 
-    const { register, formState: { errors }, handleSubmit } = useForm({mode: 'onSubmit'});
+
+    const { register, formState: { errors, isValid }, handleSubmit } = useForm({mode: 'all'});
+
+    const mouseOverSubmit = ()=> {
+        if(!isValid){
+            setDisabled(true);
+        }
+    }
+
+   
 
   
   
@@ -86,10 +96,7 @@ const LoginForm = ({close, change})=> {
              </header>
              <h2>Access to your account</h2>
              <div>
-                    <input onFocus={()=>setEmailNotFound(false)} style={{width: '20rem'}} maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true,
-                    pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
-                    {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
-                    {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p>}
+                    <input onFocus={()=>setEmailNotFound(false)} style={{width: '20rem'}} maxLength={80} type="text" name="" placeholder="Email" {...register("mail", { required: true})} />
                     {emailNotFound&& <p>User email not found.</p>}
                     {emailNotFound&& <p>Want to <span style={{color: "#7272c9", textDecoration: "underline", fontWeight: "bold", cursor:"pointer"}}
                      onClick={change}>create a new account?</span></p>}
@@ -98,12 +105,11 @@ const LoginForm = ({close, change})=> {
 
                   <div>
                       <input onFocus={()=>setInvalidPassword(false)} style={{width: '20rem'}} maxLength={30} type="password" placeholder='Password' {...register("password",{required: true})} />
-                      {errors.password?.type === 'required' && <p className={styles.error}>Password is required.</p>}
-                      {invalidPassword&& <p>That password was incorrect. Please try again.</p>}
+                     {invalidPassword&& <p>That password was incorrect. Please try again.</p>}
                      
                        </div>
                        <div>
-                  <input style={{width: '20.5rem'}} className={styles.submit} type="submit" value={"Log in"}></input>
+                  <input onMouseOut={()=>setDisabled(false)} onMouseOver={mouseOverSubmit} disabled={isValid?false:true} className={!disabled ? styles.submit : styles.notValid} type="submit" value={"Log in"}></input>
                   </div>
                   <footer>
                   <p>If you don't have an account, <span onClick={change} style={{cursor:'pointer', color: "green",fontWeight: 'bold', textDecoration: 'underline'}}> register here</span></p>

@@ -189,7 +189,7 @@ const RegisterForm = ({close, change})=> {
                        {
                          required: true,
                          minLength: 8,
-                         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/ 
+                         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/ 
                         })} />
                       {errors.password?.type === 'required' && <p className={styles.error}>Password is required.</p>}
                       {errors.password?.type === 'minLength' && <p className={styles.error}>Password must be 8 to 30 character long.</p>}
