@@ -52,7 +52,7 @@ const RegisterForm = ({close, change})=> {
 
         try{
          
-          const res = await userApi.post('/d',{...data, dateOfRegister: date} );
+          const res = await userApi.post('/',{...data, dateOfRegister: date} );
            console.log(res)
            if(res.status === 201){
             setError(false)
