@@ -89,15 +89,8 @@ const createUser = async (req, res) => {
 
   }})
 
-
-   
-  
-  
- 
- 
- 
-  } catch (error) {
-    res.status(400).json(error.message);
+} catch (error) {
+    res.status(500).json(error.message);
    
   }
 };
