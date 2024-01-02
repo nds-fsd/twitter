@@ -6,6 +6,7 @@ const { consoleLogType, validateUser } = require("../middlewares/index");
 router.get("/", consoleLogType, userController.getAllUsers);
 router.get("/:id", consoleLogType, userController.getUserById);
 router.post("/register", consoleLogType, validateUser, userController.createUser);
+router.post("/login", userController.loginUser)
 router.patch("/:id", consoleLogType, userController.updateUser);
 router.delete("/:id", consoleLogType, userController.deleteUser);
 

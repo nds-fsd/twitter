@@ -1,3 +1,4 @@
+const express = require('express')
 const User = require("../schemas/user");
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
@@ -79,22 +80,14 @@ const createUser = async (req, res) => {
      const newUser = new User(body);
     console.log(newUser)
 
-   await newUser.save();
+  const createdUser = await newUser.save();
    
-   const today = new Date();
-   const expirationDate = new Date();
-   expirationDate.setDate(today.getDate() + 60);
+   res.status(201).json({token: createdUser.generateJWT(),
+  user: {
+    name: createdUser.name,
+    surname: createdUser.surname
 
-   let payload = {
-    name: newUser.name,
-    email: newUser.mail,
-    id: newUser._id
-
-  };
-
-   res.status(201).json({token: jwt.sign(payload, secret, {
-    expiresIn: parseInt(expirationDate.getTime() / 1000, 10)
-   })})
+  }})
 
 
    
@@ -120,6 +113,7 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
 
   try{
+
     const { mail, password} = req.body;
 
     if (!mail || !password) return res.status(400).json({error: {login: "Missing email or password."}});
@@ -129,17 +123,15 @@ const loginUser = async (req, res) => {
     if(!foundUser) return res.status(400).json({error:{email:"User not found."}});
   
     if(!foundUser.comparePassword(password)) return res.status(400).json({error:{password:"Invalid password."}});
-  
-    return res.status(200).json({
-      token: foundUser.generateJTW(),
-      user: {
-        mail: foundUser.mail,
-        name: foundUser.name,
-        id: foundUser._id,
-  
-      }
-    })
 
+    res.status(201).json({token: foundUser.generateJWT(),
+    user: {
+      name: foundUser.name,
+      surname: foundUser.surname
+
+    }})
+
+  
   } 
   catch(error){
     return res.status(500).json(error.message);

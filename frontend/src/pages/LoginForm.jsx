@@ -3,18 +3,50 @@ import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import axios from 'axios';
 
+const userApi = axios.create({
+    baseURL: 'http://localhost:3001/user/login',
+    headers: {'Content-Type': 'application/json',}
+});
+
+
 
 const LoginForm = ({close, change})=> {
 
 
     const { register, formState: { errors }, handleSubmit } = useForm({mode: 'onSubmit'});
 
+  
+  
+  
+  
+  
+    const onSubmit = (data)=> {
+        console.log(data)
+
+        const login = async ()=> {
+            try{
+                const res = await userApi.post('/',data)
+                console.log(res)
+                console.log(res.data.token)
+            }
+            catch(err){
+                console.log(err)
+            }
+    
+
+        }
+        
+        login()
+
+       
+    }
+
 
 
     return(
 
         <div className={styles.container}>
-            <form action="">
+            <form onSubmit={handleSubmit(onSubmit)} action="">
             <header>
                 <span onClick={close}  className={styles.x}>x</span>
              </header>
