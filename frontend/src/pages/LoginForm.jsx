@@ -13,6 +13,10 @@ const userApi = axios.create({
 const LoginForm = ({close, change})=> {
 
 
+    const [invalidPassword, setInvalidPassword] = useState(false);
+    const [emailNotFound, setEmailNotFound] = useState(false);
+
+
     const { register, formState: { errors }, handleSubmit } = useForm({mode: 'onSubmit'});
 
   
@@ -31,6 +35,8 @@ const LoginForm = ({close, change})=> {
             }
             catch(err){
                 console.log(err)
+                if (err.response.data.error.email) setEmailNotFound(true);
+                if (err.response.data.error.password) setInvalidPassword(true);
             }
     
 
@@ -56,11 +62,13 @@ const LoginForm = ({close, change})=> {
                     pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
                     {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p>}
+                    {emailNotFound&& <p>User email not found.</p>}
                   </div>
 
                   <div>
                       <input style={{width: '20rem'}} maxLength={30} type="password" placeholder='Password' {...register("password",{required: true})} />
-                      {errors.password?.type === 'required' && <p className={styles.error}>Password is required</p>}
+                      {errors.password?.type === 'required' && <p className={styles.error}>Password is required.</p>}
+                      {invalidPassword&& <p>That password was incorrect. Please try again.</p>}
                      
                        </div>
                        <div>

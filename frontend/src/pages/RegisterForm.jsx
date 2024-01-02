@@ -193,7 +193,7 @@ const RegisterForm = ({close, change})=> {
                         })} />
                       {errors.password?.type === 'required' && <p className={styles.error}>Password is required.</p>}
                       {errors.password?.type === 'minLength' && <p className={styles.error}>Password must be 8 to 30 character long.</p>}
-                      {errors.password?.type === 'pattern' &&  <p style={{fontSize:'12px', color: 'red', fontWeight: 'bold'}}>
+                      {errors.password?.type === 'pattern' &&  <p style={{fontSize: '0.8rem'}} className={styles.error}>
                         Passwrod must contain one lower case,
                        one upper<br/> case, one number and one special character.</p> }
                      
