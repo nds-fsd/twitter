@@ -63,6 +63,8 @@ const LoginForm = ({close, change})=> {
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
                     {errors.mail?.type === 'pattern' && <p className={styles.error}>Please enter a valid email.</p>}
                     {emailNotFound&& <p>User email not found.</p>}
+                    {emailNotFound&& <p>Want to <span style={{color: "#7272c9", textDecoration: "underline", fontWeight: "bold", cursor:"pointer"}}
+                     onClick={change}>create a new account?</span></p>}
                   </div>
 
                   <div>
