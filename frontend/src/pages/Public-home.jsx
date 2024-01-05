@@ -45,7 +45,7 @@ window.addEventListener('keydown', (e)=>{
 
     } 
 })
-console.log(reload);
+
 
     return(
         <>
