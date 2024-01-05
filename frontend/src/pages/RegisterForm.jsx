@@ -1,13 +1,10 @@
 import styles from './RegisterForm.module.css'
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
-import axios from 'axios';
+import { userApi } from '../usersApi/apiWrapper';
 import Swal from 'sweetalert2'
+import { setUserSession } from '../local-storage';
 
- const userApi = axios.create({
-    baseURL: 'http://localhost:3001/user/register',
-    headers: {'Content-Type': 'application/json',}
-});
 
 
 
@@ -52,11 +49,14 @@ const RegisterForm = ({close, change})=> {
 
         try{
          
-          const res = await userApi.post('/',{...data, dateOfRegister: date} );
+          const res = await userApi.post('/register',{...data, dateOfRegister: date} );
            console.log(res)
+           console.log(res.data)
            if(res.status === 201){
             setError(false)
             setSuccess(true)
+            setUserSession(res.data)
+           
             
            }
         } catch(error){

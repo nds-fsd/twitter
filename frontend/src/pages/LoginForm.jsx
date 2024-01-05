@@ -1,13 +1,11 @@
 import styles from './LoginForm.module.css'
 import { useForm } from "react-hook-form";
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import Swal from 'sweetalert2'
+import { userApi } from '../usersApi/apiWrapper';
+import { setUserSession } from '../local-storage';
 
-const userApi = axios.create({
-    baseURL: 'http://localhost:3001/user/login',
-    headers: {'Content-Type': 'application/json',}
-});
+
 
 
 
@@ -41,9 +39,10 @@ const LoginForm = ({close, change})=> {
 
         const login = async ()=> {
             try{
-                const res = await userApi.post('/',data)
+                const res = await userApi.post('/login',data)
                 
                 console.log(res.data.token)
+                setUserSession(res.data)
             }
             catch(err){
                 console.log(err)
