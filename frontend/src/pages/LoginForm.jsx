@@ -43,6 +43,7 @@ const LoginForm = ({close, change})=> {
                 
                 console.log(res.data.token)
                 setUserSession(res.data)
+               
             }
             catch(err){
                 console.log(err)

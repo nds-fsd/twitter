@@ -9,6 +9,7 @@ const PublicHome = ( ) => {
 
      const [popUpRegister, setpopUpRegister] = useState(false);
      const [popUpLogin, setpopUpLogin] = useState(false);
+   
 
     
 
@@ -44,7 +45,7 @@ window.addEventListener('keydown', (e)=>{
 
     } 
 })
-
+console.log(reload);
 
     return(
         <>
@@ -64,8 +65,8 @@ window.addEventListener('keydown', (e)=>{
            </div>
           
          </div>
-         {popUpRegister&&(<RegisterForm close={()=> setpopUpRegister(!popUpRegister)} change={changeToLoginForm}/>)}
-         {popUpLogin&&(<LoginForm close={()=> setpopUpLogin(!popUpLogin)} change={changeToRegisterForm}/>)}
+         {popUpRegister&&(<RegisterForm  close={()=> setpopUpRegister(!popUpRegister)} change={changeToLoginForm}/>)}
+         {popUpLogin&&(<LoginForm  close={()=> setpopUpLogin(!popUpLogin)} change={changeToRegisterForm}/>)}
 
         </>
        

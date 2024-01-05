@@ -56,6 +56,7 @@ const RegisterForm = ({close, change})=> {
             setError(false)
             setSuccess(true)
             setUserSession(res.data)
+            
            
             
            }
