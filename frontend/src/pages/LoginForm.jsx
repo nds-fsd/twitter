@@ -37,12 +37,12 @@ const LoginForm = ({close, change})=> {
   
   
     const onSubmit = (data)=> {
-        console.log(data)
+        
 
         const login = async ()=> {
             try{
                 const res = await userApi.post('/',data)
-                console.log(res)
+                
                 console.log(res.data.token)
             }
             catch(err){

@@ -107,20 +107,15 @@ const loginUser = async (req, res) => {
 
   try{
 
-    const { mail, password} = req.body;
-
-    if (!mail || !password) return res.status(400).json({error: {login: "Missing email or password."}});
-   
+    const {mail} = req.body
     const foundUser = await User.findOne({mail});
-  
-    if(!foundUser) return res.status(400).json({error:{email:"User not found."}});
-  
-    if(!foundUser.comparePassword(password)) return res.status(400).json({error:{password:"Invalid password."}});
 
     res.status(201).json({token: foundUser.generateJWT(),
     user: {
       name: foundUser.name,
-      surname: foundUser.surname
+      surname: foundUser.surname,
+      username: foundUser.username
+      
 
     }})
 
