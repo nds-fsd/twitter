@@ -16,7 +16,7 @@ const consoleLogType = (req, res, next) => {
 const validateUser = (req, res, next) => {
  
   const {body} = req;
-  const {name, surname, birthday, username, mail, password} = body;
+  const {name, surname, birthday, username, mail, password, town} = body;
   console.log(body.mail);
   console.log(typeof body.mail)
  
