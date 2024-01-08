@@ -1,13 +1,10 @@
 import styles from './RegisterForm.module.css'
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
-import axios from 'axios';
+import { userApi } from '../usersApi/apiWrapper';
 import Swal from 'sweetalert2'
+import { setUserSession } from '../local-storage';
 
- const userApi = axios.create({
-    baseURL: 'http://localhost:3001/user/register',
-    headers: {'Content-Type': 'application/json',}
-});
 
 
 
@@ -15,8 +12,10 @@ import Swal from 'sweetalert2'
 
 const RegisterForm = ({close, change})=> {
 
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false) ;
   const [error, setError] = useState(false);
+  const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
+  const [usernameAlreadyRegistered, setUsernameAlreadyRegistered] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
   
@@ -33,28 +32,58 @@ const RegisterForm = ({close, change})=> {
 
     }
 
+
+
       
      const onSubmit = (data)=> {
       if(data.password !== data.passwordConfirm){
         setPasswordError(true)
         return;
+      }else {
+        setPasswordError(false);
       }
       let date = new Date().toDateString();
       
 
-       const createUser = async () => {
+      const createUser = async () => {
 
         try{
          
-          const res = await userApi.post('/',{...data, dateOfRegister: date} );
+          const res = await userApi.post('/register',{...data, dateOfRegister: date} );
            console.log(res)
+           console.log(res.data)
            if(res.status === 201){
+            setError(false)
             setSuccess(true)
+            setUserSession(res.data)
+            
+           
+            
            }
         } catch(error){
-          setError(true)
-          console.log(error);
-      
+          
+          console.log(error)
+          if(error.response.status !== 201 && error.response.status !== 400) setError(true)
+          
+          
+          
+          if(error.response.data.error.mail) {
+            setEmailAlreadyRegistered(true);
+          }else{
+            setEmailAlreadyRegistered(false)
+          } 
+          
+          
+          
+          if(error.response.data.error.username){
+            setUsernameAlreadyRegistered(true);
+            
+          } else {
+            setUsernameAlreadyRegistered(false)
+          }
+          
+           
+          
         }
       }
       
@@ -90,9 +119,6 @@ const RegisterForm = ({close, change})=> {
           setError(false)
           }
 
-
-
-// Hay medidas provisionales que hay que modificar, como en el primer div(los pixels)
        return(
         <div  className={styles.container} > 
           
@@ -116,6 +142,7 @@ const RegisterForm = ({close, change})=> {
                   <div> 
                   <input maxLength={30} type="text" name="" placeholder="Surname" {...register("surname", { required: true, })} />
                   {errors.surname?.type === 'required' && <p className={styles.error}>Surname is required.</p>} 
+                
                   </div>
 
                   <div className={styles.date}>
@@ -144,16 +171,18 @@ const RegisterForm = ({close, change})=> {
                     pattern: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ })} />
                     {errors.mail?.type === 'required' && <p className={styles.error}>Mail is required.</p>}
                     {errors.mail?.type === 'pattern' && <p className={styles.error}>Please, enter a valid email.</p> }
+                    {emailAlreadyRegistered&& <p className={styles.error}>Email already registered.</p>}
                   </div>
                   
-              
                  
-
+                 
+             
                 
 
                   <div>
-                    <input maxLength={20} type="text" placeholder='Username' {...register("username", { required: true })}/>
+                    <input  maxLength={20} type="text" placeholder='Username' {...register("username", { required: true })}/>
                     {errors.username?.type === 'required' && <p className={styles.error}>Username is required.</p>}
+                    {usernameAlreadyRegistered&& <p className={styles.error}>This username is not available.</p>}
                   </div>
 
                       <div>
@@ -161,17 +190,18 @@ const RegisterForm = ({close, change})=> {
                        {
                          required: true,
                          minLength: 8,
-                         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/ })} />
+                         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/ 
+                        })} />
                       {errors.password?.type === 'required' && <p className={styles.error}>Password is required.</p>}
                       {errors.password?.type === 'minLength' && <p className={styles.error}>Password must be 8 to 30 character long.</p>}
-                      {errors.password?.type === 'pattern' &&  <p style={{fontSize:'12px', color: 'red', fontWeight: 'bold'}}>
+                      {errors.password?.type === 'pattern' &&  <p style={{fontSize: '0.8rem'}} className={styles.error}>
                         Passwrod must contain one lower case,
                        one upper<br/> case, one number and one special character.</p> }
                      
                        </div>
                      
                       <div>
-                    <input maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
+                    <input onFocus={()=>setPasswordError(false)}  maxLength={30} type="password" placeholder='Confirm your password' {...register("passwordConfirm",
                     { required: true, })} />
                       {errors.passwordConfirm?.type === 'required' && <p className={styles.error}>Please, confirm your password.</p>}
                       {passwordError&& <p className={styles.error}>Passwords do not match.</p>}
