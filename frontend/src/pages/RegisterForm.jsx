@@ -12,7 +12,7 @@ import { setUserSession } from '../local-storage';
 
 const RegisterForm = ({close, change})=> {
 
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false) ;
   const [error, setError] = useState(false);
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
   const [usernameAlreadyRegistered, setUsernameAlreadyRegistered] = useState(false);
