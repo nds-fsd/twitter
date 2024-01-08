@@ -2,7 +2,7 @@ import styles from "./LoginForm.module.css";
 import { useForm } from "react-hook-form";
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { userApi } from "../usersApi/apiWrapper";
+import { userApi } from "../apis/apiWrapper";
 import { setUserSession } from "../local-storage";
 
 const LoginForm = ({ close, change }) => {

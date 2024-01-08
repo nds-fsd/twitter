@@ -1,122 +1,102 @@
-*{
-    color: rgb(0, 0, 0);
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    
+* {
+  color: rgb(0, 0, 0);
+  margin: 0;
+  padding: 0;
+  user-select: none;
 }
-.container{ 
-   background-color: black;
-   padding-top: 1rem;
-   padding-right: 2rem;
-   padding-left: 2rem;
-   padding-bottom: 2rem;
-   position: absolute;
-   /* border: 2px solid red; */
-   top: 27%;
-   left: 50%;
-   width: 300px;
-   min-height: 25rem;
-   margin-top: -75px;
-   margin-left: -150px;
-   border-radius: 40px;
-   user-select: none;
-}
-
-
-
-h2{
-    color: white;
-    font-weight: bold;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    user-select: none;
+.container {
+  background-color: black;
+  padding-top: 1rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  padding-bottom: 2rem;
+  position: absolute;
+  /* border: 2px solid red; */
+  top: 27%;
+  left: 50%;
+  width: 300px;
+  min-height: 25rem;
+  margin-top: -75px;
+  margin-left: -150px;
+  border-radius: 40px;
+  user-select: none;
 }
 
-
-.date > label{
-    color: white;
-    display: block;
-    user-select: none;
-
+h2 {
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  user-select: none;
 }
 
-form > div{
-
-    margin-top: 1rem;
-   user-select: none;
+.date > label {
+  color: white;
+  display: block;
+  user-select: none;
 }
 
-
-input{
-    padding-left: 0.3rem;
-    color: black;
-    width: 18rem;
-    height: 2rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    user-select: none;
-    
-    
-
-}
-input::placeholder{
-    color: #c72812;
-    user-select: none;
+form > div {
+  margin-top: 1rem;
+  user-select: none;
 }
 
-header{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2.5rem;
-    font-weight: bold;
-    user-select: none;
+input {
+  padding-left: 0.3rem;
+  color: black;
+  width: 18rem;
+  height: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  user-select: none;
 }
-.x{
-    font-size: 1.2rem;
-    color: white;
-    font-weight: bold;
-    user-select: none;
-    cursor: pointer;
-   
-    
+input::placeholder {
+  color: #c72812;
+  user-select: none;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  font-weight: bold;
+  user-select: none;
+}
+.x {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+}
 
 .submit {
-    text-align: center;
-    color: black;
-    border-radius: 3rem;
-    width: 18rem;
-    height: 3.4rem;
-    font-size: 1.6rem;
-    cursor: pointer;
-    background-color:  #858585;
-    user-select: none;
-    font-weight: bold;
+  text-align: center;
+  color: black;
+  border-radius: 3rem;
+  width: 18rem;
+  height: 3.4rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  background-color: #858585;
+  user-select: none;
+  font-weight: bold;
 }
-footer{
-    margin-left: 1rem;
-    font-size: 0.9rem;
-    user-select: none;
-    margin-top: 0.8rem;
-}
-
-
-.error{
-    
-   
-   margin-bottom: 1rem;
+footer {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  user-select: none;
+  margin-top: 0.8rem;
 }
 
+.error {
+  margin-bottom: 1rem;
+}
 
-
-
-
-.errorSubmit{
-    margin-top: 20rem;
-    margin-left: 20rem;
-    font-size: 2rem;
-    color: red;
-    user-select: none;
+.errorSubmit {
+  margin-top: 20rem;
+  margin-left: 20rem;
+  font-size: 2rem;
+  color: red;
+  user-select: none;
 }
