@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
-require('dotenv').config()
+require("dotenv").config();
 
-
-require('dotenv').config()
-console.log( process.env.MONGO_URL)
-
-
+require("dotenv").config();
+console.log(process.env.MONGO_URL);
 
 let dbUrl = process.env.MONGO_URL;
 

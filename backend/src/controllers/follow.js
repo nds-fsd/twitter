@@ -40,7 +40,9 @@ const updateFollow = async (req, res) => {
     const followFound = await Follow.findById(id);
     if (followFound) {
       const body = req.body;
-      const followUpdated = await Follow.findByIdAndUpdate(id, body, { new: true });
+      const followUpdated = await Follow.findByIdAndUpdate(id, body, {
+        new: true,
+      });
       res.status(201).json(followUpdated);
     } else {
       res.status(404).json({ error: "Follow no encontrado" });
