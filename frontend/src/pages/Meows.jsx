@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { meowApi } from "../apis/apiWrapper";
-import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
+import { meowApi } from "../meowsApi/apiiWrapper";
+import { postMeow, updateMeow, deleteMeow } from "../meowsApi/meowsRequests";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
 
