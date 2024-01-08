@@ -19,20 +19,20 @@ function App() {
       <div className={styles.centerContainer}>
         <div className={styles.mainContainer}>
           <div className={styles.navbar}>
-            <Navbar />
+            {/* <Navbar /> */}
           </div>
           <div>
             {/* <MeowsFilter />
             {/* <PostForm />
             <Meows /> */}
-            <UserProfile />
+            {/* <Profile /> */}
             {/* <VistaUnMeow /> */}
             {/* <RegisterForm /> */}
           </div>
           <div className={styles.right}>
-            <Buscador />
+            {/* <Buscador />
             <WhoToFollow />
-            <Hashtag />
+            <Hashtag /> */}
           </div>
         </div>
       </div>

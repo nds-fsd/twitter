@@ -104,10 +104,8 @@ footer{
 
 
 .error{
-    color: red;
-    font-size: 0.8rem;
-   font-weight: bold;
-   user-select: none;
+    
+   
    margin-bottom: 1rem;
 }
 

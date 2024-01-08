@@ -36,11 +36,26 @@
     text-align: center;
     color: black;
     border-radius: 3rem;
-    width: 18rem;
+    width: 20.5rem;
     height: 3.4rem;
     font-size: 1.6rem;
     cursor: pointer;
     background-color:  #858585;
     user-select: none;
     font-weight: bold;
+}
+
+.notValid{
+    text-align: center;
+    color: rgb(0, 0, 0);
+    border-radius: 3rem;
+    width: 20.5rem;
+    height: 3.4rem;
+    font-size: 1.6rem;
+    background-color:  #e7e1e1;
+    user-select: none;
+    font-weight: bold;
+    cursor:not-allowed;
+    opacity: 0.3;
+
 }
