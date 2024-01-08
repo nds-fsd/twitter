@@ -11,16 +11,13 @@ import UserProfile from "./pages/UserProfile";
 import MeowsFilter from "./components/MeowsFilter";
 import PublicHome from "./pages/Public-home";
 
-
 function App() {
   return (
     <div>
-      {/* <PublicHome></PublicHome> */}
+      <PublicHome></PublicHome>
       <div className={styles.centerContainer}>
         <div className={styles.mainContainer}>
-          <div className={styles.navbar}>
-            {/* <Navbar /> */}
-          </div>
+          <div className={styles.navbar}>{/* <Navbar /> */}</div>
           <div>
             {/* <MeowsFilter />
             {/* <PostForm />

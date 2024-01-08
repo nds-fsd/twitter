@@ -1,7 +1,7 @@
 import styles from "./RegisterForm.module.css";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
-import { userApi } from "../usersApi/apiWrapper";
+import { userApi } from "../apis/apiWrapper";
 import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
 

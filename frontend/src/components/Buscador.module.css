@@ -1,23 +1,23 @@
 .search {
-    position: fixed;
-    width: 23%;
-    height: 60px;
-    background-color: black;
-    padding-top: 10px;
+  position: fixed;
+  width: 23%;
+  height: 60px;
+  background-color: black;
+  padding-top: 10px;
 }
 
 .buscador {
-    background-color: #222222;
-    border: none;
-    border-radius: 20px;
-    height: 40px;
-    width: 90%;
-    padding-left: 25px;
-    font-size: 15px;
+  background-color: #222222;
+  border: none;
+  border-radius: 20px;
+  height: 40px;
+  width: 90%;
+  padding-left: 25px;
+  font-size: 15px;
 }
 
 .buscador::placeholder {
-    color: white;
-    font-size: 15px;
-    font-weight: lighter;
+  color: white;
+  font-size: 15px;
+  font-weight: lighter;
 }

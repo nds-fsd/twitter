@@ -20,14 +20,12 @@ const validateUser = async (req, res, next) => {
   const userNameError = await User.findOne({ username: username });
 
   if (userMailError && userNameError)
-    return res
-      .status(400)
-      .json({
-        error: {
-          mail: "Email already registered",
-          username: "Username already registered",
-        },
-      });
+    return res.status(400).json({
+      error: {
+        mail: "Email already registered",
+        username: "Username already registered",
+      },
+    });
   if (userNameError)
     return res
       .status(400)
@@ -52,12 +50,10 @@ const validateUser = async (req, res, next) => {
   }
 
   if (!password.match(patternPassword)) {
-    return res
-      .status(400)
-      .json({
-        message:
-          "Password must be 8 to 30 character long, contain one lower case, one upper case, one number and one special character.",
-      });
+    return res.status(400).json({
+      message:
+        "Password must be 8 to 30 character long, contain one lower case, one upper case, one number and one special character.",
+    });
   }
 
   next();
