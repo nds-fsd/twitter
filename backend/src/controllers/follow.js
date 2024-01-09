@@ -11,10 +11,10 @@ const followUser = async (req, res) => {
     });
   }
 
-  // const currentUser = await User.findOne({ id: req.user.id });
+  const currentUser = await User.findOne({ id: req.user.id });
   const follow = new Follow({
     following: user.id,
-    follower: user.id, // currentUser.id,
+    follower: currentUser.id, // user.id,
   });
 
   await follow.save();
