@@ -10,30 +10,44 @@ import Buscador from "./components/Buscador";
 import Profile from "./pages/Profile";
 import MeowsFilter from "./components/MeowsFilter";
 import PublicHome from "./pages/Public-home";
+import { getUserToken } from "./local-storage";
+import {
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from "react-router-dom";
 
 function App() {
+  const isLogged = !!getUserToken();
+
   return (
-    <div>
-      <PublicHome></PublicHome>
-      <div className={styles.centerContainer}>
-        <div className={styles.mainContainer}>
-          <div className={styles.navbar}>{/* <Navbar /> */}</div>
-          <div>
-            {/* <MeowsFilter />
+    <>
+      {!isLogged && <PublicHome />}
+      <Routes>
+        <Route path="/home" element={<Meows />} />
+
+        <div>
+          <div className={styles.centerContainer}>
+            <div className={styles.mainContainer}>
+              <div className={styles.navbar}>{/* <Navbar /> */}</div>
+              <div>
+                {/* <MeowsFilter />
             {/* <PostForm />
             <Meows /> */}
-            {/* <Profile /> */}
-            {/* <VistaUnMeow /> */}
-            {/* <RegisterForm /> */}
-          </div>
-          <div className={styles.right}>
-            {/* <Buscador />
+                {/* <Profile /> */}
+                {/* <VistaUnMeow /> */}
+              </div>
+              <div className={styles.right}>
+                {/* <Buscador />
             <WhoToFollow />
             <Hashtag /> */}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </Routes>
+    </>
   );
 }
 
