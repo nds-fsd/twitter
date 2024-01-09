@@ -20,34 +20,40 @@ import {
 
 function App() {
   const isLogged = !!getUserToken();
-
+  console.log(isLogged);
   return (
-    <>
+    <div>
       {!isLogged && <PublicHome />}
-      <Routes>
-        <Route path="/home" element={<Meows />} />
-
-        <div>
-          <div className={styles.centerContainer}>
-            <div className={styles.mainContainer}>
-              <div className={styles.navbar}>{/* <Navbar /> */}</div>
-              <div>
-                {/* <MeowsFilter />
-            {/* <PostForm />
-            <Meows /> */}
-                {/* <Profile /> */}
-                {/* <VistaUnMeow /> */}
-              </div>
-              <div className={styles.right}>
-                {/* <Buscador />
+      {isLogged && (
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className={styles.centerContainer}>
+                <div className={styles.mainContainer}>
+                  <div className={styles.navbar}>
+                    <Navbar />
+                  </div>
+                  <div>
+                    <MeowsFilter />
+                    <PostForm />
+                    <Meows />
+                    {/* <Profile />
+                    {/* <VistaUnMeow /> */}
+                    {/* <RegisterForm /> */}
+                  </div>
+                  <div className={styles.right}>
+                    {/* <Buscador />
             <WhoToFollow />
             <Hashtag /> */}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </Routes>
-    </>
+            }
+          />
+        </Routes>
+      )}
+    </div>
   );
 }
 
