@@ -11,23 +11,20 @@ import Profile from "./pages/Profile";
 import MeowsFilter from "./components/MeowsFilter";
 import PublicHome from "./pages/Public-home";
 import { getUserToken } from "./local-storage";
-import {
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-} from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
+import { useState } from "react";
 
 function App() {
   const isLogged = !!getUserToken();
-  console.log(isLogged);
+  const [reload, setReload] = useState(false);
+  const reloadPage = () => setReload(!reload);
   return (
     <div>
       {!isLogged && <PublicHome />}
       {isLogged && (
         <Routes>
           <Route
-            path="/"
+            path="/home"
             element={
               <div className={styles.centerContainer}>
                 <div className={styles.mainContainer}>
@@ -38,14 +35,11 @@ function App() {
                     <MeowsFilter />
                     <PostForm />
                     <Meows />
-                    {/* <Profile />
-                    {/* <VistaUnMeow /> */}
-                    {/* <RegisterForm /> */}
                   </div>
                   <div className={styles.right}>
-                    {/* <Buscador />
-            <WhoToFollow />
-            <Hashtag /> */}
+                    <Buscador />
+                    <WhoToFollow />
+                    <Hashtag />
                   </div>
                 </div>
               </div>

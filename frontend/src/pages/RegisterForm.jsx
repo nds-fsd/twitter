@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { userApi } from "../apis/apiWrapper";
 import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
+import { Link } from "react-router-dom";
 
 const RegisterForm = ({ close, change }) => {
   const [success, setSuccess] = useState(false);
