@@ -1,4 +1,4 @@
-import styles from "./Who-to-follow.module.css";
+import styles from "./WhoToFollow.module.css";
 import image from "../assets/Elon-Musk.jpg";
 
 function WhoToFollow() {
