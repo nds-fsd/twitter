@@ -18,36 +18,33 @@ function App() {
   const isLogged = !!getUserToken();
   const [reload, setReload] = useState(false);
   const reloadPage = () => setReload(!reload);
+
+  if (!isLogged) return <PublicHome reloadPage={reloadPage} />;
   return (
-    <div>
-      {!isLogged && <PublicHome reloadPage={reloadPage} />}
-      {isLogged && (
-        <Routes>
-          <Route
-            path="/home"
-            element={
-              <div className={styles.centerContainer}>
-                <div className={styles.mainContainer}>
-                  <div className={styles.navbar}>
-                    <Navbar />
-                  </div>
-                  <div>
-                    <MeowsFilter />
-                    <PostForm />
-                    <Meows />
-                  </div>
-                  <div className={styles.right}>
-                    <Buscador />
-                    <WhoToFollow />
-                    <Hashtag />
-                  </div>
-                </div>
+    <Routes>
+      <Route
+        path="/home"
+        element={
+          <div className={styles.centerContainer}>
+            <div className={styles.mainContainer}>
+              <div className={styles.navbar}>
+                <Navbar />
               </div>
-            }
-          />
-        </Routes>
-      )}
-    </div>
+              <div>
+                <MeowsFilter />
+                <PostForm />
+                <Meows />
+              </div>
+              <div className={styles.right}>
+                <Buscador />
+                <WhoToFollow />
+                <Hashtag />
+              </div>
+            </div>
+          </div>
+        }
+      />
+    </Routes>
   );
 }
 
