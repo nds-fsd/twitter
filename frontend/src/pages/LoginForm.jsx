@@ -4,8 +4,9 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { userApi } from "../apis/apiWrapper";
 import { setUserSession } from "../local-storage";
+import { Navigate } from "react-router-dom";
 
-const LoginForm = ({ close, change }) => {
+const LoginForm = ({ close, change, reloadPage }) => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
   const [serverError, setServerError] = useState(false);
@@ -30,6 +31,7 @@ const LoginForm = ({ close, change }) => {
 
         console.log(res.data.token);
         setUserSession(res.data);
+        reloadPage();
       } catch (err) {
         console.log(err);
         if (err.response.status !== 201 && err.response.status !== 400)

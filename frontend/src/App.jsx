@@ -20,7 +20,7 @@ function App() {
   const reloadPage = () => setReload(!reload);
   return (
     <div>
-      {!isLogged && <PublicHome />}
+      {!isLogged && <PublicHome reloadPage={reloadPage} />}
       {isLogged && (
         <Routes>
           <Route
