@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 import RegisterForm from "./pages/RegisterForm";
 import Hashtag from "./components/Hashtags";
-import WhoToFollow from "./components/Who-to-follow";
+import WhoToFollow from "./components/WhoToFollow";
 import VistaUnMeow from "./pages/VistaUnMeow";
 import Meows from "./pages/Meows";
 import PostForm from "./pages/Post-form";
@@ -9,7 +9,7 @@ import styles from "./App.module.css";
 import Buscador from "./components/Buscador";
 import Profile from "./pages/Profile";
 import MeowsFilter from "./components/MeowsFilter";
-import PublicHome from "./pages/Public-home";
+import PublicHome from "./pages/PublicHome";
 
 function App() {
   return (
