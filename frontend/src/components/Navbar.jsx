@@ -9,8 +9,10 @@ import square from "../assets/square.png";
 import usuario from "../assets/usuario.png";
 import user from "../assets/user.png";
 import cat from "../assets/Cat.png";
+import { removeSession } from "../local-storage";
+import { Navigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ reload }) {
   return (
     <div className={styles.container}>
       <img className={styles.logo} src={cat} alt="logo" />
@@ -38,6 +40,16 @@ function Navbar() {
         <div>
           <p>Name Surname</p>
           <p>@Account_Name</p>
+          <button
+            style={{ width: "66px", height: "37px", fontSize: "1rem" }}
+            onClick={() => {
+              removeSession();
+              <Navigate to="/"></Navigate>;
+              reload();
+            }}
+          >
+            Logut
+          </button>
         </div>
       </div>
     </div>
