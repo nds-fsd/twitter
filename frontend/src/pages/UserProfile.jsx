@@ -22,7 +22,7 @@ function UserProfile() {
 
   useEffect(() => {
     userApi
-      .get("/658e14be4b1f539a5b605292")
+      .get("/659bf23e22abbb7aa768b269")
       .then((response) => {
         const user = response.data;
         setName(user.name);
@@ -36,7 +36,7 @@ function UserProfile() {
         console.error(error);
       });
     followApi
-      .get("/658e14be4b1f539a5b605292")
+      .get("/659bf23e22abbb7aa768b269")
       .then((response) => {
         const user = response.data;
         setPostsCount(user.postsCount);

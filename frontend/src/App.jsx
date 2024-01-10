@@ -4,7 +4,7 @@ import Hashtag from "./components/Hashtags";
 import WhoToFollow from "./components/WhoToFollow";
 import VistaUnMeow from "./pages/VistaUnMeow";
 import Meows from "./pages/Meows";
-import PostForm from "./pages/Post-form";
+import PostForm from "./pages/PostForm";
 import Buscador from "./components/Buscador";
 import UserProfile from "./pages/UserProfile";
 import MeowsFilter from "./components/MeowsFilter";
