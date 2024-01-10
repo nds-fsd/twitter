@@ -29,10 +29,9 @@ function App() {
   return (
     <>
       <context.Provider value={{ setIsLogged }}>
-        <Navigate to="/home"></Navigate>
         <Routes>
           <Route
-            path="/home"
+            path="/"
             element={
               <div className={styles.centerContainer}>
                 <div className={styles.mainContainer}>

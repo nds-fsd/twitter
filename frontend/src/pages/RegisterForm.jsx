@@ -1,13 +1,12 @@
 import styles from "./RegisterForm.module.css";
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { userApi } from "../apis/apiWrapper";
 import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
-import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { context } from "../App";
 
-const RegisterForm = ({ close, change, reloadPage }) => {
+const RegisterForm = ({ close, change }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
@@ -15,6 +14,7 @@ const RegisterForm = ({ close, change, reloadPage }) => {
     useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
+  const reloadPage = useContext(context);
 
   const {
     watch,
@@ -81,8 +81,7 @@ const RegisterForm = ({ close, change, reloadPage }) => {
       confirmButtonColor: "#00A9A5",
     });
     if (success) {
-      <Navigate to="/home" />;
-      reloadPage();
+      reloadPage.setIsLogged(true);
     }
   }
 

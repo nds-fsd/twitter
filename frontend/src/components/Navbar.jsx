@@ -10,7 +10,6 @@ import usuario from "../assets/usuario.png";
 import user from "../assets/user.png";
 import cat from "../assets/Cat.png";
 import { removeSession } from "../local-storage";
-import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { context } from "../App";
 
@@ -48,7 +47,6 @@ function Navbar() {
             style={{ width: "66px", height: "37px", fontSize: "1rem" }}
             onClick={() => {
               removeSession();
-              <Navigate to="/"></Navigate>;
               reloadPage.setIsLogged(false);
             }}
           >
