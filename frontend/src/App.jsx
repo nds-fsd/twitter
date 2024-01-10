@@ -12,44 +12,49 @@ import MeowsFilter from "./components/MeowsFilter";
 import PublicHome from "./pages/Public-home";
 import { getUserToken } from "./local-storage";
 import { Link, Route, Routes, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, createContext } from "react";
+export const context = createContext();
 
 function App() {
-  const isLogged = !!getUserToken();
-  const [reload, setReload] = useState(false);
-  const reloadPage = () => setReload(!reload);
+  const [isLogged, setIsLogged] = useState(!!getUserToken());
 
   if (!isLogged) {
-    return <PublicHome reloadPage={reloadPage} />;
+    return (
+      <context.Provider value={{ setIsLogged }}>
+        <PublicHome />;
+      </context.Provider>
+    );
   }
 
   return (
     <>
-      <Navigate to="/home"></Navigate>
-      <Routes>
-        <Route
-          path="/home"
-          element={
-            <div className={styles.centerContainer}>
-              <div className={styles.mainContainer}>
-                <div className={styles.navbar}>
-                  <Navbar reload={reloadPage} />
-                </div>
-                <div>
-                  <MeowsFilter />
-                  <PostForm />
-                  <Meows />
-                </div>
-                <div className={styles.right}>
-                  <Buscador />
-                  <WhoToFollow />
-                  <Hashtag />
+      <context.Provider value={{ setIsLogged }}>
+        <Navigate to="/home"></Navigate>
+        <Routes>
+          <Route
+            path="/home"
+            element={
+              <div className={styles.centerContainer}>
+                <div className={styles.mainContainer}>
+                  <div className={styles.navbar}>
+                    <Navbar />
+                  </div>
+                  <div>
+                    <MeowsFilter />
+                    <PostForm />
+                    <Meows />
+                  </div>
+                  <div className={styles.right}>
+                    <Buscador />
+                    <WhoToFollow />
+                    <Hashtag />
+                  </div>
                 </div>
               </div>
-            </div>
-          }
-        />
-      </Routes>
+            }
+          />
+        </Routes>
+      </context.Provider>
     </>
   );
 }

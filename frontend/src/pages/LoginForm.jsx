@@ -1,16 +1,19 @@
 import styles from "./LoginForm.module.css";
 import { useForm } from "react-hook-form";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { userApi } from "../apis/apiWrapper";
 import { setUserSession } from "../local-storage";
 import { Navigate } from "react-router-dom";
+import { context } from "../App";
+import { useContext } from "react";
 
-const LoginForm = ({ close, change, reloadPage }) => {
+const LoginForm = ({ close, change }) => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
   const [serverError, setServerError] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const reloadPage = useContext(context);
 
   const {
     register,
@@ -28,10 +31,9 @@ const LoginForm = ({ close, change, reloadPage }) => {
     const login = async () => {
       try {
         const res = await userApi.post("/login", data);
-
         console.log(res.data.token);
         setUserSession(res.data);
-        reloadPage();
+        reloadPage.setIsLogged(true);
       } catch (err) {
         console.log(err);
         if (err.response.status !== 201 && err.response.status !== 400)
