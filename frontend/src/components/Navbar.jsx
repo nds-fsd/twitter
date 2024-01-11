@@ -44,7 +44,12 @@ function Navbar() {
           <p>Name Surname</p>
           <p>@Account_Name</p>
           <button
-            style={{ width: "66px", height: "37px", fontSize: "1rem" }}
+            style={{
+              width: "60px",
+              height: "30px",
+              fontSize: "13px",
+              marginTop: "5px",
+            }}
             onClick={() => {
               removeSession();
               reloadPage.setIsLogged(false);
