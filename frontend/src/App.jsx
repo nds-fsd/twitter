@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import RegisterForm from "./pages/RegisterForm";
+import HomePage from "./pages/HomePage";
 import Hashtag from "./components/Hashtags";
 import WhoToFollow from "./components/Who-to-follow";
 import VistaUnMeow from "./pages/VistaUnMeow";
@@ -11,8 +11,8 @@ import Profile from "./pages/Profile";
 import MeowsFilter from "./components/MeowsFilter";
 import PublicHome from "./pages/Public-home";
 import { getUserToken } from "./local-storage";
-import { Link, Route, Routes, Navigate } from "react-router-dom";
-import { useState, createContext } from "react";
+import { Link, Route, Routes, Navigate, Outlet } from "react-router-dom";
+import { useState, createContext, useEffect } from "react";
 export const context = createContext();
 
 function App() {
@@ -30,28 +30,9 @@ function App() {
     <>
       <context.Provider value={{ setIsLogged }}>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <div className={styles.centerContainer}>
-                <div className={styles.mainContainer}>
-                  <div className={styles.navbar}>
-                    <Navbar />
-                  </div>
-                  <div>
-                    <MeowsFilter />
-                    <PostForm />
-                    <Meows />
-                  </div>
-                  <div className={styles.right}>
-                    <Buscador />
-                    <WhoToFollow />
-                    <Hashtag />
-                  </div>
-                </div>
-              </div>
-            }
-          />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/user/:username" element={<Profile />} />
+          <Route path="/meow/:id" element={<HomePage />} />
         </Routes>
       </context.Provider>
     </>
