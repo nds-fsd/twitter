@@ -22,7 +22,7 @@ const HomePage = () => {
           <MeowsFilter />
           <PostForm />
           {!id && <Meows />}
-          {id && <VistaUnMeow></VistaUnMeow>}
+          {id && <VistaUnMeow />}
         </div>
         <div className={styles.right}>
           <Buscador />

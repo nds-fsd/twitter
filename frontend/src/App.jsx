@@ -21,6 +21,7 @@ function App() {
   if (!isLogged) {
     return (
       <context.Provider value={{ setIsLogged }}>
+        <Navigate to="/" />
         <PublicHome />;
       </context.Provider>
     );
