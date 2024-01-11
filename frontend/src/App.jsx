@@ -26,7 +26,6 @@ function App() {
       </context.Provider>
     );
   }
-
   return (
     <>
       <context.Provider value={{ setIsLogged }}>
