@@ -10,7 +10,7 @@ import VistaUnMeow from "./VistaUnMeow";
 import { useParams } from "react-router-dom";
 
 const HomePage = () => {
-  const { id } = useParams();
+  const { id, username } = useParams();
 
   return (
     <div className={styles.centerContainer}>
