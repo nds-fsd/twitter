@@ -19,9 +19,9 @@ const HomePage = () => {
           <Navbar />
         </div>
         <div>
-          <MeowsFilter />
-          <PostForm />
+          {!id && <PostForm />}
           {!id && <Meows />}
+          {id && <MeowsFilter />}
           {id && <VistaUnMeow />}
         </div>
         <div className={styles.right}>
