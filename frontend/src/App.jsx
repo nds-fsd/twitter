@@ -1,4 +1,3 @@
-import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import Hashtag from "./components/Hashtags";
 import WhoToFollow from "./components/Who-to-follow";
@@ -11,15 +10,8 @@ import Profile from "./pages/Profile";
 import MeowsFilter from "./components/MeowsFilter";
 import PublicHome from "./pages/Public-home";
 import { getUserToken } from "./local-storage";
-import {
-  Link,
-  Route,
-  Routes,
-  Navigate,
-  Outlet,
-  redirect,
-} from "react-router-dom";
-import { useState, createContext, useEffect } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useState, createContext } from "react";
 export const context = createContext();
 
 function App() {
