@@ -7,11 +7,9 @@ import Buscador from "../components/Buscador";
 import WhoToFollow from "../components/Who-to-follow";
 import Hashtag from "../components/Hashtags";
 import VistaUnMeow from "./VistaUnMeow";
-import { useParams } from "react-router-dom";
+import { useParams, Outlet } from "react-router-dom";
 
 const HomePage = () => {
-  const { id, username } = useParams();
-
   return (
     <div className={styles.centerContainer}>
       <div className={styles.mainContainer}>
@@ -19,10 +17,7 @@ const HomePage = () => {
           <Navbar />
         </div>
         <div>
-          {!id && <PostForm />}
-          {!id && <Meows />}
-          {id && <MeowsFilter />}
-          {id && <VistaUnMeow />}
+          <Outlet></Outlet>
         </div>
         <div className={styles.right}>
           <Buscador />
