@@ -12,22 +12,10 @@ import { useParams, Outlet } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div className={styles.centerContainer}>
-      <div className={styles.mainContainer}>
-        <div className={styles.navbar}>
-          <Navbar />
-        </div>
-        <div>
-          <MeowsFilter />
-          <PostForm />
-          <Meows />
-        </div>
-        <div className={styles.right}>
-          <Buscador />
-          <WhoToFollow />
-          <Hashtag />
-        </div>
-      </div>
+    <div>
+      <MeowsFilter />
+      <PostForm />
+      <Meows />
     </div>
   );
 };
