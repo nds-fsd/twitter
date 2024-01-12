@@ -31,7 +31,7 @@ const LoginForm = ({ close, change }) => {
     const login = async () => {
       try {
         const res = await userApi.post("/login", data);
-        console.log(res.data.token);
+
         setUserSession(res.data);
         reloadPage.setIsLogged(true);
       } catch (err) {

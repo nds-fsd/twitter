@@ -1,4 +1,5 @@
 import HomePage from "./pages/HomePage";
+import Navbar from "./components/Navbar";
 import Hashtag from "./components/Hashtags";
 import WhoToFollow from "./components/Who-to-follow";
 import VistaUnMeow from "./pages/VistaUnMeow";
@@ -17,29 +18,61 @@ export const context = createContext();
 function App() {
   const [isLogged, setIsLogged] = useState(!!getUserToken());
 
+  if (!isLogged) {
+    return (
+      <context.Provider value={{ setIsLogged }}>
+        <PublicHome />
+      </context.Provider>
+    );
+  }
+
   return (
     <>
-      {!isLogged && <Navigate to="/" />}
       <context.Provider value={{ setIsLogged }}>
         <Routes>
-          <Route
-            path="/"
-            element={isLogged ? <Navigate to="/home" /> : <PublicHome />}
-          ></Route>
+          <Route path="/" element={<Navigate to="/home" />} />
 
-          <Route path="/home" element={<HomePage />}>
-            <Route
-              path="/home"
-              element={
-                <>
-                  <PostForm></PostForm>
-                  <Meows />
-                </>
-              }
-            />
-            <Route path="user/:username" element={<Profile />} />
-            <Route path="meow/:id" element={<VistaUnMeow />} />
-          </Route>
+          <Route path="/home" element={<HomePage />} />
+          <Route
+            path="/meow/:id"
+            element={
+              <div className={styles.centerContainer}>
+                <div className={styles.mainContainer}>
+                  <div className={styles.navbar}>
+                    <Navbar />
+                  </div>
+                  <div>
+                    <VistaUnMeow />
+                  </div>
+                  <div className={styles.right}>
+                    <Buscador />
+                    <WhoToFollow />
+                    <Hashtag />
+                  </div>
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="user/:username"
+            element={
+              <div className={styles.centerContainer}>
+                <div className={styles.mainContainer}>
+                  <div className={styles.navbar}>
+                    <Navbar />
+                  </div>
+                  <div>
+                    <Profile />
+                  </div>
+                  <div className={styles.right}>
+                    <Buscador />
+                    <WhoToFollow />
+                    <Hashtag />
+                  </div>
+                </div>
+              </div>
+            }
+          />
         </Routes>
       </context.Provider>
     </>

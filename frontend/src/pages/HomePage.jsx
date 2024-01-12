@@ -1,5 +1,6 @@
 import styles from "../App.module.css";
 import Navbar from "../components/Navbar";
+
 import MeowsFilter from "../components/MeowsFilter";
 import PostForm from "./Post-form";
 import Meows from "./Meows";
@@ -17,7 +18,9 @@ const HomePage = () => {
           <Navbar />
         </div>
         <div>
-          <Outlet></Outlet>
+          <MeowsFilter />
+          <PostForm />
+          <Meows />
         </div>
         <div className={styles.right}>
           <Buscador />
