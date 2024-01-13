@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import Hashtag from "./Hashtags";
 import WhoToFollow from "./Who-to-follow";
-import styles from "../App.module.css";
+import styles from "./AppLayout.module.css";
 import Buscador from "./Buscador";
 
 function AppLayout({ children }) {

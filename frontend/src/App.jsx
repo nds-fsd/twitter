@@ -5,7 +5,7 @@ import WhoToFollow from "./components/Who-to-follow";
 import VistaUnMeow from "./pages/VistaUnMeow";
 import Meows from "./pages/Meows";
 import PostForm from "./pages/Post-form";
-import styles from "./App.module.css";
+
 import Buscador from "./components/Buscador";
 import Profile from "./pages/Profile";
 import MeowsFilter from "./components/MeowsFilter";
