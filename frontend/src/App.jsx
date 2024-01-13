@@ -33,7 +33,6 @@ function App() {
         <AppLayout>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
-
             <Route path="/home" element={<HomePage />} />
             <Route path="/meow/:id" element={<VistaUnMeow />} />
             <Route path="user/:username" element={<Profile />} />
