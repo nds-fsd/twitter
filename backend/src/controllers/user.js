@@ -1,7 +1,5 @@
 const express = require("express");
 const User = require("../schemas/user");
-const jwt = require("jsonwebtoken");
-const secret = process.env.JWT_SECRET;
 
 const getAllUsers = async (req, res) => {
   try {
@@ -73,6 +71,7 @@ const loginUser = async (req, res) => {
         name: foundUser.name,
         surname: foundUser.surname,
         username: foundUser.username,
+        id: foundUser._id,
       },
     });
   } catch (error) {

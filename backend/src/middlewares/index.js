@@ -14,7 +14,7 @@ const consoleLogType = (req, res, next) => {
 
 const validateUser = async (req, res, next) => {
   const { body } = req;
-  const { name, surname, birthday, username, mail, password, town } = body;
+  const { name, surname, birthday, username, mail, password } = body;
 
   const userMailError = await User.findOne({ mail: mail });
   const userNameError = await User.findOne({ username: username });
@@ -83,7 +83,7 @@ const validateLogin = async (req, res, next) => {
 // ----------------------------------------Validate Token------------------------------------------------------------
 
 const validateToken = (req, res, next) => {
-  const authHeader = req.headers("authoritation");
+  const authHeader = req.headers["authoritation"];
   if (!authHeader)
     return res.status(401).json({ error: "Unauthorized MISSING HEADER" });
 

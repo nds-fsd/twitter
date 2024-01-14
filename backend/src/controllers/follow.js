@@ -3,19 +3,40 @@ const User = require("../schemas/user");
 
 const followUser = async (req, res) => {
   const username = req.body.username;
-  const user = await User.findOne({ username });
+  const followerId = req.jwtPayload.userId;
+  const follower = await User.findById(followerId);
 
-  if (!user) {
+  if (!follower) {
+    return res.status(401).json({
+      error: "Usuario no autenticado o no existe",
+    });
+  }
+
+  const followed = await User.findOne({ username });
+
+  if (!followed) {
     return res.status(404).json({
       error: "El usuario no existe",
     });
   }
 
-  const currentUser = await User.findOne({ id: req.user.id });
   const follow = new Follow({
-    following: user.id,
-    follower: currentUser.id, // user.id,
+    followed: followed.id,
+    follower: follower.id,
   });
+
+  // if (!user) {
+  //   return res.status(404).json({
+  //     error: "El usuario no existe",
+  //   });
+  // }
+
+  // //const currentUser = await User.findOne({ id: req.user.id });
+  // const follow = new Follow({
+  //   followed: user.id,
+  //   follower: user.id,
+  //   //currentUser.id, // user.id,
+  // });
 
   await follow.save();
   return res.status(200).json({
@@ -35,7 +56,7 @@ const unfollowUser = async (req, res) => {
 
   // const currentUser = await User.findOne({ id: req.user.id });
   const follow = await Follow.findOne({
-    following: user.id,
+    followed: user.id,
     follower: user.id, // currentUser.id,
   });
 

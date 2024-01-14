@@ -6,7 +6,7 @@ import calendar from "../assets/calendar.png";
 import backgroundProfile from "../assets/backgroundProfile.jpeg";
 import Meows from "./Meows";
 import TabsProfile from "../components/TabsProfile";
-import { followApi, userApi } from "../apis/apiWrapper";
+import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
 
 function UserProfile() {
@@ -16,13 +16,13 @@ function UserProfile() {
   const [description, setDescription] = useState("");
   const [town, setTown] = useState("");
   const [dateOfRegister, setDateOfRegister] = useState("");
-  const [postsCount, setPostsCount] = useState(0);
-  const [followingCount, setFollowingCount] = useState(0);
-  const [followedByCount, setFollowedByCount] = useState(0);
+  const [meowCounter, setMeowCounter] = useState(0);
+  const [followingCounter, setFollowingCounter] = useState(0);
+  const [followerCounter, setFollowerCounter] = useState(0);
 
   useEffect(() => {
     userApi
-      .get("/659bf23e22abbb7aa768b269")
+      .get("/65a41812a546c9ba641f7422")
       .then((response) => {
         const user = response.data;
         setName(user.name);
@@ -31,17 +31,9 @@ function UserProfile() {
         setDescription(user.description);
         setTown(user.town);
         setDateOfRegister(user.dateOfRegister);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    followApi
-      .get("/659bf23e22abbb7aa768b269")
-      .then((response) => {
-        const user = response.data;
-        setPostsCount(user.postsCount);
-        setFollowingCount(user.followingCount);
-        setFollowedByCount(user.followedByCount);
+        setMeowCounter(user.meowCounter);
+        setFollowingCounter(user.followingCounter);
+        setFollowerCounter(user.followerCounter);
       })
       .catch((error) => {
         console.error(error);
@@ -63,7 +55,7 @@ function UserProfile() {
             <p className={styles.name}>
               {name} {surname}
             </p>
-            <p className={styles.grayFont}>{postsCount} posts</p>
+            <p className={styles.grayFont}>{meowCounter} posts</p>
           </div>
           <div className={styles.relativeContainer}>
             <img
@@ -95,10 +87,10 @@ function UserProfile() {
             </div>
             <div className={styles.info}>
               <p className={styles.grayFont}>
-                <span>{followingCount} </span>Following
+                <span>{followingCounter} </span>Following
               </p>
               <p className={styles.grayFont}>
-                <span>{followedByCount} </span>Followers
+                <span>{followerCounter} </span>Followers
               </p>
             </div>
           </div>
