@@ -75,12 +75,12 @@ const RegisterForm = ({ close, change }) => {
 
   if (success) {
     Swal.fire({
-      title: "Welcome to Meower!",
       text: "User created successfully.",
       icon: "success",
       confirmButtonColor: "#00A9A5",
     });
     if (success) {
+      reloadPage.setPreLoader(true);
       reloadPage.setIsLogged(true);
     }
   }
