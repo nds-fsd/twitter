@@ -1,4 +1,4 @@
-import styles from "./Public-home.module.css";
+import styles from "./PublicHome.module.css";
 import Cat from "../assets/Cat.png";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
