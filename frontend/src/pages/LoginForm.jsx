@@ -4,16 +4,18 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { userApi } from "../apis/apiWrapper";
 import { setUserSession } from "../local-storage";
+import Loading from "../components/Loading";
 
 import { context } from "../App";
 import { useContext } from "react";
 
-const LoginForm = ({ close, change, preloader }) => {
+const LoginForm = ({ close, change, load }) => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
   const [serverError, setServerError] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const success = useContext(context);
 
   const {
@@ -31,14 +33,12 @@ const LoginForm = ({ close, change, preloader }) => {
   const onSubmit = (data) => {
     const login = async () => {
       try {
-        setLoading(true);
-
+        load(true);
         const res = await userApi.post("/login", data);
-        setLoading(false);
+        load(false);
 
         setUserSession(res.data);
         success.setIsLogged(true);
-
         success.setPreLoader(true);
       } catch (err) {
         console.log(err);

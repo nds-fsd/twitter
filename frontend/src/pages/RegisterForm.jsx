@@ -5,8 +5,9 @@ import { userApi } from "../apis/apiWrapper";
 import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
 import { context } from "../App";
-
+import Loading from "../components/Loading";
 const RegisterForm = ({ close, change }) => {
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
@@ -17,7 +18,6 @@ const RegisterForm = ({ close, change }) => {
   const reloadPage = useContext(context);
 
   const {
-    watch,
     register,
     formState: { errors, isValid },
     handleSubmit,
@@ -40,10 +40,13 @@ const RegisterForm = ({ close, change }) => {
 
     const createUser = async () => {
       try {
+        setLoading(true);
         const res = await userApi.post("/register", {
           ...data,
           dateOfRegister: date,
         });
+        setLoading(false);
+
         console.log(res);
         console.log(res.data);
         if (res.status === 201) {
@@ -52,6 +55,7 @@ const RegisterForm = ({ close, change }) => {
           setUserSession(res.data);
         }
       } catch (error) {
+        setLoading(false);
         console.log(error);
         if (error.response.status !== 201 && error.response.status !== 400)
           setError(true);
@@ -72,17 +76,17 @@ const RegisterForm = ({ close, change }) => {
 
     createUser();
   };
+  // if (loading) return <Loading />;
 
   if (success) {
-    Swal.fire({
-      text: "User created successfully.",
-      icon: "success",
-      confirmButtonColor: "#00A9A5",
-    });
-    if (success) {
-      reloadPage.setPreLoader(true);
-      reloadPage.setIsLogged(true);
-    }
+    // Swal.fire({
+    //   text: "User created successfully.",
+    //   icon: "success",
+    //   confirmButtonColor: "#00A9A5",
+    // });
+
+    reloadPage.setIsLogged(true);
+    reloadPage.setPreLoader(true);
   }
 
   if (error) {
