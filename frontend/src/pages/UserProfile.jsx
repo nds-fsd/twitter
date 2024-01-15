@@ -22,6 +22,7 @@ function UserProfile() {
 
   useEffect(() => {
     userApi
+      // .get(`/${username}`)
       .get("/miquel.bedia")
       // .get("/mbedia")
       .then((response) => {
