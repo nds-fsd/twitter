@@ -1,7 +1,7 @@
 .loader {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   background: linear-gradient(#f07e6e, #84cdfa, #5ad1cd);
   animation: animate 1.2s linear infinite;

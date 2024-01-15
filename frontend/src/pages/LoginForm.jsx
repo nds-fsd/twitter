@@ -33,14 +33,16 @@ const LoginForm = ({ close, change, load }) => {
   const onSubmit = (data) => {
     const login = async () => {
       try {
-        load(true);
+        setLoading(true);
+
         const res = await userApi.post("/login", data);
-        load(false);
+        setLoading(false);
 
         setUserSession(res.data);
         success.setIsLogged(true);
         success.setPreLoader(true);
       } catch (err) {
+        setLoading(false);
         console.log(err);
         if (err.response.status !== 201 && err.response.status !== 400)
           setServerError(true);
@@ -75,6 +77,7 @@ const LoginForm = ({ close, change, load }) => {
           <span onClick={close} className={styles.x}>
             x
           </span>
+          {loading && <Loading />}
         </header>
         <h2>Access to your account</h2>
         <div>

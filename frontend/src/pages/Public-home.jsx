@@ -2,13 +2,11 @@ import styles from "./Public-home.module.css";
 import Cat from "../assets/Cat.png";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import Loading from "../components/Loading";
 import { useState, useContext } from "react";
 
 const PublicHome = ({ reloadPage }) => {
   const [popUpRegister, setpopUpRegister] = useState(false);
   const [popUpLogin, setpopUpLogin] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const handlePopUpRegisterClick = () => {
     setpopUpRegister(!popUpRegister);
@@ -36,7 +34,6 @@ const PublicHome = ({ reloadPage }) => {
       setpopUpLogin(false);
     }
   });
-  if (loading) return <Loading />;
 
   return (
     <>
@@ -71,7 +68,6 @@ const PublicHome = ({ reloadPage }) => {
       </div>
       {popUpRegister && (
         <RegisterForm
-          load={setLoading}
           reloadPage={reloadPage}
           close={() => setpopUpRegister(!popUpRegister)}
           change={changeToLoginForm}
@@ -79,7 +75,6 @@ const PublicHome = ({ reloadPage }) => {
       )}
       {popUpLogin && (
         <LoginForm
-          load={setLoading}
           reloadPage={reloadPage}
           close={() => setpopUpLogin(!popUpLogin)}
           change={changeToRegisterForm}

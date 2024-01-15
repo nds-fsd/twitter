@@ -8,7 +8,6 @@ import { context } from "../App";
 import Loading from "../components/Loading";
 const RegisterForm = ({ close, change }) => {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
   const [usernameAlreadyRegistered, setUsernameAlreadyRegistered] =
@@ -51,7 +50,11 @@ const RegisterForm = ({ close, change }) => {
         console.log(res.data);
         if (res.status === 201) {
           setError(false);
-          setSuccess(true);
+
+          reloadPage.setPreLoader(true);
+
+          reloadPage.setIsLogged(true);
+
           setUserSession(res.data);
         }
       } catch (error) {
@@ -76,18 +79,6 @@ const RegisterForm = ({ close, change }) => {
 
     createUser();
   };
-  // if (loading) return <Loading />;
-
-  if (success) {
-    // Swal.fire({
-    //   text: "User created successfully.",
-    //   icon: "success",
-    //   confirmButtonColor: "#00A9A5",
-    // });
-
-    reloadPage.setIsLogged(true);
-    reloadPage.setPreLoader(true);
-  }
 
   if (error) {
     Swal.fire({
@@ -144,7 +135,7 @@ const RegisterForm = ({ close, change }) => {
                 {...register("birthday", { required: true })}
               />
               {errors.birthday?.type === "required" && (
-                <p className={styles.error}>Date is required.</p>
+                <p className={styles.error}>Date of birth is required.</p>
               )}
             </div>
             <button
@@ -175,6 +166,7 @@ const RegisterForm = ({ close, change }) => {
 
         {formStep === 1 && (
           <section>
+            {loading && <Loading />}
             <header>
               <span>Step 2 of 2</span>{" "}
               <span onClick={close} className={styles.x}>

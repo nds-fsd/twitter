@@ -21,7 +21,7 @@ export const preLoaderAnim = () => {
       ease: "Power3.easeOut",
     })
     .from(".texts-container span", {
-      duration: 1,
+      duration: 1.5,
       delay: 1,
       y: 70,
       skewY: 10,
@@ -62,7 +62,7 @@ export const preLoaderAnim = () => {
       "-=2"
     )
     .from(".landing__main .text", {
-      duration: 0.5,
+      duration: 2,
       // scale: 0,
       y: 10,
       opacity: 0,
@@ -83,7 +83,7 @@ export const preLoaderAnim = () => {
       onComplete: animateMainShape(),
     })
     .from(".main-circle", {
-      duration: 0.5,
+      duration: 1,
       opacity: 0,
       ease: "power3.easeInOut",
       onComplete: animateShapes(),
@@ -218,7 +218,7 @@ const animateShapes = () => {
   });
   infiniteTl
     .to(".shapes .shape", {
-      duration: 1,
+      duration: 4,
       rotate: 360,
       delay: -1,
       ease: "power3.easeInOut",
@@ -230,10 +230,8 @@ const animateShapes = () => {
       delay: -2,
       ease: "power3.easeInOut",
     })
-
-    // ----------------el siguiente duratio ponia 3 ---------
     .to(".shapes .shape", {
-      duration: 1,
+      duration: 3,
       rotate: 0,
       ease: "power3.easeInOut",
       stagger: 1,
@@ -246,7 +244,7 @@ const animateShapes = () => {
       stagger: 1,
     })
     .to(".shapes .shape", {
-      duration: 1,
+      duration: 1.5,
       opacity: 1,
       ease: "power3.easeInOut",
       stagger: 1,
@@ -259,19 +257,19 @@ const animateMainShape = () => {
   });
   infiniteTl
     .to(".shapes .main-circle", {
-      duration: 1,
+      duration: 6,
       x: -30,
       y: -50,
       ease: "expo.easeOut",
     })
     .to(".shapes .main-circle", {
-      duration: 1,
+      duration: 6,
       x: -30,
       y: 50,
       ease: "expo.easeOut",
     })
     .to(".shapes .main-circle", {
-      duration: 1,
+      duration: 4,
       x: 0,
       y: 0,
       ease: "expo.easeOut",
@@ -305,7 +303,7 @@ export const boxExit = (e) => {
 
 export const fadeIn = (el) => {
   gsap.to(el, {
-    duration: 1,
+    duration: 2,
     opacity: 1,
     y: -60,
     ease: "power4.out",
