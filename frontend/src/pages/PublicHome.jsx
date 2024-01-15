@@ -2,9 +2,9 @@ import styles from "./PublicHome.module.css";
 import Cat from "../assets/Cat.png";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-const PublicHome = () => {
+const PublicHome = ({ reloadPage }) => {
   const [popUpRegister, setpopUpRegister] = useState(false);
   const [popUpLogin, setpopUpLogin] = useState(false);
 
@@ -68,12 +68,14 @@ const PublicHome = () => {
       </div>
       {popUpRegister && (
         <RegisterForm
+          reloadPage={reloadPage}
           close={() => setpopUpRegister(!popUpRegister)}
           change={changeToLoginForm}
         />
       )}
       {popUpLogin && (
         <LoginForm
+          reloadPage={reloadPage}
           close={() => setpopUpLogin(!popUpLogin)}
           change={changeToRegisterForm}
         />

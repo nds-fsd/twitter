@@ -117,13 +117,14 @@
 
 .replies button {
   margin-top: 1rem;
-  margin-left: 1rem;
-  width: 4rem;
-  height: 2rem;
+  margin-left: -4rem;
+  width: 7rem;
+  height: 3rem;
   border-radius: 20px;
   background-color: #00a9a5;
   color: white;
   font-weight: bold;
   cursor: pointer;
   border: 0;
+  font-size: 1.5rem;
 }
