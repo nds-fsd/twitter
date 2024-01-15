@@ -1,15 +1,22 @@
 import styles from "./LoginForm.module.css";
 import { useForm } from "react-hook-form";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { userApi } from "../apis/apiWrapper";
 import { setUserSession } from "../local-storage";
+import Loading from "../components/Loading";
 
-const LoginForm = ({ close, change }) => {
+import { context } from "../App";
+import { useContext } from "react";
+
+const LoginForm = ({ close, change, load }) => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
   const [serverError, setServerError] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const success = useContext(context);
 
   const {
     register,
@@ -26,11 +33,16 @@ const LoginForm = ({ close, change }) => {
   const onSubmit = (data) => {
     const login = async () => {
       try {
-        const res = await userApi.post("/login", data);
+        setLoading(true);
 
-        console.log(res.data.token);
+        const res = await userApi.post("/login", data);
+        setLoading(false);
+
         setUserSession(res.data);
+        success.setIsLogged(true);
+        success.setPreLoader(true);
       } catch (err) {
+        setLoading(false);
         console.log(err);
         if (err.response.status !== 201 && err.response.status !== 400)
           setServerError(true);
@@ -65,6 +77,7 @@ const LoginForm = ({ close, change }) => {
           <span onClick={close} className={styles.x}>
             x
           </span>
+          {loading && <Loading />}
         </header>
         <h2>Access to your account</h2>
         <div>

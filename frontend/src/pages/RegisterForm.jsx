@@ -1,21 +1,22 @@
 import styles from "./RegisterForm.module.css";
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { userApi } from "../apis/apiWrapper";
 import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
-
+import { context } from "../App";
+import Loading from "../components/Loading";
 const RegisterForm = ({ close, change }) => {
-  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
   const [usernameAlreadyRegistered, setUsernameAlreadyRegistered] =
     useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
+  const reloadPage = useContext(context);
 
   const {
-    watch,
     register,
     formState: { errors, isValid },
     handleSubmit,
@@ -38,18 +39,26 @@ const RegisterForm = ({ close, change }) => {
 
     const createUser = async () => {
       try {
+        setLoading(true);
         const res = await userApi.post("/register", {
           ...data,
           dateOfRegister: date,
         });
+        setLoading(false);
+
         console.log(res);
         console.log(res.data);
         if (res.status === 201) {
           setError(false);
-          setSuccess(true);
+
+          reloadPage.setPreLoader(true);
+
+          reloadPage.setIsLogged(true);
+
           setUserSession(res.data);
         }
       } catch (error) {
+        setLoading(false);
         console.log(error);
         if (error.response.status !== 201 && error.response.status !== 400)
           setError(true);
@@ -71,15 +80,6 @@ const RegisterForm = ({ close, change }) => {
     createUser();
   };
 
-  if (success) {
-    Swal.fire({
-      title: "Welcome to Meower!",
-      text: "User created successfully.",
-      icon: "success",
-      confirmButtonColor: "#00A9A5",
-    });
-  }
-
   if (error) {
     Swal.fire({
       text: "Ops, something went wrong!",
@@ -89,7 +89,7 @@ const RegisterForm = ({ close, change }) => {
     });
     setError(false);
   }
-
+  if (loading) return <Loading />;
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -135,7 +135,7 @@ const RegisterForm = ({ close, change }) => {
                 {...register("birthday", { required: true })}
               />
               {errors.birthday?.type === "required" && (
-                <p className={styles.error}>Date is required.</p>
+                <p className={styles.error}>Date of birth is required.</p>
               )}
             </div>
             <button
@@ -166,6 +166,7 @@ const RegisterForm = ({ close, change }) => {
 
         {formStep === 1 && (
           <section>
+            {loading && <Loading />}
             <header>
               <span>Step 2 of 2</span>{" "}
               <span onClick={close} className={styles.x}>
