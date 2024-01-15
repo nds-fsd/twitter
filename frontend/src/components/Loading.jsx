@@ -2,17 +2,11 @@ import "./Loading.css";
 
 const Loading = () => {
   return (
-    <div class="center">
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
+    <div class="loader">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   );
 };

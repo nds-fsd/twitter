@@ -98,7 +98,7 @@ const RegisterForm = ({ close, change }) => {
     });
     setError(false);
   }
-
+  return <Loading />;
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)}>
