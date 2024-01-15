@@ -13,9 +13,9 @@ const userSchema = new Schema({
   description: { type: String, required: false },
   town: { type: String, required: false },
   dateOfRegister: { type: String, required: true },
-  meowCounter: { type: Number , required: false },
-  followingCounter: { type: Number , required: false },
-  followerCounter: { type: Number , required: false }
+  meowCounter: { type: Number, default: 0 },
+  followingCounter: { type: Number, default: 0 },
+  followerCounter: { type: Number, default: 0 },
 });
 
 userSchema.pre("save", function (next) {

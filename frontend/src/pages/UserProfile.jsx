@@ -22,7 +22,8 @@ function UserProfile() {
 
   useEffect(() => {
     userApi
-      .get("/65a41812a546c9ba641f7422")
+      .get("/miquel.bedia")
+      // .get("/mbedia")
       .then((response) => {
         const user = response.data;
         setName(user.name);

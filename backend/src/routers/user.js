@@ -8,7 +8,7 @@ const {
 } = require("../middlewares/index");
 
 router.get("/", consoleLogType, userController.getAllUsers);
-router.get("/:id", consoleLogType, userController.getUserById);
+router.get("/:username", consoleLogType, userController.getUserByUsername);
 router.post(
   "/register",
   consoleLogType,
@@ -16,7 +16,7 @@ router.post(
   userController.createUser
 );
 router.post("/login", consoleLogType, validateLogin, userController.loginUser);
-router.patch("/:id", consoleLogType, userController.updateUser);
-router.delete("/:id", consoleLogType, userController.deleteUser);
+router.patch("/:username", consoleLogType, userController.updateUser);
+router.delete("/:username", consoleLogType, userController.deleteUser);
 
 module.exports = router;
