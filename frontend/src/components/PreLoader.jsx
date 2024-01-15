@@ -1,4 +1,4 @@
-import "./preloader.css";
+import "./PreLoader.css";
 import { useEffect } from "react";
 import { preLoaderAnim } from "./PreLoaderAnimation";
 
@@ -8,7 +8,7 @@ const PreLoader = () => {
   }, []);
   return (
     <div className="preloader">
-      <div className="texts-container">
+      <div className="textsContainer">
         <span>Welcome</span>
         <span>to</span>
         <span>Meower!</span>
