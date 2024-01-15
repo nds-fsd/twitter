@@ -8,11 +8,21 @@
   "scripts": {
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",
     "start:backend": "dotenv -- turbo run dev --scope='backend'",
-    "dev": "dotenv -- turbo run dev "
+    "dev": "dotenv -- turbo run dev ",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "devDependencies": {
     "dotenv-cli": "^7.0.0",
-    "turbo": "^1.10.16"
+    "turbo": "^1.10.16",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^9.1.5",
+    "supertest": "^6.3.4"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

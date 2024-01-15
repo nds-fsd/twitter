@@ -1,17 +1,21 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-
-require("dotenv").config();
 console.log(process.env.MONGO_URL);
 
 let dbUrl = process.env.MONGO_URL;
 
 let mongodb;
 
-exports.connectDB = async () => {
+const connectDB = async () => {
   mongoose.set("strictQuery", false);
 
   try {
+    if (process.env.MONGO_URL === "test") {
+      mongod = await MongoMemoryServer.create();
+      dbUrl = mongod.getUri();
+      console.log(dbUrl);
+    }
+
     await mongoose.connect(dbUrl);
 
     const mongo = mongoose.connection;
@@ -21,7 +25,7 @@ exports.connectDB = async () => {
   }
 };
 
-exports.disconnectDB = async () => {
+const disconnectDB = async () => {
   try {
     await mongoose.connection.close();
     if (mongodb) {
@@ -31,3 +35,8 @@ exports.disconnectDB = async () => {
     console.log(err);
   }
 };
+
+module.exports = {
+  connectDB,
+  disconnectDB
+}
