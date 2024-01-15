@@ -2,7 +2,7 @@ import styles from "./PublicHome.module.css";
 import Cat from "../assets/Cat.png";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 const PublicHome = ({ reloadPage }) => {
   const [popUpRegister, setpopUpRegister] = useState(false);

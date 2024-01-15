@@ -4,16 +4,19 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { userApi } from "../apis/apiWrapper";
 import { setUserSession } from "../local-storage";
-import { Navigate } from "react-router-dom";
+import Loading from "../components/Loading";
+
 import { context } from "../App";
 import { useContext } from "react";
 
-const LoginForm = ({ close, change }) => {
+const LoginForm = ({ close, change, load }) => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [emailNotFound, setEmailNotFound] = useState(false);
   const [serverError, setServerError] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const reloadPage = useContext(context);
+  const [loading, setLoading] = useState(false);
+
+  const success = useContext(context);
 
   const {
     register,
@@ -30,11 +33,16 @@ const LoginForm = ({ close, change }) => {
   const onSubmit = (data) => {
     const login = async () => {
       try {
+        setLoading(true);
+
         const res = await userApi.post("/login", data);
-        console.log(res.data.token);
+        setLoading(false);
+
         setUserSession(res.data);
-        reloadPage.setIsLogged(true);
+        success.setIsLogged(true);
+        success.setPreLoader(true);
       } catch (err) {
+        setLoading(false);
         console.log(err);
         if (err.response.status !== 201 && err.response.status !== 400)
           setServerError(true);
@@ -69,6 +77,7 @@ const LoginForm = ({ close, change }) => {
           <span onClick={close} className={styles.x}>
             x
           </span>
+          {loading && <Loading />}
         </header>
         <h2>Access to your account</h2>
         <div>

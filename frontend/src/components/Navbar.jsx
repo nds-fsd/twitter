@@ -53,7 +53,6 @@ function Navbar() {
             onClick={() => {
               removeSession();
               reloadPage.setIsLogged(false);
-              console.log("hola");
             }}
           >
             Logout
