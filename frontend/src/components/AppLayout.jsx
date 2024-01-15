@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import Hashtag from "./Hashtags";
-import WhoToFollow from "./Who-to-follow";
+import WhoToFollow from "./WhoToFollow";
 import styles from "./AppLayout.module.css";
 import Buscador from "./Buscador";
 

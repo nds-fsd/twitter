@@ -3,7 +3,7 @@ import VistaUnMeow from "./pages/VistaUnMeow";
 import Profile from "./pages/Profile";
 import PreLoader from "./components/PreLoader";
 
-import PublicHome from "./pages/Public-home";
+import PublicHome from "./pages/PublicHome";
 import { getUserToken } from "./local-storage";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, createContext } from "react";
