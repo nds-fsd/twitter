@@ -15,12 +15,12 @@ export const preLoaderAnim = () => {
       duration: 0.05,
       css: { overflowY: "hidden", height: "90vh" },
     })
-    .to(".texts-container", {
+    .to(".textsContainer", {
       duration: 0,
       opacity: 1,
       ease: "Power3.easeOut",
     })
-    .from(".texts-container span", {
+    .from(".textsContainer span", {
       duration: 1.5,
       delay: 1,
       y: 70,
@@ -28,7 +28,7 @@ export const preLoaderAnim = () => {
       stagger: 0.4,
       ease: "Power3.easeOut",
     })
-    .to(".texts-container span", {
+    .to(".textsContainer span", {
       duration: 1,
       y: 70,
       skewY: -20,
