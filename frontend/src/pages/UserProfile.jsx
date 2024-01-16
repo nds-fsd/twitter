@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./UserProfile.module.css";
 import user from "../assets/user.png";
 import location from "../assets/location.png";
@@ -8,6 +9,7 @@ import Meows from "./Meows";
 import TabsProfile from "../components/TabsProfile";
 import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
+import { getUserSession } from "../local-storage.js";
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -20,11 +22,13 @@ function UserProfile() {
   const [followingCounter, setFollowingCounter] = useState(0);
   const [followerCounter, setFollowerCounter] = useState(0);
 
+  const { username: urlUsername } = useParams();
+  const loggedInUser = getUserSession();
+  const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
+
   useEffect(() => {
     userApi
-      // .get(`/${username}`)
-      .get("/miquel.bedia")
-      // .get("/mbedia")
+      .get(`/${urlUsername}`)
       .then((response) => {
         const user = response.data;
         setName(user.name);
@@ -40,7 +44,7 @@ function UserProfile() {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [urlUsername]);
 
   const tabs = [
     { text: "Meows", href: "/meows" },
@@ -67,8 +71,11 @@ function UserProfile() {
             />
             <div className={styles.photoContainer}>
               <img src={user} alt="user" className={styles.photoProfile} />
-              {/* <button className={styles.editProfile}>Edit profile</button> */}
-              <FollowButton username={username} />
+              {isOwnProfile ? (
+                <button className={styles.editProfile}>Editar perfil</button>
+              ) : (
+                <FollowButton username={urlUsername} />
+              )}
             </div>
           </div>
           <div className={styles.profileInfo}>

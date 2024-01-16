@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 
 const meowSchema = new Schema({
   text: { type: String, required: true },
-  reposts: { type: Number, required: false },
-  likes: { type: Number, required: false },
-  views: { type: Number, required: false },
+  reposts: { type: Number, default: 0 },
+  likes: { type: Number, default: 0 },
+  views: { type: Number, default: 0 },
   date: { type: String, required: true },
   author: {
     type: mongoose.Schema.Types.ObjectId,

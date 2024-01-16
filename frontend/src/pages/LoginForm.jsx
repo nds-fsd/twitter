@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { userApi } from "../apis/apiWrapper";
 import { setUserSession } from "../local-storage";
-import Loading from "../components/Loading";
+import Loading from "../effects/Loading";
 
 import { context } from "../App";
 import { useContext } from "react";
