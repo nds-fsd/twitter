@@ -18,7 +18,7 @@ const getUserByUsername = async (req, res) => {
     if (userFound) {
       res.status(200).json(userFound);
     } else {
-      res.status(404).json({ error: "Usuario no encontrado" });
+      res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
     return res.status(500).json(error.message);
@@ -37,7 +37,7 @@ const updateUser = async (req, res) => {
       });
       res.status(201).json(userUpdated);
     } else {
-      res.status(404).json({ error: "Usuario no encontrado" });
+      res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
     return res.status(500).json(error.message);
@@ -90,9 +90,9 @@ const deleteUser = async (req, res) => {
 
     if (userFound) {
       await User.findOneAndDelete({ username });
-      res.status(201).json({ message: "Usuario eliminado correctamente" });
+      res.status(201).json({ message: "Successfully deleted user" });
     } else {
-      res.status(404).json({ error: "Usuario no encontrado" });
+      res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
     return res.status(500).json(error.message);

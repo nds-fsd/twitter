@@ -9,7 +9,7 @@ const checkFollowStatus = async (req, res) => {
 
     if (!followedUser) {
       return res.status(404).json({
-        error: "El usuario a seguir no existe",
+        error: "The user to follow does not exist",
       });
     }
 
@@ -24,9 +24,9 @@ const checkFollowStatus = async (req, res) => {
       isFollowing,
     });
   } catch (error) {
-    console.error("Error en checkFollowStatus:", error);
+    console.error("Error in checkFollowStatus:", error);
     return res.status(500).json({
-      error: "Error inesperado al verificar el estado de seguimiento",
+      error: "Unexpected error when checking tracking status",
     });
   }
 };
@@ -40,13 +40,13 @@ const followUser = async (req, res) => {
 
     if (!follower) {
       return res.status(401).json({
-        error: "Usuario no autenticado o no existe",
+        error: "User not authenticated or does not exist",
       });
     }
 
     if (!followed) {
       return res.status(404).json({
-        error: "El usuario no existe",
+        error: "Username does not exist",
       });
     }
 
@@ -57,7 +57,7 @@ const followUser = async (req, res) => {
 
     if (existingFollow) {
       return res.status(400).json({
-        error: "Ya sigues a este usuario",
+        error: "You already follow this user",
       });
     }
 
@@ -74,12 +74,12 @@ const followUser = async (req, res) => {
 
     await follow.save();
     return res.status(200).json({
-      message: "El usuario se ha seguido correctamente",
+      message: "The user has been followed successfully",
     });
   } catch (error) {
     console.error("Error in followUser:", error);
     return res.status(500).json({
-      error: "Error inesperado al seguir al usuario",
+      error: "Unexpected error when following user",
     });
   }
 };
@@ -93,13 +93,13 @@ const unfollowUser = async (req, res) => {
 
     if (!follower) {
       return res.status(401).json({
-        error: "Usuario no autenticado o no existe",
+        error: "User not authenticated or does not exist",
       });
     }
 
     if (!followed) {
       return res.status(404).json({
-        error: "El usuario no existe",
+        error: "Username does not exist",
       });
     }
 
@@ -110,7 +110,7 @@ const unfollowUser = async (req, res) => {
 
     if (!existingFollow) {
       return res.status(400).json({
-        error: "No sigues a este usuario",
+        error: "You do not follow this user",
       });
     }
 
@@ -123,12 +123,12 @@ const unfollowUser = async (req, res) => {
     await followed.save();
 
     return res.status(200).json({
-      message: "Has dejado de seguir al usuario correctamente",
+      message: "You have successfully unfollowed the user",
     });
   } catch (error) {
     console.error("Error in unfollowUser:", error);
     return res.status(500).json({
-      error: "Error inesperado al dejar de seguir al usuario",
+      error: "Unexpected error when unfollowing user",
     });
   }
 };
