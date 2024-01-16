@@ -17,4 +17,4 @@ const server = app.listen(port, () => {
   console.log(`Server is up and running at ${port}`);
 });
 
-module.exports = { app, server}
+module.exports = { app, server };
