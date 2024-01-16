@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const followController = require("../controllers/follow");
-const { consoleLogType } = require("../middlewares/index");
+const { consoleLogType, validateToken } = require("../middlewares/index");
 
-router.get("/", consoleLogType, followController.getAllFollows);
-router.get("/:id", consoleLogType, followController.getFollowById);
-router.post("/", consoleLogType, followController.createFollow);
-router.patch("/:id", consoleLogType, followController.updateFollow);
-router.delete("/:id", consoleLogType, followController.deleteFollow);
+router.get("/:username", consoleLogType, validateToken, followController.checkFollowStatus);
+router.post("/", consoleLogType, validateToken, followController.followUser);
+router.delete("/", consoleLogType, validateToken, followController.unfollowUser);
 
 module.exports = router;

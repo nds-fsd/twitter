@@ -16,7 +16,7 @@ const getLikeById = async (req, res) => {
     if (likeFound) {
       res.status(200).json(likeFound);
     } else {
-      res.status(404).json({ error: "Like no encontrado" });
+      res.status(404).json({ error: "Like not found" });
     }
   } catch (error) {
     res.status(500).json(error.message);
@@ -43,7 +43,7 @@ const updateLike = async (req, res) => {
       const likeUpdated = await Like.findByIdAndUpdate(id, body, { new: true });
       res.status(201).json(likeUpdated);
     } else {
-      res.status(404).json({ error: "Like no encontrado" });
+      res.status(404).json({ error: "Like not found" });
     }
   } catch (error) {
     return res.status(500).json(error.message);
@@ -57,7 +57,7 @@ const deleteLike = async (req, res) => {
     if (likeFound) {
       await Like.findByIdAndDelete(id);
     } else {
-      res.status(404).json("Like no encontrado");
+      res.status(404).json("Like not found");
     }
   } catch (error) {
     res.status(500).json(error.message);

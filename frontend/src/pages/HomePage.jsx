@@ -1,5 +1,3 @@
-import Navbar from "../components/Navbar";
-
 import MeowsFilter from "../components/MeowsFilter";
 import PostForm from "./PostForm";
 import Meows from "./Meows";

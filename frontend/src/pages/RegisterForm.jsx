@@ -5,7 +5,8 @@ import { userApi } from "../apis/apiWrapper";
 import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
 import { context } from "../App";
-import Loading from "../components/Loading";
+import Loading from "../effects/Loading";
+
 const RegisterForm = ({ close, change }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
