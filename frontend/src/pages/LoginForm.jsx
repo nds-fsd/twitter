@@ -43,17 +43,22 @@ const LoginForm = ({ close, change, load }) => {
         success.setPreLoader(true);
       } catch (err) {
         setLoading(false);
+        if (err.code === "ERR_NETWORK") setServerError(true);
         console.log(err);
-        if (err.response.status !== 201 && err.response.status !== 400)
+        if (err.response.status !== 201 && err.response.status !== 400) {
           setServerError(true);
+        }
+
         if (err.response.data.error.email) {
           setEmailNotFound(true);
           setInvalidPassword(false);
-        }
-        if (err.response.data.error.password) {
+          return;
+        } else if (err.response.data.error.password) {
           setInvalidPassword(true);
           setEmailNotFound(false);
+          return;
         }
+        setServerError(true);
       }
     };
 
