@@ -11,16 +11,15 @@
 
 .container {
   background-color: var(--sections-color);
-  border-radius: 25px;
-  margin: 80px 20px 0 0;
+  border-radius: 20px;
+  margin: 25% 5% 0 0;
 }
 
 .title {
-  border-radius: 50px 25px 0 0;
   font-size: 20px;
-  margin: 10px 0 0 20px;
-  padding-top: 10px;
-  width: 200px;
+  margin-left: 7%;
+  padding-top: 3%;
+  width: 90%;
 }
 
 .containerFollow {
@@ -29,8 +28,7 @@
   grid-template-columns: 1fr 5fr 2fr;
   grid-template-rows: 1fr;
   align-items: center;
-  padding-left: 20px;
-  margin: 20px 0;
+  margin: 5% 0 5% 7%;
 }
 
 .containerFollow:hover {
@@ -39,14 +37,16 @@
 
 .accountImage {
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 75%;
+  width: 100%;
 }
 
 .name {
   font-size: 14px;
   font-weight: bold;
-  margin: 2px 0;
+  margin: 0.15rem 0;
+  padding-left: 5%;
+  width: fit-content;
 }
 
 .name:hover {
@@ -56,6 +56,7 @@
 .accountName {
   color: gray;
   font-size: 12px;
+  padding-left: 5%;
 }
 
 .buttonFollow {
@@ -64,12 +65,11 @@
   border: solid 1px var(--sections-color);
   border-radius: 20px;
   color: var(--sections-color);
-  font-family: "Ubuntu", sans-serif;
   font-size: 14px;
   font-weight: bolder;
-  height: 40px;
+  height: 90%;
   margin-right: 10px;
-  width: 100px;
+  width: 90px;
 }
 
 .buttonFollow:hover {
@@ -82,12 +82,11 @@
   font-family: "Ubuntu", sans-serif;
   background-color: transparent;
   border: transparent;
-  font-family: "Ubuntu", sans-serif;
   font-size: 14px;
   font-weight: lighter;
   color: #00a9a5;
   cursor: pointer;
-  margin: 0 0 20px 20px;
+  margin: 0 0 7% 7%;
   width: auto;
   height: auto;
 }
