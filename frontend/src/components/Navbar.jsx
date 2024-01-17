@@ -9,6 +9,7 @@ import square from "../assets/square.png";
 import usuario from "../assets/usuario.png";
 import user from "../assets/user.png";
 import cat from "../assets/Cat.png";
+import LogOut from "./LogOut";
 import { removeSession } from "../local-storage";
 import { useContext } from "react";
 import { context } from "../App";
@@ -43,20 +44,7 @@ function Navbar() {
         <div>
           <p>Name Surname</p>
           <p>@Account_Name</p>
-          <button
-            style={{
-              width: "60px",
-              height: "30px",
-              fontSize: "13px",
-              marginTop: "5px",
-            }}
-            onClick={() => {
-              removeSession();
-              reloadPage.setIsLogged(false);
-            }}
-          >
-            Logout
-          </button>
+          <LogOut />
         </div>
       </div>
     </div>

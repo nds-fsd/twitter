@@ -98,7 +98,7 @@ const validateToken = (req, res, next) => {
   }
 
   req.jwtPayload = tokenPayload;
-  console.log(tokenPayload);
+
   next();
 };
 
