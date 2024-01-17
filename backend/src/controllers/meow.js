@@ -1,5 +1,6 @@
 const Meow = require("../schemas/meow");
 const Follow = require("../schemas/follow");
+const { default: mongoose } = require("mongoose");
 
 const getAllMeows = async (req, res) => {
   try {
@@ -8,8 +9,15 @@ const getAllMeows = async (req, res) => {
     const resultado = await Follow.find({ follower: id });
 
     console.log(resultado);
+    console.log(resultado.followed);
 
-    const allMeows = await Meow.find();
+    const allMeows = await Meow.find({
+      author: {
+        $in: resultado.map((follow) =>
+          mongoose.Types.ObjectId(follow.followed)
+        ),
+      },
+    });
     res.status(200).json(allMeows);
   } catch (error) {
     return res.status(500).json(error.message);
