@@ -1,7 +1,14 @@
 const Meow = require("../schemas/meow");
+const Follow = require("../schemas/follow");
 
 const getAllMeows = async (req, res) => {
   try {
+    const id = req.jwtPayload.id;
+    console.log(id);
+    const resultado = await Follow.find({ follower: id });
+
+    console.log(resultado);
+
     const allMeows = await Meow.find();
     res.status(200).json(allMeows);
   } catch (error) {

@@ -4,6 +4,7 @@ import { meowApi } from "../apis/apiWrapper";
 import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
+import { getUserToken } from "../local-storage";
 
 function Meows() {
   const [meows, setMeows] = useState("");
@@ -13,7 +14,13 @@ function Meows() {
   useEffect(() => {
     const getAllMeows = async () => {
       try {
-        const res = await meowApi.get("/");
+        const token = getUserToken();
+        const res = await meowApi.get("/", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const data = res.data;
 
         setMeows(data);
