@@ -83,7 +83,7 @@ const RegisterForm = ({ close, change }) => {
 
   if (error) {
     Swal.fire({
-      text: "Ops, something went wrong!",
+      text: "Oops, something went wrong!",
       icon: "error",
       confirmButtonColor: "#00A9A5",
       timer: "3000",
@@ -112,7 +112,7 @@ const RegisterForm = ({ close, change }) => {
                 {...register("name", { required: true })}
               />
               {errors.name?.type === "required" && (
-                <p className={styles.error}>Name is required.</p>
+                <p className={styles.error}>Name is required</p>
               )}
             </div>
 
@@ -125,7 +125,7 @@ const RegisterForm = ({ close, change }) => {
                 {...register("surname", { required: true })}
               />
               {errors.surname?.type === "required" && (
-                <p className={styles.error}>Surname is required.</p>
+                <p className={styles.error}>Surname is required</p>
               )}
             </div>
 
@@ -136,7 +136,7 @@ const RegisterForm = ({ close, change }) => {
                 {...register("birthday", { required: true })}
               />
               {errors.birthday?.type === "required" && (
-                <p className={styles.error}>Date of birth is required.</p>
+                <p className={styles.error}>Date of birth is required</p>
               )}
             </div>
             <button
@@ -149,15 +149,7 @@ const RegisterForm = ({ close, change }) => {
             <footer>
               <p>
                 If you already have an account,{" "}
-                <span
-                  onClick={change}
-                  style={{
-                    cursor: "pointer",
-                    color: "green",
-                    fontWeight: "bold",
-                    textDecoration: "underline",
-                  }}
-                >
+                <span className={styles.link} onClick={change}>
                   log in here
                 </span>
               </p>
@@ -188,13 +180,13 @@ const RegisterForm = ({ close, change }) => {
                 })}
               />
               {errors.mail?.type === "required" && (
-                <p className={styles.error}>Mail is required.</p>
+                <p className={styles.error}>Mail is required</p>
               )}
               {errors.mail?.type === "pattern" && (
-                <p className={styles.error}>Please, enter a valid email.</p>
+                <p className={styles.error}>Please, enter a valid email</p>
               )}
               {emailAlreadyRegistered && (
-                <p className={styles.error}>Email already registered.</p>
+                <p className={styles.error}>Email already registered</p>
               )}
             </div>
 
@@ -206,10 +198,10 @@ const RegisterForm = ({ close, change }) => {
                 {...register("username", { required: true })}
               />
               {errors.username?.type === "required" && (
-                <p className={styles.error}>Username is required.</p>
+                <p className={styles.error}>Username is required</p>
               )}
               {usernameAlreadyRegistered && (
-                <p className={styles.error}>This username is not available.</p>
+                <p className={styles.error}>Username not available</p>
               )}
             </div>
 
@@ -226,16 +218,16 @@ const RegisterForm = ({ close, change }) => {
                 })}
               />
               {errors.password?.type === "required" && (
-                <p className={styles.error}>Password is required.</p>
+                <p className={styles.error}>Password is required</p>
               )}
               {errors.password?.type === "minLength" && (
                 <p className={styles.error}>
-                  Password must be 8 to 30 character long.
+                  Password must be 8 to 30 character long
                 </p>
               )}
               {errors.password?.type === "pattern" && (
                 <p style={{ fontSize: "0.8rem" }} className={styles.error}>
-                  Passwrod must contain one lower case, one upper
+                  Password must contain one lower case, one upper
                   <br /> case, one number and one special character.
                 </p>
               )}
@@ -250,10 +242,10 @@ const RegisterForm = ({ close, change }) => {
                 {...register("passwordConfirm", { required: true })}
               />
               {errors.passwordConfirm?.type === "required" && (
-                <p className={styles.error}>Please, confirm your password.</p>
+                <p className={styles.error}>Please, confirm your password</p>
               )}
               {passwordError && (
-                <p className={styles.error}>Passwords do not match.</p>
+                <p className={styles.error}>Passwords do not match</p>
               )}
             </div>
 
@@ -267,15 +259,7 @@ const RegisterForm = ({ close, change }) => {
             <footer>
               <p>
                 If you already have an account,{" "}
-                <span
-                  onClick={change}
-                  style={{
-                    cursor: "pointer",
-                    color: "green",
-                    fontWeight: "bold",
-                    textDecoration: "underline",
-                  }}
-                >
+                <span className={styles.link} onClick={change}>
                   log in here
                 </span>
               </p>

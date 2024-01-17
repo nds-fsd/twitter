@@ -67,7 +67,7 @@ const LoginForm = ({ close, change, load }) => {
 
   if (serverError) {
     Swal.fire({
-      text: "Ops, something went wrong!",
+      text: "Oops, something went wrong!",
       icon: "error",
       confirmButtonColor: "#00A9A5",
       timer: "3000",
@@ -124,7 +124,7 @@ const LoginForm = ({ close, change, load }) => {
             {...register("password", { required: true })}
           />
           {invalidPassword && (
-            <p>That password was incorrect. Please try again.</p>
+            <p>The password is incorrect. Please try again.</p>
           )}
         </div>
         <div>
@@ -140,15 +140,7 @@ const LoginForm = ({ close, change, load }) => {
         <footer>
           <p>
             If you don't have an account,{" "}
-            <span
-              onClick={change}
-              style={{
-                cursor: "pointer",
-                color: "green",
-                fontWeight: "bold",
-                textDecoration: "underline",
-              }}
-            >
+            <span className={styles.link} onClick={change}>
               {" "}
               register here
             </span>
