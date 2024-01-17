@@ -9,6 +9,7 @@ const {
 
 router.get("/", consoleLogType, userController.getAllUsers);
 router.get("/:username", consoleLogType, userController.getUserByUsername);
+router.get("/id/:id", consoleLogType, userController.getUserById);
 router.post(
   "/register",
   consoleLogType,
