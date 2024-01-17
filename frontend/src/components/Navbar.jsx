@@ -39,25 +39,20 @@ function Navbar() {
         </div>
       </nav>
       <div className={styles.usuario}>
-        <img className={styles.user} src={user} alt="." />
-        <div>
-          <p>Name Surname</p>
-          <p>@Account_Name</p>
-          <button
-            style={{
-              width: "60px",
-              height: "30px",
-              fontSize: "13px",
-              marginTop: "5px",
-            }}
-            onClick={() => {
-              removeSession();
-              reloadPage.setIsLogged(false);
-            }}
-          >
-            Logout
-          </button>
-        </div>
+        <button
+          style={{
+            width: "60px",
+            height: "30px",
+            fontSize: "13px",
+            marginTop: "5px",
+          }}
+          onClick={() => {
+            removeSession();
+            reloadPage.setIsLogged(false);
+          }}
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

@@ -63,11 +63,13 @@
 }
 
 .usuario {
-  align-items: center;
   bottom: 1%;
-  display: flex;
-  left: 9%;
   position: fixed;
+}
+
+.usuario button {
+  background-color: var(--main-blue);
+  color: white;
 }
 
 .user {
