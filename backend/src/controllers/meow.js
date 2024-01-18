@@ -9,7 +9,6 @@ const getAllMeows = async (req, res) => {
     const resultado = await Follow.find({ follower: id });
 
     console.log(resultado);
-    console.log(resultado.followed);
 
     const allMeows = await Meow.find({
       author: {
