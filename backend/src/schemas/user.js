@@ -12,6 +12,9 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   description: { type: String, required: false },
   dateOfRegister: { type: String, required: true },
+  meowCounter: { type: Number, default: 0 },
+  followingCounter: { type: Number, default: 0 },
+  followerCounter: { type: Number, default: 0 },
 });
 
 userSchema.pre("save", function (next) {

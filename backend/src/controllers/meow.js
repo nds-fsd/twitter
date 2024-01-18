@@ -29,7 +29,6 @@ const createMeow = async (req, res) => {
     const body = req.body;
     const userId = req.jwtPayload.id;
     console.log(req.jwtPayload);
-    const mail = req.jwtPayload.email;
 
     const meow = {
       text: body.meow,
@@ -40,7 +39,7 @@ const createMeow = async (req, res) => {
     const meowToSave = new Meow(meow);
     await meowToSave.save();
     res.status(201).json(meowToSave);
-    User.updateOne({ mail: mail }, { $inc: { meowCounter: 1 } });
+    await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
   } catch (error) {
     res.status(400).json(error.message);
   }

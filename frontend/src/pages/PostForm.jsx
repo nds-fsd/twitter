@@ -66,7 +66,11 @@ function PostForm() {
         <div>
           <p> </p>
         </div>
-        <button className={styles.postButton} onClick={postNewMeow}>
+        <button
+          disabled={!newMeow ? true : false}
+          className={styles.postButton}
+          onClick={postNewMeow}
+        >
           Post
         </button>
       </div>
