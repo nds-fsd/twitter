@@ -6,7 +6,7 @@ import { meowApi } from "../apis/apiWrapper";
 import { useState } from "react";
 
 function PostForm() {
-  const [newMeow, setNewMeow] = useState();
+  const [newMeow, setNewMeow] = useState("");
   const [error, setError] = useState(false);
   const token = getUserToken();
 
@@ -19,7 +19,7 @@ function PostForm() {
     try {
       const res = await meowApi.post(
         "/",
-        { meow: newMeow },
+        { meow: newMeow, date: new Date().toDateString() },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,6 +27,7 @@ function PostForm() {
         }
       );
       console.log(res);
+      setNewMeow("");
     } catch (err) {
       setError(true);
     }
@@ -45,6 +46,7 @@ function PostForm() {
       <div className={styles.containerPost}>
         <img className={styles.accountImage} src={image} alt="Profile Photo" />
         <textarea
+          value={newMeow}
           onChange={(e) => {
             handleKeyDown(e);
             setNewMeow(e.target.value);
