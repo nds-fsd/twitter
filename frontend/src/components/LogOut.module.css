@@ -1,8 +1,11 @@
 .mainButton {
-  width: 6rem;
-  font-size: 1rem;
+  border: 1px solid var(--main-color);
+  font-family: var(--main-font);
+  font-size: 14px;
+  font-weight: lighter;
   height: 2.5rem;
   margin-top: 1.4rem;
+  width: 6rem;
 }
 
 .popOut {
@@ -18,18 +21,27 @@
   background-color: #222222;
   width: 441px;
   height: 419px;
-  border-radius: 27px;
+  border-radius: var(--border-radius);
   border: 2px solid white;
 }
+
+.popOut h2 {
+  margin-top: 5%;
+  margin-bottom: 0;
+}
+
 .logo {
   width: 7rem;
   height: 6rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
 }
+
 .popOut > button {
+  border: 1px solid var(--main-color);
+  font-family: var(--main-font);
+  font-size: 17px;
   height: 3rem;
-  width: 13rem;
-  font-size: 1.7rem;
   margin-top: 1.5rem;
+  width: 10rem;
 }

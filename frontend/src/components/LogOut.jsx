@@ -21,7 +21,7 @@ const LogOut = () => {
         <div className={styles.popOut}>
           <img className={styles.logo} src={Cat} />
           <h2>Log out of Meower?</h2>
-          <p>You can always log back in at any time.</p>
+          <p>You can always log back in at any time</p>
           <button
             onClick={() => {
               removeSession();
@@ -30,7 +30,12 @@ const LogOut = () => {
           >
             Log out
           </button>
-          <button onClick={() => setPopOut(false)}>Cancel</button>
+          <button
+            className={styles.cancelButton}
+            onClick={() => setPopOut(false)}
+          >
+            Cancel
+          </button>
         </div>
       )}
     </>

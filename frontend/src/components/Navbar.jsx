@@ -11,8 +11,6 @@ import { context } from "../App";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const reloadPage = useContext(context);
-
   const navigateHome = useNavigate();
 
   return (
@@ -34,12 +32,7 @@ function Navbar() {
         </div>
       </nav>
       <div className={styles.usuario}>
-        <img className={styles.user} src={user} alt="." />
-        <div>
-          <p>Name Surname</p>
-          <p>@Account_Name</p>
-          <LogOut />
-        </div>
+        <LogOut />
       </div>
     </div>
   );
