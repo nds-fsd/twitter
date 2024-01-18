@@ -70,6 +70,7 @@
   height: 100%;
   object-fit: contain;
   width: 100%;
+  margin-bottom: 60px;
 }
 
 .imageContainer:hover {
@@ -89,6 +90,7 @@
   border-radius: 50%;
   height: 150px;
   width: 150px;
+  margin-top: -50px;
 }
 
 .photoProfile:hover {
@@ -104,14 +106,14 @@
   font-size: 15px;
   font-weight: bold;
   height: fit-content;
-  margin-top: 60px;
   padding: 7px 15px;
   width: max-content;
 }
 
 .editProfile:hover {
+  color: black;
   cursor: pointer;
-  background-color: #2f2f2f;
+  background-color: white;
 }
 
 .info {

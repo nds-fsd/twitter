@@ -8,10 +8,33 @@ import LogOut from "./LogOut";
 import { removeSession } from "../local-storage";
 import { useContext, useEffect, useState } from "react";
 import { context } from "../App";
+import { getUserSession } from "../local-storage";
+import { userApi } from "../apis/apiWrapper";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigateHome = useNavigate();
+
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [username, setUsername] = useState("");
+
+  const loggedUser = getUserSession();
+  const loggedUsername = loggedUser.username;
+
+  useEffect(() => {
+    userApi
+      .get(`/${loggedUsername}`)
+      .then((response) => {
+        const user = response.data;
+        setName(user.name);
+        setSurname(user.surname);
+        setUsername(user.username);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -37,6 +60,12 @@ function Navbar() {
         </div>
       </nav>
       <div className={styles.usuario}>
+        <div className={styles.userInfo}>
+          <p>
+            {name} {surname}
+          </p>
+          <p className={styles.usernameColor}>@{username}</p>
+        </div>
         <LogOut />
       </div>
     </div>

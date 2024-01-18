@@ -37,8 +37,8 @@
 
 .accountImage {
   border-radius: 50%;
-  height: 75%;
-  width: 100%;
+  height: 45px;
+  width: 45px;
 }
 
 .name {
@@ -93,6 +93,10 @@
 
 .showMore:hover {
   text-decoration: underline;
+}
+
+.rightButton {
+  text-align: center;
 }
 
 

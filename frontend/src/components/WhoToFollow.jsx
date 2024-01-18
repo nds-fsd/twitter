@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./WhoToFollow.module.css";
-import image from "../assets/Elon-Musk.jpg";
+import image from "../assets/user.png";
 import FollowButton from "./FollowButton";
 import { userApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
@@ -49,7 +49,9 @@ const WhoToFollow = () => {
         <p className={styles.name}>{user.name}</p>
         <p className={styles.accountName}>@{user.username}</p>
       </div>
-      <FollowButton username={user.username} />
+      <div className={styles.rightButton}>
+        <FollowButton username={user.username} />
+      </div>
     </div>
   );
 
