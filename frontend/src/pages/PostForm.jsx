@@ -1,11 +1,13 @@
 import styles from "./PostForm.module.css";
 import image from "../assets/Elon-Musk.jpg";
+import Swal from "sweetalert2";
 import { getUserToken } from "../local-storage";
 import { meowApi } from "../apis/apiWrapper";
 import { useState } from "react";
 
 function PostForm() {
   const [newMeow, setNewMeow] = useState("");
+  const [error, setError] = useState(false);
   const token = getUserToken();
 
   function handleKeyDown(e) {
@@ -15,10 +17,25 @@ function PostForm() {
 
   const postNewMeow = async () => {
     try {
-      const res = await meowApi.post("/", {});
-    } catch (err) {}
+      const res = await meowApi.post("/", newMeow, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res);
+    } catch (err) {
+      setError(true);
+    }
   };
-
+  if (error) {
+    Swal.fire({
+      text: "Ops, something went wrong!",
+      icon: "error",
+      confirmButtonColor: "#00A9A5",
+      timer: "3000",
+    });
+    setError(false);
+  }
   return (
     <div className={styles.container}>
       <div className={styles.containerPost}>
@@ -40,7 +57,9 @@ function PostForm() {
         <div>
           <p> </p>
         </div>
-        <button className={styles.postButton}>Post</button>
+        <button className={styles.postButton} onClick={postNewMeow}>
+          Post
+        </button>
       </div>
     </div>
   );

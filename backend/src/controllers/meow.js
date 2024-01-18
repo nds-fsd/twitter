@@ -25,6 +25,7 @@ const getMeowById = async (req, res) => {
 
 const createMeow = async (req, res) => {
   try {
+    console.log(req.body);
     const body = req.body;
     const meowToSave = new Meow(body);
     await meowToSave.save();
