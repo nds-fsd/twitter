@@ -7,16 +7,19 @@ import cat from "../assets/Cat.png";
 import { removeSession } from "../local-storage";
 import { useContext } from "react";
 import { context } from "../App";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const reloadPage = useContext(context);
+
+  const navigateHome = useNavigate();
 
   return (
     <div className={styles.container}>
       <img className={styles.logo} src={cat} alt="logo" />
       <nav className={styles.navbar}>
         <div className={styles.navigator}>
-          <div className={styles.options}>
+          <div className={styles.options} onClick={() => navigateHome("/home")}>
             <img src={home} alt="." />
             <p>Home</p>
           </div>
