@@ -8,6 +8,11 @@ function PostForm() {
   const [newMeow, setNewMeow] = useState("");
   const token = getUserToken();
 
+  function handleKeyDown(e) {
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  }
+
   const postNewMeow = async () => {
     try {
       const res = await meowApi.post("/", {});
@@ -20,6 +25,7 @@ function PostForm() {
         <img className={styles.accountImage} src={image} alt="Profile Photo" />
         <textarea
           onChange={(e) => {
+            handleKeyDown(e);
             setNewMeow(e.target.value);
           }}
           className={styles.postInput}
