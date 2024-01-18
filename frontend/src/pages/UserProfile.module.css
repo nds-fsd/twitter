@@ -10,7 +10,23 @@
   height: 70px;
   width: 50%;
   background-color: black;
-  padding-left: 20px;
+}
+
+.nameContainerScroll {
+  position: fixed;
+  z-index: 1;
+  height: 70px;
+  width: 50%;
+  background-color: black;
+  opacity: 0.8;
+}
+
+.nameContainer p {
+  margin-left: 2%;
+}
+
+.nameContainerScroll p{
+  margin-left: 2%;
 }
 
 .container {
@@ -30,6 +46,7 @@
   font-size: 25px;
   font-weight: bold;
   margin: 2px 0;
+  width: fit-content;
 }
 
 .name:hover {
@@ -83,11 +100,12 @@
   border: 1px solid white;
   border-radius: 30px;
   color: white;
+  font-family: "Ubuntu", sans-serif;
   font-size: 15px;
   font-weight: bold;
   height: fit-content;
-  margin-top: 50px;
-  padding: 5px 15px;
+  margin-top: 60px;
+  padding: 7px 15px;
   width: max-content;
 }
 

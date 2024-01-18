@@ -17,7 +17,7 @@ function AppLayout({ children }) {
           <div className={styles.right}>
             <Buscador />
             <WhoToFollow />
-            <Hashtag />
+            {/* <Hashtag /> */}
           </div>
         </div>
       </div>
