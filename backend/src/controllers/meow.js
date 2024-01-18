@@ -25,8 +25,9 @@ const getMeowById = async (req, res) => {
 
 const createMeow = async (req, res) => {
   try {
+    console.log(req.jwtPayload);
     console.log(req.body);
-    const body = req.body;
+    const meowToSave = {};
     // const meowToSave = new Meow(body);
     // await meowToSave.save();
     // res.status(201).json(meowToSave);
