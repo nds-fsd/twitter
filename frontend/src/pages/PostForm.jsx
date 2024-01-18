@@ -30,7 +30,7 @@ function PostForm() {
       );
       console.log(res);
       setNewMeow("");
-      reload.setReload(true);
+      reload.setReload(!reload.reload);
     } catch (err) {
       setError(true);
     }
