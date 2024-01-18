@@ -26,7 +26,13 @@ const getMeowById = async (req, res) => {
 const createMeow = async (req, res) => {
   try {
     const body = req.body;
-    const meowToSave = new Meow(body);
+    const userId = req.jwtPayload.id;
+
+    const meowToSave = new Meow({
+      ...body,
+      author: userId,
+    });
+    
     await meowToSave.save();
     res.status(201).json(meowToSave);
   } catch (error) {

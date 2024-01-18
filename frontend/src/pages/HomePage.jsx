@@ -1,12 +1,12 @@
 import MeowsFilter from "../components/MeowsFilter";
-import PostForm from "./PostForm";
+import PostMeow from "./PostMeow";
 import Meows from "./Meows";
 
 const HomePage = () => {
   return (
     <div>
       <MeowsFilter />
-      <PostForm />
+      <PostMeow />
       <Meows />
     </div>
   );
