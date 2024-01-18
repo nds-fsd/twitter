@@ -3,12 +3,14 @@ import image from "../assets/Elon-Musk.jpg";
 import Swal from "sweetalert2";
 import { getUserToken } from "../local-storage";
 import { meowApi } from "../apis/apiWrapper";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { context } from "../App.jsx";
 
 function PostForm() {
   const [newMeow, setNewMeow] = useState("");
   const [error, setError] = useState(false);
   const token = getUserToken();
+  const reload = useContext(context);
 
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
@@ -28,6 +30,7 @@ function PostForm() {
       );
       console.log(res);
       setNewMeow("");
+      reload.setReload(true);
     } catch (err) {
       setError(true);
     }

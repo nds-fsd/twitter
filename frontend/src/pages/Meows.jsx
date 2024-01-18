@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { meowApi } from "../apis/apiWrapper";
 import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
+import { context } from "../App.jsx";
 
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+  const reload = useContext(context);
 
   useEffect(() => {
     const getAllMeows = async () => {
       try {
         const res = await meowApi.get("/");
         const data = res.data;
-
-        setMeows(data);
+        setMeows(data.reverse());
       } catch (error) {
         console.log(error);
         setError(true);
@@ -24,7 +24,7 @@ function Meows() {
       }
     };
     getAllMeows();
-  }, []);
+  }, [reload.reload]);
 
   if (error)
     return (

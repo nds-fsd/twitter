@@ -13,6 +13,7 @@ export const context = createContext();
 function App() {
   const [isLogged, setIsLogged] = useState(!!getUserToken());
   const [preLoader, setPreLoader] = useState(false);
+  const [reload, setReload] = useState(false);
 
   if (!isLogged) {
     return (
@@ -26,7 +27,9 @@ function App() {
 
   return (
     <>
-      <context.Provider value={{ setIsLogged, setPreLoader }}>
+      <context.Provider
+        value={{ setIsLogged, setPreLoader, setReload, reload }}
+      >
         <AppLayout>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
