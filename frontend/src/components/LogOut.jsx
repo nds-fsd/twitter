@@ -22,6 +22,15 @@ const LogOut = () => {
           <img className={styles.logo} src={Cat} />
           <h2>Log out of Meower?</h2>
           <p>You can always log back in at any time.</p>
+          <button
+            onClick={() => {
+              removeSession();
+              reloadPage.setIsLogged(false);
+            }}
+          >
+            Log out
+          </button>
+          <button onClick={() => setPopOut(false)}>Cancel</button>
         </div>
       )}
     </>

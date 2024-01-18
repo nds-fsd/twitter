@@ -14,7 +14,7 @@
 
   top: -552px;
   left: 373px;
-  z-index: 1;
+  z-index: 999;
   background-color: #222222;
   width: 441px;
   height: 419px;
@@ -26,4 +26,10 @@
   height: 6rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+.popOut > button {
+  height: 3rem;
+  width: 13rem;
+  font-size: 1.7rem;
+  margin-top: 1.5rem;
 }
