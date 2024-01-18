@@ -10,11 +10,34 @@ import usuario from "../assets/usuario.png";
 import user from "../assets/user.png";
 import cat from "../assets/Cat.png";
 import { removeSession } from "../local-storage";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { context } from "../App";
+import { getUserSession } from "../local-storage";
+import { userApi } from "../apis/apiWrapper";
 
 function Navbar() {
   const reloadPage = useContext(context);
+
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [username, setUsername] = useState("");
+
+  const loggedUser = getUserSession();
+  const loggedUsername = loggedUser.username
+
+  useEffect(() => {
+    userApi
+      .get(`/${loggedUsername}`)
+      .then((response) => {
+        const user = response.data;
+        setName(user.name);
+        setSurname(user.surname);
+        setUsername(user.username);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -41,8 +64,8 @@ function Navbar() {
       <div className={styles.usuario}>
         <img className={styles.user} src={user} alt="." />
         <div>
-          <p>Name Surname</p>
-          <p>@Account_Name</p>
+          <p>{name} {surname}</p>
+          <p>@{username}</p>
           <button
             style={{
               width: "60px",
