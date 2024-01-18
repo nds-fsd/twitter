@@ -17,6 +17,7 @@ const getAllMeows = async (req, res) => {
         ),
       },
     });
+    console.log(allMeows);
     res.status(200).json(allMeows);
   } catch (error) {
     return res.status(500).json(error.message);
