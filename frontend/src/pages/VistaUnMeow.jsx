@@ -32,7 +32,7 @@ const VistaUnMeow = ({ meow, user }) => {
       </p>
       <div className={styles.dateAndViews}>
         <span>11:34 AM 20/11/2023</span>
-        <span className="views">Views</span>
+        <span>Views</span>
       </div>
 
       <div className={styles.stats}>

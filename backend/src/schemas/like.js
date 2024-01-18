@@ -5,7 +5,7 @@ const likeSchema = new Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
-    required: true,
+    required: true,   
   },
   meowId: {
     type: mongoose.Schema.Types.ObjectId,
