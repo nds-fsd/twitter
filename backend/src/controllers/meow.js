@@ -27,9 +27,9 @@ const createMeow = async (req, res) => {
   try {
     console.log(req.body);
     const body = req.body;
-    const meowToSave = new Meow(body);
-    await meowToSave.save();
-    res.status(201).json(meowToSave);
+    // const meowToSave = new Meow(body);
+    // await meowToSave.save();
+    // res.status(201).json(meowToSave);
   } catch (error) {
     res.status(400).json(error.message);
   }

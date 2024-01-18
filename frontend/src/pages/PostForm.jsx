@@ -6,7 +6,7 @@ import { meowApi } from "../apis/apiWrapper";
 import { useState } from "react";
 
 function PostForm() {
-  const [newMeow, setNewMeow] = useState("");
+  const [newMeow, setNewMeow] = useState();
   const [error, setError] = useState(false);
   const token = getUserToken();
 
@@ -17,11 +17,15 @@ function PostForm() {
 
   const postNewMeow = async () => {
     try {
-      const res = await meowApi.post("/", newMeow, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await meowApi.post(
+        "/",
+        { meow: newMeow },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(res);
     } catch (err) {
       setError(true);
