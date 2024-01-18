@@ -1,48 +1,17 @@
 import styles from "./PostForm.module.css";
 import image from "../assets/Elon-Musk.jpg";
+import { getUserToken } from "../local-storage";
+import { meowApi } from "../apis/apiWrapper";
 import { useState } from "react";
-import { event } from "jquery";
 
 function PostForm() {
-  function handleKeyDown(e) {
-    e.target.style.height = "inherit";
-    e.target.style.height = `${e.target.scrollHeight}px`;
-  }
+  const [newMeow, setNewMeow] = useState("");
+  const token = getUserToken();
 
-  const [text, setText] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [errors, setErrors] = useState({ text: "" });
-  const [responseError, setResponseError] = useState(false);
-
-  const handleText = (event) => {
-    setText(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    console.log(text);
-    const data = { text, id };
-    let error = { ...errors };
-
-    if (!text) {
-      setErrors({ text: "Text required" });
-    }
-
-    fetch("", {
-      method: "POST",
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status !== 200) {
-          setResponseError(true);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setSuccess(true);
-      })
-      .catch((error) => {
-        setResponseError(true);
-      });
+  const postNewMeow = async () => {
+    try {
+      const res = await meowApi.post("/", {});
+    } catch (err) {}
   };
 
   return (
@@ -50,7 +19,9 @@ function PostForm() {
       <div className={styles.containerPost}>
         <img className={styles.accountImage} src={image} alt="Profile Photo" />
         <textarea
-          onChange={handleKeyDown}
+          onChange={(e) => {
+            setNewMeow(e.target.value);
+          }}
           className={styles.postInput}
           name="text"
           id="text"
@@ -63,9 +34,7 @@ function PostForm() {
         <div>
           <p> </p>
         </div>
-        <button className={styles.postButton} onSubmit={handleSubmit}>
-          Post
-        </button>
+        <button className={styles.postButton}>Post</button>
       </div>
     </div>
   );
