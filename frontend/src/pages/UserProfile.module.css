@@ -12,7 +12,20 @@
   background-color: black;
 }
 
+.nameContainerScroll {
+  position: fixed;
+  z-index: 1;
+  height: 70px;
+  width: 50%;
+  background-color: black;
+  opacity: 0.8;
+}
+
 .nameContainer p {
+  margin-left: 2%;
+}
+
+.nameContainerScroll p{
   margin-left: 2%;
 }
 
@@ -33,6 +46,7 @@
   font-size: 25px;
   font-weight: bold;
   margin: 2px 0;
+  width: fit-content;
 }
 
 .name:hover {

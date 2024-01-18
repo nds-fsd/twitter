@@ -12,23 +12,23 @@
 .container {
   background-color: var(--sections-color);
   border-radius: 20px;
-  margin: 25% 5% 0 0;
+  margin: 80px 5% 0 0;
 }
 
 .title {
   font-size: 20px;
   margin-left: 7%;
-  padding-top: 3%;
+  padding: 4% 0 2% 0;
   width: 90%;
 }
 
 .containerFollow {
   cursor: pointer;
   display: grid;
-  grid-template-columns: 1fr 5fr 2fr;
+  grid-template-columns: 1fr 5fr 3fr;
   grid-template-rows: 1fr;
   align-items: center;
-  margin: 5% 0 5% 7%;
+  padding: 3% 3% 3% 7%;
 }
 
 .containerFollow:hover {
@@ -68,8 +68,8 @@
   font-size: 14px;
   font-weight: bolder;
   height: 90%;
-  margin-right: 10px;
-  width: 90px;
+  width: fit-content;
+  padding: 0 20%;
 }
 
 .buttonFollow:hover {
@@ -86,7 +86,7 @@
   font-weight: lighter;
   color: #00a9a5;
   cursor: pointer;
-  margin: 0 0 7% 7%;
+  margin: 3% 0 7% 7%;
   width: auto;
   height: auto;
 }
