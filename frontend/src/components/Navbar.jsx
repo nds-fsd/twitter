@@ -6,7 +6,7 @@ import usuario from "../assets/usuario.png";
 import cat from "../assets/Cat.png";
 import LogOut from "./LogOut";
 import { removeSession } from "../local-storage";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { context } from "../App";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,12 @@ function Navbar() {
 
   return (
     <div className={styles.container}>
-      <img className={styles.logo} src={cat} alt="logo" />
+      <img
+        className={styles.logo}
+        src={cat}
+        alt="logo"
+        onClick={() => navigateHome("/home")}
+      />
       <nav className={styles.navbar}>
         <div className={styles.navigator}>
           <div className={styles.options} onClick={() => navigateHome("/home")}>
