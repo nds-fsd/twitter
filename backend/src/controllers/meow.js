@@ -1,4 +1,5 @@
 const Meow = require("../schemas/meow");
+const User = require("../schemas/user");
 
 const getAllMeows = async (req, res) => {
   try {
@@ -27,6 +28,8 @@ const createMeow = async (req, res) => {
   try {
     const body = req.body;
     const userId = req.jwtPayload.id;
+    console.log(req.jwtPayload);
+    const mail = req.jwtPayload.email;
 
     const meow = {
       text: body.meow,
@@ -37,6 +40,7 @@ const createMeow = async (req, res) => {
     const meowToSave = new Meow(meow);
     await meowToSave.save();
     res.status(201).json(meowToSave);
+    User.updateOne({ mail: mail }, { $inc: { meowCounter: 1 } });
   } catch (error) {
     res.status(400).json(error.message);
   }
