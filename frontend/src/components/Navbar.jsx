@@ -4,6 +4,7 @@ import campana from "../assets/campana.png";
 import sobre from "../assets/sobre.png";
 import usuario from "../assets/usuario.png";
 import cat from "../assets/Cat.png";
+import LogOut from "./LogOut";
 import { removeSession } from "../local-storage";
 import { useContext } from "react";
 import { context } from "../App";
@@ -33,20 +34,12 @@ function Navbar() {
         </div>
       </nav>
       <div className={styles.usuario}>
-        <button
-          style={{
-            width: "60px",
-            height: "30px",
-            fontSize: "13px",
-            marginTop: "5px",
-          }}
-          onClick={() => {
-            removeSession();
-            reloadPage.setIsLogged(false);
-          }}
-        >
-          Logout
-        </button>
+        <img className={styles.user} src={user} alt="." />
+        <div>
+          <p>Name Surname</p>
+          <p>@Account_Name</p>
+          <LogOut />
+        </div>
       </div>
     </div>
   );
