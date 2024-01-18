@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { meowApi } from "../apis/apiWrapper";
-import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
+import { meowApi, userApi } from "../apis/apiWrapper";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
+import LikeButton from "../components/LikeButton";
 
 function Meows() {
   const [meows, setMeows] = useState("");
@@ -16,7 +16,43 @@ function Meows() {
         const res = await meowApi.get("/");
         const data = res.data;
 
-        setMeows(data);
+        const uniqueAuthorIds = Array.from(
+          new Set(data.map((meow) => meow.author))
+        );
+
+        const authorDetails = await Promise.all(
+          uniqueAuthorIds.map(async (authorId) => {
+            try {
+              const userRes = await userApi.get(`/id/${authorId}`);
+              return {
+                authorId,
+                username: userRes.data.username,
+              };
+            } catch (userError) {
+              console.error(
+                `Error fetching user with ID ${authorId}: ${userError.message}`
+              );
+              return {
+                authorId,
+                username: "Unknown User",
+              };
+            }
+          })
+        );
+
+        const meowsWithUsernames = data.map((meow) => {
+          const authorDetail = authorDetails.find(
+            (detail) => detail.authorId === meow.author
+          );
+          return {
+            ...meow,
+            authorUsername: authorDetail
+              ? authorDetail.username
+              : "Unknown User",
+          };
+        });
+
+        setMeows(meowsWithUsernames);
       } catch (error) {
         console.log(error);
         setError(true);
@@ -45,15 +81,15 @@ function Meows() {
               <div className={styles.meowsContainer}>
                 <div className={styles.userContainer}>
                   <img src={user} />
-                  <p>user</p>
+                  <p>{meow.authorUsername}</p>
                 </div>
 
                 <p>{meow.text}</p>
               </div>
               <div className={styles.likesContainer}>
-                <p>{meow.reposts}</p>
-                <p>{meow.likes}</p>
-                <p>{meow.views}</p>
+                <p>
+                  {meow.likes} <LikeButton meow={meow} />
+                </p>
                 <p>{meow.date}</p>
               </div>
             </div>
