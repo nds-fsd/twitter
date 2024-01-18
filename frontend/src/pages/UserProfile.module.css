@@ -45,6 +45,7 @@
 .relativeContainer {
   margin: 5px;
   position: relative;
+  z-index: -1;
 }
 
 .imageContainer {
