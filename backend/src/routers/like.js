@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const likeController = require("../controllers/like");
-const { consoleLogType } = require("../middlewares/index");
+const { consoleLogType, validateToken } = require("../middlewares/index");
 
-router.get("/", consoleLogType, likeController.getAllLikes);
-router.get("/:id", consoleLogType, likeController.getLikeById);
-router.post("/", consoleLogType, likeController.createLike);
-router.patch("/:id", consoleLogType, likeController.updateLike);
-router.delete("/:id", consoleLogType, likeController.deleteLike);
+router.get("/:meowId", consoleLogType, validateToken, likeController.checkLikeStatus);
+router.post("/:meowId", consoleLogType, validateToken, likeController.likeMeow);
+router.delete("/:meowId", consoleLogType, validateToken, likeController.unlikeMeow);
 
 module.exports = router;
