@@ -4,6 +4,7 @@ import { meowApi, userApi } from "../apis/apiWrapper";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
 import LikeButton from "../components/LikeButton";
+import { getUserToken } from "../local-storage";
 
 function Meows() {
   const [meows, setMeows] = useState("");
