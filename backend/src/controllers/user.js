@@ -14,7 +14,7 @@ const getUserByUsername = async (req, res) => {
   try {
     const username = req.params.username;
     const userFound = await User.findOne({ username });
-    
+
     if (userFound) {
       res.status(200).json(userFound);
     } else {
@@ -24,12 +24,10 @@ const getUserByUsername = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
     const userFound = await User.findById(id);
-    
     if (userFound) {
       res.status(200).json(userFound);
     } else {
@@ -122,4 +120,5 @@ module.exports = {
   loginUser,
   updateUser,
   deleteUser,
+  getUserById,
 };

@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
+import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
+import { context } from "../App.jsx";
+import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
 import { getUserToken } from "../local-storage";
 
@@ -11,22 +13,24 @@ function Meows() {
   const [error, setError] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
 
+  const reload = useContext(context);
+
   useEffect(() => {
     const getAllMeows = async () => {
       try {
         const token = getUserToken();
         const res = await meowApi.get("/", {
-          method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const data = res.data;
 
+        setMeows(data.reverse());
+
         const uniqueAuthorIds = Array.from(
           new Set(data.map((meow) => meow.author))
         );
-
         const authorDetails = await Promise.all(
           uniqueAuthorIds.map(async (authorId) => {
             try {
@@ -46,7 +50,6 @@ function Meows() {
             }
           })
         );
-
         const meowsWithUsernames = data.map((meow) => {
           const authorDetail = authorDetails.find(
             (detail) => detail.authorId === meow.author
@@ -67,7 +70,7 @@ function Meows() {
       }
     };
     getAllMeows();
-  }, []);
+  }, [reload.reload]);
 
   if (error)
     return (
@@ -78,7 +81,6 @@ function Meows() {
         </p>
       </div>
     );
-
   return (
     <div className={styles.bigContainer}>
       {meows &&
@@ -90,7 +92,6 @@ function Meows() {
                   <img src={user} />
                   <p>{meow.authorUsername}</p>
                 </div>
-
                 <p>{meow.text}</p>
               </div>
               <div className={styles.likesContainer}>
@@ -105,5 +106,4 @@ function Meows() {
     </div>
   );
 }
-
 export default Meows;
