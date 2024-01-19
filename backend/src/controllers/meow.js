@@ -26,7 +26,7 @@ const getAllMeows = async (req, res) => {
       return;
     }
 
-    res.status(200).json(meowsYouFollow);
+    res.status(200).json(meowsYouFollow.reverse());
   } catch (error) {
     return res.status(500).json(error.message);
   }
