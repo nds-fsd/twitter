@@ -12,10 +12,7 @@ const followSchema = new Schema({
     ref: "user",
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Follow = model("follow", followSchema);
