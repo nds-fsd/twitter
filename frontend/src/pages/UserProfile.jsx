@@ -53,11 +53,26 @@ function UserProfile() {
     { text: "Likes", href: "/likes" },
   ];
 
+  const [color, setColor] = useState(false);
+  const changeColor = () => {
+    if (window.scrollY >= 70) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+
+  window.addEventListener("scroll", changeColor);
+
   return (
     <div>
       <div className={styles.bigContainer}>
         <div>
-          <div className={styles.nameContainer}>
+          <div
+            className={
+              color ? styles.nameContainerScroll : styles.nameContainer
+            }
+          >
             <p className={styles.name}>
               {name} {surname}
             </p>
