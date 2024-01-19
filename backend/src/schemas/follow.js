@@ -7,15 +7,12 @@ const followSchema = new Schema({
     ref: "user",
     required: true,
   },
-  following: {
+  followed: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Follow = model("follow", followSchema);

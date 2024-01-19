@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const likeSchema = new Schema({
   userId: {
@@ -12,10 +12,7 @@ const likeSchema = new Schema({
     ref: "meow",
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Like = model("like", likeSchema);

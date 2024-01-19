@@ -1,82 +1,130 @@
-
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    width: 40rem;
-    color: rgb(255, 255, 255);
-    margin-left: 5rem;
-    margin-top: 10rem;
+  width: 100%;
+  color: rgb(255, 255, 255);
 }
-.meow{
-    margin-top: 1rem;
-}
-.container > img{
-    width: 3rem;
-    height: 3rem;
-    display: inline;
-    
-}
-.user{
-   margin-bottom: 3rem;
-   display: inline;
+.firstContainer {
+  height: 8%;
+  display: flex;
 }
 
-.dateAndViews{
-    margin-right: 5rem;
-    margin-top: 2rem;
-}
-.dateAndViews > span{
-    margin-right: 3rem;
-}
-.stats{
-    margin-bottom: 3rem;
-    margin-top: 1rem;
-}
-.stats > span{
-    margin-right: 3rem;
-    
+.postContainer {
+  display: flex;
+  height: 8%;
+  background-color: black;
+  position: fixed;
+  width: 50%;
+  z-index: 1;
 }
 
-.replies{
-    display: flex;
-}
-.replies > button {
-    margin-top: 1rem;
-    margin-left: 1rem;
-    width: 4rem;
-    height: 2rem;
-    border-radius: 20px;
-    background-color:#00A9A5 ;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border: 2px solid rgb(255, 255, 255);
+.post {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  cursor: pointer;
+  padding-left: 20px;
 }
 
+.post img {
+  width: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+}
 
+.post p {
+  font-size: 20px;
+}
 
-::-webkit-input-placeholder {
-    color: rgb(128, 2, 2);
-    font-family: Arial;
-    font-size: 23px;
-    font-weight:bold;
-    opacity: 0.6;
-    }
-    ::-moz-placeholder {
-    color: rgb(128, 2, 2);
-    font-family: Arial;
-    font-size: 23px;
-    font-weight: bold;
-    opacity: 0.6;
-    
-    }
-    :-ms-input-placeholder {
-    color: rgb(128, 2, 2);
-    font-family: Arial;
-    font-size: 23px;
-    font-weight: bold;
-    opacity: 0.6;
-    }
+.username {
+  display: flex;
+  align-items: center;
+  margin: 70px 0 20px 0;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 20px 0 0 20px;
+  border-top: 1px solid #2f2f2f;
+}
+
+.username img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 20px;
+}
+
+.meow {
+  margin-top: 1rem;
+  padding: 0 20px;
+}
+
+.dateAndViews {
+  margin-right: 5rem;
+  margin-top: 2rem;
+  padding: 0 20px;
+}
+.dateAndViews span {
+  margin-right: 3rem;
+}
+.stats {
+  border-top: 1px solid #2f2f2f;
+  border-bottom: 1px solid #2f2f2f;
+  padding: 20px;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stats span {
+  margin-right: 3rem;
+}
+
+.replies {
+  display: flex;
+  align-content: center;
+  padding: 0 0 15px 20px;
+  border-bottom: 1px solid #2f2f2f;
+}
+
+.textarea {
+  width: 80%;
+  background-color: black;
+  border: none;
+  padding: 5px;
+}
+
+.textarea:active {
+  border: 1px solid #2f2f2f;
+}
+
+.textarea::placeholder {
+  color: #2f2f2f;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.replies img {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.replies button {
+  margin-top: 1rem;
+  margin-left: -4rem;
+  width: 7rem;
+  height: 3rem;
+  border-radius: 20px;
+  background-color: #00a9a5;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: 0;
+  font-size: 1.5rem;
+}

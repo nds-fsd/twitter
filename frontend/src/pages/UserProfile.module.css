@@ -2,7 +2,31 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: 10px;
+}
+
+.nameContainer {
+  position: fixed;
+  z-index: 0;
+  height: 70px;
+  width: 50%;
+  background-color: black;
+}
+
+.nameContainerScroll {
+  position: fixed;
+  z-index: 1;
+  height: 70px;
+  width: 50%;
+  background-color: black;
+  opacity: 0.8;
+}
+
+.nameContainer p {
+  margin-left: 2%;
+}
+
+.nameContainerScroll p{
+  margin-left: 2%;
 }
 
 .container {
@@ -13,11 +37,19 @@
   width: 80%;
 }
 
+<<<<<<< HEAD:frontend/src/pages/Profile.module.css
+=======
+.profileInfo {
+  padding-left: 20px;
+}
+
+>>>>>>> Sprint-2:frontend/src/pages/UserProfile.module.css
 .name {
   cursor: pointer;
   font-size: 25px;
   font-weight: bold;
   margin: 2px 0;
+  width: fit-content;
 }
 
 .name:hover {
@@ -33,12 +65,14 @@
 .relativeContainer {
   margin: 5px;
   position: relative;
+/*   z-index: -1; */
 }
 
 .imageContainer {
   height: 100%;
   object-fit: contain;
   width: 100%;
+  margin-bottom: 60px;
 }
 
 .imageContainer:hover {
@@ -58,6 +92,7 @@
   border-radius: 50%;
   height: 150px;
   width: 150px;
+  margin-top: -50px;
 }
 
 .photoProfile:hover {
@@ -69,16 +104,18 @@
   border: 1px solid white;
   border-radius: 30px;
   color: white;
+  font-family: "Ubuntu", sans-serif;
   font-size: 15px;
   font-weight: bold;
   height: fit-content;
-  margin-top: 50px;
-  padding: 5px 15px;
+  padding: 7px 15px;
+  width: max-content;
 }
 
 .editProfile:hover {
+  color: black;
   cursor: pointer;
-  background-color: #2F2F2F;
+  background-color: white;
 }
 
 .info {

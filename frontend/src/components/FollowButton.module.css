@@ -1,0 +1,18 @@
+.followButton {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 30px;
+  color: white;
+  font-family: var(--main-font);
+  font-size: 15px;
+  font-weight: bold;
+  height: fit-content;
+  padding: 7px 15px;
+  width: max-content;
+}
+
+.followButton:hover {
+  color: black;
+  cursor: pointer;
+  background-color: white;
+}

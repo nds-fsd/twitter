@@ -1,0 +1,66 @@
+:root {
+  --sections-color: #222222;
+  --sections-hover: #2f2f2f;
+  --main-color: #00a9a5;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 70px;
+}
+
+.containerPost {
+  border-bottom: 1px solid var(--sections-hover);
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  width: 95%;
+}
+
+.containerPost textarea::placeholder {
+  color: white;
+  font-family: var(--main-font);
+  font-size: 17px;
+  font-weight: lighter;
+}
+
+.accountImage {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.postInput {
+  background-color: black;
+  color: white;
+  border: transparent;
+  font-size: 17px;
+  width: 700px;
+}
+
+.containerButtons {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 2% 0;
+  width: 95%;
+}
+
+.postButton {
+  background-color: var(--main-color);
+  border: solid 1px var(--main-color);
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--main-font);
+  font-size: 17px;
+  font-weight: lighter;
+  height: 40px;
+  width: 100px;
+}
+
+.postButton:hover {
+  background-color: #008b89;
+  border: solid 1px #008b89;
+}

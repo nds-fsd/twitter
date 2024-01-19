@@ -1,20 +1,35 @@
-/* .search {
-    position: fixed;
-} */
+.search {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 23%;
+  height: 70px;
+  background-color: black;
+}
 
 .buscador {
-    background-color: #222222;
-    border: none;
-    border-radius: 20px;
-    height: 40px;
-    width: 90%;
-    padding-left: 25px;
-    margin-top: 10px;
-    font-size: 15px;
+  background-color: var(--sections-color);
+  border: none;
+  border-radius: var(--border-radius);
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  height: 60%;
+  margin-bottom: 0;
+  margin-right: 5%;
+  padding-left: 10%;
+  width: 100%;
 }
 
 .buscador::placeholder {
-    color: white;
-    font-size: 15px;
-    font-weight: lighter;
+  color: gray;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  font-weight: lighter;
+}
+
+@media (max-width: 1000px) {
+  .search {
+    display: none;
+  }
 }

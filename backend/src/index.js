@@ -3,7 +3,7 @@ const { connectDB } = require("./mongo/connection");
 const cors = require("cors");
 const app = express();
 const router = require("./routers/index");
-require('dotenv').config()
+require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
@@ -17,3 +17,4 @@ const server = app.listen(port, () => {
   console.log(`Server is up and running at ${port}`);
 });
 
+module.exports = { app, server };
