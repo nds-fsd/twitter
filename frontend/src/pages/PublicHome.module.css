@@ -16,15 +16,29 @@ body {
   background-color: rgb(0, 0, 0);
   display: flex;
   flex-wrap: wrap;
+  align-items: center; /* Center flexbox vertically */
+  justify-content: center; /* Center flexbox horizontally */
+}
+
+.containerOp {
+  user-select: none;
+  position: relative;
+  width: 100vw;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; /* Center flexbox vertically */
+  justify-content: center; /* Center flexbox horizontally */
 }
 
 .logo {
   padding-left: 5%;
-  width: 100%;
+  width: 35%;
 }
 
 .container > img {
-  height: 50%;
+  height: 80%;
   margin-top: 6%;
 }
 
@@ -33,7 +47,7 @@ body {
   display: flex;
   flex-direction: column;
   margin-left: 0%;
-  width: 100%;
+  width: 45%;
   align-items: center;
 }
 
@@ -58,7 +72,7 @@ button {
   color: black;
   font-size: 2rem;
   font-weight: bold;
-  width: 100%;
+  width: 18rem;
   height: 4rem;
   border-radius: 40px;
 }
@@ -72,60 +86,35 @@ button {
   width: 5%;
 }
 
-@media (min-width: 768px) {
-  .container {
-    flex-wrap: nowrap;
+/* Media queries for responsiveness */
+@media screen and (max-width: 768px) {
+  .container,
+  .containerOp {
+    flex-direction: column;
   }
-  .logo {
-    width: 35%;
-    padding-left: 5%;
-  }
+  
+  .logo,
   .right {
-    width: 65%;
-    padding-left: 5%;
+    width: 100%;
   }
+  
   .container > img {
-    height: 80%;
-    margin-top: 6%;
+    height: 50%;
+    margin-top: 5%;
   }
+  
   h1 {
-    font-size: 6rem;
-    margin-top: 15%;
+    font-size: 3rem;
+    margin-top: 5%;
   }
+  
   .buttons {
-    margin-top: 35%;
-  }
-  button {
-    height: 6rem;
-  }
-  .buttons > p {
-    font-size: 2.5rem;
-    width: 10%;
+    margin-top: 15%;
   }
 }
 
-@media (min-width: 1024px) {
-  .container {
-    height: 100vh;
-  }
-  .logo {
-    padding-left: 10%;
-  }
-  .right {
-    padding-left: 10%;
-  }
-  h1 {
-    font-size: 7rem;
-    margin-top: 20%;
-  }
-  .buttons {
-    margin-top: 40%;
-  }
-  button {
-    height: 8rem;
-  }
+@media screen and (max-width: 480px) {
   .buttons > p {
-    font-size: 3rem;
-    width: 15%;
+    font-size: 1.5rem;
   }
 }
