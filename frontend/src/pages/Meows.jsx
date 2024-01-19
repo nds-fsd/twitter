@@ -1,4 +1,3 @@
-
 import { useState, useContext, useEffect } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
 import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
@@ -8,7 +7,6 @@ import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
 
-
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
@@ -16,7 +14,7 @@ function Meows() {
 
   const reload = useContext(context);
 
-    useEffect(() => {
+  useEffect(() => {
     const getAllMeows = async () => {
       try {
         const token = getUserToken();
@@ -62,9 +60,8 @@ function Meows() {
               : "Unknown User",
           };
         });
-        
-        setMeows(meowsWithUsernames);
 
+        setMeows(meowsWithUsernames);
       } catch (error) {
         console.log(error);
         setError(true);
@@ -72,11 +69,7 @@ function Meows() {
       }
     };
     getAllMeows();
-
   }, [reload.reload]);
-
-
-  }, []);
 
   if (error)
     return (
