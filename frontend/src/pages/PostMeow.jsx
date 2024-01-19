@@ -1,8 +1,8 @@
-import styles from "./PostForm.module.css";
+import styles from "./PostMeow.module.css";
 import image from "../assets/Elon-Musk.jpg";
 import Swal from "sweetalert2";
-import { getUserToken } from "../local-storage";
-import { meowApi } from "../apis/apiWrapper";
+import { getUserToken } from "../local-storage.js";
+import { meowApi } from "../apis/apiWrapper.js";
 import { useContext, useState } from "react";
 import { context } from "../App.jsx";
 

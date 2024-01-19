@@ -46,7 +46,9 @@ const WhoToFollow = () => {
     <div key={user.username} className={styles.containerFollow}>
       <img className={styles.accountImage} src={image} alt="" />
       <div>
-        <p className={styles.name}>{user.name}</p>
+        <p className={styles.name}>
+          {user.name} {user.surname}
+        </p>
         <p className={styles.accountName}>@{user.username}</p>
       </div>
       <div className={styles.rightButton}>
