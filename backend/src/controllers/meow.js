@@ -23,17 +23,12 @@ const getAllMeows = async (req, res) => {
     const ownMeows = await Meow.find({ author: id });
 
     const allMeows = await Meow.find();
+    console.log(ownMeows);
 
     const meowsToSend = meowsYouFollow.concat(ownMeows);
-
-    function compararPorFecha(a, b) {
-      return a.date - b.date;
-    }
+    console.log(meowsToSend);
 
     // Ordenar el array 'elementos' utilizando la función de comparación
-    meowsToSend.sort(compararPorFecha);
-
-    console.log(meowsToSend);
 
     res.status(200).json(meowsToSend);
   } catch (error) {

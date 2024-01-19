@@ -19,6 +19,7 @@ function PostForm() {
 
   const postNewMeow = async () => {
     try {
+      console.log(newMeow);
       const res = await meowApi.post(
         "/",
         { meow: newMeow, date: new Date().toDateString() },

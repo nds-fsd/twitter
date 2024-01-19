@@ -24,6 +24,7 @@ function Meows() {
           },
         });
         const data = res.data;
+        console.log(data);
 
         setMeows(data.reverse());
 
