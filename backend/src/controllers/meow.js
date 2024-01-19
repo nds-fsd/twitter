@@ -1,9 +1,32 @@
 const Meow = require("../schemas/meow");
+const Follow = require("../schemas/follow");
+const { default: mongoose } = require("mongoose");
+const { fi } = require("date-fns/locale");
 
 const getAllMeows = async (req, res) => {
   try {
+    const id = req.jwtPayload.id;
+    console.log(id);
+    const resultado = await Follow.find({ follower: id });
+
+    console.log(resultado);
+
+    const meowsYouFollow = await Meow.find({
+      author: {
+        $in: resultado.map((follow) =>
+          mongoose.Types.ObjectId(follow.followed)
+        ),
+      },
+    });
+
     const allMeows = await Meow.find();
-    res.status(200).json(allMeows);
+
+    if (meowsYouFollow.length < 2) {
+      res.status(200).json(allMeows.slice(-10));
+      return;
+    }
+
+    res.status(200).json(meowsYouFollow.reverse());
   } catch (error) {
     return res.status(500).json(error.message);
   }

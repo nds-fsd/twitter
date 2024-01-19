@@ -3,23 +3,26 @@ import { useEffect } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
+import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
 
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
-
   useEffect(() => {
     const getAllMeows = async () => {
       try {
-        const res = await meowApi.get("/");
+        const token = getUserToken();
+        const res = await meowApi.get("/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const data = res.data;
-
         const uniqueAuthorIds = Array.from(
           new Set(data.map((meow) => meow.author))
         );
-
         const authorDetails = await Promise.all(
           uniqueAuthorIds.map(async (authorId) => {
             try {
@@ -39,7 +42,6 @@ function Meows() {
             }
           })
         );
-
         const meowsWithUsernames = data.map((meow) => {
           const authorDetail = authorDetails.find(
             (detail) => detail.authorId === meow.author
@@ -51,7 +53,7 @@ function Meows() {
               : "Unknown User",
           };
         });
-
+        
         setMeows(meowsWithUsernames);
       } catch (error) {
         console.log(error);
@@ -61,7 +63,6 @@ function Meows() {
     };
     getAllMeows();
   }, []);
-
   if (error)
     return (
       <div style={{ fontSize: "40px" }}>
@@ -71,7 +72,6 @@ function Meows() {
         </p>
       </div>
     );
-
   return (
     <div className={styles.bigContainer}>
       {meows &&
@@ -83,7 +83,6 @@ function Meows() {
                   <img src={user} />
                   <p>{meow.authorUsername}</p>
                 </div>
-
                 <p>{meow.text}</p>
               </div>
               <div className={styles.likesContainer}>
@@ -98,5 +97,4 @@ function Meows() {
     </div>
   );
 }
-
 export default Meows;
