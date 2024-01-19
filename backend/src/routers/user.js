@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/user");
-const {
-  consoleLogType,
-  validateUser,
-  validateLogin,
-} = require("../middlewares/index");
+const {consoleLogType, validateUser, validateLogin,} = require("../middlewares/index");
 
 router.get("/", consoleLogType, userController.getAllUsers);
 router.get("/:username", consoleLogType, userController.getUserByUsername);

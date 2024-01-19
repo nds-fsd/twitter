@@ -4,6 +4,8 @@ import { meowApi, userApi } from "../apis/apiWrapper";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
 import { getUserToken } from "../local-storage";
+import LikeButton from "../components/LikeButton";
+
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
@@ -51,6 +53,7 @@ function Meows() {
               : "Unknown User",
           };
         });
+        
         setMeows(meowsWithUsernames);
       } catch (error) {
         console.log(error);
@@ -83,9 +86,9 @@ function Meows() {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.likesContainer}>
-                <p>{meow.reposts}</p>
-                <p>{meow.likes}</p>
-                <p>{meow.views}</p>
+                <p>
+                  {meow.likes} <LikeButton meow={meow} />
+                </p>
                 <p>{meow.date}</p>
               </div>
             </div>

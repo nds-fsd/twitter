@@ -3,10 +3,8 @@ const mongoose = require("mongoose");
 
 const meowSchema = new Schema({
   text: { type: String, required: true },
-  reposts: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
-  views: { type: Number, default: 0 },
-  date: { type: String, required: true },
+  date: { type: Date, default: Date.now },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
