@@ -37,13 +37,10 @@
   width: 80%;
 }
 
-<<<<<<< HEAD:frontend/src/pages/Profile.module.css
-=======
 .profileInfo {
   padding-left: 20px;
 }
 
->>>>>>> Sprint-2:frontend/src/pages/UserProfile.module.css
 .name {
   cursor: pointer;
   font-size: 25px;
