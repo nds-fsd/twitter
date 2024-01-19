@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom/dist";
 
 function Navbar() {
-  const navigateHome = useNavigate();
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -43,18 +43,18 @@ function Navbar() {
         className={styles.logo}
         src={cat}
         alt="logo"
-        onClick={() => navigateHome("/home")}
+        onClick={() => navigate("/home")}
       />
       <nav className={styles.navbar}>
         <div className={styles.navigator}>
-          <div className={styles.options} onClick={() => navigateHome("/home")}>
+          <div className={styles.options} onClick={() => navigate("/home")}>
             <img src={home} alt="." />
             <p>Home</p>
           </div>
           {/*<div className={styles.options}><img src={campana} alt="."/><p>Notifications</p></div>
               <div className={styles.options}><img src={sobre} alt="."/><p>Messages</p></div>*/}
           <div
-            onClick={() => navigateHome("/user/" + loggedUsername)}
+            onClick={() => navigate("/user/" + loggedUsername)}
             className={styles.options}
           >
             <img src={usuario} alt="." />
