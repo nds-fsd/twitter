@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./FollowButton.module.css";
 import { followApi } from "../apis/apiWrapper";
 import { getUserToken } from "../local-storage";
+import { context } from "../App";
 
 const FollowButton = ({ username }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const reload = useContext(context);
 
   useEffect(() => {
     const fetchFollowStatus = async () => {
       try {
         const token = getUserToken();
-  
+
         if (!token) {
           console.error("Token is not defined");
           return;
         }
-  
+
         const response = await followApi.get(`/${username}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-  
+
         if (response.status === 200) {
           setIsFollowing(response.data.isFollowing);
         } else {
@@ -30,10 +32,10 @@ const FollowButton = ({ username }) => {
         console.error("Error fetching follow status:", error);
       }
     };
-  
+
     fetchFollowStatus();
   }, [username]);
-  
+
   const handleFollow = async () => {
     setIsLoading(true);
     try {
@@ -52,6 +54,7 @@ const FollowButton = ({ username }) => {
 
       if (response.status === 200) {
         setIsFollowing(true);
+        reload.setReload(!reload.reload);
       } else {
         throw new Error(response.data.error);
       }
@@ -79,6 +82,7 @@ const FollowButton = ({ username }) => {
 
       if (response.status === 200) {
         setIsFollowing(false);
+        reload.setReload(!reload.reload);
       } else {
         throw new Error(response.data.error);
       }
