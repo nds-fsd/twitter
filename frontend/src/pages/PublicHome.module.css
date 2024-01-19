@@ -86,6 +86,10 @@ button {
   width: 5%;
 }
 
+.loginRegister {
+  font-size: 25px;
+}
+
 /* Media queries for responsiveness */
 @media screen and (max-width: 768px) {
   .container,
@@ -93,9 +97,11 @@ button {
     flex-direction: column;
   }
   
-  .logo,
+  .logo {
+    width: 30%;
+  }
   .right {
-    width: 100%;
+    width: 70%;
   }
   
   .container > img {
@@ -104,12 +110,16 @@ button {
   }
   
   h1 {
-    font-size: 3rem;
+    font-size: 2rem;
     margin-top: 5%;
   }
   
   .buttons {
     margin-top: 15%;
+  }
+
+  .loginRegister {
+    font-size: 20px;
   }
 }
 

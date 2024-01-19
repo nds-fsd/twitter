@@ -50,6 +50,7 @@ const PublicHome = () => {
           <h1>Happening now</h1>
           <div className={styles.buttons}>
             <button
+              className={styles.loginRegister}
               disabled={popUpRegister || popUpLogin}
               style={{ backgroundColor: "#00A9A5" }}
               onClick={handlePopUpRegisterClick}
@@ -58,6 +59,7 @@ const PublicHome = () => {
             </button>
             <p>Or</p>
             <button
+              className={styles.loginRegister}
               disabled={popUpRegister || popUpLogin}
               onClick={handlePopUpLoginClick}
             >
