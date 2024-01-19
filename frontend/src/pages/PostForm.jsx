@@ -22,7 +22,7 @@ function PostForm() {
       console.log(newMeow);
       const res = await meowApi.post(
         "/",
-        { meow: newMeow, date: new Date().toDateString() },
+        { meow: newMeow, date: Date.now() },
         {
           headers: {
             Authorization: `Bearer ${token}`,
