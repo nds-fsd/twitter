@@ -1,7 +1,11 @@
 const Meow = require("../schemas/meow");
+
+const User = require("../schemas/user");
+
 const Follow = require("../schemas/follow");
 const { default: mongoose } = require("mongoose");
 const { fi } = require("date-fns/locale");
+
 
 const getAllMeows = async (req, res) => {
   try {
@@ -49,9 +53,19 @@ const getMeowById = async (req, res) => {
 const createMeow = async (req, res) => {
   try {
     const body = req.body;
-    const meowToSave = new Meow(body);
+    const userId = req.jwtPayload.id;
+    console.log(req.jwtPayload);
+
+    const meow = {
+      text: body.meow,
+      date: body.date,
+      author: userId,
+    };
+
+    const meowToSave = new Meow(meow);
     await meowToSave.save();
     res.status(201).json(meowToSave);
+    await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
   } catch (error) {
     res.status(400).json(error.message);
   }
