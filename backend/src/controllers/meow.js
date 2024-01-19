@@ -22,15 +22,15 @@ const getAllMeows = async (req, res) => {
         ),
       },
     });
+    const ownMeows = await Meow.find({ author: id });
 
     const allMeows = await Meow.find();
 
-    if (meowsYouFollow.length < 2) {
-      res.status(200).json(allMeows.slice(-10));
-      return;
-    }
+    const meowsToSend = meowsYouFollow.concat(ownMeows);
 
-    res.status(200).json(meowsYouFollow.reverse());
+    console.log(meowsToSend);
+
+    res.status(200).json(meowsToSend);
   } catch (error) {
     return res.status(500).json(error.message);
   }
