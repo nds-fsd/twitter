@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { userApi } from "../apis/apiWrapper";
 import { setUserSession } from "../local-storage";
-import Loading from "../components/Loading";
+import Loading from "../effects/Loading";
 
 import { context } from "../App";
 import { useContext } from "react";
@@ -43,17 +43,22 @@ const LoginForm = ({ close, change, load }) => {
         success.setPreLoader(true);
       } catch (err) {
         setLoading(false);
+        if (err.code === "ERR_NETWORK") setServerError(true);
         console.log(err);
-        if (err.response.status !== 201 && err.response.status !== 400)
+        if (err.response.status !== 201 && err.response.status !== 400) {
           setServerError(true);
+        }
+
         if (err.response.data.error.email) {
           setEmailNotFound(true);
           setInvalidPassword(false);
-        }
-        if (err.response.data.error.password) {
+          return;
+        } else if (err.response.data.error.password) {
           setInvalidPassword(true);
           setEmailNotFound(false);
+          return;
         }
+        setServerError(true);
       }
     };
 
@@ -62,7 +67,7 @@ const LoginForm = ({ close, change, load }) => {
 
   if (serverError) {
     Swal.fire({
-      text: "Ops, something went wrong!",
+      text: "Oops, something went wrong!",
       icon: "error",
       confirmButtonColor: "#00A9A5",
       timer: "3000",
@@ -119,7 +124,7 @@ const LoginForm = ({ close, change, load }) => {
             {...register("password", { required: true })}
           />
           {invalidPassword && (
-            <p>That password was incorrect. Please try again.</p>
+            <p>The password is incorrect. Please try again.</p>
           )}
         </div>
         <div>
@@ -135,15 +140,7 @@ const LoginForm = ({ close, change, load }) => {
         <footer>
           <p>
             If you don't have an account,{" "}
-            <span
-              onClick={change}
-              style={{
-                cursor: "pointer",
-                color: "green",
-                fontWeight: "bold",
-                textDecoration: "underline",
-              }}
-            >
+            <span className={styles.link} onClick={change}>
               {" "}
               register here
             </span>

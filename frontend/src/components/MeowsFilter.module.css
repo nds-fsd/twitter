@@ -1,6 +1,7 @@
 .container {
+  border-bottom: 1px solid #2f2f2f;
   display: flex;
-  height: 8%;
+  height: 70px;
   top: 0;
   position: fixed;
   width: 50%;
@@ -13,15 +14,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 17px;
+  font-size: 20px;
   cursor: pointer;
 }
 
-.options:nth-child(1) {
-  border-right: 1px solid #2f2f2f;
+.options p {
+  color: #00A9A5;
+  font-weight: bolder;
 }
-
+/* 
 .options p:hover {
   text-decoration: underline;
   cursor: pointer;
-}
+} */

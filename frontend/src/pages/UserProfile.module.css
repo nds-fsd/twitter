@@ -12,6 +12,10 @@
   background-color: black;
 }
 
+.nameContainer p {
+  margin-left: 2%;
+}
+
 .container {
   border: 1px solid rgb(44, 44, 44);
   display: flex;
@@ -20,8 +24,11 @@
   width: 80%;
 }
 
-.name {
+.profileInfo {
   padding-left: 20px;
+}
+
+.name {
   cursor: pointer;
   font-size: 25px;
   font-weight: bold;
@@ -36,7 +43,6 @@
   color: gray;
   cursor: pointer;
   font-size: 14px;
-  padding-left: 20px;
 }
 
 .relativeContainer {
@@ -79,11 +85,12 @@
   border: 1px solid white;
   border-radius: 30px;
   color: white;
+  font-family: "Ubuntu", sans-serif;
   font-size: 15px;
   font-weight: bold;
   height: fit-content;
-  margin-top: 50px;
-  padding: 5px 15px;
+  margin-top: 60px;
+  padding: 7px 15px;
   width: max-content;
 }
 

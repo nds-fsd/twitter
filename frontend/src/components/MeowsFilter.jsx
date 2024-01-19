@@ -4,10 +4,7 @@ function MeowsFilter() {
   return (
     <div className={styles.container}>
       <div className={styles.options}>
-        <p>For you</p>
-      </div>
-      <div className={styles.options}>
-        <p>Following</p>
+        <p>Here are your Meows!</p>
       </div>
     </div>
   );

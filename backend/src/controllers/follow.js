@@ -1,75 +1,140 @@
 const Follow = require("../schemas/follow");
+const User = require("../schemas/user");
 
-const getAllFollows = async (req, res) => {
+const checkFollowStatus = async (req, res) => {
   try {
-    const allFollows = await Follow.find();
-    res.status(200).json(allFollows);
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
-};
+    const followerId = req.jwtPayload.id;
+    const username = req.params.username;
+    const followedUser = await User.findOne({ username });
 
-const getFollowById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const followFound = await Follow.findById(id);
-    if (followFound) {
-      res.status(200).json(followFound);
-    } else {
-      res.status(404).json({ error: "Follow no encontrado" });
-    }
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
-
-const createFollow = async (req, res) => {
-  try {
-    const body = req.body;
-    const followToSave = new Follow(body);
-    await followToSave.save();
-    res.status(201).json(followToSave);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-};
-
-const updateFollow = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const followFound = await Follow.findById(id);
-    if (followFound) {
-      const body = req.body;
-      const followUpdated = await Follow.findByIdAndUpdate(id, body, {
-        new: true,
+    if (!followedUser) {
+      return res.status(404).json({
+        error: "The user to follow does not exist",
       });
-      res.status(201).json(followUpdated);
-    } else {
-      res.status(404).json({ error: "Follow no encontrado" });
     }
+
+    const follow = await Follow.findOne({
+      follower: followerId,
+      followed: followedUser.id,
+    });
+
+    const isFollowing = !!follow;
+
+    return res.status(200).json({
+      isFollowing,
+    });
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error("Error in checkFollowStatus:", error);
+    return res.status(500).json({
+      error: "Unexpected error when checking tracking status",
+    });
   }
 };
 
-const deleteFollow = async (req, res) => {
+const followUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const followFound = await Follow.findById(id);
-    if (followFound) {
-      await Follow.findByIdAndDelete(id);
-    } else {
-      res.status(404).json("Follow no encontrado");
+    const username = req.body.username;
+    const followerId = req.jwtPayload.id;
+    const follower = await User.findById(followerId);
+    const followed = await User.findOne({ username });
+
+    if (!follower) {
+      return res.status(401).json({
+        error: "User not authenticated or does not exist",
+      });
     }
+
+    if (!followed) {
+      return res.status(404).json({
+        error: "Username does not exist",
+      });
+    }
+
+    const existingFollow = await Follow.findOne({
+      follower: follower.id,
+      followed: followed.id,
+    });
+
+    if (existingFollow) {
+      return res.status(400).json({
+        error: "You already follow this user",
+      });
+    }
+
+    const follow = new Follow({
+      followed: followed.id,
+      follower: follower.id,
+    });
+
+    follower.followingCounter += 1;
+    await follower.save();
+
+    followed.followerCounter += 1;
+    await followed.save();
+
+    await follow.save();
+    return res.status(200).json({
+      message: "The user has been followed successfully",
+    });
   } catch (error) {
-    res.status(500).json(error.message);
+    console.error("Error in followUser:", error);
+    return res.status(500).json({
+      error: "Unexpected error when following user",
+    });
+  }
+};
+
+const unfollowUser = async (req, res) => {
+  try {
+    const username = req.body.username;
+    const followerId = req.jwtPayload.id;
+    const follower = await User.findById(followerId);
+    const followed = await User.findOne({ username });
+
+    if (!follower) {
+      return res.status(401).json({
+        error: "User not authenticated or does not exist",
+      });
+    }
+
+    if (!followed) {
+      return res.status(404).json({
+        error: "Username does not exist",
+      });
+    }
+
+    const existingFollow = await Follow.findOne({
+      follower: follower.id,
+      followed: followed.id,
+    });
+
+    if (!existingFollow) {
+      return res.status(400).json({
+        error: "You do not follow this user",
+      });
+    }
+
+    await existingFollow.remove();
+
+    follower.followingCounter -= 1;
+    await follower.save();
+
+    followed.followerCounter -= 1;
+    await followed.save();
+
+    return res.status(200).json({
+      message: "You have successfully unfollowed the user",
+    });
+  } catch (error) {
+    console.error("Error in unfollowUser:", error);
+    return res.status(500).json({
+      error: "Unexpected error when unfollowing user",
+    });
   }
 };
 
 module.exports = {
-  getAllFollows,
-  getFollowById,
-  createFollow,
-  updateFollow,
-  deleteFollow,
+  checkFollowStatus,
+  followUser,
+  unfollowUser,
 };

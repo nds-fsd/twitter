@@ -1,73 +1,131 @@
 const Like = require("../schemas/like");
+const Meow = require("../schemas/meow");
+const User = require("../schemas/user");
 
-const getAllLikes = async (req, res) => {
+const checkLikeStatus = async (req, res) => {
   try {
-    const allLikes = await Like.find();
-    res.status(200).json(allLikes);
+    const userId = req.jwtPayload.id;
+    const meowId = req.params.meowId;
+
+    const like = await Like.findOne({
+      userId: userId,
+      meowId: meowId,
+    });
+
+    const isLiked = !!like;
+
+    return res.status(200).json({
+      isLiked,
+    });
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error("Error in checkLikeStatus:", error);
+    return res.status(500).json({
+      error: "Unexpected error when checking like status",
+    });
   }
 };
 
-const getLikeById = async (req, res) => {
+const likeMeow = async (req, res) => {
   try {
-    const { id } = req.params;
-    const likeFound = await Like.findById(id);
-    if (likeFound) {
-      res.status(200).json(likeFound);
-    } else {
-      res.status(404).json({ error: "Like no encontrado" });
+    const meowId = req.params.meowId;
+    const meow = await Meow.findById(meowId);
+    const userId = req.jwtPayload.id;
+    const user = await User.findById(userId);
+
+    if (!meow) {
+      return res.status(404).json({
+        error: "The meow to like does not exist",
+      });
     }
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
 
-const createLike = async (req, res) => {
-  try {
-    const body = req.body;
-    const likeToSave = new Like(body);
-    await likeToSave.save();
-    res.status(201).json(likeToSave);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-};
-
-const updateLike = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const likeFound = await Like.findById(id);
-    if (likeFound) {
-      const body = req.body;
-      const likeUpdated = await Like.findByIdAndUpdate(id, body, { new: true });
-      res.status(201).json(likeUpdated);
-    } else {
-      res.status(404).json({ error: "Like no encontrado" });
+    if (!user) {
+      return res.status(401).json({
+        error: "User not authenticated or does not exist",
+      });
     }
+
+    const existingLike = await Like.findOne({
+      userId: userId,
+      meowId: meowId,
+    });
+
+    if (existingLike) {
+      return res.status(400).json({
+        error: "You already liked this meow",
+      });
+    }
+
+    const like = new Like({
+      userId: userId,
+      meowId: meowId,
+    });
+
+    await like.save();
+
+    await Meow.findByIdAndUpdate(meowId, { $inc: { likes: 1 } }, { new: true });
+
+    return res.status(200).json({
+      message: "The meow has been liked successfully",
+    });
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error("Error in likeMeow:", error);
+    return res.status(500).json({
+      error: "Unexpected error when liking meow",
+    });
   }
 };
 
-const deleteLike = async (req, res) => {
+const unlikeMeow = async (req, res) => {
   try {
-    const { id } = req.params;
-    const likeFound = await Like.findById(id);
-    if (likeFound) {
-      await Like.findByIdAndDelete(id);
-    } else {
-      res.status(404).json("Like no encontrado");
+    const meowId = req.params.meowId;
+    const meow = await Meow.findById(meowId);
+    const userId = req.jwtPayload.id;
+    const user = await User.findById(userId);
+
+    if (!meow) {
+      return res.status(404).json({
+        error: "The meow to like does not exist",
+      });
     }
+
+    if (!user) {
+      return res.status(401).json({
+        error: "User not authenticated or does not exist",
+      });
+    }
+
+    const existingLike = await Like.findOne({
+      userId: userId,
+      meowId: meowId,
+    });
+
+    if (!existingLike) {
+      return res.status(400).json({
+        error: "You do not like this meow",
+      });
+    }
+
+    await existingLike.remove();
+
+    await Meow.findByIdAndUpdate(
+      meowId,
+      { $inc: { likes: -1 } },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      message: "The meow has been unliked successfully",
+    });
   } catch (error) {
-    res.status(500).json(error.message);
+    console.error("Error in likeMeow:", error);
+    return res.status(500).json({
+      error: "Unexpected error when liking meow",
+    });
   }
 };
 
 module.exports = {
-  getAllLikes,
-  getLikeById,
-  createLike,
-  updateLike,
-  deleteLike,
+  checkLikeStatus,
+  likeMeow,
+  unlikeMeow,
 };
