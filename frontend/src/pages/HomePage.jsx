@@ -1,5 +1,5 @@
 import MeowsFilter from "../components/MeowsFilter";
-import PostForm from "./PostForm";
+import PostForm from "./PostMeow";
 import Meows from "./Meows";
 
 const HomePage = () => {
