@@ -1,6 +1,7 @@
 const Meow = require("../schemas/meow");
 const Follow = require("../schemas/follow");
 const { default: mongoose } = require("mongoose");
+const { fi } = require("date-fns/locale");
 
 const getAllMeows = async (req, res) => {
   try {
@@ -10,15 +11,22 @@ const getAllMeows = async (req, res) => {
 
     console.log(resultado);
 
-    const allMeows = await Meow.find({
+    const meowsYouFollow = await Meow.find({
       author: {
         $in: resultado.map((follow) =>
           mongoose.Types.ObjectId(follow.followed)
         ),
       },
     });
-    console.log(allMeows);
-    res.status(200).json(allMeows);
+
+    const allMeows = await Meow.find();
+
+    if (meowsYouFollow.length < 2) {
+      res.status(200).json(allMeows.slice(-10));
+      return;
+    }
+
+    res.status(200).json(meowsYouFollow);
   } catch (error) {
     return res.status(500).json(error.message);
   }
