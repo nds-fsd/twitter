@@ -11,6 +11,7 @@ import { context } from "../App";
 import { getUserSession } from "../local-storage";
 import { userApi } from "../apis/apiWrapper";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom/dist";
 
 function Navbar() {
   const navigateHome = useNavigate();
@@ -52,7 +53,10 @@ function Navbar() {
           </div>
           {/*<div className={styles.options}><img src={campana} alt="."/><p>Notifications</p></div>
               <div className={styles.options}><img src={sobre} alt="."/><p>Messages</p></div>*/}
-          <div className={styles.options}>
+          <div
+            onClick={() => navigateHome("/user/" + loggedUsername)}
+            className={styles.options}
+          >
             <img src={usuario} alt="." />
             <p>Profile</p>
           </div>

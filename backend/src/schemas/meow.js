@@ -8,8 +8,7 @@ const meowSchema = new Schema({
   likes: { type: Number, default: 0 },
   views: { type: Number, default: 0 },
 
-
-  date: { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now() },
 
   author: {
     type: mongoose.Schema.Types.ObjectId,

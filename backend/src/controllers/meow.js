@@ -13,8 +13,6 @@ const getAllMeows = async (req, res) => {
     console.log(id);
     const resultado = await Follow.find({ follower: id });
 
-    console.log(resultado);
-
     const meowsYouFollow = await Meow.find({
       author: {
         $in: resultado.map((follow) =>
@@ -27,6 +25,13 @@ const getAllMeows = async (req, res) => {
     const allMeows = await Meow.find();
 
     const meowsToSend = meowsYouFollow.concat(ownMeows);
+
+    function compararPorFecha(a, b) {
+      return a.date - b.date;
+    }
+
+    // Ordenar el array 'elementos' utilizando la función de comparación
+    meowsToSend.sort(compararPorFecha);
 
     console.log(meowsToSend);
 
