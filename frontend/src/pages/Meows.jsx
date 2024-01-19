@@ -6,7 +6,6 @@ import user from "../assets/user.png";
 import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
-import { getUserToken } from "../local-storage";
 
 function Meows() {
   const [meows, setMeows] = useState("");
