@@ -70,6 +70,8 @@ const createUser = async (req, res) => {
       user: {
         name: createdUser.name,
         surname: createdUser.surname,
+        username: createdUser.username,
+        id: createdUser._id,
       },
     });
   } catch (error) {

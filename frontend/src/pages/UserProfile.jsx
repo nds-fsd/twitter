@@ -29,6 +29,8 @@ function UserProfile() {
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
 
   useEffect(() => {
+    console.log(loggedInUser);
+    reload.setPreLoader(false);
     userApi
       .get(`/${urlUsername}`)
       .then((response) => {
