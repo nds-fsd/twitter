@@ -69,6 +69,13 @@ header {
   cursor: pointer;
 }
 
+img {
+  width: 3rem;
+  height: 2.5rem;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
 .submit {
   text-align: center;
   color: black;
