@@ -168,6 +168,7 @@ const RegisterForm = ({ close, change }) => {
               </span>
             </header>
             <img onClick={() => setFormStep(0)} src={goBack} alt="" />
+
             <h2>Create your account</h2>
             <div>
               <input
