@@ -8,9 +8,9 @@ const connectDB = async () => {
   mongoose.set("strictQuery", false);
 
   try {
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === "atlas") {
       dbUrl = process.env.MONGO_URL_PROD;
-    } else if (process.env.NODE_ENV === "development") {
+    } else if (process.env.NODE_ENV === "docker") {
       dbUrl = process.env.MONGO_URL_DEV;
     } else if (process.env.NODE_ENV === "test") {
       const mongod = await MongoMemoryServer.create();
