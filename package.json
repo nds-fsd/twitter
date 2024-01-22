@@ -8,8 +8,8 @@
   "scripts": {
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",
     "start:backend": "dotenv -- turbo run dev --scope='backend'",
-    "start:prod": "NODE_ENV=atlas dotenv -- turbo run dev",
-    "start:dev": "NODE_ENV=docker dotenv -- turbo run dev",
+    "start:prod": "dotenv -- turbo run dev",
+    "start:dev": "dotenv -- turbo run dev",
     "start:test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage"
   },
   "jest": {
