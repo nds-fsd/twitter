@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
+const { MongoMemoryServer } = require("mongodb-memory-server");
 require("dotenv").config();
-console.log(process.env.MONGO_URL);
 
 let dbUrl = process.env.MONGO_URL;
-
 let mongodb;
 
 const connectDB = async () => {
@@ -11,17 +10,20 @@ const connectDB = async () => {
 
   try {
     if (process.env.MONGO_URL === "test") {
-      mongod = await MongoMemoryServer.create();
-      dbUrl = mongod.getUri();
+      mongodb = await MongoMemoryServer.create();
+      dbUrl = mongodb.getUri();
       console.log(dbUrl);
     }
 
-    await mongoose.connect(dbUrl);
+    await mongoose.connect(dbUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
     const mongo = mongoose.connection;
     mongo.on("error", (error) => console.error(error));
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -38,5 +40,5 @@ const disconnectDB = async () => {
 
 module.exports = {
   connectDB,
-  disconnectDB
-}
+  disconnectDB,
+};
