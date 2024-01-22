@@ -6,11 +6,31 @@ import { useParams } from "react-router-dom";
 import { useEffect, useContext, useState } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
 
-const VistaUnMeow = ({ username }) => {
+const VistaUnMeow = () => {
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
   }
+
+  const [pantallaPequena, setPantallaPequena] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      const esPantallaPequena = window.matchMedia(
+        "(max-width: 1000px)"
+      ).matches;
+      setPantallaPequena(esPantallaPequena);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  console.log(pantallaPequena);
 
   const [meow, setMeow] = useState({});
   const [userName, setUserName] = useState("");
@@ -23,15 +43,10 @@ const VistaUnMeow = ({ username }) => {
       const userRes = await userApi.get(`id/${meowRes.data.author}`);
       setMeow(meowRes.data);
       setUserName(userRes.data.username);
-
-      console.log(meowRes.data);
     };
 
     getDetails();
   }, []);
-  console.log(userName);
-  console.log(meow.date);
-  console.log(typeof meow.date);
 
   const opcionesDeFormato = {
     year: "numeric",
@@ -44,15 +59,13 @@ const VistaUnMeow = ({ username }) => {
   };
 
   const dateString = meow.date;
-  console.log(dateString);
+
   const dateObject = dateString ? new Date(dateString) : null;
 
   const date = dateObject
     ? new Intl.DateTimeFormat("es-ES", opcionesDeFormato).format(dateObject)
     : "Fecha no disponible";
-
-  console.log(date);
-  console.log(typeof date);
+  console.log(meow);
 
   return (
     <div className={styles.container}>
@@ -73,15 +86,45 @@ const VistaUnMeow = ({ username }) => {
       <p className={styles.meow}>{meow.text}</p>
       <div className={styles.dateAndViews}>
         <span>{date.slice(0, -3)}</span>
-        <span>Views</span>
+        <span>{meow.views} Views</span>
       </div>
 
       <div className={styles.stats}>
-        <span>💬​Reply</span>
-        <span>🔁Repost</span>
-        <span>❤️Likes</span>
-        <span>🔖Bookmark</span>
-        <span>🔗Share</span>
+        <span
+          className={`${styles.statsSpan} ${
+            pantallaPequena ? styles.statsSpanSmallScreen : ""
+          }`}
+        >
+          💬{meow.replies}
+        </span>
+        <span
+          className={`${styles.statsSpan} ${
+            pantallaPequena ? styles.statsSpanSmallScreen : ""
+          }`}
+        >
+          🔁{meow.reposts}
+        </span>
+        <span
+          className={`${styles.statsSpan} ${
+            pantallaPequena ? styles.statsSpanSmallScreen : ""
+          }`}
+        >
+          ❤️{meow.likes}
+        </span>
+        <span
+          className={`${styles.statsSpan} ${
+            pantallaPequena ? styles.statsSpanSmallScreen : ""
+          }`}
+        >
+          🔖0
+        </span>
+        <span
+          className={`${styles.statsSpan} ${
+            pantallaPequena ? styles.statsSpanSmallScreen : ""
+          }`}
+        >
+          🔗Share
+        </span>
       </div>
 
       <div className={styles.replies}>

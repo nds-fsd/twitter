@@ -10,6 +10,7 @@
 .firstContainer {
   height: 8%;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .postContainer {
@@ -80,8 +81,11 @@
   align-items: center;
   justify-content: center;
 }
-.stats span {
+.statsSpan {
   margin-right: 3rem;
+}
+.statsSpanSmallScreen {
+  margin-right: 1rem;
 }
 
 .replies {
