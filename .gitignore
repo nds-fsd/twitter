@@ -1,6 +1,31 @@
-node_modules/
-.idea
-.env
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+# npm
+node_modules
 package-lock.json
+*.log
+*.gz
+.env
 .vscode
-data/
+data
+
+# jetbrains
+.idea
+
+# Coveralls
+coverage
+
+# Benchmarking
+benchmarks/graphs
