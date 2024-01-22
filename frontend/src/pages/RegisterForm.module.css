@@ -68,6 +68,15 @@ header {
   user-select: none;
   cursor: pointer;
 }
+.goBack {
+  display: flex;
+  flex-direction: row-reverse;
+}
+img {
+  width: 3rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
 
 .submit {
   text-align: center;

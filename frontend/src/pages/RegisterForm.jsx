@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
 import { context } from "../App";
 import Loading from "../effects/Loading";
+import goBack from "../assets/goBack2.png";
 
 const RegisterForm = ({ close, change }) => {
   const [loading, setLoading] = useState(false);
@@ -160,12 +161,16 @@ const RegisterForm = ({ close, change }) => {
         {formStep === 1 && (
           <section>
             {loading && <Loading />}
-            <header>
+            <header style={{ marginBottom: "0.5rem" }}>
               <span>Step 2 of 2</span>{" "}
               <span onClick={close} className={styles.x}>
                 x
               </span>
             </header>
+            <div className={styles.goBack}>
+              <img onClick={() => setFormStep(0)} src={goBack} alt="" />
+            </div>
+
             <h2>Create your account</h2>
             <div>
               <input
