@@ -36,7 +36,7 @@ const validateUser = async (req, res, next) => {
       .json({ error: { mail: "Email already registered" } });
 
   if (!name || !surname || !birthday || !username) {
-    return res.status(400).json({ message: "missing required fields" });
+    return res.status(400).json({ message: "Missing required fields" });
   }
 
   const patternEmail =

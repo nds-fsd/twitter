@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "backend",
-    "frontend"
+    "frontend",
+    "QA"
   ],
   "scripts": {
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",

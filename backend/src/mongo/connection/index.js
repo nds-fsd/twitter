@@ -3,6 +3,7 @@ const { MongoMemoryServer } = require("mongodb-memory-server");
 require("dotenv").config();
 
 let dbUrl;
+let mongod;
 
 const connectDB = async () => {
   mongoose.set("strictQuery", false);
@@ -25,8 +26,8 @@ const connectDB = async () => {
 
     const mongo = mongoose.connection;
     mongo.on("error", (error) => console.error(error));
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
   }
 };
 
