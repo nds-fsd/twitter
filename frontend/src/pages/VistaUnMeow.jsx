@@ -30,6 +30,29 @@ const VistaUnMeow = ({ username }) => {
     getDetails();
   }, []);
   console.log(userName);
+  console.log(meow.date);
+  console.log(typeof meow.date);
+
+  const opcionesDeFormato = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
+  };
+
+  const dateString = meow.date;
+  console.log(dateString);
+  const dateObject = dateString ? new Date(dateString) : null;
+
+  const date = dateObject
+    ? new Intl.DateTimeFormat("es-ES", opcionesDeFormato).format(dateObject)
+    : "Fecha no disponible";
+
+  console.log(date);
+  console.log(typeof date);
 
   return (
     <div className={styles.container}>
@@ -49,7 +72,7 @@ const VistaUnMeow = ({ username }) => {
 
       <p className={styles.meow}>{meow.text}</p>
       <div className={styles.dateAndViews}>
-        <span>11:34 AM 20/11/2023</span>
+        <span>{date.slice(0, -3)}</span>
         <span>Views</span>
       </div>
 
