@@ -50,7 +50,7 @@ const getMeowById = async (req, res) => {
     if (meowFound) {
       res.status(200).json(meowFound);
     } else {
-      res.status(404).json({ error: "Meow not found" });
+      res.status(404).json({ error: "Meow ffffffnot found" });
     }
   } catch (error) {
     res.status(500).json(error.message);

@@ -2,11 +2,34 @@ import styles from "./VistaUnMeow.module.css";
 import userpic from "../assets/user.png";
 import flecha from "../assets/flecha-izquierda.png";
 
-const VistaUnMeow = ({ meow, user }) => {
+import { useParams } from "react-router-dom";
+import { useEffect, useContext, useState } from "react";
+import { meowApi, userApi } from "../apis/apiWrapper";
+
+const VistaUnMeow = ({ username }) => {
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
   }
+
+  const [meow, setMeow] = useState({});
+  const [userName, setUserName] = useState("");
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getDetails = async () => {
+      const meowRes = await meowApi.get(id);
+      const userRes = await userApi.get(`id/${meowRes.data.author}`);
+      setMeow(meowRes.data);
+      setUserName(userRes.data.username);
+
+      console.log(meowRes.data);
+    };
+
+    getDetails();
+  }, []);
+  console.log(userName);
 
   return (
     <div className={styles.container}>
@@ -21,15 +44,10 @@ const VistaUnMeow = ({ meow, user }) => {
 
       <div className={styles.username}>
         <img src={userpic} alt="user" />
-        <p className={styles.user}>user.name</p>
+        <p className={styles.user}>{userName}</p>
       </div>
 
-      <p className={styles.meow}>
-        Lorem ipsum dolor sit, amet consec adipisicing elit. Sit, voluptatibus!
-        Lorem ipsum dolor sit onsectetur adipisicing elit. Tempore,
-        aliquam.asdad asdsad dsadadsan dsadsad dsadsadasdsa d sadsadsadasds
-        sadsadsadasdss
-      </p>
+      <p className={styles.meow}>{meow.text}</p>
       <div className={styles.dateAndViews}>
         <span>11:34 AM 20/11/2023</span>
         <span>Views</span>

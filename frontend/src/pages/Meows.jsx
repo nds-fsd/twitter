@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, createContext } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
 import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
 import styles from "./Meows.module.css";
@@ -7,11 +7,13 @@ import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
 import { useNavigate } from "react-router-dom";
+import VistaUnMeow from "./VistaUnMeow.jsx";
 
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
   const reload = useContext(context);
