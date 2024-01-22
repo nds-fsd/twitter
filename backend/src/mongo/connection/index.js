@@ -2,20 +2,16 @@ const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 require("dotenv").config();
 
-let dbUrl;
-let mongod;
+let dbUrl = process.env.MONGO_URL;
+let mongodb;
 
 const connectDB = async () => {
   mongoose.set("strictQuery", false);
 
   try {
-    if (process.env.NODE_ENV === "atlas") {
-      dbUrl = process.env.MONGO_URL_PROD;
-    } else if (process.env.NODE_ENV === "docker") {
-      dbUrl = process.env.MONGO_URL_DEV;
-    } else if (process.env.NODE_ENV === "test") {
-      const mongod = await MongoMemoryServer.create();
-      dbUrl = mongod.getUri();
+    if (process.env.MONGO_URL === "test") {
+      mongodb = await MongoMemoryServer.create();
+      dbUrl = mongodb.getUri();
       console.log(dbUrl);
     }
 
@@ -34,8 +30,8 @@ const connectDB = async () => {
 const disconnectDB = async () => {
   try {
     await mongoose.connection.close();
-    if (process.env.NODE_ENV === "test") {
-      await mongod.stop();
+    if (mongodb) {
+      await mongodb.stop();
     }
   } catch (err) {
     console.log(err);
