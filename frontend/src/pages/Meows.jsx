@@ -6,11 +6,13 @@ import user from "../assets/user.png";
 import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
+import { useNavigate } from "react-router-dom";
 
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const reload = useContext(context);
 
@@ -85,7 +87,14 @@ function Meows() {
       {meows &&
         meows.map((meow) => {
           return (
-            <div key={meow._id} className={styles.container}>
+            <div
+              onClick={(e) => {
+                if (e.target.className === "_likeButton_1kigi_1") return;
+                navigate(`/meow/${meow._id}`);
+              }}
+              key={meow._id}
+              className={styles.container}
+            >
               <div className={styles.meowsContainer}>
                 <div className={styles.userContainer}>
                   <img src={user} />
