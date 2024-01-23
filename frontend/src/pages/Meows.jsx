@@ -13,7 +13,7 @@ function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
-  const [userName, setUserName] = useState("");
+
   const navigate = useNavigate();
 
   const reload = useContext(context);
