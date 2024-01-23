@@ -4,10 +4,10 @@ import flecha from "../assets/flecha-izquierda.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
-
 import { useParams } from "react-router-dom";
 import { useEffect, useContext, useState, useRef } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
+import { getUserToken } from "../local-storage";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
@@ -15,7 +15,18 @@ const VistaUnMeow = () => {
     e.target.style.height = `${e.target.scrollHeight}px`;
   }
 
+  // -----------------------------------variables------------------------------------------------------------------------
+
   const [pantallaPequena, setPantallaPequena] = useState(false);
+  const [parentMeow, setParentMeow] = useState("");
+  const [meowReply, setMeowReply] = useState("");
+  const [allMeowsReplies, setAllMeowsReplies] = useState("");
+  const [userName, setUserName] = useState("");
+  const textareaRef = useRef(null);
+  const { id } = useParams();
+  const token = getUserToken();
+
+  // ----------------------------------Funciones para hacer la pantala responsive-------------------------------------
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,23 +45,38 @@ const VistaUnMeow = () => {
     };
   }, []);
 
-  const [meow, setMeow] = useState("");
-  const [userName, setUserName] = useState("");
-  const textareaRef = useRef(null);
-
-  const { id } = useParams();
+  // --------------------------------------GET Request del Meow y el User-------------------------------------------------
 
   useEffect(() => {
     const getDetails = async () => {
       const meowRes = await meowApi.get(id);
       const userRes = await userApi.get(`id/${meowRes.data.author}`);
-      setMeow(meowRes.data);
+      setParentMeow(meowRes.data);
       setUserName(userRes.data.username);
     };
 
     getDetails();
   }, []);
+  // --------------------------------------POST Request para postear una respuesta-------------------------------------
+  const postReply = async () => {
+    try {
+      const res = await meowApi.post(
+        "/",
+        { meow: meowReply, date: Date.now(), parentMeow: parentMeow._id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+      setMeowReply("");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  // --------------------------------------------------Funciones para las dates personalizadas---------------------------------------
   const opcionesDeFormato = {
     year: "numeric",
     month: "2-digit",
@@ -60,16 +86,26 @@ const VistaUnMeow = () => {
     timeZoneName: "short",
   };
 
-  const dateString = meow.date;
-  console.log(meow);
+  const dateString = parentMeow.date;
+  console.log(parentMeow);
 
   const dateObject = dateString ? new Date(dateString) : null;
 
   const date = dateObject
     ? new Intl.DateTimeFormat("es-ES", opcionesDeFormato).format(dateObject)
     : "Fecha no disponible";
+  // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
+  useEffect(() => {
+    const getReplies = async () => {
+      try {
+        const res = await meowApi.get;
+      } catch (err) {}
+    };
+  }, []);
+
+  // .................................................................................................................
   return (
-    meow && (
+    parentMeow && (
       <div className={styles.container}>
         <div className={styles.firstContainer}>
           <div className={styles.postContainer}>
@@ -85,10 +121,10 @@ const VistaUnMeow = () => {
           <p className={styles.user}>{userName}</p>
         </div>
 
-        <p className={styles.meow}>{meow.text}</p>
+        <p className={styles.meow}>{parentMeow.text}</p>
         <div className={styles.dateAndViews}>
           <span>{date.slice(0, -3)}</span>
-          <span>{meow.views} Views</span>
+          <span>{parentMeow.views} Views</span>
         </div>
 
         <div className={styles.stats}>
@@ -103,7 +139,7 @@ const VistaUnMeow = () => {
               pantallaPequena ? styles.statsSpanSmallScreen : ""
             }`}
           >
-            💬{meow.replies}
+            💬{parentMeow.replies}
             <Tooltip id="Replies" />
           </span>
           <span
@@ -114,7 +150,7 @@ const VistaUnMeow = () => {
               pantallaPequena ? styles.statsSpanSmallScreen : ""
             }`}
           >
-            🔁{meow.reposts}
+            🔁{parentMeow.reposts}
             <Tooltip id="Reposts" />
           </span>
 
@@ -126,7 +162,7 @@ const VistaUnMeow = () => {
               pantallaPequena ? styles.statsSpanSmallScreen : ""
             }`}
           >
-            <LikeButton meow={meow} />
+            <LikeButton meow={parentMeow} />
             <Tooltip id="Likes" />
           </span>
           <span
@@ -156,12 +192,16 @@ const VistaUnMeow = () => {
         <div className={styles.replies}>
           <img src={userpic} alt="" />
           <textarea
+            value={meowReply}
+            onChange={(e) => {
+              setMeowReply(e.target.value);
+              handleKeyDown(e);
+            }}
             ref={textareaRef}
-            onChange={handleKeyDown}
             className={styles.textarea}
             placeholder="Post your reply"
           ></textarea>
-          <button>Reply</button>
+          <button onClick={postReply}>Reply</button>
         </div>
       </div>
     )

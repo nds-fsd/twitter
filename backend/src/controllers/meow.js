@@ -68,6 +68,9 @@ const createMeow = async (req, res) => {
       date: body.date,
       author: userId,
     };
+    if (body.parentMeow) {
+      meow.parentMeow = body.parentMeow;
+    }
 
     const meowToSave = new Meow(meow);
     await meowToSave.save();
