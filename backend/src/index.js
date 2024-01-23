@@ -1,5 +1,5 @@
 const express = require("express");
-const { connectDB } = require("./mongo/connection");
+const { connectDB } = require("./mongo");
 const router = require("./routers/index");
 const cors = require("cors");
 const app = express();
@@ -27,7 +27,7 @@ connectDB().then((error) => {
 });
 
 const server = app.listen(port, () => {
-  console.log(`Server is up and running at ${port}`);
+  console.log(`Express server is up and running at ${port}`);
 });
 
 module.exports = { app, server };

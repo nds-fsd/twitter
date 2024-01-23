@@ -20,39 +20,31 @@ const validateUser = async (req, res, next) => {
   const userNameError = await User.findOne({ username: username });
 
   if (userMailError && userNameError)
-    return res.status(400).json({
-      error: {
-        mail: "Email already registered",
-        username: "Username already registered",
-      },
-    });
+    return res
+      .status(400)
+      .json({ error: "Mail and username already registered" });
   if (userNameError)
-    return res
-      .status(400)
-      .json({ error: { username: "Username already registered" } });
+    return res.status(400).json({ error: "Username already registered" });
   if (userMailError)
-    return res
-      .status(400)
-      .json({ error: { mail: "Email already registered" } });
+    return res.status(400).json({ error: "Mail already registered" });
 
   if (!name || !surname || !birthday || !username) {
-    return res.status(400).json({ message: "Missing required fields" });
+    return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const patternEmail =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const patternMail =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+$/;
   const patternPassword =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 
-  console.log(!mail.match(patternEmail));
-  if (!mail.match(patternEmail)) {
-    return res.status(400).json({ message: "Email is not valid" });
+  if (!mail.match(patternMail)) {
+    return res.status(400).json({ error: "Mail is not valid" });
   }
 
   if (!password.match(patternPassword)) {
     return res.status(400).json({
-      message:
-        "Password must be 8 to 30 character long, contain one lower case, one upper case, one number and one special character.",
+      error:
+        "Password must be 8 to 15 character long, contain one lower case, one upper case, one number and one special character.",
     });
   }
 
@@ -65,17 +57,13 @@ const validateLogin = async (req, res, next) => {
   const { mail, password } = req.body;
 
   if (!mail || !password)
-    return res
-      .status(400)
-      .json({ error: { login: "Missing email or password." } });
-
+    return res.status(400).json({ error: "Missing email or password." });
   const foundUser = await User.findOne({ mail });
 
-  if (!foundUser)
-    return res.status(400).json({ error: { email: "User not found." } });
+  if (!foundUser) return res.status(400).json({ error: "User not found." });
 
   if (!foundUser.comparePassword(password))
-    return res.status(400).json({ error: { password: "Invalid password." } });
+    return res.status(400).json({ error: "Invalid password." });
 
   next();
 };
