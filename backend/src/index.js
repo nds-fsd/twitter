@@ -1,18 +1,31 @@
 const express = require("express");
 const { connectDB } = require("./mongo/connection");
+const router = require("./routers/index");
 const cors = require("cors");
 const app = express();
-const router = require("./routers/index");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+dotenv.config();
 
+app.use(bodyParser.json());
 app.use(cors());
-app.use(express.json());
 
 app.use("/", router);
 
-connectDB().then(() => console.log("Connected to database!"));
+let port = process.env.PORT;
 
-const port = 3001;
+if (process.env.NODE_ENV === "test") {
+  port = process.env.TEST_PORT;
+}
+
+connectDB().then((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Connected to database!");
+  }
+});
+
 const server = app.listen(port, () => {
   console.log(`Server is up and running at ${port}`);
 });
