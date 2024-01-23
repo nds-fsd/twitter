@@ -10,7 +10,7 @@ const { fi } = require("date-fns/locale");
 const getAllMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
-    console.log(id);
+
     const resultado = await Follow.find({ follower: id });
 
     const meowsYouFollow = await Meow.find({
@@ -23,11 +23,9 @@ const getAllMeows = async (req, res) => {
     const ownMeows = await Meow.find({ author: id });
 
     const allMeows = await Meow.find();
-    console.log(ownMeows);
 
     const meowsToSend = meowsYouFollow.concat(ownMeows);
 
-    console.log(meowsToSend);
     function compararPorFecha(a, b) {
       return a.date - b.date;
     }
@@ -47,10 +45,25 @@ const getMeowById = async (req, res) => {
   try {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
+
     if (meowFound) {
       res.status(200).json(meowFound);
     } else {
-      res.status(404).json({ error: "Meow ffffffnot found" });
+      res.status(404).json({ error: "Meow not found" });
+    }
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
+const getMeowReplies = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const meowReplies = await Meow.find({ parentMeow: id });
+
+    if (meowReplies.length > 0) {
+      res.status(200).json(meowReplies);
     }
   } catch (error) {
     res.status(500).json(error.message);
@@ -117,4 +130,5 @@ module.exports = {
   createMeow,
   updateMeow,
   deleteMeow,
+  getMeowReplies,
 };

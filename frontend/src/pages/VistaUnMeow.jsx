@@ -21,6 +21,7 @@ const VistaUnMeow = () => {
   const [parentMeow, setParentMeow] = useState("");
   const [meowReply, setMeowReply] = useState("");
   const [allMeowsReplies, setAllMeowsReplies] = useState("");
+  const [reload, setReload] = useState(false);
   const [userName, setUserName] = useState("");
   const textareaRef = useRef(null);
   const { id } = useParams();
@@ -87,7 +88,6 @@ const VistaUnMeow = () => {
   };
 
   const dateString = parentMeow.date;
-  console.log(parentMeow);
 
   const dateObject = dateString ? new Date(dateString) : null;
 
@@ -98,10 +98,15 @@ const VistaUnMeow = () => {
   useEffect(() => {
     const getReplies = async () => {
       try {
-        const res = await meowApi.get;
-      } catch (err) {}
+        const res = await meowApi.get(`replies/${id}`);
+        setAllMeowsReplies(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
-  }, []);
+    getReplies();
+  }, [reload]);
 
   // .................................................................................................................
   return (
@@ -201,7 +206,14 @@ const VistaUnMeow = () => {
             className={styles.textarea}
             placeholder="Post your reply"
           ></textarea>
-          <button onClick={postReply}>Reply</button>
+          <button
+            onClick={() => {
+              postReply();
+              setReload(!reload);
+            }}
+          >
+            Reply
+          </button>
         </div>
       </div>
     )
