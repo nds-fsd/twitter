@@ -34,8 +34,15 @@ header {
   margin-bottom: 0;
 }
 
+.inputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .inputFields {
   font-family: var(--main-font);
+  font-size: 15px;
   width: 90%;
 }
 
@@ -45,17 +52,50 @@ header {
 }
 
 .submit {
-  text-align: center;
-  color: black;
-  border-radius: 3rem;
-  width: 20.5rem;
-  height: 3.4rem;
-  font-size: 1.6rem;
+  background-color: var(--main-color);
+  border-radius: 40px;
+  color: white;
   cursor: pointer;
-  background-color: #858585;
-  user-select: none;
+  font-family: var(--main-font);
+  font-size: 20px;
   font-weight: bold;
+  height: auto;
+  padding: 3% 0;
+  text-align: center;
+  user-select: none;
+  width: 90%;
 }
+
+.notValid {
+  background-color: #e7e1e1;
+  border-radius: 40px;
+  color: rgb(0, 0, 0);
+  cursor: not-allowed;
+  font-family: var(--main-font);
+  font-size: 20px;
+  font-weight: bold;
+  height: auto;
+  opacity: 0.3;
+  padding: 3% 0;
+  text-align: center;
+  user-select: none;
+  width: 90%;
+}
+
+.footerText {
+  font-family: var(--main-font);
+  font-size: 12px;
+  margin: 8% 0 3% 0;
+  text-align: center;
+}
+
+.footerText > span {
+  cursor: pointer;
+  color: var(--main-color);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .loading {
   position: fixed;
   left: 0px;
@@ -65,31 +105,4 @@ header {
   z-index: 9999;
   background: url("images/pageLoader.gif") 50% 50% no-repeat rgb(249, 249, 249);
   opacity: 0.8;
-}
-
-.notValid {
-  text-align: center;
-  color: rgb(0, 0, 0);
-  border-radius: 3rem;
-  width: 20.5rem;
-  height: 3.4rem;
-  font-size: 1.6rem;
-  background-color: #e7e1e1;
-  user-select: none;
-  font-weight: bold;
-  cursor: not-allowed;
-  opacity: 0.3;
-}
-
-.footerText {
-  font-family: var(--main-font);
-  font-size: 12px;
-  margin-bottom: 5%;
-}
-
-.footerText > span {
-  cursor: pointer;
-  color: var(--main-color);
-  font-weight: bold;
-  text-decoration: underline;
 }

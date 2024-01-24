@@ -85,7 +85,7 @@ const LoginForm = ({ close, change, load }) => {
           {loading && <Loading />}
         </header>
         <h2 className={styles.tittle}>Access to your account</h2>
-        <div>
+        <div className={styles.inputContainer}>
           <input
             onFocus={() => setEmailNotFound(false)}
             className={styles.inputFields}
@@ -106,7 +106,7 @@ const LoginForm = ({ close, change, load }) => {
           )}
         </div>
 
-        <div>
+        <div className={styles.inputContainer}>
           <input
             onFocus={() => setInvalidPassword(false)}
             className={styles.inputFields}
@@ -119,15 +119,17 @@ const LoginForm = ({ close, change, load }) => {
             <p>The password is incorrect. Please try again.</p>
           )}
         </div>
-        <div>
-          <input
+        <div className={styles.inputContainer}>
+          <button
             onMouseOut={() => setDisabled(false)}
             onMouseOver={mouseOverSubmit}
             disabled={isValid ? false : true}
             className={!disabled ? styles.submit : styles.notValid}
-            type="submit"
-            value={"Log in"}
-          ></input>
+            /* type="submit"
+            value={"Log in"} */
+          >
+            Log in
+          </button>
         </div>
         <footer>
           <p className={styles.footerText}>
