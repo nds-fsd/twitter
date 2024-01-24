@@ -11,17 +11,30 @@
   top: 50%;
   left: 50%;
   width: fit-content;
-    border-radius: 40px;
+  border-radius: 40px;
   user-select: none;
   transform: translate(-50%, -50%);
 }
 
 header {
+  align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 7%;
   font-weight: bold;
   user-select: none;
+}
+
+.backContainer {
+  cursor: pointer;
+  display: flex;
+  gap: 4%;
+  width: 100%;
+}
+
+.backContainer > span {
+  cursor: auto;
+  width: fit-content;
 }
 
 .x {
@@ -36,13 +49,8 @@ header {
   color: var(--main-color);
   font-family: var(--main-font);
   font-size: 27px;
-  margin-bottom: 10%;
-}
-
-.dateLabel {
-  color: white;
-  display: block;
-  user-select: none;
+  margin-bottom: 8%;
+  text-align: center;
 }
 
 .inputContainer {
@@ -69,64 +77,84 @@ header {
   color: gray;
 }
 
+.dateContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 5%;
+}
+
+.dateLabel {
+  color: white;
+  font-family: var(--main-font);
+  display: block;
+  user-select: none;
+}
+
+.dateFields {
+  color: black;
+  font-family: var(--main-font);
+  font-size: 15px;
+  height: auto;
+  padding: 2% 0 2% 3%;
+  user-select: none;
+  width: 50%;
+}
+
+.dateFields::placeholder {
+  font-family: var(--main-font);
+  color: gray;
+}
+
 .error {
   color: grey;
   font-family: var(--main-font);
   font-size: 13px;
   margin-bottom: 5%;
 }
-
-input {
-  padding-left: 0.3rem;
-  color: black;
-  height: auto;
-  padding: 2% 0;
-  margin-bottom: 1rem;
-  user-select: none;
-}
-
+/* 
 .goBack {
   display: flex;
   flex-direction: row-reverse;
 }
+
 img {
   width: 3rem;
   height: 2.5rem;
   cursor: pointer;
-}
+} */
 
 .submit {
-  text-align: center;
-  color: black;
-  border-radius: 3rem;
-  width: 18rem;
-  height: 3.4rem;
-  font-size: 1.6rem;
+  background-color: var(--main-color);
+  border-radius: 40px;
+  color: white;
   cursor: pointer;
-  background-color: #858585;
-  user-select: none;
+  font-family: var(--main-font);
+  font-size: 20px;
   font-weight: bold;
+  height: auto;
+  margin-top: 5%;
+  padding: 3% 0;
+  text-align: center;
+  width: 90%;
 }
-footer {
-  margin-left: 1rem;
-  font-size: 0.9rem;
-  user-select: none;
-  margin-top: 0.8rem;
+
+.footerInForm{
+  margin-top: 5%;
 }
 
+.textsInForm {
+  font-family: var(--main-font);
+  font-size: 13px;
+  margin-bottom: 2%;
+  text-align: center;
+}
 
-
-.link {
+.textsInForm > span {
   cursor: pointer;
-  color: #ff5200;
+  color: var(--main-color);
   font-weight: bold;
   text-decoration: underline;
-}
-
-.errorSubmit {
-  margin-top: 20rem;
-  margin-left: 20rem;
-  font-size: 2rem;
-  color: red;
-  user-select: none;
 }

@@ -31,7 +31,7 @@ header {
   color: var(--main-color);
   font-family: var(--main-font);
   font-size: 27px;
-  margin-bottom: 10%;
+  margin-bottom: 8%;
 }
 
 .inputContainer {
@@ -89,9 +89,8 @@ header {
   width: 90%;
 }
 
-footer {
-  margin: 10% 0 0 0;
-  
+.footerInForm{
+  margin-top: 5%;
 }
 
 .textsInForm {

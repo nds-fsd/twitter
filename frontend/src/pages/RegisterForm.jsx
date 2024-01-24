@@ -7,6 +7,8 @@ import { setUserSession } from "../local-storage";
 import { context } from "../App";
 import Loading from "../effects/Loading";
 import goBack from "../assets/goBack2.png";
+import { ArrowLeftCircle } from "lucide-react";
+import DatePicker from "react-datepicker";
 
 const RegisterForm = ({ close, change }) => {
   const [loading, setLoading] = useState(false);
@@ -133,31 +135,35 @@ const RegisterForm = ({ close, change }) => {
             </div>
 
             <div className={styles.inputContainer}>
-              <label className={styles.dateLabel} htmlFor="">
-                Date of birth
-              </label>
-              <input
-                className={styles.inputFields}
-                type="date"
-                {...register("birthday", { required: true })}
-              />
+              <div className={styles.dateContainer}>
+                <label className={styles.dateLabel} htmlFor="">
+                  Date of birth
+                </label>
+                <input
+                  className={styles.dateFields}
+                  type="date"
+                  {...register("birthday", { required: true })}
+                />
+              </div>
+
               {errors.birthday?.type === "required" && (
                 <p className={styles.error}>Date of birth is required</p>
               )}
             </div>
-            <button
-              className={styles.submit}
-              style={{ userSelect: "none" }}
-              onClick={handleNext}
-            >
-              Next
-            </button>
-            <footer>
-              <p>
+            <div className={styles.inputContainer}>
+              <button
+                className={styles.submit}
+                style={{ userSelect: "none" }}
+                onClick={handleNext}
+              >
+                Next
+              </button>
+            </div>
+
+            <footer className={styles.footerInForm}>
+              <p className={styles.textsInForm}>
                 If you already have an account,{" "}
-                <span className={styles.link} onClick={change}>
-                  log in here
-                </span>
+                <span onClick={change}>log in here</span>
               </p>
             </footer>
           </section>
@@ -166,15 +172,18 @@ const RegisterForm = ({ close, change }) => {
         {formStep === 1 && (
           <section>
             {loading && <Loading />}
-            <header style={{ marginBottom: "0.5rem" }}>
-              <span>Step 2 of 2</span>{" "}
-              <span onClick={close} className={styles.x}>
+            <header>
+              <div className={styles.backContainer}>
+                <ArrowLeftCircle onClick={() => setFormStep(0)} />
+                <span>Step 2 of 2</span>{" "}
+              </div>
+              <p onClick={close} className={styles.x}>
                 x
-              </span>
+              </p>
             </header>
-            <div className={styles.goBack}>
+            {/* <div className={styles.goBack}>
               <img onClick={() => setFormStep(0)} src={goBack} alt="" />
-            </div>
+            </div> */}
 
             <h2 className={styles.tittle}>Create your account</h2>
             <div className={styles.inputContainer}>
@@ -191,7 +200,7 @@ const RegisterForm = ({ close, change }) => {
                 })}
               />
               {errors.mail?.type === "required" && (
-                <p className={styles.error}>Mail is required</p>
+                <p className={styles.error}>Email is required</p>
               )}
               {errors.mail?.type === "pattern" && (
                 <p className={styles.error}>Please, enter a valid email</p>
@@ -235,7 +244,7 @@ const RegisterForm = ({ close, change }) => {
               )}
               {errors.password?.type === "minLength" && (
                 <p className={styles.error}>
-                  Password must be 8 to 30 character long
+                  Password must be 8 to 30 characters long
                 </p>
               )}
               {errors.password?.type === "pattern" && (
@@ -263,19 +272,15 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
-              <input
-                className={styles.submit}
-                type="submit"
-                value={"Sign up"}
-              ></input>
+            <div className={styles.inputContainer}>
+              <button className={styles.submit} type="submit" value={"Sign up"}>
+                Submit
+              </button>
             </div>
-            <footer>
-              <p>
+            <footer className={styles.footerInForm}>
+              <p className={styles.textsInForm}>
                 If you already have an account,{" "}
-                <span className={styles.link} onClick={change}>
-                  log in here
-                </span>
+                <span onClick={change}>log in here</span>
               </p>
             </footer>
           </section>

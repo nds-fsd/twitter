@@ -97,8 +97,8 @@ const LoginForm = ({ close, change, load }) => {
           />
           {emailNotFound && (
             <p className={styles.textsInForm}>
-              Email not found. Want to
-              <span onClick={change}> create a new account?</span>
+              Email not found. Want to{" "}
+              <span onClick={change}>create a new account?</span>
             </p>
           )}
         </div>
@@ -130,7 +130,7 @@ const LoginForm = ({ close, change, load }) => {
             Log in
           </button>
         </div>
-        <footer>
+        <footer className={styles.footerInForm}>
           <p className={styles.textsInForm}>
             If you don't have an account,{" "}
             <span onClick={change}> register here</span>
