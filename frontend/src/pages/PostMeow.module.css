@@ -1,7 +1,7 @@
 :root {
   --sections-color: #222222;
   --sections-hover: #2f2f2f;
-  --main-color: #00a9a5;
+  --main-color: #ff5200;
 }
 
 .container {
@@ -61,6 +61,6 @@
 }
 
 .postButton:hover {
-  background-color: #008b89;
-  border: solid 1px #008b89;
+  background-color: #e94a00;
+  border: solid 1px #e94a00;
 }

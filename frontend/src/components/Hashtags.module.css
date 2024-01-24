@@ -1,7 +1,7 @@
 :root {
   --sections-color: #222222;
   --sections-hover: #393939;
-  --main-color: #00a9a5;
+  --main-color: #ff5200;
 }
 
 * {
@@ -74,7 +74,7 @@
   border: transparent;
   font-size: 14px;
   font-weight: lighter;
-  color: #00a9a5;
+  color: white;
   cursor: pointer;
   margin: 0 0 7% 7%;
   width: auto;
