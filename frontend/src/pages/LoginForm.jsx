@@ -95,12 +95,9 @@ const LoginForm = ({ close, change, load }) => {
             placeholder="Email"
             {...register("mail", { required: true })}
           />
-          {/* {emailNotFound && (
-            <p className={styles.textsInForm}>User email not found.</p>
-          )} */}
           {emailNotFound && (
             <p className={styles.textsInForm}>
-              User email not found. Want to
+              Email not found. Want to
               <span onClick={change}> create a new account?</span>
             </p>
           )}

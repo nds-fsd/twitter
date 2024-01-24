@@ -43,8 +43,13 @@ header {
 }
 
 .inputFields {
+  color: black;
   font-family: var(--main-font);
   font-size: 15px;
+  height: auto;
+  margin-bottom: 7%;
+  padding: 2% 0 2% 3%;
+  user-select: none;
   width: 90%;
 }
 

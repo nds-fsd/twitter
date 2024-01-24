@@ -6,68 +6,85 @@
 }
 .container {
   background-color: black;
-  padding-top: 1rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
-  padding-bottom: 2rem;
+  padding: 2% 2.5%;
   position: absolute;
-  top: 27%;
+  top: 50%;
   left: 50%;
-  width: 300px;
-  min-height: 25rem;
-  margin-top: -75px;
-  margin-left: -150px;
-  border-radius: 40px;
+  width: fit-content;
+    border-radius: 40px;
   user-select: none;
-}
-
-h2 {
-  color: white;
-  font-weight: bold;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  user-select: none;
-}
-
-.date > label {
-  color: white;
-  display: block;
-  user-select: none;
-}
-
-form > div {
-  margin-top: 1rem;
-  user-select: none;
-}
-
-input {
-  padding-left: 0.3rem;
-  color: black;
-  width: 18rem;
-  height: 2rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  user-select: none;
-}
-input::placeholder {
-  color: #c72812;
-  user-select: none;
+  transform: translate(-50%, -50%);
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2.5rem;
+  margin-bottom: 7%;
   font-weight: bold;
   user-select: none;
 }
+
 .x {
-  font-size: 1.2rem;
+  font-size: 20px;
   color: white;
   font-weight: bold;
   user-select: none;
   cursor: pointer;
 }
+
+.tittle {
+  color: var(--main-color);
+  font-family: var(--main-font);
+  font-size: 27px;
+  margin-bottom: 10%;
+}
+
+.dateLabel {
+  color: white;
+  display: block;
+  user-select: none;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputFields {
+  color: black;
+  font-family: var(--main-font);
+  font-size: 15px;
+  height: auto;
+  margin-bottom: 7%;
+  padding: 2% 0 2% 3%;
+  user-select: none;
+  width: 90%;
+}
+
+.inputFields::placeholder {
+  font-family: var(--main-font);
+  color: gray;
+}
+
+.error {
+  color: grey;
+  font-family: var(--main-font);
+  font-size: 13px;
+  margin-bottom: 5%;
+}
+
+input {
+  padding-left: 0.3rem;
+  color: black;
+  height: auto;
+  padding: 2% 0;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
 .goBack {
   display: flex;
   flex-direction: row-reverse;
@@ -97,9 +114,7 @@ footer {
   margin-top: 0.8rem;
 }
 
-.error {
-  margin-bottom: 1rem;
-}
+
 
 .link {
   cursor: pointer;

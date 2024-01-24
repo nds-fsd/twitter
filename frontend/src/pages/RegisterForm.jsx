@@ -103,9 +103,10 @@ const RegisterForm = ({ close, change }) => {
                 x
               </span>
             </header>
-            <h2>Create your account</h2>
-            <div>
+            <h2 className={styles.tittle}>Create your account</h2>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={30}
                 type="text"
                 name=""
@@ -117,8 +118,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={30}
                 type="text"
                 name=""
@@ -130,9 +132,12 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div className={styles.date}>
-              <label htmlFor="">Date of birth</label>
+            <div className={styles.inputContainer}>
+              <label className={styles.dateLabel} htmlFor="">
+                Date of birth
+              </label>
               <input
+                className={styles.inputFields}
                 type="date"
                 {...register("birthday", { required: true })}
               />
@@ -171,9 +176,10 @@ const RegisterForm = ({ close, change }) => {
               <img onClick={() => setFormStep(0)} src={goBack} alt="" />
             </div>
 
-            <h2>Create your account</h2>
-            <div>
+            <h2 className={styles.tittle}>Create your account</h2>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={80}
                 type="text"
                 name=""
@@ -195,8 +201,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={20}
                 type="text"
                 placeholder="Username"
@@ -210,8 +217,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={30}
                 type="password"
                 placeholder="Password"
@@ -238,8 +246,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 onFocus={() => setPasswordError(false)}
                 maxLength={30}
                 type="password"
