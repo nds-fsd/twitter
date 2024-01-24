@@ -82,6 +82,31 @@ button {
   transform: translateY(4px);
 }
 
+.createButton {
+  background-color: var(--main-color);
+  font-family: var(--main-font);
+  border: 1px solid var(--main-color);
+}
+
+.createButton:active {
+  transform: translateY(4px);
+}
+
+.loginButton {
+  background-color: white;
+  border: 1px solid white;
+  color: black;
+  font-family: var(--main-font);
+}
+
+.loginButton:hover {
+  background-color: whitesmoke;
+}
+
+.loginButton:active {
+  transform: translateY(4px);
+}
+
 .buttons > p {
   text-align: center;
   font-weight: lighter;

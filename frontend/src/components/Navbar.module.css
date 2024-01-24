@@ -1,5 +1,5 @@
 :root {
-  --main-blue: #00a9a5;
+  --main-color: #ff5200;
 }
 
 * {
@@ -51,19 +51,18 @@ a {
 }
 
 .navbar button {
-  background-color: var(--main-blue);
+  background-color: var(--main-color);
   border: none;
   border-radius: 20px;
   cursor: pointer;
   font-size: 110%;
-  font-weight: bold;
   height: 55px;
   margin-left: 15px;
   width: 270%;
 }
 
 .navbar button:hover {
-  background-color: #008b89;
+  background-color: #e94a00;
 }
 
 .usuario {
@@ -74,8 +73,8 @@ a {
 }
 
 .usuario button {
-  background-color: var(--main-blue);
-  color: white;
+  color: black;
+  font-weight: 500;
 }
 
 .userInfo {
@@ -95,7 +94,7 @@ a {
 }
 
 @media (max-width: 1000px) {
-  .options p{
+  .options p {
     display: none;
   }
 
