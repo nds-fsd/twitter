@@ -1,6 +1,6 @@
 .container {
   background-color: black;
-  padding: 1rem 2rem;
+  padding: 2% 2.5%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -19,7 +19,7 @@ header {
 }
 
 .x {
-  font-size: 1.2rem;
+  font-size: 20px;
   color: white;
   font-weight: bold;
   user-select: none;
@@ -30,13 +30,15 @@ header {
 .tittle {
   color: var(--main-color);
   font-family: var(--main-font);
-  font-size: 1.7rem;
-  margin-bottom: 0;
+  font-size: 27px;
+  margin-bottom: 10%;
 }
 
 .inputContainer {
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
@@ -82,14 +84,19 @@ header {
   width: 90%;
 }
 
-.footerText {
+footer {
+  margin: 10% 0 0 0;
+  
+}
+
+.textsInForm {
   font-family: var(--main-font);
-  font-size: 12px;
-  margin: 8% 0 3% 0;
+  font-size: 13px;
+  margin-bottom: 2%;
   text-align: center;
 }
 
-.footerText > span {
+.textsInForm > span {
   cursor: pointer;
   color: var(--main-color);
   font-weight: bold;

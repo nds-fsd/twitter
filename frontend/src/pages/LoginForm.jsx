@@ -96,10 +96,10 @@ const LoginForm = ({ close, change, load }) => {
             {...register("mail", { required: true })}
           />
           {/* {emailNotFound && (
-            <p className={styles.footerText}>User email not found.</p>
+            <p className={styles.textsInForm}>User email not found.</p>
           )} */}
           {emailNotFound && (
-            <p className={styles.footerText}>
+            <p className={styles.textsInForm}>
               User email not found. Want to
               <span onClick={change}> create a new account?</span>
             </p>
@@ -116,7 +116,9 @@ const LoginForm = ({ close, change, load }) => {
             {...register("password", { required: true })}
           />
           {invalidPassword && (
-            <p>The password is incorrect. Please try again.</p>
+            <p className={styles.textsInForm}>
+              The password is incorrect. Please try again.
+            </p>
           )}
         </div>
         <div className={styles.inputContainer}>
@@ -132,7 +134,7 @@ const LoginForm = ({ close, change, load }) => {
           </button>
         </div>
         <footer>
-          <p className={styles.footerText}>
+          <p className={styles.textsInForm}>
             If you don't have an account,{" "}
             <span onClick={change}> register here</span>
           </p>
