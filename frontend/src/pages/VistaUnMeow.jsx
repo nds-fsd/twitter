@@ -4,6 +4,7 @@ import flecha from "../assets/flecha-izquierda.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
+import MeowReplies from "./meowReplies";
 import { useParams } from "react-router-dom";
 import { useEffect, useContext, useState, useRef } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
@@ -111,111 +112,114 @@ const VistaUnMeow = () => {
   // .................................................................................................................
   return (
     parentMeow && (
-      <div className={styles.container}>
-        <div className={styles.firstContainer}>
-          <div className={styles.postContainer}>
-            <div className={styles.post}>
-              <img src={flecha} alt="flecha" />
-              <p>Post</p>
+      <>
+        <div className={styles.container}>
+          <div className={styles.firstContainer}>
+            <div className={styles.postContainer}>
+              <div className={styles.post}>
+                <img src={flecha} alt="flecha" />
+                <p>Post</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={styles.username}>
-          <img src={userpic} alt="user" />
-          <p className={styles.user}>{userName}</p>
-        </div>
+          <div className={styles.username}>
+            <img src={userpic} alt="user" />
+            <p className={styles.user}>{userName}</p>
+          </div>
 
-        <p className={styles.meow}>{parentMeow.text}</p>
-        <div className={styles.dateAndViews}>
-          <span>{date.slice(0, -3)}</span>
-          <span>{parentMeow.views} Views</span>
-        </div>
+          <p className={styles.meow}>{parentMeow.text}</p>
+          <div className={styles.dateAndViews}>
+            <span>{date.slice(0, -3)}</span>
+            <span>{parentMeow.views} Views</span>
+          </div>
 
-        <div className={styles.stats}>
-          <span
-            onClick={() => {
-              textareaRef.current.focus();
-            }}
-            data-tooltip-id="Replies"
-            data-tooltip-content="Replies"
-            data-tooltip-place="top"
-            className={`${styles.statsSpan} ${
-              pantallaPequena ? styles.statsSpanSmallScreen : ""
-            }`}
-          >
-            💬{parentMeow.replies}
-            <Tooltip id="Replies" />
-          </span>
-          <span
-            data-tooltip-id="Reposts"
-            data-tooltip-content="Reposts"
-            data-tooltip-place="top"
-            className={`${styles.statsSpan} ${
-              pantallaPequena ? styles.statsSpanSmallScreen : ""
-            }`}
-          >
-            🔁{parentMeow.reposts}
-            <Tooltip id="Reposts" />
-          </span>
+          <div className={styles.stats}>
+            <span
+              onClick={() => {
+                textareaRef.current.focus();
+              }}
+              data-tooltip-id="Replies"
+              data-tooltip-content="Replies"
+              data-tooltip-place="top"
+              className={`${styles.statsSpan} ${
+                pantallaPequena ? styles.statsSpanSmallScreen : ""
+              }`}
+            >
+              💬{parentMeow.replies}
+              <Tooltip id="Replies" />
+            </span>
+            <span
+              data-tooltip-id="Reposts"
+              data-tooltip-content="Reposts"
+              data-tooltip-place="top"
+              className={`${styles.statsSpan} ${
+                pantallaPequena ? styles.statsSpanSmallScreen : ""
+              }`}
+            >
+              🔁{parentMeow.reposts}
+              <Tooltip id="Reposts" />
+            </span>
 
-          <span
-            data-tooltip-id="Likes"
-            data-tooltip-content="Likes"
-            data-tooltip-place="top"
-            className={`${styles.statsSpan} ${
-              pantallaPequena ? styles.statsSpanSmallScreen : ""
-            }`}
-          >
-            <LikeButton meow={parentMeow} />
-            <Tooltip id="Likes" />
-          </span>
-          <span
-            data-tooltip-id="Bookmark"
-            data-tooltip-content="Bookmark"
-            data-tooltip-place="top"
-            className={`${styles.statsSpan} ${
-              pantallaPequena ? styles.statsSpanSmallScreen : ""
-            }`}
-          >
-            🔖0
-            <Tooltip id="Bookmark" />
-          </span>
-          <span
-            data-tooltip-id="Share"
-            data-tooltip-content="Share"
-            data-tooltip-place="top"
-            className={`${styles.statsSpan} ${
-              pantallaPequena ? styles.statsSpanSmallScreen : ""
-            }`}
-          >
-            🔗
-            <Tooltip id="Share" />
-          </span>
-        </div>
+            <span
+              data-tooltip-id="Likes"
+              data-tooltip-content="Likes"
+              data-tooltip-place="top"
+              className={`${styles.statsSpan} ${
+                pantallaPequena ? styles.statsSpanSmallScreen : ""
+              }`}
+            >
+              <LikeButton meow={parentMeow} />
+              <Tooltip id="Likes" />
+            </span>
+            <span
+              data-tooltip-id="Bookmark"
+              data-tooltip-content="Bookmark"
+              data-tooltip-place="top"
+              className={`${styles.statsSpan} ${
+                pantallaPequena ? styles.statsSpanSmallScreen : ""
+              }`}
+            >
+              🔖0
+              <Tooltip id="Bookmark" />
+            </span>
+            <span
+              data-tooltip-id="Share"
+              data-tooltip-content="Share"
+              data-tooltip-place="top"
+              className={`${styles.statsSpan} ${
+                pantallaPequena ? styles.statsSpanSmallScreen : ""
+              }`}
+            >
+              🔗
+              <Tooltip id="Share" />
+            </span>
+          </div>
 
-        <div className={styles.replies}>
-          <img src={userpic} alt="" />
-          <textarea
-            value={meowReply}
-            onChange={(e) => {
-              setMeowReply(e.target.value);
-              handleKeyDown(e);
-            }}
-            ref={textareaRef}
-            className={styles.textarea}
-            placeholder="Post your reply"
-          ></textarea>
-          <button
-            onClick={() => {
-              postReply();
-              setReload(!reload);
-            }}
-          >
-            Reply
-          </button>
+          <div className={styles.replies}>
+            <img src={userpic} alt="" />
+            <textarea
+              value={meowReply}
+              onChange={(e) => {
+                setMeowReply(e.target.value);
+                handleKeyDown(e);
+              }}
+              ref={textareaRef}
+              className={styles.textarea}
+              placeholder="Post your reply"
+            ></textarea>
+            <button
+              onClick={() => {
+                postReply();
+                setReload(!reload);
+              }}
+            >
+              Reply
+            </button>
+          </div>
         </div>
-      </div>
+        {allMeowsReplies && <MeowReplies allMeowReplies={allMeowsReplies} />}
+      </>
     )
   );
 };

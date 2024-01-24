@@ -5,7 +5,10 @@ const token = getUserToken();
 
 export const userApi = axios.create({
   baseURL: "http://localhost:3001/user",
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
 });
 
 export const userRegisterApi = axios.create({
