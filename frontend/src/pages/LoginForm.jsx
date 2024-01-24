@@ -84,32 +84,24 @@ const LoginForm = ({ close, change, load }) => {
           </span>
           {loading && <Loading />}
         </header>
-        <h2>Access to your account</h2>
+        <h2 className={styles.tittle}>Access to your account</h2>
         <div>
           <input
             onFocus={() => setEmailNotFound(false)}
-            style={{ width: "20rem" }}
+            className={styles.inputFields}
             maxLength={80}
             type="text"
             name=""
             placeholder="Email"
             {...register("mail", { required: true })}
           />
-          {emailNotFound && <p>User email not found.</p>}
+          {/* {emailNotFound && (
+            <p className={styles.footerText}>User email not found.</p>
+          )} */}
           {emailNotFound && (
-            <p>
-              Want to{" "}
-              <span
-                style={{
-                  color: "#7272c9",
-                  textDecoration: "underline",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                }}
-                onClick={change}
-              >
-                create a new account?
-              </span>
+            <p className={styles.footerText}>
+              User email not found. Want to
+              <span onClick={change}> create a new account?</span>
             </p>
           )}
         </div>
@@ -117,7 +109,7 @@ const LoginForm = ({ close, change, load }) => {
         <div>
           <input
             onFocus={() => setInvalidPassword(false)}
-            style={{ width: "20rem" }}
+            className={styles.inputFields}
             maxLength={30}
             type="password"
             placeholder="Password"
@@ -138,12 +130,9 @@ const LoginForm = ({ close, change, load }) => {
           ></input>
         </div>
         <footer>
-          <p>
+          <p className={styles.footerText}>
             If you don't have an account,{" "}
-            <span className={styles.link} onClick={change}>
-              {" "}
-              register here
-            </span>
+            <span onClick={change}> register here</span>
           </p>
         </footer>
       </form>

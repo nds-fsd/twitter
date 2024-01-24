@@ -1,33 +1,47 @@
 .container {
   background-color: black;
-  padding-top: 1rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
-  padding-bottom: 2rem;
+  padding: 1rem 2rem;
   position: absolute;
-  top: 27%;
+  top: 50%;
   left: 50%;
-  width: 331px;
-  min-height: 25rem;
-  margin-top: -75px;
-  margin-left: -150px;
+  width: fit-content;
   border-radius: 40px;
   user-select: none;
+  transform: translate(-50%, -50%);
 }
+
 header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2.5rem;
+  margin-bottom: 7%;
   font-weight: bold;
   user-select: none;
 }
+
 .x {
   font-size: 1.2rem;
   color: white;
   font-weight: bold;
   user-select: none;
   cursor: pointer;
-  margin-left: 20rem;
+  margin-left: 90%;
+}
+
+.tittle {
+  color: var(--main-color);
+  font-family: var(--main-font);
+  font-size: 1.7rem;
+  margin-bottom: 0;
+}
+
+.inputFields {
+  font-family: var(--main-font);
+  width: 90%;
+}
+
+.inputFields::placeholder {
+  font-family: var(--main-font);
+  color: gray;
 }
 
 .submit {
@@ -67,9 +81,15 @@ header {
   opacity: 0.3;
 }
 
-.link {
+.footerText {
+  font-family: var(--main-font);
+  font-size: 12px;
+  margin-bottom: 5%;
+}
+
+.footerText > span {
   cursor: pointer;
-  color: #00a9a5;
+  color: var(--main-color);
   font-weight: bold;
   text-decoration: underline;
 }
