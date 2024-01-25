@@ -124,8 +124,6 @@ const LoginForm = ({ close, change, load }) => {
             onMouseOver={mouseOverSubmit}
             disabled={isValid ? false : true}
             className={!disabled ? styles.submit : styles.notValid}
-            /* type="submit"
-            value={"Log in"} */
           >
             Log in
           </button>
