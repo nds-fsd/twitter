@@ -21,7 +21,7 @@ const VistaUnMeow = () => {
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
   const [meowReply, setMeowReply] = useState("");
-  const [allMeowsReplies, setAllMeowsReplies] = useState([]);
+  const [allMeowReplies, setAllMeowReplies] = useState([]);
   const [reload, setReload] = useState(false);
   const [userName, setUserName] = useState("");
   const textareaRef = useRef(null);
@@ -66,11 +66,13 @@ const VistaUnMeow = () => {
     const getReplies = async () => {
       try {
         const res = await meowApi.get(`replies/${id}`);
-        setAllMeowsReplies(res.data);
+        setAllMeowReplies(res.data);
+        console.log(res);
       } catch (err) {
         console.log(err);
       }
     };
+    console.log(reload);
     getReplies();
   }, [reload]);
 
@@ -81,8 +83,8 @@ const VistaUnMeow = () => {
       date: Date.now(),
       parentMeow: parentMeow._id,
     };
-    setAllMeowsReplies(allMeowsReplies.push(newReply));
-    console.log(allMeowsReplies);
+    setAllMeowReplies([...allMeowReplies, newReply]);
+
     try {
       const res = await meowApi.post("/", newReply, {
         headers: {
@@ -92,6 +94,7 @@ const VistaUnMeow = () => {
       console.log(res);
 
       setMeowReply("");
+
       setReload(!reload);
     } catch (err) {
       console.log(err);
@@ -224,8 +227,11 @@ const VistaUnMeow = () => {
             </button>
           </div>
         </div>
-        {allMeowsReplies.length > 0 && (
-          <MeowReplies allMeowReplies={allMeowsReplies} />
+        {allMeowReplies.length > 0 && (
+          <MeowReplies
+            allMeowReplies={allMeowReplies}
+            setAllMeowReplies={setAllMeowReplies}
+          />
         )}
       </>
     )
