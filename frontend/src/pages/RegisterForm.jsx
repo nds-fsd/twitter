@@ -7,6 +7,7 @@ import { setUserSession } from "../local-storage";
 import { context } from "../App";
 import Loading from "../effects/Loading";
 import goBack from "../assets/goBack2.png";
+import { ArrowLeftCircle } from "lucide-react";
 
 const RegisterForm = ({ close, change }) => {
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,7 @@ const RegisterForm = ({ close, change }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
   const reloadPage = useContext(context);
+  const [disabled, setDisabled] = useState(false);
 
   const {
     register,
@@ -27,6 +29,12 @@ const RegisterForm = ({ close, change }) => {
   const handleNext = () => {
     if (isValid) {
       setFormStep(1);
+    }
+  };
+
+  const mouseOverSubmit = () => {
+    if (!isValid) {
+      setDisabled(true);
     }
   };
 
@@ -103,9 +111,10 @@ const RegisterForm = ({ close, change }) => {
                 x
               </span>
             </header>
-            <h2>Create your account</h2>
-            <div>
+            <h2 className={styles.tittle}>Create your account</h2>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={30}
                 type="text"
                 name=""
@@ -117,8 +126,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={30}
                 type="text"
                 name=""
@@ -130,29 +140,38 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div className={styles.date}>
-              <label htmlFor="">Date of birth</label>
-              <input
-                type="date"
-                {...register("birthday", { required: true })}
-              />
+            <div className={styles.inputContainer}>
+              <div className={styles.dateContainer}>
+                <label className={styles.dateLabel} htmlFor="">
+                  Date of birth
+                </label>
+                <input
+                  className={styles.dateFields}
+                  type="date"
+                  {...register("birthday", { required: true })}
+                />
+              </div>
+
               {errors.birthday?.type === "required" && (
                 <p className={styles.error}>Date of birth is required</p>
               )}
             </div>
-            <button
-              className={styles.submit}
-              style={{ userSelect: "none" }}
-              onClick={handleNext}
-            >
-              Next
-            </button>
-            <footer>
-              <p>
+            <div className={styles.inputContainer}>
+              <button
+                onMouseOut={() => setDisabled(false)}
+                onMouseOver={mouseOverSubmit}
+                disabled={isValid ? false : true}
+                className={!disabled ? styles.submit : styles.notValid}
+                onClick={handleNext}
+              >
+                Next
+              </button>
+            </div>
+
+            <footer className={styles.footerInForm}>
+              <p className={styles.textsInForm}>
                 If you already have an account,{" "}
-                <span className={styles.link} onClick={change}>
-                  log in here
-                </span>
+                <span onClick={change}>log in here</span>
               </p>
             </footer>
           </section>
@@ -161,19 +180,23 @@ const RegisterForm = ({ close, change }) => {
         {formStep === 1 && (
           <section>
             {loading && <Loading />}
-            <header style={{ marginBottom: "0.5rem" }}>
-              <span>Step 2 of 2</span>{" "}
-              <span onClick={close} className={styles.x}>
+            <header>
+              <div className={styles.backContainer}>
+                <ArrowLeftCircle onClick={() => setFormStep(0)} />
+                <span>Step 2 of 2</span>{" "}
+              </div>
+              <p onClick={close} className={styles.x}>
                 x
-              </span>
+              </p>
             </header>
-            <div className={styles.goBack}>
+            {/* <div className={styles.goBack}>
               <img onClick={() => setFormStep(0)} src={goBack} alt="" />
-            </div>
+            </div> */}
 
-            <h2>Create your account</h2>
-            <div>
+            <h2 className={styles.tittle}>Create your account</h2>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={80}
                 type="text"
                 name=""
@@ -185,7 +208,7 @@ const RegisterForm = ({ close, change }) => {
                 })}
               />
               {errors.mail?.type === "required" && (
-                <p className={styles.error}>Mail is required</p>
+                <p className={styles.error}>Email is required</p>
               )}
               {errors.mail?.type === "pattern" && (
                 <p className={styles.error}>Please, enter a valid email</p>
@@ -195,8 +218,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={20}
                 type="text"
                 placeholder="Username"
@@ -210,8 +234,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={30}
                 type="password"
                 placeholder="Password"
@@ -227,7 +252,7 @@ const RegisterForm = ({ close, change }) => {
               )}
               {errors.password?.type === "minLength" && (
                 <p className={styles.error}>
-                  Password must be 8 to 30 character long
+                  Password must be 8 to 30 characters long
                 </p>
               )}
               {errors.password?.type === "pattern" && (
@@ -238,8 +263,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 onFocus={() => setPasswordError(false)}
                 maxLength={30}
                 type="password"
@@ -254,19 +280,20 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
-              <input
-                className={styles.submit}
-                type="submit"
-                value={"Sign up"}
-              ></input>
+            <div className={styles.inputContainer}>
+              <button
+                onMouseOut={() => setDisabled(false)}
+                onMouseOver={mouseOverSubmit}
+                disabled={isValid ? false : true}
+                className={!disabled ? styles.submit : styles.notValid}
+              >
+                Submit
+              </button>
             </div>
-            <footer>
-              <p>
+            <footer className={styles.footerInForm}>
+              <p className={styles.textsInForm}>
                 If you already have an account,{" "}
-                <span className={styles.link} onClick={change}>
-                  log in here
-                </span>
+                <span onClick={change}>log in here</span>
               </p>
             </footer>
           </section>

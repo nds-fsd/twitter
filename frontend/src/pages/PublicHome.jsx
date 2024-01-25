@@ -50,13 +50,13 @@ const PublicHome = ({ reloadPage }) => {
           <h1>Happening now</h1>
           <div className={styles.buttons}>
             <button
-              className={styles.registerButton}
+              className={styles.createButton}
               disabled={popUpRegister || popUpLogin}
               onClick={handlePopUpRegisterClick}
             >
               Create account
             </button>
-            <p>Or</p>
+            <p>or</p>
             <button
               className={styles.loginButton}
               disabled={popUpRegister || popUpLogin}

@@ -84,66 +84,54 @@ const LoginForm = ({ close, change, load }) => {
           </span>
           {loading && <Loading />}
         </header>
-        <h2>Access to your account</h2>
-        <div>
+        <h2 className={styles.tittle}>Access to your account</h2>
+        <div className={styles.inputContainer}>
           <input
             onFocus={() => setEmailNotFound(false)}
-            style={{ width: "20rem" }}
+            className={styles.inputFields}
             maxLength={80}
             type="text"
             name=""
             placeholder="Email"
             {...register("mail", { required: true })}
           />
-          {emailNotFound && <p>User email not found.</p>}
           {emailNotFound && (
-            <p>
-              Want to{" "}
-              <span
-                style={{
-                  color: "#7272c9",
-                  textDecoration: "underline",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                }}
-                onClick={change}
-              >
-                create a new account?
-              </span>
+            <p className={styles.textsInForm}>
+              Email not found. Want to{" "}
+              <span onClick={change}>create a new account?</span>
             </p>
           )}
         </div>
 
-        <div>
+        <div className={styles.inputContainer}>
           <input
             onFocus={() => setInvalidPassword(false)}
-            style={{ width: "20rem" }}
+            className={styles.inputFields}
             maxLength={30}
             type="password"
             placeholder="Password"
             {...register("password", { required: true })}
           />
           {invalidPassword && (
-            <p>The password is incorrect. Please try again.</p>
+            <p className={styles.textsInForm}>
+              The password is incorrect. Please try again.
+            </p>
           )}
         </div>
-        <div>
-          <input
+        <div className={styles.inputContainer}>
+          <button
             onMouseOut={() => setDisabled(false)}
             onMouseOver={mouseOverSubmit}
             disabled={isValid ? false : true}
             className={!disabled ? styles.submit : styles.notValid}
-            type="submit"
-            value={"Log in"}
-          ></input>
+          >
+            Log in
+          </button>
         </div>
-        <footer>
-          <p>
+        <footer className={styles.footerInForm}>
+          <p className={styles.textsInForm}>
             If you don't have an account,{" "}
-            <span className={styles.link} onClick={change}>
-              {" "}
-              register here
-            </span>
+            <span onClick={change}> register here</span>
           </p>
         </footer>
       </form>
