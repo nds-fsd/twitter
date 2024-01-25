@@ -8,7 +8,7 @@ import MeowReplies from "./meowReplies";
 import { useParams } from "react-router-dom";
 import { useEffect, useContext, useState, useRef } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
-import { getUserToken } from "../local-storage";
+import { getUserSession, getUserToken } from "../local-storage";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
@@ -21,12 +21,13 @@ const VistaUnMeow = () => {
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
   const [meowReply, setMeowReply] = useState("");
-  const [allMeowsReplies, setAllMeowsReplies] = useState("");
+  const [allMeowsReplies, setAllMeowsReplies] = useState([]);
   const [reload, setReload] = useState(false);
   const [userName, setUserName] = useState("");
   const textareaRef = useRef(null);
   const { id } = useParams();
   const token = getUserToken();
+  const { username } = getUserSession();
 
   // ----------------------------------Funciones para hacer la pantala responsive-------------------------------------
 
@@ -66,7 +67,6 @@ const VistaUnMeow = () => {
       try {
         const res = await meowApi.get(`replies/${id}`);
         setAllMeowsReplies(res.data);
-        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -76,18 +76,21 @@ const VistaUnMeow = () => {
 
   // --------------------------------------POST Request para postear una respuesta-------------------------------------
   const postReply = async () => {
+    const newReply = {
+      meow: meowReply,
+      date: Date.now(),
+      parentMeow: parentMeow._id,
+    };
+    setAllMeowsReplies(allMeowsReplies.push(newReply));
+    console.log(allMeowsReplies);
     try {
-      const newReply = {
-        meow: meowReply,
-        date: Date.now(),
-        parentMeow: parentMeow._id,
-      };
       const res = await meowApi.post("/", newReply, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       console.log(res);
+
       setMeowReply("");
       setReload(!reload);
     } catch (err) {
@@ -215,14 +218,15 @@ const VistaUnMeow = () => {
             <button
               onClick={() => {
                 postReply();
-                setReload(!reload);
               }}
             >
               Reply
             </button>
           </div>
         </div>
-        {allMeowsReplies && <MeowReplies allMeowReplies={allMeowsReplies} />}
+        {allMeowsReplies.length > 0 && (
+          <MeowReplies allMeowReplies={allMeowsReplies} />
+        )}
       </>
     )
   );
