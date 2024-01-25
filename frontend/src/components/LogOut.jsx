@@ -23,6 +23,7 @@ const LogOut = () => {
           <h2>Log out of Meower?</h2>
           <p>You can always log back in at any time</p>
           <button
+            className={styles.logoutButton}
             onClick={() => {
               removeSession();
               reloadPage.setIsLogged(false);
