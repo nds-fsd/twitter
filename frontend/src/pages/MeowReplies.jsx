@@ -3,12 +3,26 @@ import { userApi } from "../apis/apiWrapper";
 import { useState, useEffect } from "react";
 import user from "../assets/user.png";
 
-const MeowReplies = ({ allMeowReplies }) => {
+const MeowReplies = ({ allMeowReplies, dateFormat }) => {
+  const meowsToShow = allMeowReplies.map((meow) => {
+    const dateString = meow.date;
+    const dateObject = dateString ? new Date(dateString) : null;
+    const date = dateObject
+      ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
+      : "Fecha no disponible";
+
+    // Devolver el meow con la fecha actualizada
+    return {
+      ...meow,
+      date: date,
+    };
+  });
+
   return (
     <>
-      {allMeowReplies && (
+      {meowsToShow && (
         <div className={styles.bigContainer}>
-          {allMeowReplies.map((meow) => (
+          {meowsToShow.map((meow) => (
             <div key={meow._id} className={styles.container}>
               <div className={styles.meowsContainer}>
                 <div className={styles.userContainer}>
@@ -19,7 +33,7 @@ const MeowReplies = ({ allMeowReplies }) => {
               </div>
               <div className={styles.likesContainer}>
                 <p>{meow.likes}</p>
-                <p>{meow.date}</p>
+                <p>{meow.date.slice(0, -3)}</p>
               </div>
             </div>
           ))}

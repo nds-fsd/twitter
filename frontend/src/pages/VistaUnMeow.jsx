@@ -102,7 +102,7 @@ const VistaUnMeow = () => {
   };
 
   // --------------------------------------------------Funciones para las dates personalizadas---------------------------------------
-  const opcionesDeFormato = {
+  const dateFormat = {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
@@ -116,7 +116,7 @@ const VistaUnMeow = () => {
   const dateObject = dateString ? new Date(dateString) : null;
 
   const date = dateObject
-    ? new Intl.DateTimeFormat("es-ES", opcionesDeFormato).format(dateObject)
+    ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
     : "Fecha no disponible";
 
   // .................................................................................................................
@@ -227,7 +227,12 @@ const VistaUnMeow = () => {
             </button>
           </div>
         </div>
-        {allMeowReplies && <MeowReplies allMeowReplies={allMeowReplies} />}
+        {allMeowReplies && (
+          <MeowReplies
+            allMeowReplies={allMeowReplies}
+            dateFormat={dateFormat}
+          />
+        )}
       </>
     )
   );
