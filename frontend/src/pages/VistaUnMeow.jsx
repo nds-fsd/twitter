@@ -77,15 +77,16 @@ const VistaUnMeow = () => {
   // --------------------------------------POST Request para postear una respuesta-------------------------------------
   const postReply = async () => {
     try {
-      const res = await meowApi.post(
-        "/",
-        { meow: meowReply, date: Date.now(), parentMeow: parentMeow._id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const newReply = {
+        meow: meowReply,
+        date: Date.now(),
+        parentMeow: parentMeow._id,
+      };
+      const res = await meowApi.post("/", newReply, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(res);
       setMeowReply("");
     } catch (err) {

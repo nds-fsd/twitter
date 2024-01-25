@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import user from "../assets/user.png";
 
 const MeowReplies = ({ allMeowReplies }) => {
-  const [meows, setMeows] = useState("");
+  const [meows, setMeows] = useState(allMeowReplies);
 
   const uniqueAuthorIds = Array.from(
     new Set(allMeowReplies.map((meow) => meow.author))
