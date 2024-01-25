@@ -83,7 +83,49 @@ describe("Meow Controller TEST", () => {
         .set("Authorization", req.headers.authorization)
         .expect(404);
 
-        expect(res.body.error).toBe("Meow not found");
+      expect(res.body.error).toBe("Meow not found");
+    });
+  });
+
+  describe("updateMeow Endpoint", () => {
+    it("Update meow successfully", async () => {
+      const body = { text: "Meow modificado" };
+      const res = await fakeRequest
+        .patch(`/meow/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .send(body)
+        .expect(201);
+    });
+
+    it("Return meow not ", async () => {
+      const body = { text: "Meow modificado" };
+      const res = await fakeRequest
+        .patch("/meow/65b2483a12c33226161f6287")
+        .set("Authorization", req.headers.authorization)
+        .send(body)
+        .expect(404);
+
+      expect(res.body.error).toBe("Meow not found");
+    });
+  });
+  
+  describe("deleteMeow Endpoint", () => {
+    it("Delete meow successfully", async () => {
+      const res = await fakeRequest
+        .delete(`/meow/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .expect(201);
+
+      expect(res.body.message).toBe("Successfully deleted meow");
+    });
+
+    it("Return meow not ", async () => {
+      const res = await fakeRequest
+        .delete("/meow/65b2483a12c33226161f6287")
+        .set("Authorization", req.headers.authorization)
+        .expect(404);
+
+      expect(res.body.error).toBe("Meow not found");
     });
   });
 });

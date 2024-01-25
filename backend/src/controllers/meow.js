@@ -34,13 +34,14 @@ const getMeowById = async (req, res) => {
   try {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
+
     if (meowFound) {
       res.status(200).json(meowFound);
     } else {
       res.status(404).json({ error: "Meow not found" });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -63,7 +64,7 @@ const createMeow = async (req, res) => {
       .status(201)
       .json({ message: "Meow created successfully", meowId: meowToSave._id });
   } catch (error) {
-    res.status(400).json(error.message);
+    return res.status(400).json(error.message);
   }
 };
 
@@ -71,9 +72,10 @@ const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
+
     if (meowFound) {
-      const body = req.body;
-      const meowUpdated = await Meow.findByIdAndUpdate(id, body, { new: true });
+      const { text } = req.body;
+      const meowUpdated = await Meow.findByIdAndUpdate(id, text, { new: true });
       res.status(201).json(meowUpdated);
     } else {
       res.status(404).json({ error: "Meow not found" });
@@ -87,13 +89,15 @@ const deleteMeow = async (req, res) => {
   try {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
+
     if (meowFound) {
       await Meow.findByIdAndDelete(id);
+      res.status(201).json({ message: "Successfully deleted meow" });
     } else {
-      res.status(404).json("Meow not found");
+      res.status(404).json({ error: "Meow not found" });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
