@@ -6,8 +6,9 @@
   "homepage": "",
   "license": "ISC",
   "scripts": {
-    "dev": "node --watch src/index.js",
-    "start": "node src/index.js"
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "NODE_ENV=test jest --testTimeout=10000 --coverage"
   },
   "devDependencies": {
     "mongodb-memory-server": "^9.1.5",

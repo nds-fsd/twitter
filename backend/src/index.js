@@ -2,32 +2,28 @@ const express = require("express");
 const { connectDB } = require("./mongo");
 const router = require("./routers/index");
 const cors = require("cors");
-const app = express();
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 dotenv.config();
 
-app.use(bodyParser.json());
-app.use(cors());
+const createApp = () => {
+  const app = express();
 
-app.use("/", router);
+  app.use(bodyParser.json());
+  app.use(cors());
 
-let port = process.env.PORT;
+  app.use("/", router);
 
-if (process.env.NODE_ENV === "test") {
-  port = process.env.TEST_PORT;
+  connectDB().then((error) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Connected to database!");
+    }
+  });
+
+  return app;
 }
 
-connectDB().then((error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Connected to database!");
-  }
-});
+module.exports = {createApp}
 
-const server = app.listen(port, () => {
-  console.log(`Express server is up and running at ${port}`);
-});
-
-module.exports = { app, server };

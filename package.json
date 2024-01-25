@@ -10,7 +10,7 @@
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",
     "start:backend": "dotenv -- turbo run dev --scope='backend'",
     "dev": "cross-env dotenv -- turbo run dev",
-    "start:test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage --runInBand"
+    "start:test": "cross-env dotenv -- turbo run test"
   },
   "jest": {
     "testEnvironment": "node",

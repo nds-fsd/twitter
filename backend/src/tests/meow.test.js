@@ -1,11 +1,10 @@
 const supertest = require("supertest");
-const { app, server } = require("../index");
-const fakeRequest = supertest(app);
+const { createApp } = require("../index");
+const fakeRequest = supertest(createApp());
 const { disconnectDB } = require("../mongo/index");
 
 afterAll(async () => {
   await disconnectDB();
-  server.close();
 });
 
 let createUser1, userData1, req, meow1;
