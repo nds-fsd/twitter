@@ -46,7 +46,7 @@ describe("User Controller TEST", () => {
         .expect(400);
 
       expect(res.body).toEqual({
-        error:
+        message:
           "Password must be 8 to 15 character long, contain one lower case, one upper case, one number and one special character.",
       });
     });
@@ -89,7 +89,7 @@ describe("User Controller TEST", () => {
         .send(userTest)
         .expect(400);
 
-      expect(res.body.error).toEqual("Mail already registered");
+      expect(res.body.error.mail).toEqual("Mail already registered");
     });
 
     it("Return an error if username is already registered", async () => {
@@ -103,7 +103,7 @@ describe("User Controller TEST", () => {
         .send(userTest)
         .expect(400);
 
-      expect(res.body.error).toEqual("Username already registered");
+      expect(res.body.error.username).toEqual("Username already registered");
     });
 
     it("Return an error if mail and username are already registered", async () => {
@@ -117,8 +117,9 @@ describe("User Controller TEST", () => {
         .send(userTest)
         .expect(400);
 
-      expect(res.body).toEqual({
-        error: "Mail and username already registered",
+      expect(res.body.error).toEqual({
+        mail: "Mail already registered",
+        username: "Username already registered",
       });
     });
   });
@@ -218,7 +219,7 @@ describe("User Controller TEST", () => {
         .send(loginUserRequest)
         .expect(400);
 
-      expect(res.body.error).toEqual("Missing email or password.");
+      expect(res.body.error.login).toEqual("Missing mail or password.");
     });
 
     it("Return an error if user not found", async () => {
@@ -232,7 +233,7 @@ describe("User Controller TEST", () => {
         .send(loginUserRequest)
         .expect(400);
 
-      expect(res.body.error).toEqual("User not found.");
+      expect(res.body.error.mail).toEqual("User not found.");
     });
 
     it("Return an error if password is invalid", async () => {
@@ -246,7 +247,7 @@ describe("User Controller TEST", () => {
         .send(loginUserRequest)
         .expect(400);
 
-      expect(res.body.error).toEqual("Invalid password.");
+      expect(res.body.error.password).toEqual("Invalid password.");
     });
   });
 
@@ -288,7 +289,7 @@ describe("User Controller TEST", () => {
         .delete(`/user/${userTest.username}`)
         .expect(201);
 
-      expect(res.body).toEqual({ message: "Successfully deleted user" });
+      expect(res.body.message).toEqual("Successfully deleted user");
     });
 
     it("Return an error if user not found", async () => {
