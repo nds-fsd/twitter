@@ -24,7 +24,7 @@ function createUserData(overrides = {}) {
 }
 
 describe("User Controller TEST", () => {
-  describe("Endpoint to create a user", () => {
+  describe("createUser Endpoint", () => {
     it("Return an error if mail is not valid", async () => {
       userTest = createUserData({ mail: "john.doe@example" });
 
@@ -123,7 +123,7 @@ describe("User Controller TEST", () => {
     });
   });
 
-  describe("Endpoint to get all users", () => {
+  describe("getAllUsers Endpoint", () => {
     it("Get all users successfully", async () => {
       const res = await fakeRequest.get("/user/").expect(200);
 
@@ -146,7 +146,7 @@ describe("User Controller TEST", () => {
     });
   });
 
-  describe("Endpoint to get user by username", () => {
+  describe("getUserByUsername Endpoint", () => {
     it("Get user by username", async () => {
       const res = await fakeRequest
         .get(`/user/${userTest.username}`)
@@ -168,7 +168,7 @@ describe("User Controller TEST", () => {
     });
   });
 
-  describe("Endpoint to get user by ID", () => {
+  describe("getUserById Endpoint", () => {
     it("Get user by ID", async () => {
       const res = await fakeRequest.get(`/user/id/${userTest._id}`).expect(200);
 
@@ -188,7 +188,7 @@ describe("User Controller TEST", () => {
     });
   });
 
-  describe("Endpoint for login users", () => {
+  describe("loginUser Endpoint", () => {
     it("Login a user successfully", async () => {
       const loginUserRequest = {
         mail: userTest.mail,
@@ -250,7 +250,7 @@ describe("User Controller TEST", () => {
     });
   });
 
-  describe("Endpoint for update user", () => {
+  describe("updateUser Endpoint", () => {
     it("Update a user successfully", async () => {
       const updatedUserData = {
         town: "Barcelona",
@@ -282,7 +282,7 @@ describe("User Controller TEST", () => {
     });
   });
 
-  describe("Endpoint for delete user", () => {
+  describe("deleteUser Endpoint", () => {
     it("Delete a user successfully", async () => {
       const res = await fakeRequest
         .delete(`/user/${userTest.username}`)

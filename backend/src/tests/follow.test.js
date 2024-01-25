@@ -115,7 +115,7 @@ describe("Follow Controller TEST", () => {
     });
   });
 
-  describe("FollowUser Endpoint", () => {
+  describe("followUser Endpoint", () => {
     it("Follow a user correctly", async () => {
       const resFollow = await fakeRequest
         .post("/follow")
@@ -160,7 +160,7 @@ describe("Follow Controller TEST", () => {
     });
   });
 
-  describe("UnfollowUser Endpoint", () => {
+  describe("unfollowUser Endpoint", () => {
     it("Unfollow a user correctly", async () => {
       const resFollow = await fakeRequest
         .delete("/follow")

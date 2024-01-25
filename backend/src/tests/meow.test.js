@@ -7,7 +7,7 @@ afterAll(async () => {
   await disconnectDB();
 });
 
-let createUser1, userData1, req, meow1;
+let createUser1, userData1, req, resMeowId;
 
 describe("Meow Controller TEST", () => {
   beforeAll(async () => {
@@ -49,6 +49,8 @@ describe("Meow Controller TEST", () => {
         .send(req.body)
         .expect(201);
 
+      resMeowId = res.body.meowId;
+
       const getUser = await fakeRequest
         .get(`/user/${userData1.username}`)
         .expect(200);
@@ -64,6 +66,24 @@ describe("Meow Controller TEST", () => {
         .get("/meow/")
         .set("Authorization", req.headers.authorization)
         .expect(200);
+    });
+  });
+
+  describe("getMeowById Endpoint", () => {
+    it("Get meow by ID", async () => {
+      const res = await fakeRequest
+        .get(`/meow/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .expect(200);
+    });
+
+    it("Return meow not found by ID", async () => {
+      const res = await fakeRequest
+        .get("/meow/65b2483a12c33226161f6287")
+        .set("Authorization", req.headers.authorization)
+        .expect(404);
+
+        expect(res.body.error).toBe("Meow not found");
     });
   });
 });
