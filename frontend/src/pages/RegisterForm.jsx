@@ -19,6 +19,7 @@ const RegisterForm = ({ close, change }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
   const reloadPage = useContext(context);
+  const [disabled, setDisabled] = useState(false);
 
   const {
     register,
@@ -29,6 +30,12 @@ const RegisterForm = ({ close, change }) => {
   const handleNext = () => {
     if (isValid) {
       setFormStep(1);
+    }
+  };
+
+  const mouseOverSubmit = () => {
+    if (!isValid) {
+      setDisabled(true);
     }
   };
 
@@ -152,8 +159,10 @@ const RegisterForm = ({ close, change }) => {
             </div>
             <div className={styles.inputContainer}>
               <button
-                className={styles.submit}
-                style={{ userSelect: "none" }}
+                onMouseOut={() => setDisabled(false)}
+                onMouseOver={mouseOverSubmit}
+                disabled={isValid ? false : true}
+                className={!disabled ? styles.submit : styles.notValid}
                 onClick={handleNext}
               >
                 Next
@@ -273,7 +282,12 @@ const RegisterForm = ({ close, change }) => {
             </div>
 
             <div className={styles.inputContainer}>
-              <button className={styles.submit} type="submit" value={"Sign up"}>
+              <button
+                onMouseOut={() => setDisabled(false)}
+                onMouseOver={mouseOverSubmit}
+                disabled={isValid ? false : true}
+                className={!disabled ? styles.submit : styles.notValid}
+              >
                 Submit
               </button>
             </div>
