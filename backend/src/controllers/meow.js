@@ -6,7 +6,7 @@ const Follow = require("../schemas/follow");
 const { default: mongoose } = require("mongoose");
 const { fi } = require("date-fns/locale");
 
-//hola
+// -------------------------------------------------------------------------------------------------------------------------------
 const getFeedMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
@@ -30,16 +30,14 @@ const getFeedMeows = async (req, res) => {
       return a.date - b.date;
     }
 
-    // Ordenar el array 'arrayObjetos' utilizando la función de comparación
     meowsToSend.sort(compararPorFecha);
-
-    // Ordenar el array 'elementos' utilizando la función de comparación
 
     res.status(200).json(meowsToSend);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 };
+// ----------------------------------------------------------------------------------------------------------------------------
 
 const getMeowById = async (req, res) => {
   try {
@@ -55,6 +53,7 @@ const getMeowById = async (req, res) => {
     res.status(500).json(error.message);
   }
 };
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 const getMeowReplies = async (req, res) => {
   try {
@@ -98,6 +97,9 @@ const getMeowReplies = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
 const createMeow = async (req, res) => {
   try {
     const body = req.body;
@@ -121,7 +123,7 @@ const createMeow = async (req, res) => {
     res.status(400).json(error.message);
   }
 };
-
+// -------------------------------------------------------------------------------------------------------------------------------
 const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
@@ -137,6 +139,8 @@ const updateMeow = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
+// -------------------------------------------------------------------------------------------------------------------------------
 
 const deleteMeow = async (req, res) => {
   try {

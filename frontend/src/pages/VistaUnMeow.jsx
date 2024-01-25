@@ -48,7 +48,7 @@ const VistaUnMeow = () => {
     };
   }, []);
 
-  // --------------------------------------GET Request del Meow y el User-------------------------------------------------
+  // --------------------------------------GET Request del Meow padre y el username-------------------------------------------------
 
   useEffect(() => {
     const getDetails = async () => {
