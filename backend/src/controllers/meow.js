@@ -7,7 +7,7 @@ const { default: mongoose } = require("mongoose");
 const { fi } = require("date-fns/locale");
 
 //hola
-const getAllMeows = async (req, res) => {
+const getFeedMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
 
@@ -22,9 +22,9 @@ const getAllMeows = async (req, res) => {
     });
     const ownMeows = await Meow.find({ author: id });
 
-    const allMeows = await Meow.find();
-
-    const meowsToSend = meowsYouFollow.concat(ownMeows);
+    const meowsToSend = meowsYouFollow.concat(ownMeows).filter((meow) => {
+      return !meow.parentMeow;
+    });
 
     function compararPorFecha(a, b) {
       return a.date - b.date;
@@ -125,7 +125,7 @@ const deleteMeow = async (req, res) => {
 };
 
 module.exports = {
-  getAllMeows,
+  getFeedMeows,
   getMeowById,
   createMeow,
   updateMeow,

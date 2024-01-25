@@ -3,7 +3,7 @@ const router = express.Router();
 const meowController = require("../controllers/meow");
 const { consoleLogType, validateToken } = require("../middlewares/index");
 
-router.get("/", consoleLogType, validateToken, meowController.getAllMeows);
+router.get("/", consoleLogType, validateToken, meowController.getFeedMeows);
 router.get("/:id", consoleLogType, validateToken, meowController.getMeowById);
 router.get(
   "/replies/:id",
