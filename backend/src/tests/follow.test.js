@@ -31,7 +31,6 @@ describe("Follow Controller TEST", () => {
       meowCounter: 0,
       followingCounter: 0,
       followerCounter: 0,
-      //   _id: "65b0d3f67203ec9b3d7be7ac",
     };
 
     userData2 = {
@@ -45,7 +44,6 @@ describe("Follow Controller TEST", () => {
       meowCounter: 0,
       followingCounter: 0,
       followerCounter: 0,
-      //   _id: "65b0d2733b33e80cad7d7b0f",
     };
 
     userData3 = {
@@ -59,7 +57,6 @@ describe("Follow Controller TEST", () => {
       meowCounter: 0,
       followingCounter: 0,
       followerCounter: 0,
-      //   _id: "65b0d2733b33e80cad7d7b0f",
     };
 
     createUser1 = await fakeRequest

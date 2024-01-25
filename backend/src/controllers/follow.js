@@ -65,11 +65,14 @@ const followUser = async (req, res) => {
       follower: follower.id,
     });
 
-    follower.followingCounter += 1;
-    await follower.save();
-
-    followed.followerCounter += 1;
-    await followed.save();
+    await User.updateOne(
+      { _id: follower.id },
+      { $inc: { followingCounter: 1 } }
+    );
+    await User.updateOne(
+      { _id: followed.id },
+      { $inc: { followerCounter: 1 } }
+    );
 
     await follow.save();
     return res.status(200).json({
