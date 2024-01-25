@@ -11,7 +11,7 @@
     "start:backend": "dotenv -- turbo run dev --scope='backend'",
     "start:prod": "dotenv -- turbo run dev",
     "start:dev": "dotenv -- turbo run dev",
-    "start:test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage"
+    "start:test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage --detectOpenHandles"
   },
   "jest": {
     "testEnvironment": "node",

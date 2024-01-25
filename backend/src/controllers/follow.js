@@ -24,7 +24,6 @@ const checkFollowStatus = async (req, res) => {
       isFollowing,
     });
   } catch (error) {
-    console.error("Error in checkFollowStatus:", error);
     return res.status(500).json({
       error: "Unexpected error when checking tracking status",
     });
@@ -77,7 +76,6 @@ const followUser = async (req, res) => {
       message: "The user has been followed successfully",
     });
   } catch (error) {
-    console.error("Error in followUser:", error);
     return res.status(500).json({
       error: "Unexpected error when following user",
     });
@@ -126,7 +124,6 @@ const unfollowUser = async (req, res) => {
       message: "You have successfully unfollowed the user",
     });
   } catch (error) {
-    console.error("Error in unfollowUser:", error);
     return res.status(500).json({
       error: "Unexpected error when unfollowing user",
     });

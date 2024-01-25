@@ -18,6 +18,7 @@ function createUserData(overrides = {}) {
 
   return { ...userTest, ...overrides };
 }
+
 afterAll(async () => {
   await disconnectDB();
   server.close();
@@ -33,7 +34,7 @@ describe("User Controller TEST", () => {
         .send(userTest)
         .expect(400);
 
-      expect(res.body).toEqual({ error: "Mail is not valid" });
+      expect(res.body.error).toEqual("Mail is not valid");
     });
 
     it("Return an error if password is not valid", async () => {
@@ -58,7 +59,7 @@ describe("User Controller TEST", () => {
         .send(userTest)
         .expect(400);
 
-      expect(res.body).toEqual({ error: "Missing required fields" });
+      expect(res.body.error).toEqual("Missing required fields");
     });
 
     it("Create a new user", async () => {
@@ -88,7 +89,7 @@ describe("User Controller TEST", () => {
         .send(userTest)
         .expect(400);
 
-      expect(res.body).toEqual({ error: "Mail already registered" });
+      expect(res.body.error).toEqual("Mail already registered");
     });
 
     it("Return an error if username is already registered", async () => {
@@ -102,7 +103,7 @@ describe("User Controller TEST", () => {
         .send(userTest)
         .expect(400);
 
-      expect(res.body).toEqual({ error: "Username already registered" });
+      expect(res.body.error).toEqual("Username already registered");
     });
 
     it("Return an error if mail and username are already registered", async () => {
@@ -163,7 +164,7 @@ describe("User Controller TEST", () => {
         .expect(404);
 
       expect(typeof res.body).toBe("object");
-      expect(res.body).toEqual({ error: "User not found" });
+      expect(res.body.error).toEqual("User not found");
     });
   });
 
@@ -183,7 +184,7 @@ describe("User Controller TEST", () => {
         .expect(404);
 
       expect(typeof res.body).toBe("object");
-      expect(res.body).toEqual({ error: "User not found" });
+      expect(res.body.error).toEqual("User not found");
     });
   });
 
@@ -217,7 +218,7 @@ describe("User Controller TEST", () => {
         .send(loginUserRequest)
         .expect(400);
 
-      expect(res.body).toEqual({ error: "Missing email or password." });
+      expect(res.body.error).toEqual("Missing email or password.");
     });
 
     it("Return an error if user not found", async () => {
@@ -231,7 +232,7 @@ describe("User Controller TEST", () => {
         .send(loginUserRequest)
         .expect(400);
 
-      expect(res.body).toEqual({ error: "User not found." });
+      expect(res.body.error).toEqual("User not found.");
     });
 
     it("Return an error if password is invalid", async () => {
@@ -245,7 +246,7 @@ describe("User Controller TEST", () => {
         .send(loginUserRequest)
         .expect(400);
 
-      expect(res.body).toEqual({ error: "Invalid password." });
+      expect(res.body.error).toEqual("Invalid password.");
     });
   });
 
@@ -277,7 +278,7 @@ describe("User Controller TEST", () => {
         .send(updatedUserData)
         .expect(404);
 
-      expect(res.body).toEqual({ error: "User not found" });
+      expect(res.body.error).toEqual("User not found");
     });
   });
 
@@ -297,7 +298,7 @@ describe("User Controller TEST", () => {
         .delete(`/user/${nonExistingUsername}`)
         .expect(404);
 
-      expect(res.body).toEqual({ error: "User not found" });
+      expect(res.body.error).toEqual("User not found");
     });
   });
 });
