@@ -89,6 +89,7 @@ const VistaUnMeow = () => {
       });
       console.log(res);
       setMeowReply("");
+      setReload(!reload);
     } catch (err) {
       console.log(err);
     }
