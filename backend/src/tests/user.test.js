@@ -3,6 +3,11 @@ const { app, server } = require("../index");
 const fakeRequest = supertest(app);
 const { disconnectDB } = require("../mongo/index");
 
+afterAll(async () => {
+  await disconnectDB();
+  server.close();
+});
+
 let userTest;
 
 function createUserData(overrides = {}) {
@@ -18,11 +23,6 @@ function createUserData(overrides = {}) {
 
   return { ...userTest, ...overrides };
 }
-
-afterAll(async () => {
-  await disconnectDB();
-  server.close();
-});
 
 describe("User Controller TEST", () => {
   describe("Endpoint to create a user", () => {

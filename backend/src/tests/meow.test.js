@@ -13,13 +13,13 @@ let createUser1, userData1, req, meow1;
 describe("Meow Controller TEST", () => {
   beforeAll(async () => {
     userData1 = {
-      name: "John",
-      surname: "Doe",
-      username: "john.doe",
-      birthday: "1990-01-01",
-      mail: "john.doe@example.com",
-      password: "Password123!",
-      dateOfRegister: "2022-01-01",
+      name: "Sophia",
+      surname: "Garcia",
+      username: "sophia.garcia",
+      birthday: "1995-04-12",
+      mail: "sophia.g@example.com",
+      password: "StrongPass789!",
+      dateOfRegister: "2023-06-05",
       meowCounter: 0,
       followingCounter: 0,
       followerCounter: 0,
