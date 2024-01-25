@@ -49,15 +49,15 @@ const MeowReplies = ({ allMeowReplies }) => {
   return (
     <>
       <div className={styles.bigContainer}>
-        {allMeowReplies &&
-          allMeowReplies.map((meow) => {
+        {meows &&
+          meows.map((meow) => {
             return (
               <div key={meow._id} className={styles.container}>
                 <div className={styles.meowsContainer}>
                   <div className={styles.userContainer}>
                     <img src={user} />
 
-                    <p></p>
+                    <p>{meow.authorUsername}</p>
                   </div>
                   <p>{meow.text}</p>
                 </div>
