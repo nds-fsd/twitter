@@ -59,6 +59,21 @@ const VistaUnMeow = () => {
 
     getDetails();
   }, []);
+
+  // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
+  useEffect(() => {
+    const getReplies = async () => {
+      try {
+        const res = await meowApi.get(`replies/${id}`);
+        setAllMeowsReplies(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getReplies();
+  }, [reload]);
+
   // --------------------------------------POST Request para postear una respuesta-------------------------------------
   const postReply = async () => {
     try {
@@ -95,19 +110,6 @@ const VistaUnMeow = () => {
   const date = dateObject
     ? new Intl.DateTimeFormat("es-ES", opcionesDeFormato).format(dateObject)
     : "Fecha no disponible";
-  // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
-  useEffect(() => {
-    const getReplies = async () => {
-      try {
-        const res = await meowApi.get(`replies/${id}`);
-        setAllMeowsReplies(res.data);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getReplies();
-  }, [reload]);
 
   // .................................................................................................................
   return (

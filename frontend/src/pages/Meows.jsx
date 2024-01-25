@@ -7,7 +7,6 @@ import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
 import { useNavigate } from "react-router-dom";
-import VistaUnMeow from "./VistaUnMeow.jsx";
 
 function Meows() {
   const [meows, setMeows] = useState("");

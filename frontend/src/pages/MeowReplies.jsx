@@ -1,6 +1,7 @@
 import styles from "./MeowReplies.module.css";
 import { userApi } from "../apis/apiWrapper";
 import { useState, useEffect } from "react";
+import user from "../assets/user.png";
 
 const MeowReplies = ({ allMeowReplies }) => {
   const [meows, setMeows] = useState("");
@@ -54,8 +55,8 @@ const MeowReplies = ({ allMeowReplies }) => {
               <div key={meow._id} className={styles.container}>
                 <div className={styles.meowsContainer}>
                   <div className={styles.userContainer}>
-                    <img />
-                    npm run de
+                    <img src={user} />
+
                     <p></p>
                   </div>
                   <p>{meow.text}</p>
