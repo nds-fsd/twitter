@@ -63,13 +63,41 @@ const getMeowReplies = async (req, res) => {
     const meowReplies = await Meow.find({ parentMeow: id });
 
     if (meowReplies.length > 0) {
-      res.status(200).json(meowReplies);
+      // Obtener IDs únicos de los autores
+      const uniqueAuthorIds = [
+        ...new Set(meowReplies.map((meow) => meow.author)),
+      ];
+
+      // Buscar usernames correspondientes a los IDs
+      const authorDetails = await User.find(
+        { _id: { $in: uniqueAuthorIds } },
+        "username"
+      );
+
+      // Crear un mapa para acceder fácilmente a los usernames por ID
+      const authorMap = authorDetails.reduce((map, user) => {
+        map[user._id] = user.username;
+        return map;
+      }, {});
+
+      // Mapear los usernames a los meows
+      const meowRepliesWithUsernames = meowReplies.map((meow) => {
+        return {
+          ...meow.toObject(),
+          authorUsername: authorMap[meow.author] || "Unknown User",
+        };
+      });
+
+      res.status(200).json(meowRepliesWithUsernames.reverse());
+    } else {
+      res.status(404).json({
+        message: "No replies found.",
+      });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
-
 const createMeow = async (req, res) => {
   try {
     const body = req.body;

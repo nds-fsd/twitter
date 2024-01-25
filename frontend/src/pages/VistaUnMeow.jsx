@@ -72,7 +72,7 @@ const VistaUnMeow = () => {
         console.log(err);
       }
     };
-    console.log(reload);
+
     getReplies();
   }, [reload]);
 
@@ -227,12 +227,7 @@ const VistaUnMeow = () => {
             </button>
           </div>
         </div>
-        {allMeowReplies.length > 0 && (
-          <MeowReplies
-            allMeowReplies={allMeowReplies}
-            setAllMeowReplies={setAllMeowReplies}
-          />
-        )}
+        {allMeowReplies && <MeowReplies allMeowReplies={allMeowReplies} />}
       </>
     )
   );
