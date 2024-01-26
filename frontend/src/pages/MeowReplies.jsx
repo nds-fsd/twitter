@@ -1,6 +1,5 @@
 import styles from "./MeowReplies.module.css";
-import { userApi } from "../apis/apiWrapper";
-import { useState, useEffect } from "react";
+import LikeButton from "../components/LikeButton";
 import user from "../assets/user.png";
 
 const MeowReplies = ({ allMeowReplies, dateFormat }) => {
@@ -32,7 +31,9 @@ const MeowReplies = ({ allMeowReplies, dateFormat }) => {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.likesContainer}>
-                <p>{meow.likes}</p>
+                <p>
+                  {meow.likes} <LikeButton meow={meow} />
+                </p>
                 <p>{meow.date.slice(0, -3)}</p>
               </div>
             </div>
