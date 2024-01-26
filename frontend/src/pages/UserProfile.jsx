@@ -111,7 +111,7 @@ function UserProfile() {
             <div className={styles.info}>
               <MapPin />
               {/* <img src={location} alt="." className={styles.options} /> */}
-              <p>Barcelona{town}</p>
+              <p>{town}</p>
               <CalendarDays />
               {/* <img src={calendar} alt="." className={styles.options} /> */}
               <p>Joined on {dateOfRegister}</p>
