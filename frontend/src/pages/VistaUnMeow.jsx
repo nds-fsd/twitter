@@ -52,7 +52,11 @@ const VistaUnMeow = () => {
 
   useEffect(() => {
     const getDetails = async () => {
-      const meowRes = await meowApi.get(id);
+      const meowRes = await meowApi.get(id, {
+        headers: {
+          info: "update views",
+        },
+      });
       const userRes = await userApi.get(`id/${meowRes.data.author}`);
       setParentMeow(meowRes.data);
       setUserName(userRes.data.username);

@@ -43,6 +43,10 @@ const getMeowById = async (req, res) => {
   try {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
+    console.log(req.headers);
+    if (req.headers.info === "update views") {
+      await Meow.updateOne({ _id: id }, { $inc: { views: 1 } });
+    }
 
     if (meowFound) {
       res.status(200).json(meowFound);
