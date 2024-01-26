@@ -35,7 +35,6 @@ describe("Meow Controller TEST", () => {
       },
       body: {
         meow: "My first Meow",
-        date: "2022-01-01",
         author: `${createUser1.body.user.id}`,
       },
     };
@@ -108,7 +107,7 @@ describe("Meow Controller TEST", () => {
       expect(res.body.error).toBe("Meow not found");
     });
   });
-  
+
   describe("deleteMeow Endpoint", () => {
     it("Delete meow successfully", async () => {
       const res = await fakeRequest

@@ -7,178 +7,129 @@ afterAll(async () => {
   await disconnectDB();
 });
 
-let userTest;
-
-function createUserData(overrides = {}) {
-  userTest = {
-    name: "John",
-    surname: "Doe",
-    username: "john.doe",
-    birthday: "1990-01-01",
-    mail: "john.doe@example.com",
-    password: "Password123!",
-    dateOfRegister: "2022-01-01",
-  };
-
-  return { ...userTest, ...overrides };
-}
+let userData, createUser, createMeow, req, resMeowId, getLikedMeow;
 
 describe("Like Controller TEST", () => {
-  describe("Endpoint to create a user", () => {
-    it("Return an error if mail is not valid", async () => {
-      userTest = createUserData({ mail: "john.doe@example" });
+  beforeAll(async () => {
+    userData = {
+      name: "John",
+      surname: "Doe",
+      username: "john.doe",
+      birthday: "1990-01-01",
+      mail: "john.doe@example.com",
+      password: "Password123!",
+      dateOfRegister: "2022-01-01",
+      meowCounter: 0,
+      followingCounter: 0,
+      followerCounter: 0,
+    };
 
+    createUser = await fakeRequest
+      .post("/user/register")
+      .send(userData)
+      .expect(201);
+
+    req = {
+      headers: {
+        authorization: `Bearer ${createUser.body.token}`,
+      },
+      body: {
+        meow: "My first Meow",
+        author: `${createUser.body.user.id}`,
+      },
+    };
+
+    createMeow = await fakeRequest
+      .post("/meow")
+      .set("Authorization", req.headers.authorization)
+      .send(req.body)
+      .expect(201);
+
+    resMeowId = createMeow.body.meowId;
+  });
+
+  describe("checkLikeStatus Endpoint", () => {
+    it("Check like status and return false", async () => {
+      const resStatus = await fakeRequest
+        .get(`/like/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .expect(200);
+
+      expect(resStatus.body.isLiked).toBe(false);
+    });
+  });
+
+  describe("likeMeow Endpoint", () => {
+    it("Return meow not exist", async () => {
       const res = await fakeRequest
-        .post("/user/register")
-        .send(userTest)
+        .post("/like/65af984243c63a45fc3b6473")
+        .set("Authorization", req.headers.authorization)
+        .expect(404);
+
+      expect(res.body.error).toBe("The meow to like does not exist");
+    });
+
+    it("Like a meow correctly", async () => {
+      const resLike = await fakeRequest
+        .post(`/like/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .expect(200);
+
+      expect(resLike.body.message).toBe("The meow has been liked successfully");
+
+      getLikedMeow = await fakeRequest
+        .get(`/meow/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .expect(200);
+
+      expect(getLikedMeow.body.likes).toBe(1);
+    });
+
+    it("User already liked the meow", async () => {
+      const resLike = await fakeRequest
+        .post(`/like/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
         .expect(400);
 
-      expect(res.body.error).toEqual("Mail is not valid");
+      expect(resLike.body.error).toBe("You already liked this meow");
+    });
+  });
+
+  describe("unlikeMeow Endpoint", () => {
+    it("Unlike a meow correctly", async () => {
+      const resUnlike = await fakeRequest
+        .delete(`/like/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .expect(200);
+
+      expect(resUnlike.body.message).toBe(
+        "The meow has been unliked successfully"
+      );
+
+      getLikedMeow = await fakeRequest
+        .get(`/meow/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .expect(200);
+
+      expect(getLikedMeow.body.likes).toBe(0);
+    });
+
+    it("Return meow not exist", async () => {
+      const res = await fakeRequest
+        .delete("/like/65af984243c63a45fc3b6473")
+        .set("Authorization", req.headers.authorization)
+        .expect(404);
+
+      expect(res.body.error).toBe("The meow to like does not exist");
+    });
+
+    it("User has not liked the meow", async () => {
+      const resUnlike = await fakeRequest
+        .delete(`/like/${resMeowId}`)
+        .set("Authorization", req.headers.authorization)
+        .expect(400);
+
+      expect(resUnlike.body.error).toBe("You do not like this meow");
     });
   });
 });
-
-// let createUser, createMeow, createLike, userData, meowData, req, getLikedMeow;
-
-// describe("Like Controller TEST", () => {
-//   beforeAll(async () => {
-//     userData = {
-//       name: "John",
-//       surname: "Doe",
-//       username: "john.doe",
-//       birthday: "1990-01-01",
-//       mail: "john.doe@example.com",
-//       password: "Password123!",
-//       dateOfRegister: "2022-01-01",
-//       meowCounter: 0,
-//       followingCounter: 0,
-//       followerCounter: 0,
-//     };
-
-//     meowData = {
-//       text: "This is a test meow",
-//       author: null,
-//     };
-
-//     createUser = await fakeRequest
-//       .post("/user/register")
-//       .send(userData)
-//       .expect(201);
-
-//     meowData.author = createUser.body.user.id;
-
-//     createMeow = await fakeRequest.post("/meow").send(meowData).expect(200);
-
-//     req = {
-//       headers: {
-//         authorization: `Bearer ${createUser.body.token}`,
-//       },
-//     };
-//   });
-
-//   describe("checkLikeStatus Endpoint", () => {
-//     it("Check like status and return false", async () => {
-//       const resStatus = await fakeRequest
-//         .get(`/like/${createMeow.body.meow.id}`)
-//         .set("Authorization", req.headers.authorization)
-//         .expect(200);
-
-//       expect(resStatus.body.isLiked).toBe(false);
-//     });
-
-//     it("Check like status and return meow not exist", async () => {
-//       const resStatus = await fakeRequest
-//         .get("/like/invalidMeowId")
-//         .set("Authorization", req.headers.authorization)
-//         .expect(404);
-
-//       expect(resStatus.body.error).toBe("The meow to like does not exist");
-//     });
-
-//     it("Check like status and return true", async () => {
-//       const resLike = await fakeRequest
-//         .post(`/like/${createMeow.body.meow.id}`)
-//         .set("Authorization", req.headers.authorization)
-//         .expect(200);
-
-//       const resStatus = await fakeRequest
-//         .get(`/like/${createMeow.body.meow.id}`)
-//         .set("Authorization", req.headers.authorization)
-//         .expect(200);
-
-//       expect(resStatus.body.isLiked).toBe(true);
-//     });
-//   });
-
-//   describe("likeMeow Endpoint", () => {
-//     it("Like a meow correctly", async () => {
-//       const resLike = await fakeRequest
-//         .post(`/like/${createMeow.body.meow.id}`)
-//         .set("Authorization", req.headers.authorization)
-//         .expect(200);
-
-//       expect(resLike.body.message).toBe("The meow has been liked successfully");
-
-//       getLikedMeow = await fakeRequest
-//         .get(`/meow/${createMeow.body.meow.id}`)
-//         .expect(200);
-
-//       expect(getLikedMeow.body.meow.likes).toBe(1);
-//     });
-
-//     it("Meow does not exist", async () => {
-//       const resLike = await fakeRequest
-//         .post("/like/invalidMeowId")
-//         .set("Authorization", req.headers.authorization)
-//         .expect(404);
-
-//       expect(resLike.body.error).toBe("The meow to like does not exist");
-//     });
-
-//     it("User already liked the meow", async () => {
-//       const resLike = await fakeRequest
-//         .post(`/like/${createMeow.body.meow.id}`)
-//         .set("Authorization", req.headers.authorization)
-//         .expect(400);
-
-//       expect(resLike.body.error).toBe("You already liked this meow");
-//     });
-//   });
-
-//   describe("unlikeMeow Endpoint", () => {
-//     it("Unlike a meow correctly", async () => {
-//       const resUnlike = await fakeRequest
-//         .delete(`/like/${createMeow.body.meow.id}`)
-//         .set("Authorization", req.headers.authorization)
-//         .expect(200);
-
-//       expect(resUnlike.body.message).toBe(
-//         "The meow has been unliked successfully"
-//       );
-
-//       getLikedMeow = await fakeRequest
-//         .get(`/meow/${createMeow.body.meow.id}`)
-//         .expect(200);
-
-//       expect(getLikedMeow.body.meow.likes).toBe(0);
-//     });
-
-//     it("Meow does not exist", async () => {
-//       const resUnlike = await fakeRequest
-//         .delete("/like/invalidMeowId")
-//         .set("Authorization", req.headers.authorization)
-//         .expect(404);
-
-//       expect(resUnlike.body.error).toBe("The meow to like does not exist");
-//     });
-
-//     it("User has not liked the meow", async () => {
-//       const resUnlike = await fakeRequest
-//         .delete(`/like/${createMeow.body.meow.id}`)
-//         .set("Authorization", req.headers.authorization)
-//         .expect(400);
-
-//       expect(resUnlike.body.error).toBe("You do not like this meow");
-//     });
-//   });
-// });
