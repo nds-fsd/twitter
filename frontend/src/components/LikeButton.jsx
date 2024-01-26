@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./LikeButton.module.css";
 import { likeApi } from "../apis/apiWrapper";
 import { getUserToken } from "../local-storage";
+import { context } from "../App";
 
 const LikeButton = ({ meow }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const reload = useContext(context);
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
@@ -57,6 +59,7 @@ const LikeButton = ({ meow }) => {
 
       if (response.status === 200) {
         setIsLiked(true);
+        reload.setReload(!reload.reload);
       } else {
         throw new Error(response.data.error);
       }
@@ -84,6 +87,7 @@ const LikeButton = ({ meow }) => {
 
       if (response.status === 200) {
         setIsLiked(false);
+        reload.setReload(!reload.reload);
       } else {
         throw new Error(response.data.error);
       }
