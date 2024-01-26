@@ -64,7 +64,7 @@ const VistaUnMeow = () => {
     };
 
     getDetails();
-  }, [reload]);
+  }, []);
 
   // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
   useEffect(() => {
@@ -79,7 +79,7 @@ const VistaUnMeow = () => {
     };
 
     getReplies();
-  }, [reload]);
+  }, []);
 
   // --------------------------------------POST Request para postear una respuesta-------------------------------------
   const postReply = async () => {
@@ -88,7 +88,6 @@ const VistaUnMeow = () => {
       date: Date.now(),
       parentMeow: parentMeow._id,
     };
-    setAllMeowReplies([...allMeowReplies, newReply]);
 
     try {
       const res = await meowApi.post("/", newReply, {
@@ -97,6 +96,16 @@ const VistaUnMeow = () => {
         },
       });
       console.log(res);
+      setAllMeowReplies([
+        {
+          text: meowReply,
+          authorUsername: username,
+          date: Date.now(),
+          parentMeow: parentMeow._id,
+          id: res._id,
+        },
+        ...allMeowReplies,
+      ]);
 
       setMeowReply("");
 
