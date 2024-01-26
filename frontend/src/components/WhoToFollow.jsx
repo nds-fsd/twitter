@@ -8,6 +8,7 @@ import { getUserSession } from "../local-storage";
 const WhoToFollow = () => {
   const [usersToFollow, setUsersToFollow] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState("");
+  const [displayCount, setDisplayCount] = useState(5);
 
   useEffect(() => {
     const fetchUsersToFollow = async () => {
@@ -42,6 +43,10 @@ const WhoToFollow = () => {
     fetchUsersToFollow();
   }, []);
 
+  const loadMoreUsers = () => {
+    setDisplayCount((prevCount) => Math.min(prevCount + 5, 10));
+  };
+
   const singleUser = (user) => (
     <div key={user.username} className={styles.containerFollow}>
       <img className={styles.accountImage} src={image} alt="" />
@@ -59,7 +64,7 @@ const WhoToFollow = () => {
 
   const listOfUsersToFollow = () => {
     const usersToShow = Array.isArray(usersToFollow)
-      ? usersToFollow.slice(0, 5)
+      ? usersToFollow.slice(0, displayCount)
       : [];
     return usersToShow.map((user) => singleUser(user));
   };
@@ -68,7 +73,7 @@ const WhoToFollow = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Who to follow</h1>
       <div>{listOfUsersToFollow()}</div>
-      <button className={styles.showMore}>Show more</button>
+      <button className={styles.showMore} onClick={loadMoreUsers}>Show more</button>
     </div>
   );
 };
