@@ -22,7 +22,7 @@ const VistaUnMeow = () => {
   const [parentMeow, setParentMeow] = useState("");
   const [meowReply, setMeowReply] = useState("");
   const [allMeowReplies, setAllMeowReplies] = useState([]);
-  const [reload, setReload] = useState(false);
+
   const [userName, setUserName] = useState("");
   const textareaRef = useRef(null);
   const { id } = useParams();
@@ -60,7 +60,6 @@ const VistaUnMeow = () => {
       const userRes = await userApi.get(`id/${meowRes.data.author}`);
       setParentMeow(meowRes.data);
       setUserName(userRes.data.username);
-      console.log(meowRes.data);
     };
 
     getDetails();
@@ -72,7 +71,6 @@ const VistaUnMeow = () => {
       try {
         const res = await meowApi.get(`replies/${id}`);
         setAllMeowReplies(res.data);
-        console.log(res);
       } catch (err) {
         console.log(err);
       }
@@ -95,21 +93,20 @@ const VistaUnMeow = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
+
       setAllMeowReplies([
         {
           text: meowReply,
           authorUsername: username,
           date: Date.now(),
           parentMeow: parentMeow._id,
-          id: res._id,
+          _id: res.data._id,
         },
         ...allMeowReplies,
       ]);
 
       setMeowReply("");
-
-      setReload(!reload);
+      console.log(allMeowReplies);
     } catch (err) {
       console.log(err);
     }

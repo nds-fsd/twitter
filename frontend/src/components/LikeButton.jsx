@@ -11,6 +11,7 @@ const LikeButton = ({ meow }) => {
     const fetchLikeStatus = async () => {
       try {
         const token = getUserToken();
+        console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + meow._id);
 
         if (!token) {
           console.error("Token is not defined");
