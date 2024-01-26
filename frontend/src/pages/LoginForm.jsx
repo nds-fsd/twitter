@@ -11,7 +11,7 @@ import { useContext } from "react";
 
 const LoginForm = ({ close, change, load }) => {
   const [invalidPassword, setInvalidPassword] = useState(false);
-  const [emailNotFound, setEmailNotFound] = useState(false);
+  const [mailNotFound, setMailNotFound] = useState(false);
   const [serverError, setServerError] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,13 +49,13 @@ const LoginForm = ({ close, change, load }) => {
           setServerError(true);
         }
 
-        if (err.response.data.error.email) {
-          setEmailNotFound(true);
+        if (err.response.data.error.mail) {
+          setMailNotFound(true);
           setInvalidPassword(false);
           return;
         } else if (err.response.data.error.password) {
           setInvalidPassword(true);
-          setEmailNotFound(false);
+          setMailNotFound(false);
           return;
         }
         setServerError(true);
@@ -87,17 +87,17 @@ const LoginForm = ({ close, change, load }) => {
         <h2 className={styles.tittle}>Access to your account</h2>
         <div className={styles.inputContainer}>
           <input
-            onFocus={() => setEmailNotFound(false)}
+            onFocus={() => setMailNotFound(false)}
             className={styles.inputFields}
             maxLength={80}
             type="text"
             name=""
-            placeholder="Email"
+            placeholder="Mail"
             {...register("mail", { required: true })}
           />
-          {emailNotFound && (
+          {mailNotFound && (
             <p className={styles.textsInForm}>
-              Email not found. Want to{" "}
+              Mail not found. Want to{" "}
               <span onClick={change}>create a new account?</span>
             </p>
           )}

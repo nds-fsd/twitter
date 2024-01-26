@@ -3,13 +3,14 @@
   "private": true,
   "workspaces": [
     "backend",
-    "frontend"
+    "frontend",
+    "QA"
   ],
   "scripts": {
     "start:frontend": "dotenv -- turbo run dev --scope='frontend'",
     "start:backend": "dotenv -- turbo run dev --scope='backend'",
-    "dev": "cross-env dotenv -- turbo run dev",
-    "start:test": "cross-env NODE_ENV=test jest --testTimeout=10000 --coverage"
+    "dev": "dotenv -- turbo run dev",
+    "start:test": "cross-env dotenv -- turbo run test"
   },
   "jest": {
     "testEnvironment": "node",
@@ -21,7 +22,6 @@
     "cross-env": "^7.0.3",
     "dotenv-cli": "^7.0.0",
     "jest": "^29.7.0",
-    "mongodb-memory-server": "^9.1.5",
     "supertest": "^6.3.4",
     "turbo": "^1.10.16"
   },

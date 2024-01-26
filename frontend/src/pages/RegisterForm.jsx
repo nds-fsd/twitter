@@ -12,7 +12,7 @@ import { ArrowLeftCircle } from "lucide-react";
 const RegisterForm = ({ close, change }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
+  const [mailAlreadyRegistered, setMailAlreadyRegistered] = useState(false);
   const [usernameAlreadyRegistered, setUsernameAlreadyRegistered] =
     useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -74,9 +74,9 @@ const RegisterForm = ({ close, change }) => {
           setError(true);
 
         if (error.response.data.error.mail) {
-          setEmailAlreadyRegistered(true);
+          setMailAlreadyRegistered(true);
         } else {
-          setEmailAlreadyRegistered(false);
+          setMailAlreadyRegistered(false);
         }
 
         if (error.response.data.error.username) {
@@ -189,9 +189,6 @@ const RegisterForm = ({ close, change }) => {
                 x
               </p>
             </header>
-            {/* <div className={styles.goBack}>
-              <img onClick={() => setFormStep(0)} src={goBack} alt="" />
-            </div> */}
 
             <h2 className={styles.tittle}>Create your account</h2>
             <div className={styles.inputContainer}>
@@ -200,21 +197,21 @@ const RegisterForm = ({ close, change }) => {
                 maxLength={80}
                 type="text"
                 name=""
-                placeholder="Email"
+                placeholder="Mail"
                 {...register("mail", {
                   required: true,
                   pattern:
-                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+$/,
                 })}
               />
               {errors.mail?.type === "required" && (
-                <p className={styles.error}>Email is required</p>
+                <p className={styles.error}>Mail is required</p>
               )}
               {errors.mail?.type === "pattern" && (
-                <p className={styles.error}>Please, enter a valid email</p>
+                <p className={styles.error}>Please, enter a valid mail</p>
               )}
-              {emailAlreadyRegistered && (
-                <p className={styles.error}>Email already registered</p>
+              {mailAlreadyRegistered && (
+                <p className={styles.error}>Mail already registered</p>
               )}
             </div>
 
@@ -244,7 +241,7 @@ const RegisterForm = ({ close, change }) => {
                   required: true,
                   minLength: 8,
                   pattern:
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/,
+                  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
                 })}
               />
               {errors.password?.type === "required" && (
@@ -252,7 +249,7 @@ const RegisterForm = ({ close, change }) => {
               )}
               {errors.password?.type === "minLength" && (
                 <p className={styles.error}>
-                  Password must be 8 to 30 characters long
+                  Password must be 8 to 15 characters long
                 </p>
               )}
               {errors.password?.type === "pattern" && (
