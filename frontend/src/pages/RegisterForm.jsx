@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
 import { context } from "../App";
 import Loading from "../effects/Loading";
-import goBack from "../assets/goBack2.png";
 import { ArrowLeftCircle } from "lucide-react";
 
 const RegisterForm = ({ close, change }) => {

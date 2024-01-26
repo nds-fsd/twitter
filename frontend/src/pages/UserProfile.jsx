@@ -11,8 +11,10 @@ import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
 import { context } from "../App.jsx";
+import EditProfileForm from "../components/EditProfileForm.jsx";
 
-function UserProfile() {
+function UserProfile({reloadPage}) {
+  const [popUpEdit, setPopUpEdit] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
@@ -27,6 +29,10 @@ function UserProfile() {
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
+
+  const handlePopUpEditClick = () => {
+    setPopUpEdit(!popUpEdit);
+  };
 
   useEffect(() => {
     console.log(loggedInUser);
@@ -69,66 +75,76 @@ function UserProfile() {
   window.addEventListener("scroll", changeColor);
 
   return (
-    <div>
-      <div className={styles.bigContainer}>
-        <div>
-          <div
-            className={
-              color ? styles.nameContainerScroll : styles.nameContainer
-            }
-          >
-            <p className={styles.name}>
-              {name} {surname}
-            </p>
-            <p className={styles.grayFont}>{meowCounter} posts</p>
-          </div>
-          <div className={styles.relativeContainer}>
-            <img
-              src={backgroundProfile}
-              alt="user"
-              className={styles.imageContainer}
-            />
-            <div className={styles.photoContainer}>
-              <img src={user} alt="user" className={styles.photoProfile} />
-              {isOwnProfile ? (
-                <button className={styles.editProfile}>Edit profile</button>
-              ) : (
-                <FollowButton username={urlUsername} />
-              )}
+    <>
+      <div>
+        <div className={styles.bigContainer}>
+          <div>
+            <div
+              className={
+                color ? styles.nameContainerScroll : styles.nameContainer
+              }
+            >
+              <p className={styles.name}>
+                {name} {surname}
+              </p>
+              <p className={styles.grayFont}>{meowCounter} posts</p>
             </div>
-          </div>
-          <div className={styles.profileInfo}>
-            <p className={styles.name}>
-              {name} {surname}
-            </p>
-            <p className={styles.grayFont}>@{username}</p>
-            <p>
+            <div className={styles.relativeContainer}>
+              <img
+                src={backgroundProfile}
+                alt="user"
+                className={styles.imageContainer}
+              />
+              <div className={styles.photoContainer}>
+                <img src={user} alt="user" className={styles.photoProfile} />
+                {isOwnProfile ? (
+                  <button className={styles.editProfile}>Edit profile</button>
+                ) : (
+                  <FollowButton username={urlUsername} />
+                )}
+              </div>
+            </div>
+            <div className={styles.profileInfo}>
+              <p className={styles.name}>
+                {name} {surname}
+              </p>
+              <p className={styles.grayFont}>@{username}</p>
+              <p>
+                <br />
+                {description}
+              </p>
               <br />
-              {description}
-            </p>
-            <br />
-            <div className={styles.info}>
-              <img src={location} alt="." className={styles.options} />
-              <p>{town}</p>
-              <img src={calendar} alt="." className={styles.options} />
-              <p>Joined on {dateOfRegister}</p>
-            </div>
-            <div className={styles.info}>
-              <p className={styles.grayFont}>
-                <span>{followingCounter} </span>Following
-              </p>
-              <p className={styles.grayFont}>
-                <span>{followerCounter} </span>Followers
-              </p>
+              <div className={styles.info}>
+                <img src={location} alt="." className={styles.options} />
+                <p>{town}</p>
+                <img src={calendar} alt="." className={styles.options} />
+                <p>Joined on {dateOfRegister}</p>
+              </div>
+              <div className={styles.info}>
+                <p className={styles.grayFont}>
+                  <span>{followingCounter} </span>Following
+                </p>
+                <p className={styles.grayFont}>
+                  <span>{followerCounter} </span>Followers
+                </p>
+              </div>
             </div>
           </div>
         </div>
+        <div>
+          <TabsProfile tabs={tabs} />
+        </div>
+        <Meows />
       </div>
-      <div>
-        <TabsProfile tabs={tabs} />
-      </div>
-      <Meows />
-    </div>
+
+      {popUpEdit && (
+        <EditProfileForm
+          reloadPage={reloadPage}
+          close={() => setPopUpEdit(!popUpEdit)}
+          // change={changeToLoginForm}
+        />
+      )}
+    </>
   );
 }
 
