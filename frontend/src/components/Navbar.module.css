@@ -30,6 +30,7 @@ a {
   cursor: pointer;
   display: flex;
   font-size: 17px;
+  gap: 8%;
   margin: 10px;
   padding: 20px;
   width: fit-content;
