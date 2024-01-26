@@ -89,7 +89,7 @@ const getMeowReplies = async (req, res) => {
 
       res.status(200).json(meowRepliesWithUsernames.reverse());
     } else {
-      res.status(404).json({
+      res.status(100).json({
         message: "No replies found.",
       });
     }
@@ -103,8 +103,8 @@ const getMeowReplies = async (req, res) => {
 const createMeow = async (req, res) => {
   try {
     const body = req.body;
+
     const userId = req.jwtPayload.id;
-    console.log(req.jwtPayload);
 
     const meow = {
       text: body.meow,
@@ -113,6 +113,8 @@ const createMeow = async (req, res) => {
     };
     if (body.parentMeow) {
       meow.parentMeow = body.parentMeow;
+
+      await Meow.updateOne({ _id: body.parentMeow }, { $inc: { replies: 1 } });
     }
 
     const meowToSave = new Meow(meow);

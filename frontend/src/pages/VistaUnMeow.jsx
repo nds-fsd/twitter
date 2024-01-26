@@ -56,10 +56,11 @@ const VistaUnMeow = () => {
       const userRes = await userApi.get(`id/${meowRes.data.author}`);
       setParentMeow(meowRes.data);
       setUserName(userRes.data.username);
+      console.log(meowRes.data);
     };
 
     getDetails();
-  }, []);
+  }, [reload]);
 
   // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
   useEffect(() => {
