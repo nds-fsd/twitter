@@ -11,6 +11,7 @@ import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
 import { context } from "../App.jsx";
+import { MapPin, CalendarDays } from "lucide-react";
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -108,9 +109,11 @@ function UserProfile() {
             </p>
             <br />
             <div className={styles.info}>
-              <img src={location} alt="." className={styles.options} />
-              <p>{town}</p>
-              <img src={calendar} alt="." className={styles.options} />
+              <MapPin />
+              {/* <img src={location} alt="." className={styles.options} /> */}
+              <p>Barcelona{town}</p>
+              <CalendarDays />
+              {/* <img src={calendar} alt="." className={styles.options} /> */}
               <p>Joined on {dateOfRegister}</p>
             </div>
             <div className={styles.info}>
