@@ -106,7 +106,7 @@ function Meows() {
               </div>
               <div className={styles.likesContainer}>
                 <p>
-                  {meow.likes} <LikeButton meow={meow} />
+                  <LikeButton meow={meow} />
                 </p>
                 <p>{meow.date}</p>
               </div>

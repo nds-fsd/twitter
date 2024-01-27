@@ -5,10 +5,10 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
 import MeowReplies from "./meowReplies";
-import { useParams, useLocation } from "react-router-dom";
-import { useEffect, useContext, useState, useRef } from "react";
-import { meowApi, userApi } from "../apis/apiWrapper";
-import { getUserSession, getUserToken } from "../local-storage";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { meowApi } from "../apis/apiWrapper";
+import { getUserSession } from "../local-storage";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
@@ -19,19 +19,13 @@ const VistaUnMeow = () => {
   // -----------------------------------variables------------------------------------------------------------------------
 
   const [pantallaPequena, setPantallaPequena] = useState(false);
-  const [parentMeow, setParentMeow] = useState("");
   const [meowReply, setMeowReply] = useState("");
   const [allMeowReplies, setAllMeowReplies] = useState([]);
   const location = useLocation();
   const {
     state: { meow },
   } = location;
-  console.log(meow);
-
-  const [userName, setUserName] = useState("");
   const textareaRef = useRef(null);
-  const { id } = useParams();
-  const token = getUserToken();
   const { username } = getUserSession();
 
   // ----------------------------------Funciones para hacer la pantala responsive-------------------------------------
@@ -53,28 +47,11 @@ const VistaUnMeow = () => {
     };
   }, []);
 
-  // --------------------------------------GET Request del Meow padre y el username-------------------------------------------------
-
-  useEffect(() => {
-    const getDetails = async () => {
-      const meowRes = await meowApi.get(id, {
-        headers: {
-          info: "update views",
-        },
-      });
-      const userRes = await userApi.get(`id/${meowRes.data.author}`);
-      setParentMeow(meowRes.data);
-      setUserName(userRes.data.username);
-    };
-
-    getDetails();
-  }, []);
-
   // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
   useEffect(() => {
     const getReplies = async () => {
       try {
-        const res = await meowApi.get(`replies/${id}`);
+        const res = await meowApi.get(`replies/${meow._id}`);
         setAllMeowReplies(res.data);
       } catch (err) {
         console.log(err);
@@ -89,22 +66,18 @@ const VistaUnMeow = () => {
     const newReply = {
       meow: meowReply,
       date: Date.now(),
-      parentMeow: parentMeow._id,
+      parentMeow: meow._id,
     };
 
     try {
-      const res = await meowApi.post("/", newReply, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await meowApi.post("/", newReply);
 
       setAllMeowReplies([
         {
           text: meowReply,
           authorUsername: username,
           date: Date.now(),
-          parentMeow: parentMeow._id,
+          parentMeow: meow._id,
           _id: res.data._id,
         },
         ...allMeowReplies,
@@ -127,7 +100,7 @@ const VistaUnMeow = () => {
     timeZoneName: "short",
   };
 
-  const dateString = parentMeow.date;
+  const dateString = meow.date;
 
   const dateObject = dateString ? new Date(dateString) : null;
 
@@ -137,7 +110,7 @@ const VistaUnMeow = () => {
 
   // .................................................................................................................
   return (
-    parentMeow && (
+    meow && (
       <>
         <div className={styles.container}>
           <div className={styles.firstContainer}>
@@ -151,13 +124,13 @@ const VistaUnMeow = () => {
 
           <div className={styles.username}>
             <img src={userpic} alt="user" />
-            <p className={styles.user}>{userName}</p>
+            <p className={styles.user}>{meow.authorUsername}</p>
           </div>
 
-          <p className={styles.meow}>{parentMeow.text}</p>
+          <p className={styles.meow}>{meow.text}</p>
           <div className={styles.dateAndViews}>
             <span>{date.slice(0, -3)}</span>
-            <span>{parentMeow.views} Views</span>
+            <span>{meow.views} Views</span>
           </div>
 
           <div className={styles.stats}>
@@ -172,7 +145,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              💬{parentMeow.replies}
+              💬{meow.replies}
               <Tooltip id="Replies" />
             </span>
             <span
@@ -183,7 +156,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              🔁{parentMeow.reposts}
+              🔁{meow.reposts}
               <Tooltip id="Reposts" />
             </span>
 
@@ -195,7 +168,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              <LikeButton meow={parentMeow} />
+              <LikeButton meow={meow} />
               <Tooltip id="Likes" />
             </span>
             <span
