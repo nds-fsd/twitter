@@ -5,7 +5,7 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
 import MeowReplies from "./meowReplies";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useContext, useState, useRef } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
 import { getUserSession, getUserToken } from "../local-storage";
@@ -22,6 +22,11 @@ const VistaUnMeow = () => {
   const [parentMeow, setParentMeow] = useState("");
   const [meowReply, setMeowReply] = useState("");
   const [allMeowReplies, setAllMeowReplies] = useState([]);
+  const location = useLocation();
+  const {
+    state: { meow },
+  } = location;
+  console.log(meow);
 
   const [userName, setUserName] = useState("");
   const textareaRef = useRef(null);

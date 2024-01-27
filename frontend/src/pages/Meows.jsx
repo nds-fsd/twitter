@@ -92,7 +92,7 @@ function Meows() {
             <div
               onClick={(e) => {
                 if (e.target.className === "_likeButton_1kigi_1") return;
-                navigate(`/meow/${meow._id}`);
+                navigate(`/meow/${meow._id}`, { state: { meow } });
               }}
               key={meow._id}
               className={styles.container}
