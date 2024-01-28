@@ -2,7 +2,6 @@ const Meow = require("../schemas/meow");
 const User = require("../schemas/user");
 const Follow = require("../schemas/follow");
 const mongoose = require("mongoose");
-// const { default: mongoose } = require("mongoose");
 
 // -------------------------------------------------------------------------------------------------------------------------------
 const getFeedMeows = async (req, res) => {
@@ -59,34 +58,29 @@ const getMeowReplies = async (req, res) => {
     const meowReplies = await Meow.find({ parentMeow: id });
 
     if (meowReplies.length > 0) {
-      // Obtener IDs únicos de los autores
       const uniqueAuthorIds = [
         ...new Set(meowReplies.map((meow) => meow.author)),
       ];
 
-      // Buscar usernames correspondientes a los IDs
       const authorDetails = await User.find(
         { _id: { $in: uniqueAuthorIds } },
         "username"
       );
 
-      // Crear un mapa para acceder fácilmente a los usernames por ID
       const authorMap = authorDetails.reduce((map, user) => {
         map[user._id] = user.username;
         return map;
       }, {});
 
-      // Mapear los usernames a los meows
       const meowRepliesWithUsernames = meowReplies.map((meow) => {
         return {
           ...meow.toObject(),
           authorUsername: authorMap[meow.author] || "Unknown User",
         };
       });
-
-      res.status(200).json(meowRepliesWithUsernames.reverse());
+      return res.status(200).json(meowRepliesWithUsernames.reverse());
     } else {
-      res.status(100).json({
+      return res.status(404).json({
         message: "No replies found.",
       });
     }
@@ -130,14 +124,16 @@ const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
-    const userFound = await User.findById(meowFound.author);
-    if (meowFound) {
-      const body = req.body;
-      const meowUpdated = await Meow.findByIdAndUpdate(id, body, { new: true });
-      res.status(200).json({ userFound, meowUpdated });
-    } else {
-      res.status(404).json({ error: "Meow not found" });
+
+    if (!meowFound) {
+      return res.status(404).json({ error: "Meow not found" });
     }
+
+    const userFound = await User.findById(meowFound.author);
+    const body = req.body;
+    const meowUpdated = await Meow.findByIdAndUpdate(id, body, { new: true });
+
+    return res.status(200).json({ userFound, meowUpdated });
   } catch (error) {
     return res.status(500).json(error.message);
   }
