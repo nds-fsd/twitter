@@ -6,103 +6,172 @@
 }
 .container {
   background-color: black;
-  padding-top: 1rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
-  padding-bottom: 2rem;
+  padding: 2% 2.5%;
   position: absolute;
-  top: 27%;
+  top: 50%;
   left: 50%;
-  width: 300px;
-  min-height: 25rem;
-  margin-top: -75px;
-  margin-left: -150px;
+  width: fit-content;
   border-radius: 40px;
   user-select: none;
+  transform: translate(-50%, -50%);
 }
 
-h2 {
-  color: white;
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7%;
   font-weight: bold;
-  font-size: 2rem;
-  margin-bottom: 2rem;
   user-select: none;
 }
 
-.date > label {
+.backContainer {
+  cursor: pointer;
+  display: flex;
+  gap: 4%;
+  width: 100%;
+}
+
+.backContainer > span {
+  cursor: auto;
+  width: fit-content;
+}
+
+.x {
+  font-size: 20px;
   color: white;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+}
+
+.tittle {
+  color: var(--main-color);
+  font-family: var(--main-font);
+  font-size: 27px;
+  margin-bottom: 8%;
+  text-align: center;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputFields {
+  color: black;
+  font-family: var(--main-font);
+  font-size: 15px;
+  height: auto;
+  margin-bottom: 7%;
+  padding: 2% 0 2% 3%;
+  user-select: none;
+  width: 90%;
+}
+
+.inputFields::placeholder {
+  font-family: var(--main-font);
+  color: gray;
+}
+
+.dateContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 5%;
+}
+
+.dateLabel {
+  color: white;
+  font-family: var(--main-font);
   display: block;
   user-select: none;
 }
 
-form > div {
-  margin-top: 1rem;
-  user-select: none;
-}
-
-input {
-  padding-left: 0.3rem;
+.dateFields {
   color: black;
-  width: 18rem;
-  height: 2rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
+  font-family: var(--main-font);
+  font-size: 15px;
+  height: auto;
+  padding: 2% 0 2% 3%;
   user-select: none;
-}
-input::placeholder {
-  color: #c72812;
-  user-select: none;
+  width: 50%;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2.5rem;
-  font-weight: bold;
-  user-select: none;
-}
-.x {
-  font-size: 1.2rem;
-  color: white;
-  font-weight: bold;
-  user-select: none;
-  cursor: pointer;
-}
-
-.submit {
-  text-align: center;
-  color: black;
-  border-radius: 3rem;
-  width: 18rem;
-  height: 3.4rem;
-  font-size: 1.6rem;
-  cursor: pointer;
-  background-color: #858585;
-  user-select: none;
-  font-weight: bold;
-}
-footer {
-  margin-left: 1rem;
-  font-size: 0.9rem;
-  user-select: none;
-  margin-top: 0.8rem;
+.dateFields::placeholder {
+  font-family: var(--main-font);
+  color: gray;
 }
 
 .error {
-  margin-bottom: 1rem;
+  color: grey;
+  font-family: var(--main-font);
+  font-size: 13px;
+  margin-bottom: 5%;
+}
+/* 
+.goBack {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
-.link {
+img {
+  width: 3rem;
+  height: 2.5rem;
   cursor: pointer;
-  color: #00a9a5;
+} */
+
+.submit {
+  background-color: var(--main-color);
+  border-radius: 40px;
+  color: white;
+  cursor: pointer;
+  font-family: var(--main-font);
+  font-size: 20px;
+  font-weight: bold;
+  height: auto;
+  margin-top: 5%;
+  padding: 3% 0;
+  text-align: center;
+  width: 90%;
+}
+
+.notValid {
+  background-color: #e7e1e1;
+  border-radius: 40px;
+  color: rgb(0, 0, 0);
+  cursor: not-allowed;
+  font-family: var(--main-font);
+  font-size: 20px;
+  font-weight: bold;
+  height: auto;
+  margin-top: 5%;
+  opacity: 0.3;
+  padding: 3% 0;
+  text-align: center;
+  user-select: none;
+  width: 90%;
+}
+
+.footerInForm{
+  margin-top: 5%;
+}
+
+.textsInForm {
+  font-family: var(--main-font);
+  font-size: 13px;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+.textsInForm > span {
+  cursor: pointer;
+  color: var(--main-color);
   font-weight: bold;
   text-decoration: underline;
-}
-
-.errorSubmit {
-  margin-top: 20rem;
-  margin-left: 20rem;
-  font-size: 2rem;
-  color: red;
-  user-select: none;
 }

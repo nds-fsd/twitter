@@ -18,7 +18,6 @@ const checkLikeStatus = async (req, res) => {
       isLiked,
     });
   } catch (error) {
-    console.error("Error in checkLikeStatus:", error);
     return res.status(500).json({
       error: "Unexpected error when checking like status",
     });
@@ -68,7 +67,6 @@ const likeMeow = async (req, res) => {
       message: "The meow has been liked successfully",
     });
   } catch (error) {
-    console.error("Error in likeMeow:", error);
     return res.status(500).json({
       error: "Unexpected error when liking meow",
     });
@@ -117,7 +115,6 @@ const unlikeMeow = async (req, res) => {
       message: "The meow has been unliked successfully",
     });
   } catch (error) {
-    console.error("Error in likeMeow:", error);
     return res.status(500).json({
       error: "Unexpected error when liking meow",
     });

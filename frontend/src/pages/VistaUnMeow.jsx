@@ -4,10 +4,10 @@ import flecha from "../assets/flecha-izquierda.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
-import MeowReplies from "./meowReplies";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import MeowReplies from "./MeowReplies";
+import {  useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { meowApi, userApi } from "../apis/apiWrapper";
+import { meowApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
 
 const VistaUnMeow = () => {

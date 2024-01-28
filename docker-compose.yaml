@@ -1,11 +1,14 @@
-
-version: '3.7'
+version: "3.7"
 services:
   mongo:
-    image: mongo
+    image: mongo:latest
     restart: always
+    container_name: mongodb-dev
     environment:
       MONGO_INITDB_ROOT_USERNAME: monorepo
       MONGO_INITDB_ROOT_PASSWORD: monorepo
+    volumes:
+      - ./data:/data/db
+      - ./data/log:/var/log/mongodb/
     ports:
-      - "27035:27017"
+      - "27017:27017"

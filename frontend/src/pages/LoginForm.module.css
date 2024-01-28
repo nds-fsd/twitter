@@ -1,47 +1,112 @@
 .container {
   background-color: black;
-  padding-top: 1rem;
-  padding-right: 2rem;
-  padding-left: 2rem;
-  padding-bottom: 2rem;
+  padding: 2% 2.5%;
   position: absolute;
-  top: 27%;
+  top: 50%;
   left: 50%;
-  width: 331px;
-  min-height: 25rem;
-  margin-top: -75px;
-  margin-left: -150px;
+  width: fit-content;
   border-radius: 40px;
   user-select: none;
+  transform: translate(-50%, -50%);
 }
+
 header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2.5rem;
+  margin-bottom: 7%;
   font-weight: bold;
   user-select: none;
 }
+
 .x {
-  font-size: 1.2rem;
+  font-size: 20px;
   color: white;
   font-weight: bold;
   user-select: none;
   cursor: pointer;
-  margin-left: 20rem;
+  margin-left: 90%;
+}
+
+.tittle {
+  color: var(--main-color);
+  font-family: var(--main-font);
+  font-size: 27px;
+  margin-bottom: 8%;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputFields {
+  color: black;
+  font-family: var(--main-font);
+  font-size: 15px;
+  height: auto;
+  margin-bottom: 7%;
+  padding: 2% 0 2% 3%;
+  user-select: none;
+  width: 90%;
+}
+
+.inputFields::placeholder {
+  font-family: var(--main-font);
+  color: gray;
 }
 
 .submit {
-  text-align: center;
-  color: black;
-  border-radius: 3rem;
-  width: 20.5rem;
-  height: 3.4rem;
-  font-size: 1.6rem;
+  background-color: var(--main-color);
+  border-radius: 40px;
+  color: white;
   cursor: pointer;
-  background-color: #858585;
-  user-select: none;
+  font-family: var(--main-font);
+  font-size: 20px;
   font-weight: bold;
+  height: auto;
+  padding: 3% 0;
+  text-align: center;
+  user-select: none;
+  width: 90%;
 }
+
+.notValid {
+  background-color: #e7e1e1;
+  border-radius: 40px;
+  color: rgb(0, 0, 0);
+  cursor: not-allowed;
+  font-family: var(--main-font);
+  font-size: 20px;
+  font-weight: bold;
+  height: auto;
+  opacity: 0.3;
+  padding: 3% 0;
+  text-align: center;
+  user-select: none;
+  width: 90%;
+}
+
+.footerInForm{
+  margin-top: 5%;
+}
+
+.textsInForm {
+  font-family: var(--main-font);
+  font-size: 13px;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+.textsInForm > span {
+  cursor: pointer;
+  color: var(--main-color);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .loading {
   position: fixed;
   left: 0px;
@@ -51,25 +116,4 @@ header {
   z-index: 9999;
   background: url("images/pageLoader.gif") 50% 50% no-repeat rgb(249, 249, 249);
   opacity: 0.8;
-}
-
-.notValid {
-  text-align: center;
-  color: rgb(0, 0, 0);
-  border-radius: 3rem;
-  width: 20.5rem;
-  height: 3.4rem;
-  font-size: 1.6rem;
-  background-color: #e7e1e1;
-  user-select: none;
-  font-weight: bold;
-  cursor: not-allowed;
-  opacity: 0.3;
-}
-
-.link {
-  cursor: pointer;
-  color: #00a9a5;
-  font-weight: bold;
-  text-decoration: underline;
 }

@@ -3,6 +3,7 @@ import { meowApi, userApi } from "../apis/apiWrapper";
 import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
+import Loading from "../effects/Loading.jsx";
 import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
@@ -11,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
 
   const navigate = useNavigate();
@@ -21,11 +23,13 @@ function Meows() {
     const getAllMeows = async () => {
       try {
         const token = getUserToken();
+        setLoading(true);
         const res = await meowApi.get("/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        setLoading(false);
         const data = res.data;
 
         setMeows(data.reverse());
@@ -73,6 +77,8 @@ function Meows() {
     };
     getAllMeows();
   }, [reload.reload]);
+
+  if (loading) return <Loading />;
 
   if (error)
     return (

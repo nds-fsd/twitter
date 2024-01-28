@@ -24,6 +24,7 @@ const getUserByUsername = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -75,7 +76,7 @@ const createUser = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
