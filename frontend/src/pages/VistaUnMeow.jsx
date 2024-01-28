@@ -5,7 +5,7 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
 import MeowReplies from "./meowReplies";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
@@ -17,7 +17,7 @@ const VistaUnMeow = () => {
   }
 
   // -----------------------------------variables------------------------------------------------------------------------
-  const location = useLocation();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const textareaRef = useRef(null);
@@ -138,8 +138,12 @@ const VistaUnMeow = () => {
           <div className={styles.firstContainer}>
             <div className={styles.postContainer}>
               <div className={styles.post}>
-                <img src={flecha} alt="flecha" />
-                <p>Post</p>
+                <img
+                  onClick={() => navigate("/home")}
+                  src={flecha}
+                  alt="flecha"
+                />
+                <p onClick={() => navigate("/home")}>Post</p>
               </div>
             </div>
           </div>
