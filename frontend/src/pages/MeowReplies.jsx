@@ -34,8 +34,8 @@ const MeowReplies = ({ allMeowReplies, dateFormat }) => {
                 <p>
                   <LikeButton meow={meow} />
                 </p>
-                <p>{meow.date.slice(0, -3)}</p>
               </div>
+              <p>{meow.date.slice(0, -3)}</p>
             </div>
           ))}
         </div>

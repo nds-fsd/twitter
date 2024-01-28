@@ -52,13 +52,11 @@ const VistaUnMeow = () => {
   useEffect(() => {
     const getDetails = async () => {
       try {
-        const meowRes = await meowApi.patch(id, { $inc: { views: 0.5 } });
-        const userId = meowRes.data.author;
-        const userRes = await userApi.get(`id/${userId}`);
-
-        setParentMeow(meowRes.data);
-        setParentMeowUsername(userRes.data.username);
-        setReplyCounter(meowRes.data.replies);
+        const res = await meowApi.patch(id, { $inc: { views: 0.5 } });
+        console.log(res);
+        setParentMeow(res.data.meowUpdated);
+        setParentMeowUsername(res.data.userFound.username);
+        setReplyCounter(res.data.meowUpdated.replies);
       } catch (error) {
         console.error("Error fetching details:", error);
       }

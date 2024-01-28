@@ -43,8 +43,6 @@ const getMeowById = async (req, res) => {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
 
-    i;
-
     if (meowFound) {
       res.status(200).json(meowFound);
     } else {
@@ -130,12 +128,12 @@ const createMeow = async (req, res) => {
 const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
-
     const meowFound = await Meow.findById(id);
+    const userFound = await User.findById(meowFound.author);
     if (meowFound) {
       const body = req.body;
       const meowUpdated = await Meow.findByIdAndUpdate(id, body, { new: true });
-      res.status(201).json(meowUpdated);
+      res.status(200).json({ userFound, meowUpdated });
     } else {
       res.status(404).json({ error: "Meow not found" });
     }
