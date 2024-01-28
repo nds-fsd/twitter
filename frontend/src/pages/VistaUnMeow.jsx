@@ -98,6 +98,7 @@ const VistaUnMeow = () => {
           date: Date.now(),
           parentMeow: parentMeow._id,
           _id: res.data._id,
+          likes: 0,
         },
         ...allMeowReplies,
       ]);
