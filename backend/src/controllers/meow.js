@@ -4,7 +4,6 @@ const User = require("../schemas/user");
 
 const Follow = require("../schemas/follow");
 const { default: mongoose } = require("mongoose");
-const { fi } = require("date-fns/locale");
 
 // -------------------------------------------------------------------------------------------------------------------------------
 const getFeedMeows = async (req, res) => {
@@ -43,10 +42,8 @@ const getMeowById = async (req, res) => {
   try {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
-    console.log(req.headers);
-    if (req.headers.info === "update views") {
-      await Meow.updateOne({ _id: id }, { $inc: { views: 1 } });
-    }
+
+    i;
 
     if (meowFound) {
       res.status(200).json(meowFound);
@@ -133,6 +130,7 @@ const createMeow = async (req, res) => {
 const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
+
     const meowFound = await Meow.findById(id);
     if (meowFound) {
       const body = req.body;
