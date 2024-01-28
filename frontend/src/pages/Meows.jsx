@@ -91,7 +91,8 @@ function Meows() {
           return (
             <div
               onClick={(e) => {
-                if (e.target.className === "_likeButton_1kigi_1") return;
+                console.log(e.target.id);
+                if (e.target.id === "likeButton") return;
                 navigate(`/meow/${meow._id}`, { state: { meow } });
               }}
               key={meow._id}

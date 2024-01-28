@@ -87,6 +87,7 @@ const LikeButton = ({ meow }) => {
     <>
       <span>{likeCounter}</span>
       <button
+        id="likeButton"
         type="button"
         className={styles.likeButton}
         onClick={() => {
