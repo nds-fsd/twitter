@@ -1,0 +1,29 @@
+name: Production Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  push-store-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./backend"
+    steps:
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@main
+
+      - name: "Login to GitHub Container Registry"
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+
+      - name: "Build Backend Image"
+        run: |
+          docker build . --tag ghcr.io/nds-fsd/twitter:latest
+          docker push ghcr.io/nds-fsd/twitter:latest
