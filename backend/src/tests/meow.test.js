@@ -93,7 +93,7 @@ describe("Meow Controller TEST", () => {
     });
 
     it("Create a meow with parentMeow correctly", async () => {
-            const parentMeowId = resMeowId;
+      const parentMeowId = resMeowId;
 
       const childMeowBody = {
         meow: "Child Meow",
@@ -140,12 +140,22 @@ describe("Meow Controller TEST", () => {
         .send({ username: userData1.username })
         .expect(200);
 
+      const ExtraMeowToSortWithDate = {
+        meow: "Extra Meow with new Date by user1",
+        date: "2021-03-28",
+      };
+      const createExtraMeowToSortWithDate = await fakeRequest
+        .post("/meow/")
+        .set("Authorization", reqUser1.headers.authorization)
+        .send(ExtraMeowToSortWithDate)
+        .expect(201);
+
       const res = await fakeRequest
         .get("/meow/")
         .set("Authorization", reqUser2.headers.authorization)
         .expect(200);
 
-      expect(res.body).toHaveLength(1);
+      expect(res.body).toHaveLength(2);
     });
   });
 
