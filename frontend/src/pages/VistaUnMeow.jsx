@@ -9,6 +9,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
+import { Bookmark, Share2 } from "lucide-react";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
@@ -216,7 +217,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              🔖0
+              0 🔖
               <Tooltip id="Bookmark" />
             </span>
             <span

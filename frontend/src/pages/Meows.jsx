@@ -103,7 +103,10 @@ function Meows() {
               <div className={styles.userContainer}>
                 <img src={user} />
                 <p
-                  onClick={() => navigate("/user/" + meow.authorUsername)}
+                  onClick={() => {
+                    navigate("/user/" + meow.authorUsername);
+                    reload.setReload(!reload.reload);
+                  }}
                   className={styles.nameSurname}
                 >
                   {meow.nameAuthor} {meow.surnameAuthor}
