@@ -22,7 +22,7 @@ const validateUser = async (req, res, next) => {
   if (userMailError && userNameError)
     return res.status(400).json({
       error: {
-        mail: "Email already registered",
+        mail: "Mail already registered",
         username: "Username already registered",
       },
     });
@@ -33,26 +33,25 @@ const validateUser = async (req, res, next) => {
   if (userMailError)
     return res
       .status(400)
-      .json({ error: { mail: "Email already registered" } });
+      .json({ error: { mail: "Mail already registered" } });
 
   if (!name || !surname || !birthday || !username) {
-    return res.status(400).json({ message: "missing required fields" });
+    return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const patternEmail =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const patternMail =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+$/;
   const patternPassword =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 
-  console.log(!mail.match(patternEmail));
-  if (!mail.match(patternEmail)) {
-    return res.status(400).json({ message: "Email is not valid" });
+  if (!mail.match(patternMail)) {
+    return res.status(400).json({ error: "Mail is not valid" });
   }
 
   if (!password.match(patternPassword)) {
     return res.status(400).json({
       message:
-        "Password must be 8 to 30 character long, contain one lower case, one upper case, one number and one special character.",
+        "Password must be 8 to 15 character long, contain one lower case, one upper case, one number and one special character.",
     });
   }
 
@@ -67,12 +66,11 @@ const validateLogin = async (req, res, next) => {
   if (!mail || !password)
     return res
       .status(400)
-      .json({ error: { login: "Missing email or password." } });
-
+      .json({ error: { login: "Missing mail or password." } });
   const foundUser = await User.findOne({ mail });
 
   if (!foundUser)
-    return res.status(400).json({ error: { email: "User not found." } });
+    return res.status(400).json({ error: { mail: "User not found." } });
 
   if (!foundUser.comparePassword(password))
     return res.status(400).json({ error: { password: "Invalid password." } });

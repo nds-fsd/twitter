@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./UserProfile.module.css";
 import user from "../assets/user.png";
-import location from "../assets/location.png";
-import calendar from "../assets/calendar.png";
 import backgroundProfile from "../assets/backgroundProfile.jpeg";
 import Meows from "./Meows";
 import TabsProfile from "../components/TabsProfile";
@@ -12,6 +10,7 @@ import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
 import { context } from "../App.jsx";
 import EditProfileForm from "../components/EditProfileForm.jsx";
+import { MapPin, CalendarDays } from "lucide-react";
 
 function UserProfile({ reloadPage }) {
   const [name, setName] = useState("");
@@ -124,11 +123,12 @@ function UserProfile({ reloadPage }) {
                 <br />
                 {description}
               </p>
+
               <br />
               <div className={styles.info}>
-                <img src={location} alt="." className={styles.options} />
+                <MapPin />
                 <p>{town}</p>
-                <img src={calendar} alt="." className={styles.options} />
+                <CalendarDays />
                 <p>Joined on {dateOfRegister}</p>
               </div>
               <div className={styles.info}>
