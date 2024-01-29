@@ -4,12 +4,15 @@ import image from "../assets/user.png";
 import FollowButton from "./FollowButton";
 import { userApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
+import { useNavigate } from "react-router-dom";
 
 const WhoToFollow = () => {
   const [usersToFollow, setUsersToFollow] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState("");
   const [displayCount, setDisplayCount] = useState(5);
   const [showMore, setShowMore] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsersToFollow = async () => {
@@ -54,7 +57,10 @@ const WhoToFollow = () => {
     <div key={user.username} className={styles.containerFollow}>
       <img className={styles.accountImage} src={image} alt="" />
       <div>
-        <p className={styles.name}>
+        <p
+          className={styles.name}
+          onClick={() => navigate("/user/" + user.username)}
+        >
           {user.name} {user.surname}
         </p>
         <p className={styles.accountName}>@{user.username}</p>

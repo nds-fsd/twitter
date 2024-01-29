@@ -5,7 +5,7 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
 import MeowReplies from "./MeowReplies";
-import {  useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
@@ -25,6 +25,8 @@ const VistaUnMeow = () => {
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
   const [parentMeowUsername, setParentMeowUsername] = useState("");
+  const [parentMeowName, setParentMeowName] = useState("");
+  const [parentMeowSurname, setParentMeowSurname] = useState("");
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
@@ -55,6 +57,8 @@ const VistaUnMeow = () => {
         const res = await meowApi.patch(id, { $inc: { views: 0.5 } });
         console.log(res);
         setParentMeow(res.data.meowUpdated);
+        setParentMeowName(res.data.userFound.name);
+        setParentMeowSurname(res.data.userFound.surname);
         setParentMeowUsername(res.data.userFound.username);
         setReplyCounter(res.data.meowUpdated.replies);
       } catch (error) {
@@ -150,7 +154,14 @@ const VistaUnMeow = () => {
 
           <div className={styles.username}>
             <img src={userpic} alt="user" />
-            <p className={styles.user}>{parentMeowUsername}</p>
+            <p
+              className={styles.userInfo}
+              onClick={() => navigate("/user/" + parentMeowUsername)}
+            >
+              {" "}
+              {parentMeowName} {parentMeowSurname}
+            </p>
+            <p className={styles.usernameInfo}>@{parentMeowUsername}</p>
           </div>
 
           <p className={styles.meow}>{parentMeow.text}</p>
