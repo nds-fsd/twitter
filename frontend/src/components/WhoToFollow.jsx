@@ -9,6 +9,7 @@ const WhoToFollow = () => {
   const [usersToFollow, setUsersToFollow] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState("");
   const [displayCount, setDisplayCount] = useState(5);
+  const [showMore, setShowMore] = useState(true);
 
   useEffect(() => {
     const fetchUsersToFollow = async () => {
@@ -43,8 +44,10 @@ const WhoToFollow = () => {
     fetchUsersToFollow();
   }, []);
 
-  const loadMoreUsers = () => {
-    setDisplayCount((prevCount) => Math.min(prevCount + 5, 10));
+  const loadUsers = () => {
+    const newDisplayCount = showMore ? displayCount + 5 : 5;
+    setDisplayCount(Math.min(newDisplayCount, 10));
+    setShowMore(!showMore);
   };
 
   const singleUser = (user) => (
@@ -73,7 +76,9 @@ const WhoToFollow = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Who to follow</h1>
       <div>{listOfUsersToFollow()}</div>
-      <button className={styles.showMore} onClick={loadMoreUsers}>Show more</button>
+      <button className={styles.showMore} onClick={loadUsers}>
+        {showMore ? "Show more" : "Show less"}
+      </button>
     </div>
   );
 };
