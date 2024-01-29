@@ -6,16 +6,12 @@ import { getUserToken } from "../local-storage";
 const LikeButton = ({ meow }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [likeCounter, setLikeCounter] = useState(meow.likes);
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
       try {
         const token = getUserToken();
-
-        if (!token) {
-          console.error("Token is not defined");
-          return;
-        }
 
         const response = await likeApi.get(`${meow._id}`, {
           params: {
@@ -38,14 +34,10 @@ const LikeButton = ({ meow }) => {
   }, []);
 
   const handleLike = async () => {
+    setLikeCounter(likeCounter + 1);
     setIsLoading(true);
     try {
       const token = getUserToken();
-
-      if (!token) {
-        console.error("Token is not defined");
-        return;
-      }
 
       const response = await likeApi.post(
         `/${meow._id}`,
@@ -57,6 +49,7 @@ const LikeButton = ({ meow }) => {
 
       if (response.status === 200) {
         setIsLiked(true);
+        console.log(meow.likes);
       } else {
         throw new Error(response.data.error);
       }
@@ -68,14 +61,10 @@ const LikeButton = ({ meow }) => {
   };
 
   const handleUnlike = async () => {
+    setLikeCounter(likeCounter - 1);
     setIsLoading(true);
     try {
       const token = getUserToken();
-
-      if (!token) {
-        console.error("Token is not defined");
-        return;
-      }
 
       const response = await likeApi.delete(`/${meow._id}`, {
         data: { meowId: meow._id },
@@ -95,20 +84,24 @@ const LikeButton = ({ meow }) => {
   };
 
   return (
-    <button
-      type="button"
-      className={styles.likeButton}
-      onClick={() => {
-        if (isLiked) {
-          handleUnlike();
-        } else {
-          handleLike();
-        }
-      }}
-      disabled={isLoading}
-    >
-      {isLiked ? "💔" : "❤️"}
-    </button>
+    <>
+      <span>{likeCounter}</span>
+      <button
+        id="likeButton"
+        type="button"
+        className={styles.likeButton}
+        onClick={() => {
+          if (isLiked) {
+            handleUnlike();
+          } else {
+            handleLike();
+          }
+        }}
+        disabled={isLoading}
+      >
+        {isLiked ? "💔" : "❤️"}
+      </button>
+    </>
   );
 };
 

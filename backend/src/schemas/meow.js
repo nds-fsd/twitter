@@ -7,6 +7,11 @@ const meowSchema = new Schema({
   likes: { type: Number, default: 0 },
   views: { type: Number, default: 0 },
   date: { type: Date, default: Date.now() },
+  replies: { type: Number, default: 0 },
+  parentMeow: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "meow",
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",

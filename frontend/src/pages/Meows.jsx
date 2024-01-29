@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, createContext } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
 import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
 import styles from "./Meows.module.css";
@@ -7,12 +7,15 @@ import Loading from "../effects/Loading.jsx";
 import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
+import { useNavigate } from "react-router-dom";
 
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const reload = useContext(context);
 
@@ -86,12 +89,21 @@ function Meows() {
         </p>
       </div>
     );
+
   return (
     <div className={styles.bigContainer}>
       {meows &&
         meows.map((meow) => {
           return (
-            <div key={meow._id} className={styles.container}>
+            <div
+              onClick={(e) => {
+                console.log(e.target.id);
+                if (e.target.id === "likeButton") return;
+                navigate(`/meow/${meow._id}`, { state: { meow } });
+              }}
+              key={meow._id}
+              className={styles.container}
+            >
               <div className={styles.meowsContainer}>
                 <div className={styles.userContainer}>
                   <img src={user} />
@@ -101,7 +113,7 @@ function Meows() {
               </div>
               <div className={styles.likesContainer}>
                 <p>
-                  {meow.likes} <LikeButton meow={meow} />
+                  <LikeButton meow={meow} />
                 </p>
                 <p>{meow.date}</p>
               </div>
