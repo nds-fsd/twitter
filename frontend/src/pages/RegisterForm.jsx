@@ -55,29 +55,21 @@ const RegisterForm = ({ close, change }) => {
         });
         setLoading(false);
 
-        console.log(res);
-        console.log(res.data);
         if (res.status === 201) {
           setError(false);
-
           reloadPage.setPreLoader(true);
-
           reloadPage.setIsLogged(true);
-
           setUserSession(res.data);
         }
       } catch (error) {
         setLoading(false);
-        console.log(error);
         if (error.response.status !== 201 && error.response.status !== 400)
           setError(true);
-
         if (error.response.data.error.mail) {
           setEmailAlreadyRegistered(true);
         } else {
           setEmailAlreadyRegistered(false);
         }
-
         if (error.response.data.error.username) {
           setUsernameAlreadyRegistered(true);
         } else {
@@ -85,7 +77,6 @@ const RegisterForm = ({ close, change }) => {
         }
       }
     };
-
     createUser();
   };
 
@@ -188,9 +179,6 @@ const RegisterForm = ({ close, change }) => {
                 x
               </p>
             </header>
-            {/* <div className={styles.goBack}>
-              <img onClick={() => setFormStep(0)} src={goBack} alt="" />
-            </div> */}
 
             <h2 className={styles.tittle}>Create your account</h2>
             <div className={styles.inputContainer}>
@@ -236,7 +224,7 @@ const RegisterForm = ({ close, change }) => {
             <div className={styles.inputContainer}>
               <input
                 className={styles.inputFields}
-                maxLength={30}
+                maxLength={15}
                 type="password"
                 placeholder="Password"
                 {...register("password", {

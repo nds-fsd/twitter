@@ -13,8 +13,7 @@ import { getUserSession } from "../local-storage.js";
 import { context } from "../App.jsx";
 import EditProfileForm from "../components/EditProfileForm.jsx";
 
-function UserProfile({reloadPage}) {
-  const [popUpEdit, setPopUpEdit] = useState(false);
+function UserProfile({ reloadPage }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
@@ -30,9 +29,16 @@ function UserProfile({reloadPage}) {
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
 
-  const handlePopUpEditClick = () => {
-    setPopUpEdit(!popUpEdit);
+  const [popUpEditProfile, setPopUpEditProfile] = useState(false);
+  const handlePopUpEditProfileClick = () => {
+    setPopUpEditProfile(!popUpEditProfile);
   };
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      setPopUpEditProfile(false);
+    }
+  });
 
   useEffect(() => {
     console.log(loggedInUser);
@@ -98,7 +104,12 @@ function UserProfile({reloadPage}) {
               <div className={styles.photoContainer}>
                 <img src={user} alt="user" className={styles.photoProfile} />
                 {isOwnProfile ? (
-                  <button className={styles.editProfile}>Edit profile</button>
+                  <button
+                    className={styles.editProfile}
+                    onClick={handlePopUpEditProfileClick}
+                  >
+                    Edit profile
+                  </button>
                 ) : (
                   <FollowButton username={urlUsername} />
                 )}
@@ -137,12 +148,8 @@ function UserProfile({reloadPage}) {
         <Meows />
       </div>
 
-      {popUpEdit && (
-        <EditProfileForm
-          reloadPage={reloadPage}
-          close={() => setPopUpEdit(!popUpEdit)}
-          // change={changeToLoginForm}
-        />
+      {popUpEditProfile && (
+        <EditProfileForm close={() => setPopUpEditProfile(!popUpEditProfile)} />
       )}
     </>
   );
