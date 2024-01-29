@@ -5,7 +5,7 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
 import MeowReplies from "./MeowReplies";
-import {  useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
