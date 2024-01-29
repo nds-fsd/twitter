@@ -31,9 +31,7 @@ const validateUser = async (req, res, next) => {
       .status(400)
       .json({ error: { username: "Username already registered" } });
   if (userMailError)
-    return res
-      .status(400)
-      .json({ error: { mail: "Mail already registered" } });
+    return res.status(400).json({ error: { mail: "Mail already registered" } });
 
   if (!name || !surname || !birthday || !username) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -92,7 +90,7 @@ const validateToken = (req, res, next) => {
   try {
     tokenPayload = jwt.verify(token, secret);
   } catch (err) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ error: "Unauthorized:((" });
   }
 
   req.jwtPayload = tokenPayload;

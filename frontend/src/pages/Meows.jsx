@@ -7,6 +7,7 @@ import Loading from "../effects/Loading.jsx";
 import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
+import RepostMeow from "../components/RepostMeow.jsx";
 
 function Meows() {
   const [meows, setMeows] = useState("");
@@ -104,6 +105,7 @@ function Meows() {
                   {meow.likes} <LikeButton meow={meow} />
                 </p>
                 <p>{meow.date}</p>
+                <RepostMeow meow={meow} />
               </div>
             </div>
           );
