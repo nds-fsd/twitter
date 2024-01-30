@@ -12,6 +12,10 @@ const meowSchema = new Schema({
     ref: "user",
     required: true,
   },
+  repostedMeowId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "meow",
+  },
 });
 
 const Meow = model("meow", meowSchema);

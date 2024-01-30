@@ -6,12 +6,13 @@ import { getUserToken } from "../local-storage";
 const RepostMeow = ({ meow }) => {
   const token = getUserToken();
   const [repost, setRepost] = useState(meow);
+  //   tienes que hacer elmismo meow updateado!!!!! pero mismo id del meow?
   const repostMeow = async () => {
     try {
       console.log(repost);
       const res = await meowApi.post(
         "/",
-        { meow: repost.text, date: Date.now() },
+        { meow: repost.text, date: Date.now(), repostedMeowId: meow._id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
