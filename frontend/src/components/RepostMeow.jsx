@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { meowApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
 import { getUserToken } from "../local-storage";
+import { context } from "../App";
 
 const RepostMeow = ({ meow }) => {
+  const reload = useContext(context);
   const token = getUserToken();
   const [repost, setRepost] = useState(meow);
   //   tienes que hacer elmismo meow updateado!!!!! pero mismo id del meow?
@@ -20,6 +22,7 @@ const RepostMeow = ({ meow }) => {
         }
       );
       console.log(res);
+      reload.setReload(!reload.reload);
     } catch (error) {
       console.log("error reposting meow", error);
     }
