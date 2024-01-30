@@ -110,6 +110,7 @@ const VistaUnMeow = () => {
 
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
+      window.location.reload(); // add to reload page
 
       console.log(allMeowReplies);
     } catch (err) {
