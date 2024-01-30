@@ -5,10 +5,11 @@ import { getUserToken } from "../local-storage";
 import { context } from "../App";
 
 const RepostMeow = ({ meow }) => {
+  // --------------------------------------------------Variables-------------------------------------------------------------------
   const reload = useContext(context);
   const token = getUserToken();
   const [repost, setRepost] = useState(meow);
-  //   tienes que hacer elmismo meow updateado!!!!! pero mismo id del meow?
+  // --------------------------------------------------Repost del Meow-------------------------------------------------------------
   const repostMeow = async () => {
     try {
       console.log(repost);
@@ -27,7 +28,14 @@ const RepostMeow = ({ meow }) => {
       console.log("error reposting meow", error);
     }
   };
-  return <button onClick={repostMeow}>🔁Repost</button>;
+  return (
+    <>
+      <span style={{ cursor: "pointer" }} onClick={repostMeow}>
+        🔁
+      </span>
+      <span>{meow.reposts}</span>
+    </>
+  );
 };
 
 export default RepostMeow;
