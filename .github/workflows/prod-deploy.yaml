@@ -34,4 +34,4 @@ jobs:
           api_token: "${{ secrets.KOYEB_TOKEN }}"
           github_token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Deploy to Koyeb
-        run: koyeb service redeploy nuclio-fsd/twitter
+        run: koyeb service redeploy twitter/twitter-api

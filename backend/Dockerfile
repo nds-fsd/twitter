@@ -5,11 +5,11 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package*.json ./
-
+COPY backend backend
 RUN npm install
 
+WORKDIR /usr/src/app/backend
 
-COPY src src
 
 EXPOSE 8000
 CMD [ "node", "src/index.js" ]
