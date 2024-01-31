@@ -11,7 +11,7 @@ RUN apk update
 WORKDIR /app
 RUN npm install -g turbo
 COPY . .
-RUN turbo prune backend --docker
+RUN turbo prune --scope='@monorepo/backend' --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
@@ -36,7 +36,6 @@ COPY turbo.json turbo.json
 # ARG TURBO_TOKEN
 # ENV TURBO_TOKEN=$TURBO_TOKEN
 
-RUN npm run turbo build --filter=backend...
 
 FROM base AS runner
 WORKDIR /app
