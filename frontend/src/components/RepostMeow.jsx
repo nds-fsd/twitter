@@ -9,13 +9,14 @@ const RepostMeow = ({ meow }) => {
   const reload = useContext(context);
   const token = getUserToken();
   const [repost, setRepost] = useState(meow);
+
   // --------------------------------------------------Repost del Meow-------------------------------------------------------------
   const repostMeow = async () => {
     try {
-      console.log(repost);
+      console.log(meow);
       const res = await meowApi.post(
-        "/",
-        { meow: repost.text, date: Date.now(), repostedMeowId: meow._id },
+        "/repost",
+        { ...meow, date: Date.now() },
         {
           headers: {
             Authorization: `Bearer ${token}`,

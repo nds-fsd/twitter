@@ -3,28 +3,6 @@ const User = require("../schemas/user");
 const Follow = require("../schemas/follow");
 const mongoose = require("mongoose");
 
-// ------------------------------------Funciones--------------------------------------------------------------------------------
-
-const getOriginalMeowId = async (meowId) => {
-  // Función para obtener el ID del meow original
-  let currentMeowId = meowId;
-  let currentMeow = null;
-
-  while (true) {
-    currentMeow = await Meow.findOne({ _id: currentMeowId });
-
-    if (!currentMeow || !currentMeow.repostedMeowId) {
-      // Cuando no hay más reposts o el meow original es alcanzado
-      break;
-    }
-
-    // Sigue buscando el meow original
-    currentMeowId = currentMeow.repostedMeowId;
-  }
-
-  return currentMeowId;
-};
-
 // ------------------------------------------------------------------------------------------------------------------------------
 
 const getAllMeows = async (req, res) => {
@@ -72,41 +50,22 @@ const getMeowById = async (req, res) => {
 const createMeow = async (req, res) => {
   try {
     const body = req.body;
+
     const userId = req.jwtPayload.id;
-    console.log(body.repostedMeowId);
 
     const meow = {
       text: body.meow,
       date: body.date,
       author: userId,
     };
+    if (body.parentMeow) {
+      meow.parentMeow = body.parentMeow;
 
-    let originalMeowId;
-
-    if (body.repostedMeowId) {
-      originalMeowId = await getOriginalMeowId(body.repostedMeowId);
-
-      const originalMeow = await Meow.findOne({ _id: originalMeowId });
-
-      // Incrementa el contador de reposts para todos los meows en la cadena
-      await Meow.updateOne({ _id: originalMeowId }, { $inc: { reposts: 1 } });
-      console.log(originalMeow);
-
-      meow.repostedMeowId = originalMeowId;
-      meow.reposts = originalMeow.reposts;
+      await Meow.updateOne({ _id: body.parentMeow }, { $inc: { replies: 1 } });
     }
 
     const meowToSave = new Meow(meow);
     await meowToSave.save();
-
-    if (meow.repostedMeowId) {
-      await Meow.updateMany(
-        { repostedMeowId: originalMeowId },
-        { $inc: { reposts: 1 } }
-      );
-    }
-
-    // Incrementa el contador de meows del usuario
     await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
 
     return res
@@ -116,6 +75,49 @@ const createMeow = async (req, res) => {
     return res.status(400).json(error.message);
   }
 };
+// -------------------------------------------------------------------------------------------------------------------------------
+const repostMeow = async (req, res) => {
+  try {
+    const userId = req.jwtPayload.id;
+    const repost = req.body;
+
+    console.log(repost);
+
+    if (!repost.repostedMeowId) {
+      const meow = {
+        text: repost.text,
+        reposts: 1,
+        author: userId,
+        repostedMeowId: repost._id,
+        date: repost.date,
+      };
+
+      const meowToSave = new Meow(meow);
+      await meowToSave.save();
+      await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
+      return res
+        .status(201)
+        .json({ message: "Meow reposted successfully", meow });
+    }
+    const meow = {
+      text: repost.text,
+      reposts: repost.reposts + 1,
+      author: userId,
+      repostedMeowId: repost.repostedMeowId,
+      date: repost.date,
+    };
+
+    const meowToSave = new Meow(meow);
+    await meowToSave.save();
+    await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
+    return res
+      .status(201)
+      .json({ message: "Meow reposted successfully", meow });
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+};
+// ---------------------------------------------------------------------------------------------------------------------------------
 const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
@@ -155,4 +157,5 @@ module.exports = {
   createMeow,
   updateMeow,
   deleteMeow,
+  repostMeow,
 };
