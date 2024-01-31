@@ -8,7 +8,6 @@ const RepostMeow = ({ meow }) => {
   // --------------------------------------------------Variables-------------------------------------------------------------------
   const reload = useContext(context);
   const token = getUserToken();
-  const [repost, setRepost] = useState(meow);
 
   // --------------------------------------------------Repost del Meow-------------------------------------------------------------
   const repostMeow = async () => {

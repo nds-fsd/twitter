@@ -66,7 +66,26 @@ function Meows() {
           };
         });
 
-        setMeows(meowsWithUsernames);
+        for (let i = 0; i < meowsWithUsernames.length; i++) {
+          if (meowsWithUsernames[i].repostedMeowId) {
+            const getDetails = async () => {
+              const meowRes = await meowApi.get(
+                meowsWithUsernames[i].repostedMeowId
+              );
+
+              console.log(meowRes);
+              const userRes = await userApi.get(`id/${meowRes.data.author}`);
+
+              meowsWithUsernames[i].originalAuthor = userRes.data.username;
+              console.log(meowsWithUsernames[i]);
+              setMeows(meowsWithUsernames);
+            };
+
+            getDetails();
+          } else {
+            setMeows(meowsWithUsernames);
+          }
+        }
       } catch (error) {
         console.log(error);
         setError(true);
@@ -96,8 +115,14 @@ function Meows() {
               <div className={styles.meowsContainer}>
                 <div className={styles.userContainer}>
                   <img src={user} />
+
                   <p>{meow.authorUsername}</p>
                 </div>
+
+                {meow.originalAuthor && (
+                  <div>original Meow by: {meow.originalAuthor}</div>
+                )}
+
                 <p>{meow.text}</p>
               </div>
               <p>{meow.date}</p>
