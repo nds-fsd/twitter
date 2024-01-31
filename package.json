@@ -17,6 +17,7 @@
       "/node_modules/"
     ]
   },
+  "packageManager": "npm@9.6.5",
   "devDependencies": {
     "dotenv-cli": "^7.0.0",
     "turbo": "^1.10.16",
