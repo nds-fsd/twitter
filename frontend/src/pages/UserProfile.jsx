@@ -12,7 +12,7 @@ import { context } from "../App.jsx";
 import EditProfileForm from "../components/EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 
-function UserProfile({ reloadPage }) {
+function UserProfile() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
@@ -149,7 +149,10 @@ function UserProfile({ reloadPage }) {
       </div>
 
       {popUpEditProfile && (
-        <EditProfileForm close={() => setPopUpEditProfile(!popUpEditProfile)} />
+        <EditProfileForm
+          popUpEditProfile={popUpEditProfile}
+          close={() => setPopUpEditProfile(!popUpEditProfile)}
+        />
       )}
     </>
   );
