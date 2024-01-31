@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build-deploy-to-koyeb:
@@ -33,5 +32,6 @@ jobs:
         with:
           api_token: "${{ secrets.KOYEB_TOKEN }}"
           github_token: "${{ secrets.GITHUB_TOKEN }}"
+
       - name: Deploy to Koyeb
         run: koyeb service redeploy twitter/twitter-api
