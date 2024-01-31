@@ -47,4 +47,5 @@ RUN adduser --system --uid 1001 expressjs
 USER expressjs
 COPY --from=installer /app .
 
+EXPOSE 8000
 CMD node backend/src/index.js
