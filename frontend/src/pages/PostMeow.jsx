@@ -11,6 +11,16 @@ function PostForm() {
   const [error, setError] = useState(false);
   const token = getUserToken();
   const reload = useContext(context);
+  const [color, setColor] = useState(false);
+  const changeColor = () => {
+    if (window.scrollY >= 70) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+
+  window.addEventListener("scroll", changeColor);
 
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
@@ -48,6 +58,9 @@ function PostForm() {
   return (
     <div className={styles.container}>
       <div className={styles.containerPost}>
+        <div className={color ? styles.header : styles.fixed}>
+          <p>Here are your Meows!</p>
+        </div>
         <img className={styles.accountImage} src={image} alt="Profile Photo" />
         <textarea
           value={newMeow}

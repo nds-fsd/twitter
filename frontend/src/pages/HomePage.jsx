@@ -18,10 +18,6 @@ const HomePage = () => {
 
   return (
     <div className={styles.mainContainer}>
-      {/* <MeowsFilter /> */}
-      <div className={color ? styles.header : styles.container}>
-        <p>Here are your Meows!</p>
-      </div>
       <PostForm />
       <Meows />
     </div>

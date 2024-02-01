@@ -14,9 +14,48 @@
 .containerPost {
   border-bottom: 1px solid var(--sections-hover);
   display: flex;
+  align-items: center;
   gap: 20px;
   padding: 20px;
   width: 95%;
+}
+
+.fixed {
+  border-bottom: 1px solid #2f2f2f;
+  border-right: 1px solid #2f2f2f;
+  width: 50%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  top: 0;
+  position: fixed;
+  z-index: 1;
+}
+
+.header {
+  border-bottom: 1px solid #2f2f2f;
+  border-right: 1px solid #2f2f2f;
+  width: 50%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  top: 0;
+  position: fixed;
+  background-color: black;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.fixed p,
+.header p {
+  color: #ff5200;
+  font-weight: bolder;
 }
 
 .containerPost textarea::placeholder {
@@ -37,7 +76,7 @@
   color: white;
   border: transparent;
   font-size: 17px;
-  width: 700px;
+  width: 80%;
 }
 
 .containerButtons {
