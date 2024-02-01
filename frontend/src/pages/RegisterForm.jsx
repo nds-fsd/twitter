@@ -90,6 +90,20 @@ const RegisterForm = ({ close, change }) => {
     createUser();
   };
 
+  const today = new Date();
+  const minYear = today.getFullYear() - 14;
+  const maxYear = today.getFullYear() - 100;
+  const minAge = new Date(
+    [minYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  const maxAge = new Date(
+    [maxYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  // const month = today.getMonth() + 1;
+  // const day = today.getDate();
+  // const maxAge = [maxYear, month, day].join("-");
+  // const minAge = [minYear, month, day].join("-");
+
   if (error) {
     Swal.fire({
       text: "Oops, something went wrong!",
@@ -148,12 +162,28 @@ const RegisterForm = ({ close, change }) => {
                 <input
                   className={styles.dateFields}
                   type="date"
-                  {...register("birthday", { required: true })}
+                  max={maxAge}
+                  min={minAge}
+                  {...register("birthday", {
+                    required: true,
+                    validate: {
+                      validDate: (value) => {
+                        // const minDate = new Date(minAge);
+                        // const maxDate = new Date(maxAge);
+                        const inputDate = new Date(value);
+                        return maxAge <= inputDate && inputDate <= minAge;
+                      },
+                    },
+                  })}
                 />
               </div>
-
               {errors.birthday?.type === "required" && (
                 <p className={styles.error}>Date of birth is required</p>
+              )}
+              {errors.birthday?.type === "validDate" && (
+                <p className={styles.error}>
+                  Allow only for people between 100 and +14 years old
+                </p>
               )}
             </div>
             <div className={styles.inputContainer}>
