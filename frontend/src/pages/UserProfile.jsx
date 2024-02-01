@@ -29,6 +29,7 @@ function UserProfile() {
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
+  console.log(urlUsername);
 
   useEffect(() => {
     console.log(loggedInUser);
@@ -131,7 +132,7 @@ function UserProfile() {
       <div>
         <TabsProfile tabs={tabs} />
       </div>
-      <MeowsFiltered />
+      <MeowsFiltered username={urlUsername} />
     </div>
   );
 }

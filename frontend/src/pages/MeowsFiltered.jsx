@@ -9,8 +9,10 @@ import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
 import { useNavigate } from "react-router-dom";
 
-function MeowsFiltered() {
+function MeowsFiltered({ username }) {
   const [meows, setMeows] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
@@ -20,75 +22,19 @@ function MeowsFiltered() {
   const reload = useContext(context);
 
   useEffect(() => {
-    const getAllMeows = async () => {
+    const getProfileMeows = async () => {
       try {
-        const token = getUserToken();
-        setLoading(true);
-        const res = await meowApi.get("/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setLoading(false);
-        const data = res.data;
-
-        setMeows(data.reverse());
-
-        const uniqueAuthorIds = Array.from(
-          new Set(data.map((meow) => meow.author))
-        );
-        const authorDetails = await Promise.all(
-          uniqueAuthorIds.map(async (authorId) => {
-            try {
-              const userRes = await userApi.get(`/id/${authorId}`);
-              return {
-                authorId,
-                username: userRes.data.username,
-              };
-            } catch (userError) {
-              console.error(
-                `Error fetching user with ID ${authorId}: ${userError.message}`
-              );
-              return {
-                authorId,
-                username: "Unknown User",
-              };
-            }
-          })
-        );
-        const meowsWithUsernames = data.map((meow) => {
-          const authorDetail = authorDetails.find(
-            (detail) => detail.authorId === meow.author
-          );
-          return {
-            ...meow,
-            authorUsername: authorDetail
-              ? authorDetail.username
-              : "Unknown User",
-          };
-        });
-
-        setMeows(meowsWithUsernames);
+        const res = await meowApi.get(username);
+        console.log(res);
+        setMeows(res.data.meowsProfile);
+        setName(res.data.user.name);
+        setSurname(res.data.user.surname);
       } catch (error) {
         console.log(error);
-        setError(true);
-        seterrorMessage(error.message);
       }
     };
-    getAllMeows();
-  }, [reload.reload]);
-
-  if (loading) return <Loading />;
-
-  if (error)
-    return (
-      <div style={{ fontSize: "40px" }}>
-        Ops, something went wrong!
-        <p style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
-          {errorMessage}
-        </p>
-      </div>
-    );
+    getProfileMeows();
+  }, []);
 
   return (
     <div className={styles.bigContainer}>
@@ -107,7 +53,10 @@ function MeowsFiltered() {
               <div className={styles.meowsContainer}>
                 <div className={styles.userContainer}>
                   <img src={user} />
-                  <p>{meow.authorUsername}</p>
+                  <p>{name}</p>
+
+                  <p>{surname}</p>
+                  <p>{username}</p>
                 </div>
                 <p>{meow.text}</p>
               </div>
