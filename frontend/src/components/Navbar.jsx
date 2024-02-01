@@ -20,6 +20,8 @@ function Navbar() {
   const loggedUser = getUserSession();
   const loggedUsername = loggedUser.username;
 
+  const reload = useContext(context);
+
   useEffect(() => {
     userApi()
       .get(`/${loggedUsername}`)
@@ -52,7 +54,10 @@ function Navbar() {
           {/* <div className={styles.options}> <Mail /> <p>Messages</p> </div> */}
           {/* <div className={styles.options}> <Bookmark /> <p>Bookmark</p> </div> */}
           <div
-            onClick={() => navigate("/user/" + loggedUsername)}
+            onClick={() => {
+              navigate("/user/" + loggedUsername);
+              reload.setReload(!reload.reload);
+            }}
             className={styles.options}
           >
             <UserRound />

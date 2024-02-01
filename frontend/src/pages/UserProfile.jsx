@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./UserProfile.module.css";
 import user from "../assets/user.png";
-import location from "../assets/location.png";
-import calendar from "../assets/calendar.png";
 import backgroundProfile from "../assets/backgroundProfile.jpeg";
 import Meows from "./Meows";
 import TabsProfile from "../components/TabsProfile";
@@ -25,7 +23,7 @@ function UserProfile() {
   const [followingCounter, setFollowingCounter] = useState(0);
   const [followerCounter, setFollowerCounter] = useState(0);
   const reload = useContext(context);
-
+  const [Reload, setReload] = useState(reload.reload);
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;

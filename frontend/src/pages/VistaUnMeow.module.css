@@ -59,6 +59,26 @@
   border-radius: 20px;
 }
 
+.userInfo {
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.userInfo:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.usernameInfo {
+  color: gray;
+  font-family: var(--main-font);
+  font-size: 12px;
+  font-weight: lighter;
+  padding-left: 1%;
+}
+
 .meow {
   margin-top: 1rem;
   padding: 0 20px;
