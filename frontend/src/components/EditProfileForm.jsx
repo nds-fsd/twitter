@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { userApi } from "../apis/apiWrapper";
 import Swal from "sweetalert2";
 
-const EditProfileForm = ({ close, username, onSubmitSuccess }) => {
+const EditProfileForm = ({ close, username, onSubmitSuccess, dataUserToEdit }) => {
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -70,7 +70,7 @@ const EditProfileForm = ({ close, username, onSubmitSuccess }) => {
             maxLength={30}
             type="text"
             name=""
-            placeholder="Name"
+            placeholder={dataUserToEdit.name}
             {...register("name", { required: false })}
           />
         </div>
@@ -81,7 +81,7 @@ const EditProfileForm = ({ close, username, onSubmitSuccess }) => {
             maxLength={30}
             type="text"
             name=""
-            placeholder="Surname"
+            placeholder={dataUserToEdit.surname}
             {...register("surname", { required: false })}
           />
         </div>
@@ -92,7 +92,7 @@ const EditProfileForm = ({ close, username, onSubmitSuccess }) => {
             maxLength={30}
             type="text"
             name=""
-            placeholder="Town"
+            placeholder={dataUserToEdit.town ? dataUserToEdit.town : "Town"}
             {...register("town", { required: false })}
           />
         </div>

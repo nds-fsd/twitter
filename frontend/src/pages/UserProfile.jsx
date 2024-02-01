@@ -26,6 +26,8 @@ function UserProfile() {
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
 
+  const dataUserToEdit = { name, surname, description, town };
+
   const [popUpEditProfile, setPopUpEditProfile] = useState(false);
   const handlePopUpEditProfileClick = () => {
     setPopUpEditProfile(!popUpEditProfile);
@@ -162,6 +164,7 @@ function UserProfile() {
           <EditProfileForm
             close={() => setPopUpEditProfile(!popUpEditProfile)}
             username={urlUsername}
+            dataUserToEdit={dataUserToEdit}
             onSubmitSuccess={handleEditProfileSubmit}
           />
         </div>
