@@ -10,9 +10,11 @@ import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
 import { context } from "../App.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
+import MeowsLiked from "../components/MeowsLiked.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
+  const [meowsLiked, setMeowsLiked] = useState(false);
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
@@ -28,7 +30,6 @@ function UserProfile() {
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
 
   useEffect(() => {
-    console.log(loggedInUser);
     reload.setPreLoader(false);
     userApi()
       .get(`/${urlUsername}`)
@@ -53,7 +54,7 @@ function UserProfile() {
     { text: "Meows", href: "/meows" },
     { text: "Replies", href: "/replies" },
     { text: "Photos and videos", href: "/media" },
-    { text: "Likes", href: "/likes" },
+    { text: "Likes", id: "likes" },
   ];
 
   const [color, setColor] = useState(false);
@@ -126,9 +127,10 @@ function UserProfile() {
         </div>
       </div>
       <div>
-        <TabsProfile tabs={tabs} />
+        <TabsProfile tabs={tabs} setMeowsLiked={setMeowsLiked} />
       </div>
-      <Meows />
+      <MeowsLiked />
+      {/* {!meowsLiked && <Meows />} */}
     </div>
   );
 }

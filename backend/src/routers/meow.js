@@ -6,6 +6,12 @@ const { consoleLogType, validateToken } = require("../middlewares/index");
 router.get("/", consoleLogType, validateToken, meowController.getFeedMeows);
 router.get("/:id", consoleLogType, validateToken, meowController.getMeowById);
 router.get(
+  "/likes/:id",
+  consoleLogType,
+  validateToken,
+  meowController.getMeowsLiked
+);
+router.get(
   "/replies/:id",
   consoleLogType,
   validateToken,

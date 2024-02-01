@@ -1,60 +1,35 @@
-import { useState, useContext, useEffect, createContext } from "react";
-import { meowApi, userApi } from "../apis/apiWrapper";
-import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
-import styles from "./Meows.module.css";
+import { useState, useEffect } from "react";
+import styles from "../pages/Meows.module.css";
+import { useParams } from "react-router-dom";
+import { meowApi } from "../apis/apiWrapper";
 import user from "../assets/user.png";
-import Loading from "../effects/Loading.jsx";
-import { context } from "../App.jsx";
-import { getUserToken } from "../local-storage";
-import LikeButton from "../components/LikeButton";
-import { useNavigate } from "react-router-dom";
-
-function Meows() {
+import LikeButton from "./LikeButton";
+import { getUserSession, getUserToken } from "../local-storage";
+const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, seterrorMessage] = useState("");
 
-  const navigate = useNavigate();
-
-  const reload = useContext(context);
+  console.log("holsa");
 
   useEffect(() => {
-    const getAllMeows = async () => {
+    const getMeows = async () => {
+      console.log("wwwwwwwwwwww");
       try {
         const token = getUserToken();
-        setLoading(true);
-        const res = await meowApi().get("/", {
+        const { id } = getUserSession();
+        const res = await meowApi().get(`likes/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setLoading(false);
-        const data = res.data;
-
-        setMeows(data.reverse());
-
-        setMeows(meowsWithUsernames);
+        console.log(res);
+        setMeows(res.data);
       } catch (error) {
-        console.log(error);
-        setError(true);
-        seterrorMessage(error.message);
+        console.log(error, "te jodes");
       }
     };
-    getAllMeows();
-  }, [reload.reload]);
 
-  if (loading) return <Loading />;
-
-  if (error)
-    return (
-      <div style={{ fontSize: "40px" }}>
-        Oops, something went wrong!
-        <p style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
-          {errorMessage}
-        </p>
-      </div>
-    );
+    getMeows();
+  }, []);
 
   return (
     <div className={styles.bigContainer}>
@@ -97,5 +72,6 @@ function Meows() {
         })}
     </div>
   );
-}
-export default Meows;
+};
+
+export default MeowsLiked;
