@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./UserProfile.module.css";
 import user from "../assets/user.png";
@@ -8,7 +8,6 @@ import TabsProfile from "../components/TabsProfile";
 import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
-// import { context } from "../App.jsx";
 import EditProfileForm from "../components/EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 
@@ -22,7 +21,6 @@ function UserProfile() {
   const [meowCounter, setMeowCounter] = useState(0);
   const [followingCounter, setFollowingCounter] = useState(0);
   const [followerCounter, setFollowerCounter] = useState(0);
-  // const reload = useContext(context);
 
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
@@ -41,7 +39,6 @@ function UserProfile() {
 
   useEffect(() => {
     console.log(loggedInUser);
-    // reload.setPreLoader(false);
     userApi()
       .get(`/${urlUsername}`)
       .then((response) => {
@@ -60,6 +57,14 @@ function UserProfile() {
         console.error(error);
       });
   }, []);
+
+  const handleEditProfileSubmit = (data) => {
+    setPopUpEditProfile(false);
+    setName(data.name || name);
+    setSurname(data.surname || surname);
+    setDescription(data.description || description);
+    setTown(data.town || town);
+  };
 
   const tabs = [
     { text: "Meows", href: "/meows" },
@@ -149,11 +154,17 @@ function UserProfile() {
       </div>
 
       {popUpEditProfile && (
-        <EditProfileForm
-          popUpEditProfile={popUpEditProfile}
-          close={() => setPopUpEditProfile(!popUpEditProfile)}
-          username={urlUsername}
-        />
+        <div
+          className={`${styles.overlay} ${
+            popUpEditProfile ? styles.active : ""
+          }`}
+        >
+          <EditProfileForm
+            close={() => setPopUpEditProfile(!popUpEditProfile)}
+            username={urlUsername}
+            onSubmitSuccess={handleEditProfileSubmit}
+          />
+        </div>
       )}
     </>
   );

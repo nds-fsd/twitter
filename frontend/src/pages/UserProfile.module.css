@@ -1,3 +1,20 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black; /* Color de fondo predeterminado */
+  opacity: 1; /* Opacidad predeterminada */
+  transition: opacity 0.3s ease; /* Agregar transición para suavizar cambios */
+  
+}
+
+.overlay.active {
+  opacity: 0.8; /* Opacidad cuando popUpEditProfile es verdadero */
+  background-color: grey; /* Color de fondo cuando popUpEditProfile es verdadero */
+}
+
 .bigContainer {
   align-items: center;
   display: flex;

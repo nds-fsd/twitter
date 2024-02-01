@@ -4,8 +4,10 @@
   padding: 0;
   user-select: none;
 }
+
 .container {
   background-color: black;
+  opacity: 1;
   padding: 2% 2.5%;
   position: absolute;
   top: 50%;
@@ -23,18 +25,6 @@ header {
   margin-bottom: 7%;
   font-weight: bold;
   user-select: none;
-}
-
-.backContainer {
-  cursor: pointer;
-  display: flex;
-  gap: 4%;
-  width: 100%;
-}
-
-.backContainer > span {
-  cursor: auto;
-  width: fit-content;
 }
 
 .x {
@@ -77,37 +67,6 @@ header {
   color: gray;
 }
 
-.dateContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 5%;
-}
-
-.dateLabel {
-  color: white;
-  font-family: var(--main-font);
-  display: block;
-  user-select: none;
-}
-
-.dateFields {
-  color: black;
-  font-family: var(--main-font);
-  font-size: 15px;
-  height: auto;
-  padding: 2% 0 2% 3%;
-  user-select: none;
-  width: 50%;
-}
-
-.dateFields::placeholder {
-  font-family: var(--main-font);
-  color: gray;
-}
-
 .error {
   color: grey;
   font-family: var(--main-font);
@@ -145,22 +104,4 @@ header {
   text-align: center;
   user-select: none;
   width: 90%;
-}
-
-.footerInForm{
-  margin-top: 5%;
-}
-
-.textsInForm {
-  font-family: var(--main-font);
-  font-size: 13px;
-  margin-bottom: 2%;
-  text-align: center;
-}
-
-.textsInForm > span {
-  cursor: pointer;
-  color: var(--main-color);
-  font-weight: bold;
-  text-decoration: underline;
 }

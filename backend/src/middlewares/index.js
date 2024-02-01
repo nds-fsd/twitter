@@ -43,9 +43,11 @@ const validateUpdateUser = async (req, res, next) => {
     });
   }
 
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(body.password, saltRounds);
-  body.password = hashedPassword;
+  if (body.password) {
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(body.password, salt);
+    body.password = hashedPassword;
+  }
 
   if (body._id) {
     const user = await User.findById(body._id);
