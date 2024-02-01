@@ -91,10 +91,12 @@ const RegisterForm = ({ close, change }) => {
   };
 
   const today = new Date();
-  const year = today.getFullYear() - 14;
+  const minYear = today.getFullYear() - 14;
+  const maxYear = today.getFullYear() - 100;
   const month = today.getMonth() + 1;
   const day = today.getDate();
-  const maxDate = [year, month, day].join("-");
+  const maxAge = [maxYear, month, day].join("-");
+  const minAge = [minYear, month, day].join("-");
 
   if (error) {
     Swal.fire({
@@ -154,12 +156,16 @@ const RegisterForm = ({ close, change }) => {
                 <input
                   className={styles.dateFields}
                   type="date"
-                  max={maxDate}
+                  max={maxAge}
+                  min={minAge}
                   {...register("birthday", {
                     required: true,
                     validate: {
                       validDate: (value) => {
-                        return new Date(maxDate) >= new Date(value);
+                        const minDate = new Date(minAge);
+                        const maxDate = new Date(maxAge);
+                        const inputDate = new Date(value);
+                        return maxDate <= inputDate && inputDate <= minDate;
                       },
                     },
                   })}
@@ -170,7 +176,7 @@ const RegisterForm = ({ close, change }) => {
               )}
               {errors.birthday?.type === "validDate" && (
                 <p className={styles.error}>
-                  Allow only for people +14 years old
+                  Allow only for people between 100 and +14 years old
                 </p>
               )}
             </div>
