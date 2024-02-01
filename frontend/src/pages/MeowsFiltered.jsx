@@ -35,7 +35,7 @@ function MeowsFiltered({ username }) {
       }
     };
     getProfileMeows();
-  }, []);
+  }, [username]);
 
   return (
     <div className={styles.bigContainer}>
