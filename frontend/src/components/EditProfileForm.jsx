@@ -2,15 +2,15 @@ import styles from "./EditProfileForm.module.css";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import { userApi } from "../apis/apiWrapper";
+import { getUserToken } from "../local-storage";
 import Swal from "sweetalert2";
-import { setUserSession } from "../local-storage";
 
-const EditProfileForm = ({ close, popUpEditProfile }) => {
+const EditProfileForm = ({ close, popUpEditProfile, username }) => {
   const [error, setError] = useState(false);
-  const [usernameAlreadyRegistered, setUsernameAlreadyRegistered] =
-    useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [disabled, setDisabled] = useState(false);
+
+  const token = getUserToken();
 
   const {
     register,
@@ -24,37 +24,28 @@ const EditProfileForm = ({ close, popUpEditProfile }) => {
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (data.password !== data.passwordConfirm) {
       setPasswordError(true);
       return;
     } else {
       setPasswordError(false);
     }
-    let date = new Date().toDateString();
 
-    const createUser = async () => {
+    const updateUser = async () => {
       try {
-        const res = await userApi.post("/register", {
-          ...data,
-          dateOfRegister: date,
+        const res = await userApi.patch(`/${username}`, data, {
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (res.status === 201) {
           setError(false);
-          setUserSession(res.data);
         }
       } catch (error) {
-        if (error.response.status !== 201 && error.response.status !== 400)
-          setError(true);
-        if (error.response.data.error.username) {
-          setUsernameAlreadyRegistered(true);
-        } else {
-          setUsernameAlreadyRegistered(false);
-        }
+        if (error.response.status !== 201) setError(true);
       }
     };
-    createUser();
+    updateUser();
   };
 
   if (error) {
@@ -76,6 +67,12 @@ const EditProfileForm = ({ close, popUpEditProfile }) => {
     >
       <div className={styles.container}>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <header>
+            <span>Step 1 of 2</span>{" "}
+            <span onClick={close} className={styles.x}>
+              x
+            </span>
+          </header>
           <h2 className={styles.tittle}>Edit Profile</h2>
           <div className={styles.inputContainer}>
             <input
@@ -132,19 +129,6 @@ const EditProfileForm = ({ close, popUpEditProfile }) => {
                 {...register("birthday", { required: false })}
               />
             </div>
-          </div>
-
-          <div className={styles.inputContainer}>
-            <input
-              className={styles.inputFields}
-              maxLength={20}
-              type="text"
-              placeholder="Username"
-              {...register("username", { required: false })}
-            />
-            {usernameAlreadyRegistered && (
-              <p className={styles.error}>Username not available</p>
-            )}
           </div>
 
           <div className={styles.inputContainer}>

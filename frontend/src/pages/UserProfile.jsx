@@ -8,7 +8,7 @@ import TabsProfile from "../components/TabsProfile";
 import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
-import { context } from "../App.jsx";
+// import { context } from "../App.jsx";
 import EditProfileForm from "../components/EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 
@@ -22,7 +22,7 @@ function UserProfile() {
   const [meowCounter, setMeowCounter] = useState(0);
   const [followingCounter, setFollowingCounter] = useState(0);
   const [followerCounter, setFollowerCounter] = useState(0);
-  const reload = useContext(context);
+  // const reload = useContext(context);
 
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
@@ -41,7 +41,7 @@ function UserProfile() {
 
   useEffect(() => {
     console.log(loggedInUser);
-    reload.setPreLoader(false);
+    // reload.setPreLoader(false);
     userApi
       .get(`/${urlUsername}`)
       .then((response) => {
@@ -59,7 +59,7 @@ function UserProfile() {
       .catch((error) => {
         console.error(error);
       });
-  }, [reload.reload]);
+  }, []);
 
   const tabs = [
     { text: "Meows", href: "/meows" },
@@ -152,6 +152,7 @@ function UserProfile() {
         <EditProfileForm
           popUpEditProfile={popUpEditProfile}
           close={() => setPopUpEditProfile(!popUpEditProfile)}
+          username={urlUsername}
         />
       )}
     </>
