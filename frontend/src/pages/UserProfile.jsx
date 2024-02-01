@@ -29,10 +29,8 @@ function UserProfile() {
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
-  console.log(urlUsername);
 
   useEffect(() => {
-    console.log(loggedInUser);
     reload.setPreLoader(false);
     userApi
       .get(`/${urlUsername}`)

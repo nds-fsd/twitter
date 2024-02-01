@@ -8,14 +8,13 @@
     display: flex;
     flex-direction: column;
     width: 95%;
-    padding: 20px;
+    padding: 2.5%;
     border-top: 1px solid rgb(44, 44, 44);
     cursor: pointer;
   }
   
   .userContainer {
     display: flex;
-    margin-bottom: 10px;
     align-items: center;
   }
   
@@ -26,16 +25,35 @@
     margin-right: 10px;
   }
   
-  .userContainer p {
+  .nameText {
+    font-family: var(--main-font);
+    font-size: 16px;
     font-weight: bold;
-    font-size: 20px;
   }
   
+  .usernameText {
+    color: gray;
+    font-family: var(--main-font);
+    font-size: 13px;
+    padding-left: 2%;
+  }
+
+  .postContainer {
+    padding: 2% 0;
+  }
+
+  .postContainer > p {
+    text-align: justify;
+  }
+
   .likesContainer {
+    align-items: center;
     display: flex;
   }
   
   .likesContainer p {
+    color: gray;
+    font-size: 12px;
     margin: 0 10px 0 0;
   }
   

@@ -25,8 +25,7 @@ function MeowsFiltered({ username }) {
     const getProfileMeows = async () => {
       try {
         const res = await meowApi.get(username);
-        console.log(res);
-        setMeows(res.data.meowsProfile);
+        setMeows(res.data.meowsProfile.reverse());
         setName(res.data.user.name);
         setSurname(res.data.user.surname);
       } catch (error) {
@@ -50,20 +49,18 @@ function MeowsFiltered({ username }) {
               key={meow._id}
               className={styles.container}
             >
-              <div className={styles.meowsContainer}>
-                <div className={styles.userContainer}>
-                  <img src={user} />
-                  <p>{name}</p>
-
-                  <p>{surname}</p>
-                  <p>{username}</p>
-                </div>
+              <div className={styles.userContainer}>
+                <img src={user} />
+                <p className={styles.nameText}>
+                  {name} {surname}
+                </p>
+                <p className={styles.usernameText}>@{username}</p>
+              </div>
+              <div className={styles.postContainer}>
                 <p>{meow.text}</p>
               </div>
               <div className={styles.likesContainer}>
-                <p>
-                  <LikeButton meow={meow} />
-                </p>
+                <LikeButton meow={meow} />
                 <p>{meow.date}</p>
               </div>
             </div>

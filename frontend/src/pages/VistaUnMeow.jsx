@@ -5,7 +5,7 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
 import MeowReplies from "./MeowReplies";
-import {  useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
 import { getUserSession } from "../local-storage";
@@ -53,7 +53,6 @@ const VistaUnMeow = () => {
     const getDetails = async () => {
       try {
         const res = await meowApi.patch(id, { $inc: { views: 0.5 } });
-        console.log(res);
         setParentMeow(res.data.meowUpdated);
         setParentMeowUsername(res.data.userFound.username);
         setReplyCounter(res.data.meowUpdated.replies);
