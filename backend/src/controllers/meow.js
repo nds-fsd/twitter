@@ -8,42 +8,32 @@ const getAllMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
 
-    // Obtener Meows de usuarios que sigues
     const follows = await Follow.find({ follower: id });
     const followedUsers = follows.map((follow) => follow.followed);
     const meowsYouFollow = await Meow.find({ author: { $in: followedUsers } });
 
-    // Obtener tus propios Meows
     const ownMeows = await Meow.find({ author: id });
 
-    // Combinar los Meows
     const meowsToSend = meowsYouFollow.concat(ownMeows);
 
-    // Iterar sobre los Meows para agregar 'originalUsername' si es un repost
-    for (let i = 0; i < meowsToSend.length; i++) {
-      const meow = meowsToSend[i];
-      if (meow.repostedMeowId) {
-        const originalMeow = await Meow.findById(meow.repostedMeowId).populate(
-          "author",
-          "username"
-        );
-        meowsToSend[i].originalUsername = originalMeow.author.username;
-        console.log(originalMeow);
-        console.log(originalMeow.author.username);
-      }
-    }
-
-    // Ordenar los Meows por fecha
     meowsToSend.sort((a, b) => a.date - b.date);
 
-    console.log(meowsToSend);
+    const meowsToSendWithReposts = await Promise.all(
+      meowsToSend.map(async (meow) => {
+        if (meow.repostedMeowId) {
+          const originalMeow = await Meow.findOne({ _id: meow.repostedMeowId });
+          const user = await User.findById(originalMeow.author);
+          meow.originalUsername = user.username;
+        }
+        return meow;
+      })
+    );
 
-    return res.status(200).json(meowsToSend);
+    console.log("sssssssssssssssssssssss", meowsToSendWithReposts);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 };
-
 const getMeowById = async (req, res) => {
   try {
     const { id } = req.params;

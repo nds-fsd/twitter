@@ -29,7 +29,6 @@ function Meows() {
         });
         setLoading(false);
         const data = res.data;
-        data.map((meow) => console.log(meow.originalUsername));
 
         setMeows(data.reverse());
 
@@ -99,6 +98,7 @@ function Meows() {
                   <img src={user} />
 
                   <p>{meow.authorUsername}</p>
+                  <p>{meow.originalUsername}</p>
                 </div>
 
                 {meow.originalAuthor && (
