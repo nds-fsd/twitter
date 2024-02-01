@@ -43,8 +43,6 @@ function Meows() {
               return {
                 authorId,
                 username: userRes.data.username,
-                nameUser: userRes.data.name,
-                surnameUser: userRes.data.surname,
               };
             } catch (userError) {
               console.error(
@@ -63,8 +61,6 @@ function Meows() {
           );
           return {
             ...meow,
-            nameAuthor: authorDetail.nameUser,
-            surnameAuthor: authorDetail.surnameUser,
             authorUsername: authorDetail
               ? authorDetail.username
               : "Unknown User",
@@ -86,7 +82,7 @@ function Meows() {
   if (error)
     return (
       <div style={{ fontSize: "40px" }}>
-        Oops, something went wrong!
+        Ops, something went wrong!
         <p style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
           {errorMessage}
         </p>
@@ -98,36 +94,27 @@ function Meows() {
       {meows &&
         meows.map((meow) => {
           return (
-            <div className={styles.container}>
-              <div className={styles.userContainer}>
-                <img src={user} />
-                <p
-                  onClick={() => {
-                    navigate("/user/" + meow.authorUsername);
-                    reload.setReload(!reload.reload);
-                  }}
-                  className={styles.nameSurname}
-                >
-                  {meow.nameAuthor} {meow.surnameAuthor}
-                </p>
-                <p className={styles.username}>@{meow.authorUsername}</p>
-              </div>
-              <div
-                onClick={(e) => {
-                  console.log(e.target.id);
-                  if (e.target.id === "likeButton") return;
-                  navigate(`/meow/${meow._id}`, { state: { meow } });
-                }}
-                key={meow._id}
-                className={styles.postContainer}
-              >
-                <p>{meow.text}</p>
-                <div className={styles.likesContainer}>
-                  <p>
-                    <LikeButton meow={meow} />
-                  </p>
-                  <p>{meow.date}</p>
+            <div
+              onClick={(e) => {
+                console.log(e.target.id);
+                if (e.target.id === "likeButton") return;
+                navigate(`/meow/${meow._id}`, { state: { meow } });
+              }}
+              key={meow._id}
+              className={styles.container}
+            >
+              <div className={styles.meowsContainer}>
+                <div className={styles.userContainer}>
+                  <img src={user} />
+                  <p>{meow.authorUsername}</p>
                 </div>
+                <p>{meow.text}</p>
+              </div>
+              <div className={styles.likesContainer}>
+                <p>
+                  <LikeButton meow={meow} />
+                </p>
+                <p>{meow.date}</p>
               </div>
             </div>
           );

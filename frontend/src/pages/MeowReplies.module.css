@@ -10,6 +10,7 @@
   width: 95%;
   padding: 20px;
   border-top: 1px solid rgb(44, 44, 44);
+  cursor: pointer;
 }
 
 .userContainer {
@@ -25,24 +26,9 @@
   margin-right: 10px;
 }
 
-.nameSurname {
-  cursor: pointer;
-  font-family: var(--main-font);
-  font-size: 16px;
+.userContainer p {
   font-weight: bold;
-  margin: 0.15rem 0;
-  width: fit-content;
-}
-
-.nameSurname:hover {
-  text-decoration: underline;
-}
-
-.username {
-  color: gray;
-  font-family: var(--main-font);
-  font-size: 13px;
-  padding-left: 1%;
+  font-size: 20px;
 }
 
 .likesContainer {

@@ -1,10 +1,8 @@
 import styles from "./MeowReplies.module.css";
 import LikeButton from "../components/LikeButton";
 import user from "../assets/user.png";
-import { useNavigate } from "react-router-dom";
 
 const MeowReplies = ({ allMeowReplies, dateFormat }) => {
-  const navigate = useNavigate();
   const meowsToShow = allMeowReplies.map((meow) => {
     const dateString = meow.date;
     const dateObject = dateString ? new Date(dateString) : null;
@@ -27,13 +25,7 @@ const MeowReplies = ({ allMeowReplies, dateFormat }) => {
               <div className={styles.meowsContainer}>
                 <div className={styles.userContainer}>
                   <img src={user} alt="user" />
-                  <p
-                    onClick={() => navigate("/user/" + meow.authorUsername)}
-                    className={styles.nameSurname}
-                  >
-                    {meow.authorName} {meow.authorSurname}
-                  </p>
-                  <p className={styles.username}>@{meow.authorUsername}</p>
+                  <p>{meow.authorUsername}</p>
                 </div>
                 <p>{meow.text}</p>
               </div>

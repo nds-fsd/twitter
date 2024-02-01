@@ -21,10 +21,23 @@ function UserProfile() {
   const [meowCounter, setMeowCounter] = useState(0);
   const [followingCounter, setFollowingCounter] = useState(0);
   const [followerCounter, setFollowerCounter] = useState(0);
-  
+
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
+
+  const dataUserToEdit = { name, surname, description, town };
+
+  const [popUpEditProfile, setPopUpEditProfile] = useState(false);
+  const handlePopUpEditProfileClick = () => {
+    setPopUpEditProfile(!popUpEditProfile);
+  };
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      setPopUpEditProfile(false);
+    }
+  });
 
   useEffect(() => {
     console.log(loggedInUser);
@@ -46,19 +59,6 @@ function UserProfile() {
         console.error(error);
       });
   }, []);
-
-  const dataUserToEdit = { name, surname, description, town };
-
-  const [popUpEditProfile, setPopUpEditProfile] = useState(false);
-  const handlePopUpEditProfileClick = () => {
-    setPopUpEditProfile(!popUpEditProfile);
-  };
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      setPopUpEditProfile(false);
-    }
-  });
 
   const handleEditProfileSubmit = (data) => {
     setPopUpEditProfile(false);

@@ -64,28 +64,20 @@ const getMeowReplies = async (req, res) => {
 
       const authorDetails = await User.find(
         { _id: { $in: uniqueAuthorIds } },
-        "username name surname" // Add the fields username, name, and surname that you want to retrieve here
+        "username"
       );
 
       const authorMap = authorDetails.reduce((map, user) => {
-        map[user._id] = {
-          username: user.username,
-          name: user.name,
-          surname: user.surname,
-        };
+        map[user._id] = user.username;
         return map;
       }, {});
 
       const meowRepliesWithUsernames = meowReplies.map((meow) => {
-        const author = authorMap[meow.author];
         return {
           ...meow.toObject(),
-          authorUsername: author ? author.username : "Unknown User",
-          authorName: author ? author.name : "Unknown",
-          authorSurname: author ? author.surname : "Unknown",
+          authorUsername: authorMap[meow.author] || "Unknown User",
         };
       });
-
       return res.status(200).json(meowRepliesWithUsernames.reverse());
     } else {
       return res.status(404).json({

@@ -21,12 +21,10 @@ const VistaUnMeow = () => {
   const { id } = useParams();
 
   const textareaRef = useRef(null);
-  const { username, name, surname } = getUserSession();
+  const { username } = getUserSession();
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
   const [parentMeowUsername, setParentMeowUsername] = useState("");
-  const [parentMeowName, setParentMeowName] = useState("");
-  const [parentMeowSurname, setParentMeowSurname] = useState("");
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
@@ -56,8 +54,6 @@ const VistaUnMeow = () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
         setParentMeow(res.data.meowUpdated);
-        setParentMeowName(res.data.userFound.name);
-        setParentMeowSurname(res.data.userFound.surname);
         setParentMeowUsername(res.data.userFound.username);
         setReplyCounter(res.data.meowUpdated.replies);
       } catch (error) {
@@ -97,8 +93,6 @@ const VistaUnMeow = () => {
         {
           text: meowReply,
           authorUsername: username,
-          authorName: name,
-          authorSurname: surname,
           date: Date.now(),
           parentMeow: parentMeow._id,
           _id: res.data._id,
@@ -152,14 +146,7 @@ const VistaUnMeow = () => {
 
           <div className={styles.username}>
             <img src={userpic} alt="user" />
-            <p
-              className={styles.userInfo}
-              onClick={() => navigate("/user/" + parentMeowUsername)}
-            >
-              {" "}
-              {parentMeowName} {parentMeowSurname}
-            </p>
-            <p className={styles.usernameInfo}>@{parentMeowUsername}</p>
+            <p className={styles.user}>{parentMeowUsername}</p>
           </div>
 
           <p className={styles.meow}>{parentMeow.text}</p>
@@ -214,7 +201,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              0 🔖
+              🔖0
               <Tooltip id="Bookmark" />
             </span>
             <span
