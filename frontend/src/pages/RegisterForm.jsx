@@ -90,6 +90,12 @@ const RegisterForm = ({ close, change }) => {
     createUser();
   };
 
+  const today = new Date();
+  const year = today.getFullYear() - 14;
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  const maxDate = [year, month, day].join("-");
+
   if (error) {
     Swal.fire({
       text: "Oops, something went wrong!",
@@ -148,12 +154,24 @@ const RegisterForm = ({ close, change }) => {
                 <input
                   className={styles.dateFields}
                   type="date"
-                  {...register("birthday", { required: true })}
+                  max={maxDate}
+                  {...register("birthday", {
+                    required: true,
+                    validate: {
+                      validDate: (value) => {
+                        return new Date(maxDate) >= new Date(value);
+                      },
+                    },
+                  })}
                 />
               </div>
-
               {errors.birthday?.type === "required" && (
                 <p className={styles.error}>Date of birth is required</p>
+              )}
+              {errors.birthday?.type === "validDate" && (
+                <p className={styles.error}>
+                  Allow only for people +14 years old
+                </p>
               )}
             </div>
             <div className={styles.inputContainer}>
