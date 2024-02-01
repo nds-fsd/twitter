@@ -50,7 +50,7 @@ const RegisterForm = ({ close, change }) => {
     const createUser = async () => {
       try {
         setLoading(true);
-        const res = await userApi.post("/register", {
+        const res = await userApi().post("/register", {
           ...data,
           dateOfRegister: date,
         });
@@ -241,7 +241,7 @@ const RegisterForm = ({ close, change }) => {
                   required: true,
                   minLength: 8,
                   pattern:
-                  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
+                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
                 })}
               />
               {errors.password?.type === "required" && (

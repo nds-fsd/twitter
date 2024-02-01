@@ -35,7 +35,7 @@ const LoginForm = ({ close, change, load }) => {
       try {
         setLoading(true);
 
-        const res = await userApi.post("/login", data);
+        const res = await userApi().post("/login", data);
         setLoading(false);
 
         setUserSession(res.data);

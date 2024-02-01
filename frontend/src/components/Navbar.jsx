@@ -21,7 +21,7 @@ function Navbar() {
   const loggedUsername = loggedUser.username;
 
   useEffect(() => {
-    userApi
+    userApi()
       .get(`/${loggedUsername}`)
       .then((response) => {
         const user = response.data;

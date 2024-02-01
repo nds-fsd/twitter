@@ -8,8 +8,7 @@ import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
-import { getUserSession } from "../local-storage";
-import { Bookmark, Share2 } from "lucide-react";
+import { getUserSession, getUserToken } from "../local-storage";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
@@ -31,6 +30,8 @@ const VistaUnMeow = () => {
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
+  console.log(getUserSession());
+  console.log(getUserToken());
 
   // ----------------------------------Funciones para hacer la pantala responsive-------------------------------------
 
@@ -55,7 +56,7 @@ const VistaUnMeow = () => {
   useEffect(() => {
     const getDetails = async () => {
       try {
-        const res = await meowApi.patch(id, { $inc: { views: 0.5 } });
+        const res = await meowApi().patch(id, { $inc: { views: 0.5 } });
         console.log(res);
         setParentMeow(res.data.meowUpdated);
         setParentMeowName(res.data.userFound.name);
@@ -74,7 +75,7 @@ const VistaUnMeow = () => {
   useEffect(() => {
     const getReplies = async () => {
       try {
-        const res = await meowApi.get(`replies/${id}`);
+        const res = await meowApi().get(`replies/${id}`);
         setAllMeowReplies(res.data);
         console.log(res);
       } catch (err) {
@@ -94,7 +95,7 @@ const VistaUnMeow = () => {
     };
 
     try {
-      const res = await meowApi.post("/", newReply);
+      const res = await meowApi().post("/", newReply);
 
       setAllMeowReplies([
         {
