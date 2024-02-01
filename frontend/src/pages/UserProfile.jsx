@@ -10,6 +10,7 @@ import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
 import { context } from "../App.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
+import MeowsFiltered from "./MeowsFiltered.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -28,7 +29,6 @@ function UserProfile() {
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
 
   useEffect(() => {
-    console.log(loggedInUser);
     reload.setPreLoader(false);
     userApi()
       .get(`/${urlUsername}`)
@@ -128,7 +128,7 @@ function UserProfile() {
       <div>
         <TabsProfile tabs={tabs} />
       </div>
-      <Meows />
+      <MeowsFiltered username={urlUsername} />
     </div>
   );
 }

@@ -50,7 +50,22 @@ const getMeowById = async (req, res) => {
   }
 };
 // ----------------------------------------------------------------------------------------------------------------------------------------
+const getProfileMeows = async (req, res) => {
+  try {
+    const { username } = req.params;
 
+    const user = await User.findOne({ username: username });
+    const { _id } = user;
+    const meowsProfile = await Meow.find({
+      author: _id,
+      parentMeow: undefined,
+    });
+    res.status(200).json({ meowsProfile, user });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
+// ----------------------------------------------------------------------------------------------------------------------------------
 const getMeowReplies = async (req, res) => {
   try {
     const { id } = req.params;
@@ -172,4 +187,5 @@ module.exports = {
   updateMeow,
   deleteMeow,
   getMeowReplies,
+  getProfileMeows,
 };
