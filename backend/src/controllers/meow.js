@@ -81,32 +81,21 @@ const repostMeow = async (req, res) => {
     const userId = req.jwtPayload.id;
     const repost = req.body;
 
-    console.log(repost);
-
-    if (!repost.repostedMeowId) {
-      const meow = {
-        text: repost.text,
-        reposts: 1,
-        author: userId,
-        repostedMeowId: repost._id,
-        date: repost.date,
-      };
-
-      const meowToSave = new Meow(meow);
-      await meowToSave.save();
-      await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
-      return res
-        .status(201)
-        .json({ message: "Meow reposted successfully", meow });
-    }
     const meow = {
       text: repost.text,
-      reposts: repost.reposts + 1,
       author: userId,
-      repostedMeowId: repost.repostedMeowId,
       date: repost.date,
     };
-
+    if (repost.repostedMeowId) {
+      meow.repostedMeowId = repost.repostedMeowId;
+      await Meow.updateOne(
+        { _id: meow.repostedMeowId },
+        { $inc: { reposts: 1 } }
+      );
+    } else {
+      meow.repostedMeowId = repost._id;
+      await Meow.updateOne({ _id: repost._id }, { $inc: { reposts: 1 } });
+    }
     const meowToSave = new Meow(meow);
     await meowToSave.save();
     await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
