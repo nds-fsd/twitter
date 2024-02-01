@@ -19,7 +19,7 @@ const WhoToFollow = () => {
         if (userSession) {
           setLoggedInUser(userSession);
 
-          const response = await userApi.get("/");
+          const response = await userApi().get("/");
 
           if (response.status === 200) {
             if (Array.isArray(response.data)) {

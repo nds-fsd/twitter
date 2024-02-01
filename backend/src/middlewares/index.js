@@ -134,7 +134,7 @@ const validateToken = (req, res, next) => {
   try {
     tokenPayload = jwt.verify(token, secret);
   } catch (err) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ error: "Unauthorized, bad secret" });
   }
 
   req.jwtPayload = tokenPayload;

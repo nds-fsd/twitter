@@ -8,7 +8,7 @@ import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
-import { getUserSession } from "../local-storage";
+import { getUserSession, getUserToken } from "../local-storage";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
@@ -52,8 +52,7 @@ const VistaUnMeow = () => {
   useEffect(() => {
     const getDetails = async () => {
       try {
-        const res = await meowApi.patch(id, { $inc: { views: 0.5 } });
-        console.log(res);
+        const res = await meowApi().patch(id, { $inc: { views: 1 } });
         setParentMeow(res.data.meowUpdated);
         setParentMeowUsername(res.data.userFound.username);
         setReplyCounter(res.data.meowUpdated.replies);
@@ -69,9 +68,8 @@ const VistaUnMeow = () => {
   useEffect(() => {
     const getReplies = async () => {
       try {
-        const res = await meowApi.get(`replies/${id}`);
+        const res = await meowApi().get(`replies/${id}`);
         setAllMeowReplies(res.data);
-        console.log(res);
       } catch (err) {
         console.log(err);
       }
@@ -89,7 +87,7 @@ const VistaUnMeow = () => {
     };
 
     try {
-      const res = await meowApi.post("/", newReply);
+      const res = await meowApi().post("/", newReply);
 
       setAllMeowReplies([
         {
@@ -105,8 +103,6 @@ const VistaUnMeow = () => {
 
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
-
-      console.log(allMeowReplies);
     } catch (err) {
       console.log(err);
     }
