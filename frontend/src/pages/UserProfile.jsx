@@ -40,7 +40,6 @@ function UserProfile() {
   });
 
   useEffect(() => {
-    console.log(loggedInUser);
     userApi()
       .get(`/${urlUsername}`)
       .then((response) => {
