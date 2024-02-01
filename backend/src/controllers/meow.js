@@ -114,11 +114,13 @@ const createMeow = async (req, res) => {
 
     const meow = {
       text: body.meow,
-      date: body.date,
       author: userId,
     };
     if (body.parentMeow) {
       meow.parentMeow = body.parentMeow;
+      meow.author = userId;
+      console.log(req.jwtPayload);
+      console.log(meow);
 
       await Meow.updateOne({ _id: body.parentMeow }, { $inc: { replies: 1 } });
     }
@@ -127,9 +129,7 @@ const createMeow = async (req, res) => {
     await meowToSave.save();
     await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
 
-    return res
-      .status(201)
-      .json({ message: "Meow created successfully", meowId: meowToSave._id });
+    return res.status(201).json({ message: "Meow created successfully" });
   } catch (error) {
     return res.status(400).json(error.message);
   }

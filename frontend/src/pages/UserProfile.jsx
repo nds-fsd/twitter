@@ -32,7 +32,7 @@ function UserProfile() {
 
   useEffect(() => {
     reload.setPreLoader(false);
-    userApi
+    userApi()
       .get(`/${urlUsername}`)
       .then((response) => {
         const user = response.data;

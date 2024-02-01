@@ -13,11 +13,10 @@ const LikeButton = ({ meow }) => {
       try {
         const token = getUserToken();
 
-        const response = await likeApi.get(`${meow._id}`, {
+        const response = await likeApi().get(`${meow._id}`, {
           params: {
             meowId: meow._id,
           },
-          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.status === 200) {
@@ -39,12 +38,10 @@ const LikeButton = ({ meow }) => {
     try {
       const token = getUserToken();
 
-      const response = await likeApi.post(
+      const response = await likeApi().post(
         `/${meow._id}`,
         { meowId: meow._id },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        {}
       );
 
       if (response.status === 200) {
@@ -66,9 +63,8 @@ const LikeButton = ({ meow }) => {
     try {
       const token = getUserToken();
 
-      const response = await likeApi.delete(`/${meow._id}`, {
+      const response = await likeApi().delete(`/${meow._id}`, {
         data: { meowId: meow._id },
-        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.status === 200) {
