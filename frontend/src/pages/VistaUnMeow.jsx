@@ -21,7 +21,7 @@ const VistaUnMeow = () => {
   const { id } = useParams();
 
   const textareaRef = useRef(null);
-  const { username } = getUserSession();
+  const { username, name, surname } = getUserSession();
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
   const [parentMeowUsername, setParentMeowUsername] = useState("");
@@ -101,6 +101,8 @@ const VistaUnMeow = () => {
         {
           text: meowReply,
           authorUsername: username,
+          authorName: name,
+          authorSurname: surname,
           date: Date.now(),
           parentMeow: parentMeow._id,
           _id: res.data._id,
@@ -111,7 +113,6 @@ const VistaUnMeow = () => {
 
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
-      window.location.reload(); // add to reload page
 
       console.log(allMeowReplies);
     } catch (err) {
