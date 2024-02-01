@@ -53,6 +53,23 @@ const validateUser = async (req, res, next) => {
     });
   }
 
+  const today = new Date();
+  const minYear = today.getFullYear() - 14;
+  const maxYear = today.getFullYear() - 100;
+  const minAge = new Date(
+    [minYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  const maxAge = new Date(
+    [maxYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  const inputDate = new Date(birthday);
+
+  if (inputDate < maxAge && inputDate > minAge)
+    return res.status(400).json({
+      error:
+        "Invalid birthday. Allowed age range is between 100 and 14 years old.",
+    });
+
   next();
 };
 

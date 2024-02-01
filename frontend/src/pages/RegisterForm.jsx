@@ -93,10 +93,16 @@ const RegisterForm = ({ close, change }) => {
   const today = new Date();
   const minYear = today.getFullYear() - 14;
   const maxYear = today.getFullYear() - 100;
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
-  const maxAge = [maxYear, month, day].join("-");
-  const minAge = [minYear, month, day].join("-");
+  const minAge = new Date(
+    [minYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  const maxAge = new Date(
+    [maxYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  // const month = today.getMonth() + 1;
+  // const day = today.getDate();
+  // const maxAge = [maxYear, month, day].join("-");
+  // const minAge = [minYear, month, day].join("-");
 
   if (error) {
     Swal.fire({
@@ -162,10 +168,10 @@ const RegisterForm = ({ close, change }) => {
                     required: true,
                     validate: {
                       validDate: (value) => {
-                        const minDate = new Date(minAge);
-                        const maxDate = new Date(maxAge);
+                        // const minDate = new Date(minAge);
+                        // const maxDate = new Date(maxAge);
                         const inputDate = new Date(value);
-                        return maxDate <= inputDate && inputDate <= minDate;
+                        return maxAge <= inputDate && inputDate <= minAge;
                       },
                     },
                   })}
