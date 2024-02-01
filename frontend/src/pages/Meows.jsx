@@ -24,7 +24,7 @@ function Meows() {
       try {
         const token = getUserToken();
         setLoading(true);
-        const res = await meowApi.get("/", {
+        const res = await meowApi().get("/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -40,7 +40,7 @@ function Meows() {
         const authorDetails = await Promise.all(
           uniqueAuthorIds.map(async (authorId) => {
             try {
-              const userRes = await userApi.get(`/id/${authorId}`);
+              const userRes = await userApi().get(`/id/${authorId}`);
               return {
                 authorId,
                 username: userRes.data.username,
