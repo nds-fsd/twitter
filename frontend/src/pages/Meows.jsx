@@ -29,6 +29,7 @@ function Meows() {
         });
         setLoading(false);
         const data = res.data;
+        data.map((meow) => console.log(meow.originalUsername));
 
         setMeows(data.reverse());
 
@@ -66,26 +67,7 @@ function Meows() {
           };
         });
 
-        for (let i = 0; i < meowsWithUsernames.length; i++) {
-          if (meowsWithUsernames[i].repostedMeowId) {
-            const getDetails = async () => {
-              const meowRes = await meowApi.get(
-                meowsWithUsernames[i].repostedMeowId
-              );
-
-              console.log(meowRes);
-              const userRes = await userApi.get(`id/${meowRes.data.author}`);
-
-              meowsWithUsernames[i].originalAuthor = userRes.data.username;
-              console.log(meowsWithUsernames[i]);
-              setMeows(meowsWithUsernames);
-            };
-
-            getDetails();
-          } else {
-            setMeows(meowsWithUsernames);
-          }
-        }
+        setMeows(meowsWithUsernames);
       } catch (error) {
         console.log(error);
         setError(true);

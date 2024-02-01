@@ -4,27 +4,39 @@ const Follow = require("../schemas/follow");
 const mongoose = require("mongoose");
 
 // ------------------------------------------------------------------------------------------------------------------------------
-
 const getAllMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
-    const resultado = await Follow.find({ follower: id });
-    const meowsYouFollow = await Meow.find({
-      author: {
-        $in: resultado.map((follow) =>
-          mongoose.Types.ObjectId(follow.followed)
-        ),
-      },
-    });
+
+    // Obtener Meows de usuarios que sigues
+    const follows = await Follow.find({ follower: id });
+    const followedUsers = follows.map((follow) => follow.followed);
+    const meowsYouFollow = await Meow.find({ author: { $in: followedUsers } });
+
+    // Obtener tus propios Meows
     const ownMeows = await Meow.find({ author: id });
 
+    // Combinar los Meows
     const meowsToSend = meowsYouFollow.concat(ownMeows);
 
-    function compararPorFecha(a, b) {
-      return a.date - b.date;
+    // Iterar sobre los Meows para agregar 'originalUsername' si es un repost
+    for (let i = 0; i < meowsToSend.length; i++) {
+      const meow = meowsToSend[i];
+      if (meow.repostedMeowId) {
+        const originalMeow = await Meow.findById(meow.repostedMeowId).populate(
+          "author",
+          "username"
+        );
+        meowsToSend[i].originalUsername = originalMeow.author.username;
+        console.log(originalMeow);
+        console.log(originalMeow.author.username);
+      }
     }
 
-    meowsToSend.sort(compararPorFecha);
+    // Ordenar los Meows por fecha
+    meowsToSend.sort((a, b) => a.date - b.date);
+
+    console.log(meowsToSend);
 
     return res.status(200).json(meowsToSend);
   } catch (error) {
