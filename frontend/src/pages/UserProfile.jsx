@@ -54,7 +54,7 @@ function UserProfile() {
     { text: "Meows", href: "/meows" },
     { text: "Replies", href: "/replies" },
     { text: "Photos and videos", href: "/media" },
-    { text: "Likes", id: "likes" },
+    { text: "Likes" },
   ];
 
   const [color, setColor] = useState(false);
@@ -129,8 +129,7 @@ function UserProfile() {
       <div>
         <TabsProfile tabs={tabs} setMeowsLiked={setMeowsLiked} />
       </div>
-      <MeowsLiked />
-      {/* {!meowsLiked && <Meows />} */}
+      {meowsLiked ? <MeowsLiked setMeowsLiked={setMeowsLiked} /> : <Meows />}
     </div>
   );
 }

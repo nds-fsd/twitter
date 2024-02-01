@@ -1,35 +1,99 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "../pages/Meows.module.css";
 import { useParams } from "react-router-dom";
-import { meowApi } from "../apis/apiWrapper";
+import { meowApi, userApi } from "../apis/apiWrapper";
 import user from "../assets/user.png";
 import LikeButton from "./LikeButton";
 import { getUserSession, getUserToken } from "../local-storage";
+import Loading from "../effects/Loading";
+import { useNavigate } from "react-router-dom";
+import { context } from "../App";
 const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, seterrorMessage] = useState("");
 
-  console.log("holsa");
+  const navigate = useNavigate();
+
+  const reload = useContext(context);
 
   useEffect(() => {
-    const getMeows = async () => {
-      console.log("wwwwwwwwwwww");
+    const getAllMeows = async () => {
       try {
-        const token = getUserToken();
         const { id } = getUserSession();
+        const token = getUserToken();
+        setLoading(true);
         const res = await meowApi().get(`likes/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(res);
-        setMeows(res.data);
+        setLoading(false);
+        const data = res.data;
+        console.log(res.data);
+
+        setMeows(data.reverse());
+
+        const uniqueAuthorIds = Array.from(
+          new Set(data.map((meow) => meow.author))
+        );
+        const authorDetails = await Promise.all(
+          uniqueAuthorIds.map(async (authorId) => {
+            try {
+              const userRes = await userApi().get(`/id/${authorId}`);
+              return {
+                authorId,
+                username: userRes.data.username,
+                nameUser: userRes.data.name,
+                surnameUser: userRes.data.surname,
+              };
+            } catch (userError) {
+              console.error(
+                `Error fetching user with ID ${authorId}: ${userError.message}`
+              );
+              return {
+                authorId,
+                username: "Unknown User",
+              };
+            }
+          })
+        );
+        const meowsWithUsernames = data.map((meow) => {
+          const authorDetail = authorDetails.find(
+            (detail) => detail.authorId === meow.author
+          );
+          return {
+            ...meow,
+            nameAuthor: authorDetail.nameUser,
+            surnameAuthor: authorDetail.surnameUser,
+            authorUsername: authorDetail
+              ? authorDetail.username
+              : "Unknown User",
+          };
+        });
+
+        setMeows(meowsWithUsernames);
       } catch (error) {
-        console.log(error, "te jodes");
+        console.log(error);
+        setError(true);
+        seterrorMessage(error.message);
       }
     };
+    getAllMeows();
+  }, [reload.reload]);
 
-    getMeows();
-  }, []);
+  if (loading) return <Loading />;
+
+  if (error)
+    return (
+      <div style={{ fontSize: "40px" }}>
+        Oops, something went wrong!
+        <p style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
+          {errorMessage}
+        </p>
+      </div>
+    );
 
   return (
     <div className={styles.bigContainer}>

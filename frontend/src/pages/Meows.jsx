@@ -34,6 +34,44 @@ function Meows() {
 
         setMeows(data.reverse());
 
+        const uniqueAuthorIds = Array.from(
+          new Set(data.map((meow) => meow.author))
+        );
+        const authorDetails = await Promise.all(
+          uniqueAuthorIds.map(async (authorId) => {
+            try {
+              const userRes = await userApi().get(`/id/${authorId}`);
+              return {
+                authorId,
+                username: userRes.data.username,
+                nameUser: userRes.data.name,
+                surnameUser: userRes.data.surname,
+              };
+            } catch (userError) {
+              console.error(
+                `Error fetching user with ID ${authorId}: ${userError.message}`
+              );
+              return {
+                authorId,
+                username: "Unknown User",
+              };
+            }
+          })
+        );
+        const meowsWithUsernames = data.map((meow) => {
+          const authorDetail = authorDetails.find(
+            (detail) => detail.authorId === meow.author
+          );
+          return {
+            ...meow,
+            nameAuthor: authorDetail.nameUser,
+            surnameAuthor: authorDetail.surnameUser,
+            authorUsername: authorDetail
+              ? authorDetail.username
+              : "Unknown User",
+          };
+        });
+
         setMeows(meowsWithUsernames);
       } catch (error) {
         console.log(error);
