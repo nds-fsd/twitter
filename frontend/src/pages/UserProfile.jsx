@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import styles from "./UserProfile.module.css";
 import user from "../assets/user.png";
 import backgroundProfile from "../assets/backgroundProfile.jpeg";
-import MeowsFiltered from "./Meows";
 import TabsProfile from "../components/TabsProfile";
 import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
 import EditProfileForm from "../components/EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
+import MeowsFiltered from "./MeowsFiltered.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -57,7 +57,7 @@ function UserProfile() {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [urlUsername]);
 
   const handleEditProfileSubmit = (data) => {
     setPopUpEditProfile(false);
