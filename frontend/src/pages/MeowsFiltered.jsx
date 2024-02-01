@@ -24,10 +24,12 @@ function MeowsFiltered({ username }) {
   useEffect(() => {
     const getProfileMeows = async () => {
       try {
-        const res = await meowApi.get(username);
+        const res = await meowApi().get(username);
         setMeows(res.data.meowsProfile.reverse());
         setName(res.data.user.name);
         setSurname(res.data.user.surname);
+
+        console.log(res);
       } catch (error) {
         console.log(error);
       }
