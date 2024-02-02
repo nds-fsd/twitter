@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import styles from "../pages/Meows.module.css";
-import { useParams } from "react-router-dom";
 import { meowApi, userApi } from "../apis/apiWrapper";
 import user from "../assets/user.png";
 import LikeButton from "./LikeButton";
@@ -8,6 +7,7 @@ import { getUserSession, getUserToken } from "../local-storage";
 import Loading from "../effects/Loading";
 import { useNavigate } from "react-router-dom";
 import { context } from "../App";
+
 const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);

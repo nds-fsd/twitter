@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TabsProfile.module.css";
 
-const TabsProfile = ({ tabs, setMeowsLiked, setMeowsFeed }) => {
+const TabsProfile = ({ tabs, setMeowsLiked, setMeowsFilter }) => {
   return (
     <ul className={styles.tab}>
       {tabs.map((tab, index) => (
@@ -10,11 +10,11 @@ const TabsProfile = ({ tabs, setMeowsLiked, setMeowsFeed }) => {
             onClick={(e) => {
               if (e.target.innerHTML === "Likes") {
                 setMeowsLiked(true);
-                setMeowsFeed(false);
+                setMeowsFilter(false);
               }
               console.log(e.target.innerHTML);
               if (e.target.innerHTML === "Meows") {
-                setMeowsFeed(true);
+                setMeowsFilter(true);
                 setMeowsLiked(false);
               }
             }}

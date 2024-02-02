@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import styles from "./UserProfile.module.css";
 import user from "../assets/user.png";
 import backgroundProfile from "../assets/backgroundProfile.jpeg";
-import Meows from "./Meows";
 import TabsProfile from "../components/TabsProfile";
 import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
@@ -16,7 +15,7 @@ import MeowsFilter from "../components/MeowsFilter.jsx";
 function UserProfile() {
   const [name, setName] = useState("");
   const [meowsLiked, setMeowsLiked] = useState(false);
-  const [meowsFeed, setMeowsFeed] = useState(true);
+  const [meowsFilter, setMeowsFilter] = useState(true);
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
@@ -130,11 +129,11 @@ function UserProfile() {
         <TabsProfile
           tabs={tabs}
           setMeowsLiked={setMeowsLiked}
-          setMeowsFeed={setMeowsFeed}
+          setMeowsFilter={setMeowsFilter}
         />
       </div>
       {meowsLiked && <MeowsLiked />}
-      {meowsFeed && <MeowsFilter />}
+      {meowsFilter && <MeowsFilter />}
     </div>
   );
 }
