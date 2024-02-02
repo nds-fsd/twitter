@@ -1,5 +1,5 @@
 import styles from "./PostMeow.module.css";
-import image from "../assets/Elon-Musk.jpg";
+import image from "../assets/user.png";
 import Swal from "sweetalert2";
 import { getUserToken } from "../local-storage.js";
 import { meowApi } from "../apis/apiWrapper.js";
@@ -59,7 +59,8 @@ function PostForm() {
           name="text"
           id="text"
           cols="1"
-          rows="5"
+          rows="3"
+          maxLength="300"
           placeholder="What is on your mind?"
         ></textarea>
       </div>

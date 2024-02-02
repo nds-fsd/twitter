@@ -48,7 +48,7 @@ userSchema.methods.generateJWT = function () {
   let payload = {
     id: this._id,
     name: this.name,
-    email: this.mail,
+    mail: this.mail,
   };
 
   return jwt.sign(payload, secret, {

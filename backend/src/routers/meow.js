@@ -4,6 +4,12 @@ const meowController = require("../controllers/meow");
 const { consoleLogType, validateToken } = require("../middlewares/index");
 
 router.get("/", consoleLogType, validateToken, meowController.getFeedMeows);
+router.get(
+  "/:username",
+  consoleLogType,
+  validateToken,
+  meowController.getProfileMeows
+);
 router.get("/:id", consoleLogType, validateToken, meowController.getMeowById);
 router.get(
   "/likes/:id",

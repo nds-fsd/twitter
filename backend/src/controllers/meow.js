@@ -70,7 +70,22 @@ const getMeowById = async (req, res) => {
   }
 };
 // ----------------------------------------------------------------------------------------------------------------------------------------
+const getProfileMeows = async (req, res) => {
+  try {
+    const { username } = req.params;
 
+    const user = await User.findOne({ username: username });
+    const { _id } = user;
+    const meowsProfile = await Meow.find({
+      author: _id,
+      parentMeow: undefined,
+    });
+    res.status(200).json({ meowsProfile, user });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
+// ----------------------------------------------------------------------------------------------------------------------------------
 const getMeowReplies = async (req, res) => {
   try {
     const { id } = req.params;
@@ -84,7 +99,7 @@ const getMeowReplies = async (req, res) => {
 
       const authorDetails = await User.find(
         { _id: { $in: uniqueAuthorIds } },
-        "username name surname" // Add the fields username, name, and surname that you want to retrieve here
+        "username name surname"
       );
 
       const authorMap = authorDetails.reduce((map, user) => {
@@ -105,7 +120,6 @@ const getMeowReplies = async (req, res) => {
           authorSurname: author ? author.surname : "Unknown",
         };
       });
-
       return res.status(200).json(meowRepliesWithUsernames.reverse());
     } else {
       return res.status(404).json({
@@ -127,13 +141,12 @@ const createMeow = async (req, res) => {
 
     const meow = {
       text: body.meow,
+      date: body.date,
       author: userId,
     };
     if (body.parentMeow) {
       meow.parentMeow = body.parentMeow;
       meow.author = userId;
-      console.log(req.jwtPayload);
-      console.log(meow);
 
       await Meow.updateOne({ _id: body.parentMeow }, { $inc: { replies: 1 } });
     }
@@ -142,7 +155,9 @@ const createMeow = async (req, res) => {
     await meowToSave.save();
     await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
 
-    return res.status(201).json({ message: "Meow created successfully" });
+    return res
+      .status(201)
+      .json({ message: "Meow created successfully", meowId: meowToSave._id });
   } catch (error) {
     return res.status(400).json(error.message);
   }
@@ -193,4 +208,5 @@ module.exports = {
   deleteMeow,
   getMeowReplies,
   getMeowsLiked,
+  getProfileMeows,
 };

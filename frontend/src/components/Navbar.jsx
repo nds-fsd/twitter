@@ -1,13 +1,11 @@
 import styles from "./Navbar.module.css";
 import cat from "../assets/Cat.png";
 import LogOut from "./LogOut";
-import { removeSession } from "../local-storage";
 import { useContext, useEffect, useState } from "react";
 import { context } from "../App";
 import { getUserSession } from "../local-storage";
 import { userApi } from "../apis/apiWrapper";
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom/dist";
 import { Home, UserRound, Mail, BellRing, Bookmark } from "lucide-react";
 
 function Navbar() {
