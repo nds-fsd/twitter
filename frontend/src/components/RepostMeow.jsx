@@ -30,10 +30,10 @@ const RepostMeow = ({ meow }) => {
   };
   return (
     <>
+      <span>{meow.reposts} </span>
       <span style={{ cursor: "pointer" }} onClick={repostMeow}>
         🔁
       </span>
-      <span>{meow.reposts}</span>
     </>
   );
 };

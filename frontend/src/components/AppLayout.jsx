@@ -1,5 +1,4 @@
 import Navbar from "./Navbar";
-
 import Hashtag from "./Hashtags";
 import WhoToFollow from "./WhoToFollow";
 import styles from "./AppLayout.module.css";

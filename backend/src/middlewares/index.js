@@ -1,12 +1,63 @@
 const express = require("express");
 const User = require("../schemas/user.js");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const secret = process.env.JWT_SECRET;
 
 // ---------------------------------Console Logotype---------------------------------------------------------
 
 const consoleLogType = (req, res, next) => {
   console.log("Request Type:", req.method, "Router Type:", req.baseUrl);
+  next();
+};
+
+// ------------------------------------------Patterns--------------------------------------------------
+
+const patternMail = (mail) => {
+  const patternMail =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+$/;
+  return patternMail.test(mail);
+};
+
+const patternPassword = (password) => {
+  const patternPassword =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+  return patternPassword.test(password);
+};
+
+// ------------------------------------------Update user--------------------------------------------------
+
+const validateUpdateUser = async (req, res, next) => {
+  const { body } = req;
+
+  Object.keys(body).forEach((key) => {
+    if (body[key] === undefined || body[key] === null || body[key] === "") {
+      delete body[key];
+    }
+  });
+
+  if (body.password && !patternPassword(body.password)) {
+    return res.status(400).json({
+      message:
+        "Password must be 8 to 15 characters long, contain one lowercase, one uppercase, one number, and one special character.",
+    });
+  }
+
+  if (body.password) {
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(body.password, salt);
+    body.password = hashedPassword;
+  }
+
+  if (body._id) {
+    const user = await User.findById(body._id);
+    if (user) {
+      if (body.password && !user.comparePassword(body.password)) {
+        user.password = body.password;
+      }
+    }
+  }
+
   next();
 };
 
@@ -37,21 +88,33 @@ const validateUser = async (req, res, next) => {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const patternMail =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+$/;
-  const patternPassword =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-
-  if (!mail.match(patternMail)) {
+  if (!patternMail(mail)) {
     return res.status(400).json({ error: "Mail is not valid" });
   }
 
-  if (!password.match(patternPassword)) {
+  if (!patternPassword(password)) {
     return res.status(400).json({
       message:
-        "Password must be 8 to 15 character long, contain one lower case, one upper case, one number and one special character.",
+        "Password must be 8 to 15 characters long, contain one lowercase, one uppercase, one number, and one special character.",
     });
   }
+
+  const today = new Date();
+  const minYear = today.getFullYear() - 14;
+  const maxYear = today.getFullYear() - 100;
+  const minAge = new Date(
+    [minYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  const maxAge = new Date(
+    [maxYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  const inputDate = new Date(birthday);
+
+  if (inputDate < maxAge && inputDate > minAge)
+    return res.status(400).json({
+      error:
+        "Invalid birthday. Allowed age range is between 100 and 14 years old.",
+    });
 
   next();
 };
@@ -90,7 +153,7 @@ const validateToken = (req, res, next) => {
   try {
     tokenPayload = jwt.verify(token, secret);
   } catch (err) {
-    return res.status(401).json({ error: "Unauthorized:((" });
+    return res.status(401).json({ error: "Unauthorized, bad secret" });
   }
 
   req.jwtPayload = tokenPayload;
@@ -100,6 +163,7 @@ const validateToken = (req, res, next) => {
 
 module.exports = {
   consoleLogType,
+  validateUpdateUser,
   validateUser,
   validateLogin,
   validateToken,

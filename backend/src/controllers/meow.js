@@ -3,23 +3,27 @@ const User = require("../schemas/user");
 const Follow = require("../schemas/follow");
 const mongoose = require("mongoose");
 
-// ------------------------------------------------------------------------------------------------------------------------------
-const getAllMeows = async (req, res) => {
+const getFeedMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
 
-    const follows = await Follow.find({ follower: id });
-    const followedUsers = follows.map((follow) => follow.followed);
-    const meowsYouFollow = await Meow.find({ author: { $in: followedUsers } });
-
+    const resultado = await Follow.find({ follower: id });
+    const meowsYouFollow = await Meow.find({
+      author: {
+        $in: resultado.map((follow) =>
+          mongoose.Types.ObjectId(follow.followed)
+        ),
+      },
+    });
     const ownMeows = await Meow.find({ author: id });
 
-    const meowsToSend = meowsYouFollow.concat(ownMeows);
+    const meowsToSend = meowsYouFollow.concat(ownMeows).filter((meow) => {
+      return !meow.parentMeow;
+    });
 
     meowsToSend.sort((a, b) => a.date - b.date);
 
-    // Obtener información del autor original para cada meow con repost
-    const meowsWithOriginalAuthors = await Promise.all(
+   const meowsWithOriginalAuthors = await Promise.all(
       meowsToSend.map(async (meow) => {
         if (meow.repostedMeowId) {
           const originalMeow = await Meow.findById(meow.repostedMeowId);
@@ -40,6 +44,7 @@ const getAllMeows = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
 const getMeowById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -52,6 +57,67 @@ const getMeowById = async (req, res) => {
     }
   } catch (error) {
     return res.status(500).json(error.message);
+  }
+};
+
+const getProfileMeows = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    const user = await User.findOne({ username: username });
+    const { _id } = user;
+    const meowsProfile = await Meow.find({
+      author: _id,
+      parentMeow: undefined,
+    });
+    res.status(200).json({ meowsProfile, user });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+const getMeowReplies = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const meowReplies = await Meow.find({ parentMeow: id });
+
+    if (meowReplies.length > 0) {
+      const uniqueAuthorIds = [
+        ...new Set(meowReplies.map((meow) => meow.author)),
+      ];
+
+      const authorDetails = await User.find(
+        { _id: { $in: uniqueAuthorIds } },
+        "username name surname"
+      );
+
+      const authorMap = authorDetails.reduce((map, user) => {
+        map[user._id] = {
+          username: user.username,
+          name: user.name,
+          surname: user.surname,
+        };
+        return map;
+      }, {});
+
+      const meowRepliesWithUsernames = meowReplies.map((meow) => {
+        const author = authorMap[meow.author];
+        return {
+          ...meow.toObject(),
+          authorUsername: author ? author.username : "Unknown User",
+          authorName: author ? author.name : "Unknown",
+          authorSurname: author ? author.surname : "Unknown",
+        };
+      });
+      return res.status(200).json(meowRepliesWithUsernames.reverse());
+    } else {
+      return res.status(404).json({
+        message: "No replies found.",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -68,6 +134,7 @@ const createMeow = async (req, res) => {
     };
     if (body.parentMeow) {
       meow.parentMeow = body.parentMeow;
+      meow.author = userId;
 
       await Meow.updateOne({ _id: body.parentMeow }, { $inc: { replies: 1 } });
     }
@@ -83,7 +150,7 @@ const createMeow = async (req, res) => {
     return res.status(400).json(error.message);
   }
 };
-// -------------------------------------------------------------------------------------------------------------------------------
+
 const repostMeow = async (req, res) => {
   try {
     const userId = req.jwtPayload.id;
@@ -114,19 +181,21 @@ const repostMeow = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-// ---------------------------------------------------------------------------------------------------------------------------------
+
 const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
     const meowFound = await Meow.findById(id);
 
-    if (meowFound) {
-      const { text } = req.body;
-      const meowUpdated = await Meow.findByIdAndUpdate(id, text, { new: true });
-      res.status(201).json(meowUpdated);
-    } else {
-      res.status(404).json({ error: "Meow not found" });
+    if (!meowFound) {
+      return res.status(404).json({ error: "Meow not found" });
     }
+
+    const userFound = await User.findById(meowFound.author);
+    const body = req.body;
+    const meowUpdated = await Meow.findByIdAndUpdate(id, body, { new: true });
+
+    return res.status(200).json({ userFound, meowUpdated });
   } catch (error) {
     return res.status(500).json(error.message);
   }
@@ -149,10 +218,12 @@ const deleteMeow = async (req, res) => {
 };
 
 module.exports = {
-  getAllMeows,
+  getFeedMeows,
   getMeowById,
   createMeow,
   updateMeow,
   deleteMeow,
   repostMeow,
+  getMeowReplies,
+  getProfileMeows,
 };

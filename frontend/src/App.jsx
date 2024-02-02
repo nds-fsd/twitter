@@ -36,7 +36,7 @@ function App() {
               path="/home"
               element={
                 <>
-                  {preLoader && <PreLoader />}
+                  {/* {preLoader && <PreLoader />} */}
                   <HomePage />
                 </>
               }

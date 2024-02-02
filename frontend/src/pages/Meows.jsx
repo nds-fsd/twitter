@@ -1,6 +1,5 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, createContext } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
-import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
 import Loading from "../effects/Loading.jsx";
@@ -8,12 +7,15 @@ import { context } from "../App.jsx";
 import { getUserToken } from "../local-storage";
 import LikeButton from "../components/LikeButton";
 import RepostMeow from "../components/RepostMeow.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const reload = useContext(context);
 
@@ -22,7 +24,7 @@ function Meows() {
       try {
         const token = getUserToken();
         setLoading(true);
-        const res = await meowApi.get("/", {
+        const res = await meowApi().get("/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -40,10 +42,12 @@ function Meows() {
         const authorDetails = await Promise.all(
           uniqueAuthorIds.map(async (authorId) => {
             try {
-              const userRes = await userApi.get(`/id/${authorId}`);
+              const userRes = await userApi().get(`/id/${authorId}`);
               return {
                 authorId,
                 username: userRes.data.username,
+                nameUser: userRes.data.name,
+                surnameUser: userRes.data.surname,
               };
             } catch (userError) {
               console.error(
@@ -62,6 +66,8 @@ function Meows() {
           );
           return {
             ...meow,
+            nameAuthor: authorDetail.nameUser,
+            surnameAuthor: authorDetail.surnameUser,
             authorUsername: authorDetail
               ? authorDetail.username
               : "Unknown User",
@@ -89,6 +95,7 @@ function Meows() {
         </p>
       </div>
     );
+
   return (
     <div className={styles.bigContainer}>
       {meows &&
@@ -98,8 +105,20 @@ function Meows() {
               <div className={styles.meowsContainer}>
                 <div className={styles.userContainer}>
                   <img src={user} />
-
-                  {!meow.repostedMeowId && <p>{meow.authorUsername}</p>}
+                  {!meow.repostedMeowId && (
+                    <>
+                      <p
+                        onClick={() => {
+                          navigate("/user/" + meow.authorUsername);
+                          reload.setReload(!reload.reload);
+                        }}
+                        className={styles.nameSurname}
+                      >
+                        {meow.nameAuthor} {meow.surnameAuthor}
+                      </p>
+                      <p className={styles.username}>@{meow.authorUsername}</p>
+                    </>
+                  )}
                   {meow.repostedMeowId && (
                     <div>
                       <p
@@ -108,20 +127,28 @@ function Meows() {
                       >
                         Reposted by: {meow.authorUsername}
                       </p>
-
                       <p>{meow.originalUsername}</p>
                     </div>
                   )}
                 </div>
-
-                <p>{meow.text}</p>
-              </div>
-              <p>{meow.date}</p>
-              <div className={styles.likesContainer}>
-                <p>
-                  {meow.likes} <LikeButton meow={meow} />
-                  <RepostMeow meow={meow} />
-                </p>
+                <div
+                  onClick={(e) => {
+                    console.log(e.target.id);
+                    if (e.target.id === "likeButton") return;
+                    navigate(`/meow/${meow._id}`, { state: { meow } });
+                  }}
+                  key={meow._id}
+                  className={styles.postContainer}
+                >
+                  <p>{meow.text}</p>
+                  <div className={styles.likesContainer}>
+                    <p>
+                      <LikeButton meow={meow} />
+                      <RepostMeow meow={meow} />
+                      <p>{meow.date}</p>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           );

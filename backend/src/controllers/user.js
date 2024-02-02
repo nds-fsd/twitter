@@ -72,6 +72,7 @@ const createUser = async (req, res) => {
         name: createdUser.name,
         surname: createdUser.surname,
         username: createdUser.username,
+        mail: createdUser.mail,
         id: createdUser._id,
       },
     });
@@ -91,6 +92,7 @@ const loginUser = async (req, res) => {
         name: foundUser.name,
         surname: foundUser.surname,
         username: foundUser.username,
+        mail: foundUser.mail,
         id: foundUser._id,
       },
     });

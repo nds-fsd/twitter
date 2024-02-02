@@ -43,15 +43,9 @@
   padding-left: 1%;
 }
 
-.postContainer {
-  cursor: pointer;
-}
-
 .likesContainer {
   display: flex;
-  align-items: center;
 }
-
 .likesContainer p {
   margin: 0 10px 0 0;
 }

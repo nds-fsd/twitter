@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import { setUserSession } from "../local-storage";
 import { context } from "../App";
 import Loading from "../effects/Loading";
-import goBack from "../assets/goBack2.png";
 import { ArrowLeftCircle } from "lucide-react";
 
 const RegisterForm = ({ close, change }) => {
@@ -50,35 +49,27 @@ const RegisterForm = ({ close, change }) => {
     const createUser = async () => {
       try {
         setLoading(true);
-        const res = await userApi.post("/register", {
+        const res = await userApi().post("/register", {
           ...data,
           dateOfRegister: date,
         });
         setLoading(false);
 
-        console.log(res);
-        console.log(res.data);
         if (res.status === 201) {
           setError(false);
-
           reloadPage.setPreLoader(true);
-
           reloadPage.setIsLogged(true);
-
           setUserSession(res.data);
         }
       } catch (error) {
         setLoading(false);
-        console.log(error);
         if (error.response.status !== 201 && error.response.status !== 400)
           setError(true);
-
         if (error.response.data.error.mail) {
           setMailAlreadyRegistered(true);
         } else {
           setMailAlreadyRegistered(false);
         }
-
         if (error.response.data.error.username) {
           setUsernameAlreadyRegistered(true);
         } else {
@@ -86,9 +77,18 @@ const RegisterForm = ({ close, change }) => {
         }
       }
     };
-
     createUser();
   };
+
+  const today = new Date();
+  const minYear = today.getFullYear() - 14;
+  const maxYear = today.getFullYear() - 100;
+  const minAge = new Date(
+    [minYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  const maxAge = new Date(
+    [maxYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
 
   if (error) {
     Swal.fire({
@@ -148,12 +148,26 @@ const RegisterForm = ({ close, change }) => {
                 <input
                   className={styles.dateFields}
                   type="date"
-                  {...register("birthday", { required: true })}
+                  max={maxAge}
+                  min={minAge}
+                  {...register("birthday", {
+                    required: true,
+                    validate: {
+                      validDate: (value) => {
+                        const inputDate = new Date(value);
+                        return maxAge <= inputDate && inputDate <= minAge;
+                      },
+                    },
+                  })}
                 />
               </div>
-
               {errors.birthday?.type === "required" && (
                 <p className={styles.error}>Date of birth is required</p>
+              )}
+              {errors.birthday?.type === "validDate" && (
+                <p className={styles.error}>
+                  Allow only for people between 100 and +14 years old
+                </p>
               )}
             </div>
             <div className={styles.inputContainer}>
@@ -234,14 +248,14 @@ const RegisterForm = ({ close, change }) => {
             <div className={styles.inputContainer}>
               <input
                 className={styles.inputFields}
-                maxLength={30}
+                maxLength={15}
                 type="password"
                 placeholder="Password"
                 {...register("password", {
                   required: true,
                   minLength: 8,
                   pattern:
-                  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
+                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
                 })}
               />
               {errors.password?.type === "required" && (

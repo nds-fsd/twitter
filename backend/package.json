@@ -11,6 +11,7 @@
     "test": "cross-env jest --testTimeout=10000 --coverage"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "mongodb-memory-server": "^9.1.5",
     "nodemon": "^3.0.3"
   },

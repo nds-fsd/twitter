@@ -1,34 +1,55 @@
 import axios from "axios";
 import { getUserToken } from "../local-storage";
-const { token } = getUserToken();
 
-export const userApi = axios.create({
-  baseURL: "http://localhost:3001/user",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-});
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
-export const userRegisterApi = axios.create({
-  baseURL: "http://localhost:3001/user/register",
-  headers: { "Content-Type": "application/json" },
-});
+export const userApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/user`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
-export const meowApi = axios.create({
-  baseURL: "http://localhost:3001/meow",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-});
+export const userRegisterApi = () => {
+  return axios.create({
+    baseURL: `${BASE_URL}/user/register`,
+    headers: { "Content-Type": "application/json" },
+  });
+};
 
-export const followApi = axios.create({
-  baseURL: "http://localhost:3001/follow",
-  headers: { "Content-Type": "application/json" },
-});
+export const meowApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/meow`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
-export const likeApi = axios.create({
-  baseURL: "http://localhost:3001/like",
-  headers: { "Content-Type": "application/json" },
-});
+export const followApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/follow`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const likeApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/like`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
