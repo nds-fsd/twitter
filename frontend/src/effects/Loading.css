@@ -1,7 +1,7 @@
 .loadership_LIVPO {
   display: flex;
   position: absolute;
-  width: 61px;
+  width: 93px;
   height: 13px;
   top: 50%;
   left: 50%;
@@ -11,7 +11,7 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #ffffff;
+  background: #ff5200;
   top: 0px;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
@@ -24,11 +24,11 @@
   animation: loadership_LIVPO_translate 0.6s infinite;
 }
 .loadership_LIVPO div:nth-child(3) {
-  left: 24px;
+  left: 40px;
   animation: loadership_LIVPO_translate 0.6s infinite;
 }
 .loadership_LIVPO div:nth-child(4) {
-  left: 48px;
+  left: 80px;
   animation: loadership_LIVPO_scale_down 0.6s infinite;
 }
 @keyframes loadership_LIVPO_scale_up {
@@ -52,7 +52,7 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(24px, 0);
+    transform: translate(40px, 0);
   }
 }
 
