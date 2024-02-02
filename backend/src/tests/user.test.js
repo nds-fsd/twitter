@@ -204,6 +204,7 @@ describe("User Controller TEST", () => {
       expect(res.body).toHaveProperty("user");
       expect(res.body.user).toEqual({
         name: userTest.name,
+        mail: userTest.mail,
         surname: userTest.surname,
         username: userTest.username,
         id: userTest._id,

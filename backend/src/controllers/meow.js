@@ -64,7 +64,7 @@ const getMeowsLiked = async (req, res) => {
       .json({ error: "Error fetching data", message: error.message });
   }
 };
-// -----------------------------------------------------------------------------------------------------------------------------------
+
 const getMeowById = async (req, res) => {
   try {
     const { id } = req.params;
