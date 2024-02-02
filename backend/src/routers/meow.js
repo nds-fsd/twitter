@@ -24,6 +24,13 @@ router.get(
   meowController.getMeowReplies
 );
 router.post("/", consoleLogType, validateToken, meowController.createMeow);
+router.post(
+  "/repost",
+  consoleLogType,
+  validateToken,
+  meowController.repostMeow
+);
+
 router.patch("/:id", consoleLogType, meowController.updateMeow);
 router.delete("/:id", consoleLogType, meowController.deleteMeow);
 

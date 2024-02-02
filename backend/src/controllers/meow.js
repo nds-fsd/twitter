@@ -4,7 +4,6 @@ const Follow = require("../schemas/follow");
 const Like = require("../schemas/like");
 const mongoose = require("mongoose");
 
-// -------------------------------------------------------------------------------------------------------------------------------
 const getFeedMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
@@ -23,18 +22,29 @@ const getFeedMeows = async (req, res) => {
       return !meow.parentMeow;
     });
 
-    function compararPorFecha(a, b) {
-      return a.date - b.date;
-    }
+    meowsToSend.sort((a, b) => a.date - b.date);
 
-    meowsToSend.sort(compararPorFecha);
+   const meowsWithOriginalAuthors = await Promise.all(
+      meowsToSend.map(async (meow) => {
+        if (meow.repostedMeowId) {
+          const originalMeow = await Meow.findById(meow.repostedMeowId);
+          if (originalMeow) {
+            const originalAuthor = await User.findById(originalMeow.author);
+            return {
+              ...meow._doc,
+              originalUsername: originalAuthor.username,
+            };
+          }
+        }
+        return meow;
+      })
+    );
 
-    return res.status(200).json(meowsToSend);
+    return res.json(meowsWithOriginalAuthors);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 };
-// ----------------------------------------------------------------------------------------------------------------------------
 
 const getMeowsLiked = async (req, res) => {
   try {
@@ -69,7 +79,7 @@ const getMeowById = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-// ----------------------------------------------------------------------------------------------------------------------------------------
+
 const getProfileMeows = async (req, res) => {
   try {
     const { username } = req.params;
@@ -85,7 +95,7 @@ const getProfileMeows = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-// ----------------------------------------------------------------------------------------------------------------------------------
+
 const getMeowReplies = async (req, res) => {
   try {
     const { id } = req.params;
@@ -131,8 +141,6 @@ const getMeowReplies = async (req, res) => {
   }
 };
 
-// ---------------------------------------------------------------------------------------------------------------------------------
-
 const createMeow = async (req, res) => {
   try {
     const body = req.body;
@@ -162,7 +170,38 @@ const createMeow = async (req, res) => {
     return res.status(400).json(error.message);
   }
 };
-// -------------------------------------------------------------------------------------------------------------------------------
+
+const repostMeow = async (req, res) => {
+  try {
+    const userId = req.jwtPayload.id;
+    const repost = req.body;
+
+    const meow = {
+      text: repost.text,
+      author: userId,
+      date: repost.date,
+    };
+    if (repost.repostedMeowId) {
+      meow.repostedMeowId = repost.repostedMeowId;
+      await Meow.updateOne(
+        { _id: meow.repostedMeowId },
+        { $inc: { reposts: 1 } }
+      );
+    } else {
+      meow.repostedMeowId = repost._id;
+      await Meow.updateOne({ _id: repost._id }, { $inc: { reposts: 1 } });
+    }
+    const meowToSave = new Meow(meow);
+    await meowToSave.save();
+    await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
+    return res
+      .status(201)
+      .json({ message: "Meow reposted successfully", meow });
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+};
+
 const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
@@ -181,8 +220,6 @@ const updateMeow = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
-// -------------------------------------------------------------------------------------------------------------------------------
 
 const deleteMeow = async (req, res) => {
   try {
@@ -206,6 +243,7 @@ module.exports = {
   createMeow,
   updateMeow,
   deleteMeow,
+  repostMeow,
   getMeowReplies,
   getMeowsLiked,
   getProfileMeows,

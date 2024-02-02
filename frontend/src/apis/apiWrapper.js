@@ -5,7 +5,6 @@ const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const userApi = () => {
   const token = getUserToken();
-
   return axios.create({
     baseURL: `${BASE_URL}/user`,
     headers: {
