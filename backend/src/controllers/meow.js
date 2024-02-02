@@ -1,6 +1,7 @@
 const Meow = require("../schemas/meow");
 const User = require("../schemas/user");
 const Follow = require("../schemas/follow");
+const Like = require("../schemas/like");
 const mongoose = require("mongoose");
 
 // -------------------------------------------------------------------------------------------------------------------------------
@@ -35,6 +36,25 @@ const getFeedMeows = async (req, res) => {
 };
 // ----------------------------------------------------------------------------------------------------------------------------
 
+const getMeowsLiked = async (req, res) => {
+  try {
+    const userId = req.jwtPayload.id;
+
+    // Obtener los IDs de los tweets a los que el usuario le ha dado like
+    const likes = await Like.find({ userId: userId });
+    const meowsIdsLiked = likes.map((like) => like.meowId);
+
+    // Obtener los Meows que corresponden a los IDs de los tweets que le gustan al usuario
+    const meowsLiked = await Meow.find({ _id: { $in: meowsIdsLiked } });
+
+    return res.status(200).json(meowsLiked);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error fetching data", message: error.message });
+  }
+};
+// -----------------------------------------------------------------------------------------------------------------------------------
 const getMeowById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -187,5 +207,6 @@ module.exports = {
   updateMeow,
   deleteMeow,
   getMeowReplies,
+  getMeowsLiked,
   getProfileMeows,
 };

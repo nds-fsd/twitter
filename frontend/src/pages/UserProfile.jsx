@@ -9,10 +9,13 @@ import FollowButton from "../components/FollowButton";
 import { getUserSession } from "../local-storage.js";
 import EditProfileForm from "../components/EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
-import MeowsFiltered from "./MeowsFiltered.jsx";
+import MeowsLiked from "../components/MeowsLiked.jsx";
+import MeowsFilter from "../components/MeowsFilter.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
+  const [meowsLiked, setMeowsLiked] = useState(false);
+  const [meowsFilter, setMeowsFilter] = useState(true);
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
@@ -21,7 +24,6 @@ function UserProfile() {
   const [meowCounter, setMeowCounter] = useState(0);
   const [followingCounter, setFollowingCounter] = useState(0);
   const [followerCounter, setFollowerCounter] = useState(0);
-
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
@@ -68,10 +70,10 @@ function UserProfile() {
   };
 
   const tabs = [
-    { text: "Meows", href: "/meows" },
-    { text: "Replies", href: "/replies" },
-    { text: "Photos and videos", href: "/media" },
-    { text: "Likes", href: "/likes" },
+    { text: "Meows" },
+    { text: "Replies" },
+    { text: "Photos and videos" },
+    { text: "Likes" },
   ];
 
   const [color, setColor] = useState(false);
@@ -153,6 +155,15 @@ function UserProfile() {
         </div>
         <MeowsFiltered username={urlUsername} />
       </div>
+      <div>
+        <TabsProfile
+          tabs={tabs}
+          setMeowsLiked={setMeowsLiked}
+          setMeowsFilter={setMeowsFilter}
+        />
+      </div>
+      {meowsLiked && <MeowsLiked />}
+      {meowsFilter && <MeowsFilter />}
 
       {popUpEditProfile && (
         <div
