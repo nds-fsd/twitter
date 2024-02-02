@@ -13,7 +13,7 @@ const RepostMeow = ({ meow }) => {
   const repostMeow = async () => {
     try {
       console.log(meow);
-      const res = await meowApi.post(
+      const res = await meowApi().post(
         "/repost",
         { ...meow, date: Date.now() },
         {
