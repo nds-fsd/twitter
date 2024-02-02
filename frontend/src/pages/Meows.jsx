@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect, createContext } from "react";
 import { meowApi, userApi } from "../apis/apiWrapper";
-import { postMeow, updateMeow, deleteMeow } from "../apis/meowsRequests";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
 import Loading from "../effects/Loading.jsx";
@@ -87,7 +86,7 @@ function Meows() {
   if (error)
     return (
       <div style={{ fontSize: "40px" }}>
-        Oops, something went wrong!
+        Ops, something went wrong!
         <p style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
           {errorMessage}
         </p>

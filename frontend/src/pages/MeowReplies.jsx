@@ -12,7 +12,6 @@ const MeowReplies = ({ allMeowReplies, dateFormat }) => {
       ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
       : "Fecha no disponible";
 
-    // Devolver el meow con la fecha actualizada
     return {
       ...meow,
       date: date,

@@ -1,6 +1,5 @@
 import styles from "./VistaUnMeow.module.css";
 import userpic from "../assets/user.png";
-import flecha from "../assets/flecha-izquierda.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
@@ -9,13 +8,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
 import { getUserSession, getUserToken } from "../local-storage";
+import { ArrowLeft } from "lucide-react";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
   }
-
   // -----------------------------------variables------------------------------------------------------------------------
   const navigate = useNavigate();
   const { id } = useParams();
@@ -42,21 +41,17 @@ const VistaUnMeow = () => {
       ).matches;
       setPantallaPequena(esPantallaPequena);
     };
-
     window.addEventListener("resize", handleResize);
-
     handleResize();
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
   // ----------------------------------------GET parentMeow---------------------------------------------------------------------
   useEffect(() => {
     const getDetails = async () => {
       try {
-        const res = await meowApi().patch(id, { $inc: { views: 0.5 } });
+        const res = await meowApi().patch(id, { $inc: { views: 1 } });
         console.log(res);
         setParentMeow(res.data.meowUpdated);
         setParentMeowName(res.data.userFound.name);
@@ -67,10 +62,8 @@ const VistaUnMeow = () => {
         console.error("Error fetching details:", error);
       }
     };
-
     getDetails();
   }, [id]);
-
   // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
   useEffect(() => {
     const getReplies = async () => {
@@ -82,10 +75,8 @@ const VistaUnMeow = () => {
         console.log(err);
       }
     };
-
     getReplies();
   }, []);
-
   // --------------------------------------POST Request para postear una respuesta-------------------------------------
   const postReply = async () => {
     const newReply = {
@@ -93,10 +84,8 @@ const VistaUnMeow = () => {
       date: Date.now(),
       parentMeow: parentMeow._id,
     };
-
     try {
       const res = await meowApi().post("/", newReply);
-
       setAllMeowReplies([
         {
           text: meowReply,
@@ -119,7 +108,6 @@ const VistaUnMeow = () => {
       console.log(err);
     }
   };
-
   // --------------------------------------------------Funciones para las dates personalizadas---------------------------------------
   const dateFormat = {
     year: "numeric",
@@ -129,15 +117,11 @@ const VistaUnMeow = () => {
     minute: "2-digit",
     timeZoneName: "short",
   };
-
   const dateString = parentMeow.date;
-
   const dateObject = dateString ? new Date(dateString) : null;
-
   const date = dateObject
     ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
     : "Fecha no disponible";
-
   // .................................................................................................................
   return (
     parentMeow && (
@@ -146,11 +130,7 @@ const VistaUnMeow = () => {
           <div className={styles.firstContainer}>
             <div className={styles.postContainer}>
               <div className={styles.post}>
-                <img
-                  onClick={() => navigate("/home")}
-                  src={flecha}
-                  alt="flecha"
-                />
+              <ArrowLeft absoluteStrokeWidth />
                 <p onClick={() => navigate("/home")}>Post</p>
               </div>
             </div>
@@ -173,7 +153,6 @@ const VistaUnMeow = () => {
             <span>{date.slice(0, -3)}</span>
             <span>{parentMeow.views} Views</span>
           </div>
-
           <div className={styles.stats}>
             <span
               onClick={() => {
@@ -200,7 +179,6 @@ const VistaUnMeow = () => {
               🔁{parentMeow.reposts}
               <Tooltip id="Reposts" />
             </span>
-
             <span
               data-tooltip-id="Likes"
               data-tooltip-content="Likes"
@@ -235,7 +213,6 @@ const VistaUnMeow = () => {
               <Tooltip id="Share" />
             </span>
           </div>
-
           <div className={styles.replies}>
             <img src={userpic} alt="" />
             <textarea
@@ -267,5 +244,4 @@ const VistaUnMeow = () => {
     )
   );
 };
-
 export default VistaUnMeow;
