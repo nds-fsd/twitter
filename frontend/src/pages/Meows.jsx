@@ -30,6 +30,8 @@ function Meows() {
         setLoading(false);
         const data = res.data;
 
+        data.map((meow) => console.log(meow.originalUsername));
+
         setMeows(data.reverse());
 
         const uniqueAuthorIds = Array.from(
@@ -97,13 +99,20 @@ function Meows() {
                 <div className={styles.userContainer}>
                   <img src={user} />
 
-                  <p>{meow.authorUsername}</p>
-                  <p>{meow.originalUsername}</p>
-                </div>
+                  {!meow.repostedMeowId && <p>{meow.authorUsername}</p>}
+                  {meow.repostedMeowId && (
+                    <div>
+                      <p
+                        className={styles.repost}
+                        style={{ fontSize: "0.8rem" }}
+                      >
+                        Reposted by: {meow.authorUsername}
+                      </p>
 
-                {meow.originalAuthor && (
-                  <div>original Meow by: {meow.originalAuthor}</div>
-                )}
+                      <p>{meow.originalUsername}</p>
+                    </div>
+                  )}
+                </div>
 
                 <p>{meow.text}</p>
               </div>

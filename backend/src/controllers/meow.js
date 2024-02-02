@@ -18,18 +18,24 @@ const getAllMeows = async (req, res) => {
 
     meowsToSend.sort((a, b) => a.date - b.date);
 
-    const meowsToSendWithReposts = await Promise.all(
+    // Obtener información del autor original para cada meow con repost
+    const meowsWithOriginalAuthors = await Promise.all(
       meowsToSend.map(async (meow) => {
         if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findOne({ _id: meow.repostedMeowId });
-          const user = await User.findById(originalMeow.author);
-          meow.originalUsername = user.username;
+          const originalMeow = await Meow.findById(meow.repostedMeowId);
+          if (originalMeow) {
+            const originalAuthor = await User.findById(originalMeow.author);
+            return {
+              ...meow._doc,
+              originalUsername: originalAuthor.username,
+            };
+          }
         }
         return meow;
       })
     );
 
-    console.log("sssssssssssssssssssssss", meowsToSendWithReposts);
+    return res.json(meowsWithOriginalAuthors);
   } catch (error) {
     return res.status(500).json(error.message);
   }
