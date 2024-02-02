@@ -121,6 +121,7 @@ const createMeow = async (req, res) => {
 
     const meow = {
       text: body.meow,
+      date: body.date,
       author: userId,
     };
     if (body.parentMeow) {
@@ -134,7 +135,9 @@ const createMeow = async (req, res) => {
     await meowToSave.save();
     await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
 
-    return res.status(201).json({ message: "Meow created successfully" });
+    return res
+      .status(201)
+      .json({ message: "Meow created successfully", meowId: meowToSave._id });
   } catch (error) {
     return res.status(400).json(error.message);
   }

@@ -4,7 +4,12 @@ import React, { useState } from "react";
 import { userApi } from "../apis/apiWrapper";
 import Swal from "sweetalert2";
 
-const EditProfileForm = ({ close, username, onSubmitSuccess, dataUserToEdit }) => {
+const EditProfileForm = ({
+  close,
+  username,
+  onSubmitSuccess,
+  dataUserToEdit,
+}) => {
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -98,14 +103,16 @@ const EditProfileForm = ({ close, username, onSubmitSuccess, dataUserToEdit }) =
         </div>
 
         <div className={styles.inputContainer}>
-          <input
+          <textarea
             className={styles.inputFields}
+            name="description"
+            id="description"
+            cols="1"
+            rows="3"
             maxLength={100}
-            type="text"
-            name=""
             placeholder="Description about you"
             {...register("description", { required: false })}
-          />
+          ></textarea>
         </div>
 
         <div className={styles.inputContainer}>
