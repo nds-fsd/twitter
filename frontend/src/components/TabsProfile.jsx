@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./TabsProfile.module.css";
-import { getUserSession } from "../local-storage";
 
-const TabsProfile = ({ tabs, setMeowsLiked }) => {
-  const { username } = getUserSession();
+const TabsProfile = ({ tabs, setMeowsLiked, setMeowsFeed }) => {
   return (
     <ul className={styles.tab}>
       {tabs.map((tab, index) => (
@@ -12,8 +10,13 @@ const TabsProfile = ({ tabs, setMeowsLiked }) => {
             onClick={(e) => {
               if (e.target.innerHTML === "Likes") {
                 setMeowsLiked(true);
+                setMeowsFeed(false);
               }
               console.log(e.target.innerHTML);
+              if (e.target.innerHTML === "Meows") {
+                setMeowsFeed(true);
+                setMeowsLiked(false);
+              }
             }}
           >
             {tab.text}

@@ -11,10 +11,12 @@ import { getUserSession } from "../local-storage.js";
 import { context } from "../App.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 import MeowsLiked from "../components/MeowsLiked.jsx";
+import MeowsFilter from "../components/MeowsFilter.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
   const [meowsLiked, setMeowsLiked] = useState(false);
+  const [meowsFeed, setMeowsFeed] = useState(true);
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
@@ -24,13 +26,11 @@ function UserProfile() {
   const [followingCounter, setFollowingCounter] = useState(0);
   const [followerCounter, setFollowerCounter] = useState(0);
   const reload = useContext(context);
-  const [Reload, setReload] = useState(reload.reload);
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
 
   useEffect(() => {
-    reload.setPreLoader(false);
     userApi()
       .get(`/${urlUsername}`)
       .then((response) => {
@@ -48,12 +48,12 @@ function UserProfile() {
       .catch((error) => {
         console.error(error);
       });
-  }, [reload.reload]);
+  }, []);
 
   const tabs = [
-    { text: "Meows", href: "/meows" },
-    { text: "Replies", href: "/replies" },
-    { text: "Photos and videos", href: "/media" },
+    { text: "Meows" },
+    { text: "Replies" },
+    { text: "Photos and videos" },
     { text: "Likes" },
   ];
 
@@ -127,9 +127,14 @@ function UserProfile() {
         </div>
       </div>
       <div>
-        <TabsProfile tabs={tabs} setMeowsLiked={setMeowsLiked} />
+        <TabsProfile
+          tabs={tabs}
+          setMeowsLiked={setMeowsLiked}
+          setMeowsFeed={setMeowsFeed}
+        />
       </div>
-      {meowsLiked ? <MeowsLiked setMeowsLiked={setMeowsLiked} /> : <Meows />}
+      {meowsLiked && <MeowsLiked />}
+      {meowsFeed && <MeowsFilter />}
     </div>
   );
 }
