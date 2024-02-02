@@ -1,6 +1,5 @@
 import styles from "./VistaUnMeow.module.css";
 import userpic from "../assets/user.png";
-import flecha from "../assets/flecha-izquierda.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../components/LikeButton";
@@ -9,6 +8,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
 import { getUserSession, getUserToken } from "../local-storage";
+import { ArrowLeft } from "lucide-react";
+
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
@@ -129,11 +130,7 @@ const VistaUnMeow = () => {
           <div className={styles.firstContainer}>
             <div className={styles.postContainer}>
               <div className={styles.post}>
-                <img
-                  onClick={() => navigate("/home")}
-                  src={flecha}
-                  alt="flecha"
-                />
+              <ArrowLeft absoluteStrokeWidth />
                 <p onClick={() => navigate("/home")}>Post</p>
               </div>
             </div>
