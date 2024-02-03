@@ -6,7 +6,7 @@ import backgroundProfile from "../assets/backgroundProfile.jpeg";
 import TabsProfile from "../components/TabsProfile";
 import { userApi } from "../apis/apiWrapper";
 import FollowButton from "../components/FollowButton";
-import { getUserSession } from "../local-storage.js";
+import { getUserSession } from "../Functions/local-storage.js";
 import EditProfileForm from "../components/EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 import MeowsLiked from "../components/MeowsLiked.jsx";

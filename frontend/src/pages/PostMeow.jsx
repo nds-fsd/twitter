@@ -1,7 +1,7 @@
 import styles from "./PostMeow.module.css";
 import image from "../assets/user.png";
 import Swal from "sweetalert2";
-import { getUserToken } from "../local-storage.js";
+import { getUserToken } from "../Functions/local-storage.js";
 import { meowApi } from "../apis/apiWrapper.js";
 import { useContext, useState } from "react";
 import { context } from "../App.jsx";

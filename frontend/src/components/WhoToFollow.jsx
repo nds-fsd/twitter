@@ -3,7 +3,7 @@ import styles from "./WhoToFollow.module.css";
 import image from "../assets/user.png";
 import FollowButton from "./FollowButton";
 import { userApi } from "../apis/apiWrapper";
-import { getUserSession } from "../local-storage";
+import { getUserSession } from "../Functions/local-storage";
 import { useNavigate } from "react-router-dom";
 import { context } from "../App";
 

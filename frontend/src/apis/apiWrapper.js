@@ -1,12 +1,12 @@
 import axios from "axios";
-import { getUserToken } from "../local-storage";
+import { getUserToken } from "../Functions/local-storage";
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 export const userApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/user`,
+    baseURL: `http://localhost:3001/user`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -16,7 +16,7 @@ export const userApi = () => {
 
 export const userRegisterApi = () => {
   return axios.create({
-    baseURL: `${BASE_URL}/user/register`,
+    baseURL: `http://localhost:3001/user/register`,
     headers: { "Content-Type": "application/json" },
   });
 };
@@ -24,7 +24,7 @@ export const userRegisterApi = () => {
 export const meowApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/meow`,
+    baseURL: `http://localhost:3001/meow`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ export const meowApi = () => {
 export const followApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/follow`,
+    baseURL: `http://localhost:3001/follow`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ export const followApi = () => {
 export const likeApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/like`,
+    baseURL: `http://localhost:3001/like`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

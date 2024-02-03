@@ -3,10 +3,11 @@ import styles from "../pages/Meows.module.css";
 import { meowApi, userApi } from "../apis/apiWrapper";
 import user from "../assets/user.png";
 import LikeButton from "./LikeButton";
-import { getUserSession, getUserToken } from "../local-storage";
+import { getUserSession, getUserToken } from "../Functions/local-storage";
 import Loading from "../effects/Loading";
 import { useNavigate } from "react-router-dom";
 import { context } from "../App";
+import { formatMeowDate } from "../Functions/dateFormat";
 
 const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
@@ -73,7 +74,11 @@ const MeowsLiked = () => {
           };
         });
 
-        setMeows(meowsWithUsernames);
+        const meowsToShow = meowsWithUsernames.map((meow) =>
+          formatMeowDate(meow)
+        );
+
+        setMeows(meowsToShow);
       } catch (error) {
         console.log(error);
         setError(true);

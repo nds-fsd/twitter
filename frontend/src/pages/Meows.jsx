@@ -4,10 +4,11 @@ import styles from "./Meows.module.css";
 import user from "../assets/user.png";
 import Loading from "../effects/Loading.jsx";
 import { context } from "../App.jsx";
-import { getUserToken } from "../local-storage";
+import { getUserToken } from "../Functions/local-storage.js";
 import LikeButton from "../components/LikeButton";
 import RepostMeow from "../components/RepostMeow.jsx";
 import { useNavigate } from "react-router-dom";
+import { formatMeowDate } from "../Functions/dateFormat.js";
 
 function Meows() {
   const [meows, setMeows] = useState("");
@@ -74,7 +75,11 @@ function Meows() {
           };
         });
 
-        setMeows(meowsWithUsernames);
+        const meowsToShow = meowsWithUsernames.map((meow) =>
+          formatMeowDate(meow)
+        );
+
+        setMeows(meowsToShow);
       } catch (error) {
         console.log(error);
         setError(true);

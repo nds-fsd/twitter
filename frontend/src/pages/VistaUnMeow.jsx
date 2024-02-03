@@ -7,8 +7,9 @@ import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../apis/apiWrapper";
-import { getUserSession, getUserToken } from "../local-storage";
+import { getUserSession, getUserToken } from "../Functions/local-storage";
 import { ArrowLeft } from "lucide-react";
+import { formatMeowDate } from "../Functions/dateFormat";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
@@ -53,7 +54,8 @@ const VistaUnMeow = () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
         console.log(res);
-        setParentMeow(res.data.meowUpdated);
+        const parentMeowToShow = formatMeowDate(res.data.meowUpdated);
+        setParentMeow(parentMeowToShow);
         setParentMeowName(res.data.userFound.name);
         setParentMeowSurname(res.data.userFound.surname);
         setParentMeowUsername(res.data.userFound.username);
@@ -108,20 +110,7 @@ const VistaUnMeow = () => {
       console.log(err);
     }
   };
-  // --------------------------------------------------Funciones para las dates personalizadas---------------------------------------
-  const dateFormat = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZoneName: "short",
-  };
-  const dateString = parentMeow.date;
-  const dateObject = dateString ? new Date(dateString) : null;
-  const date = dateObject
-    ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
-    : "Fecha no disponible";
+
   // .................................................................................................................
   return (
     parentMeow && (
@@ -130,7 +119,7 @@ const VistaUnMeow = () => {
           <div className={styles.firstContainer}>
             <div className={styles.postContainer}>
               <div className={styles.post}>
-              <ArrowLeft absoluteStrokeWidth />
+                <ArrowLeft absoluteStrokeWidth />
                 <p onClick={() => navigate("/home")}>Post</p>
               </div>
             </div>
@@ -150,7 +139,7 @@ const VistaUnMeow = () => {
 
           <p className={styles.meow}>{parentMeow.text}</p>
           <div className={styles.dateAndViews}>
-            <span>{date.slice(0, -3)}</span>
+            <span>{parentMeow.date}</span>
             <span>{parentMeow.views} Views</span>
           </div>
           <div className={styles.stats}>
@@ -234,12 +223,7 @@ const VistaUnMeow = () => {
             </button>
           </div>
         </div>
-        {allMeowReplies && (
-          <MeowReplies
-            allMeowReplies={allMeowReplies}
-            dateFormat={dateFormat}
-          />
-        )}
+        {allMeowReplies && <MeowReplies allMeowReplies={allMeowReplies} />}
       </>
     )
   );

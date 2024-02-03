@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./LikeButton.module.css";
 import { likeApi } from "../apis/apiWrapper";
-import { getUserToken } from "../local-storage";
+import { getUserToken } from "../Functions/local-storage";
 
 const LikeButton = ({ meow }) => {
   const [isLiked, setIsLiked] = useState(false);

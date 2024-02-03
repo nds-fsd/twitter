@@ -14,10 +14,13 @@ const connectDB = async () => {
       console.log(dbUrl);
     }
 
-    await mongoose.connect(dbUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(
+      "mongodb+srv://meawer:TvhIavib7eJmGZl2@meawer.fu5qhqv.mongodb.net/?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
   } catch (err) {
     console.log(err);
   }
