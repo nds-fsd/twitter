@@ -12,7 +12,6 @@ const TabsProfile = ({ tabs, setMeowsLiked, setMeowsFiltered }) => {
                 setMeowsLiked(true);
                 setMeowsFiltered(false);
               }
-              console.log(e.target.innerHTML);
               if (e.target.innerHTML === "Meows") {
                 setMeowsFiltered(true);
                 setMeowsLiked(false);

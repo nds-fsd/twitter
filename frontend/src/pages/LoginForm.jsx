@@ -2,8 +2,8 @@ import styles from "./LoginForm.module.css";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { userApi } from "../apis/apiWrapper";
-import { setUserSession } from "../local-storage";
+import { userApi } from "../functions/apiWrapper";
+import { setUserSession } from "../functions/localStorage";
 import Loading from "../effects/Loading";
 import { context } from "../App";
 import { useContext } from "react";
@@ -43,7 +43,6 @@ const LoginForm = ({ close, change, load }) => {
       } catch (err) {
         setLoading(false);
         if (err.code === "ERR_NETWORK") setServerError(true);
-        console.log(err);
         if (err.response.status !== 201 && err.response.status !== 400) {
           setServerError(true);
         }

@@ -2,21 +2,10 @@ import styles from "./MeowReplies.module.css";
 import LikeButton from "../components/LikeButton";
 import user from "../assets/user.png";
 import { useNavigate } from "react-router-dom";
-
-const MeowReplies = ({ allMeowReplies, dateFormat }) => {
+import { formatMeowDate } from "../functions/dateFormat";
+const MeowReplies = ({ allMeowReplies }) => {
   const navigate = useNavigate();
-  const meowsToShow = allMeowReplies.map((meow) => {
-    const dateString = meow.date;
-    const dateObject = dateString ? new Date(dateString) : null;
-    const date = dateObject
-      ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
-      : "Fecha no disponible";
-
-    return {
-      ...meow,
-      date: date,
-    };
-  });
+  const meowsToShow = allMeowReplies.map((meow) => formatMeowDate(meow));
 
   return (
     <>
@@ -42,7 +31,7 @@ const MeowReplies = ({ allMeowReplies, dateFormat }) => {
                   <LikeButton meow={meow} />
                 </p>
               </div>
-              <p>{meow.date.slice(0, -3)}</p>
+              <p>{meow.date}</p>
             </div>
           ))}
         </div>

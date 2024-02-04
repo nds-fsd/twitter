@@ -128,7 +128,6 @@ button {
 }
 
 @media screen and (width <= 800px) {
-
   .container {
     flex-direction: column;
   }

@@ -1,28 +1,30 @@
 import { useState, useEffect } from "react";
-import { meowApi } from "../apis/apiWrapper";
+import { meowApi } from "../functions/apiWrapper";
 import styles from "./MeowsFiltered.module.css";
 import user from "../assets/user.png";
 import LikeButton from "../components/LikeButton";
 import { useNavigate } from "react-router-dom";
+import { formatMeowDate } from "../functions/dateFormat";
 
 function MeowsFiltered({ username }) {
   const [meows, setMeows] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const getProfileMeows = async () => {
       try {
         const res = await meowApi().get(username);
-        setMeows(res.data.meowsProfile.reverse());
+        const meowsToShow = res.data.meowsProfile.map((meow) =>
+          formatMeowDate(meow)
+        );
+        setMeows(meowsToShow.reverse());
         setName(res.data.user.name);
         setSurname(res.data.user.surname);
-
-        console.log(res);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getProfileMeows();
@@ -35,7 +37,6 @@ function MeowsFiltered({ username }) {
           return (
             <div
               onClick={(e) => {
-                console.log(e.target.id);
                 if (e.target.id === "likeButton") return;
                 navigate(`/meow/${meow._id}`, { state: { meow } });
               }}

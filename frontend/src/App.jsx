@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, createContext } from "react";
-import { getUserToken } from "./local-storage";
+import { getUserToken } from "./functions/localStorage";
 import HomePage from "./pages/HomePage";
 import VistaUnMeow from "./pages/VistaUnMeow";
 import UserProfile from "./pages/UserProfile";

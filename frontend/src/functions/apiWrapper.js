@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getUserToken } from "../local-storage";
+import { getUserToken } from "./localStorage";
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 

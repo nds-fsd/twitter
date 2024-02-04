@@ -3,8 +3,8 @@ import cat from "../assets/Cat.png";
 import LogOut from "./LogOut";
 import { useContext, useEffect, useState } from "react";
 import { context } from "../App";
-import { getUserSession } from "../local-storage";
-import { userApi } from "../apis/apiWrapper";
+import { getUserSession } from "../functions/localStorage";
+import { userApi } from "../functions/apiWrapper";
 import { useNavigate } from "react-router-dom";
 import { Home, UserRound, Mail, BellRing, Bookmark } from "lucide-react";
 

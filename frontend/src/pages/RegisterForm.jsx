@@ -1,9 +1,9 @@
 import styles from "./RegisterForm.module.css";
 import { useForm } from "react-hook-form";
 import React, { useState, useContext } from "react";
-import { userApi } from "../apis/apiWrapper";
+import { userApi } from "../functions/apiWrapper";
 import Swal from "sweetalert2";
-import { setUserSession } from "../local-storage";
+import { setUserSession } from "../functions/localStorage";
 import { context } from "../App";
 import Loading from "../effects/Loading";
 import { ArrowLeftCircle } from "lucide-react";

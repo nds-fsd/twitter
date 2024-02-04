@@ -6,19 +6,19 @@ import LikeButton from "../components/LikeButton";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { meowApi } from "../apis/apiWrapper";
-import { getUserSession, getUserToken } from "../local-storage";
+import { meowApi } from "../functions/apiWrapper";
+import { getUserSession, getUserToken } from "../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
+import { formatMeowDate } from "../functions/dateFormat";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
   }
-  // -----------------------------------variables------------------------------------------------------------------------
+
   const navigate = useNavigate();
   const { id } = useParams();
-
   const textareaRef = useRef(null);
   const { username, name, surname } = getUserSession();
   const [pantallaPequena, setPantallaPequena] = useState(false);
@@ -29,10 +29,6 @@ const VistaUnMeow = () => {
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
-  console.log(getUserSession());
-  console.log(getUserToken());
-
-  // ----------------------------------Funciones para hacer la pantala responsive-------------------------------------
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,13 +43,13 @@ const VistaUnMeow = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  // ----------------------------------------GET parentMeow---------------------------------------------------------------------
+
   useEffect(() => {
     const getDetails = async () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
-        console.log(res);
-        setParentMeow(res.data.meowUpdated);
+        const parentMeowToShow = formatMeowDate(res.data.meowUpdated);
+        setParentMeow(parentMeowToShow);
         setParentMeowName(res.data.userFound.name);
         setParentMeowSurname(res.data.userFound.surname);
         setParentMeowUsername(res.data.userFound.username);
@@ -64,20 +60,19 @@ const VistaUnMeow = () => {
     };
     getDetails();
   }, [id]);
-  // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
+
   useEffect(() => {
     const getReplies = async () => {
       try {
         const res = await meowApi().get(`replies/${id}`);
         setAllMeowReplies(res.data);
-        console.log(res);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getReplies();
   }, []);
-  // --------------------------------------POST Request para postear una respuesta-------------------------------------
+
   const postReply = async () => {
     const newReply = {
       meow: meowReply,
@@ -102,27 +97,11 @@ const VistaUnMeow = () => {
 
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
-
-      console.log(allMeowReplies);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
-  // --------------------------------------------------Funciones para las dates personalizadas---------------------------------------
-  const dateFormat = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZoneName: "short",
-  };
-  const dateString = parentMeow.date;
-  const dateObject = dateString ? new Date(dateString) : null;
-  const date = dateObject
-    ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
-    : "Fecha no disponible";
-  // .................................................................................................................
+
   return (
     parentMeow && (
       <>
@@ -130,7 +109,7 @@ const VistaUnMeow = () => {
           <div className={styles.firstContainer}>
             <div className={styles.postContainer}>
               <div className={styles.post}>
-              <ArrowLeft absoluteStrokeWidth />
+                <ArrowLeft absoluteStrokeWidth />
                 <p onClick={() => navigate("/home")}>Post</p>
               </div>
             </div>
@@ -150,7 +129,7 @@ const VistaUnMeow = () => {
 
           <p className={styles.meow}>{parentMeow.text}</p>
           <div className={styles.dateAndViews}>
-            <span>{date.slice(0, -3)}</span>
+            <span>{parentMeow.date}</span>
             <span>{parentMeow.views} Views</span>
           </div>
           <div className={styles.stats}>
@@ -165,7 +144,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              💬{replyCounter}
+              {replyCounter} 💬
               <Tooltip id="Replies" />
             </span>
             <span
@@ -176,7 +155,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              🔁{parentMeow.reposts}
+              {parentMeow.reposts} 🔁
               <Tooltip id="Reposts" />
             </span>
             <span
@@ -234,12 +213,7 @@ const VistaUnMeow = () => {
             </button>
           </div>
         </div>
-        {allMeowReplies && (
-          <MeowReplies
-            allMeowReplies={allMeowReplies}
-            dateFormat={dateFormat}
-          />
-        )}
+        {allMeowReplies && <MeowReplies allMeowReplies={allMeowReplies} />}
       </>
     )
   );

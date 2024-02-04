@@ -1,13 +1,14 @@
-import { useState, useContext, useEffect, createContext } from "react";
-import { meowApi, userApi } from "../apis/apiWrapper";
+import { useState, useContext, useEffect } from "react";
+import { meowApi, userApi } from "../functions/apiWrapper";
 import styles from "./Meows.module.css";
 import user from "../assets/user.png";
 import Loading from "../effects/Loading.jsx";
 import { context } from "../App.jsx";
-import { getUserToken } from "../local-storage";
+import { getUserToken } from "../functions/localStorage.js";
 import LikeButton from "../components/LikeButton";
 import RepostMeow from "../components/RepostMeow.jsx";
 import { useNavigate } from "react-router-dom";
+import { formatMeowDate } from "../functions/dateFormat.js";
 
 function Meows() {
   const [meows, setMeows] = useState("");
@@ -31,9 +32,6 @@ function Meows() {
         });
         setLoading(false);
         const data = res.data;
-
-        data.map((meow) => console.log(meow.originalUsername));
-
         setMeows(data.reverse());
 
         const uniqueAuthorIds = Array.from(
@@ -74,9 +72,13 @@ function Meows() {
           };
         });
 
-        setMeows(meowsWithUsernames);
+        const meowsToShow = meowsWithUsernames.map((meow) =>
+          formatMeowDate(meow)
+        );
+
+        setMeows(meowsToShow);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setError(true);
         seterrorMessage(error.message);
       }
@@ -133,7 +135,6 @@ function Meows() {
                 </div>
                 <div
                   onClick={(e) => {
-                    console.log(e.target.id);
                     if (e.target.id === "likeButton") return;
                     navigate(`/meow/${meow._id}`, { state: { meow } });
                   }}
