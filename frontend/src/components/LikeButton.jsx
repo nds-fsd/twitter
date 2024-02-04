@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./LikeButton.module.css";
-import { likeApi } from "../apis/apiWrapper";
-import { getUserToken } from "../Functions/local-storage";
+import { likeApi } from "../functions/apiWrapper";
 
 const LikeButton = ({ meow }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -11,8 +10,6 @@ const LikeButton = ({ meow }) => {
   useEffect(() => {
     const fetchLikeStatus = async () => {
       try {
-        const token = getUserToken();
-
         const response = await likeApi().get(`${meow._id}`, {
           params: {
             meowId: meow._id,
@@ -36,8 +33,6 @@ const LikeButton = ({ meow }) => {
     setLikeCounter(likeCounter + 1);
     setIsLoading(true);
     try {
-      const token = getUserToken();
-
       const response = await likeApi().post(
         `/${meow._id}`,
         { meowId: meow._id },
@@ -46,7 +41,6 @@ const LikeButton = ({ meow }) => {
 
       if (response.status === 200) {
         setIsLiked(true);
-        console.log(meow.likes);
       } else {
         throw new Error(response.data.error);
       }
@@ -61,8 +55,6 @@ const LikeButton = ({ meow }) => {
     setLikeCounter(likeCounter - 1);
     setIsLoading(true);
     try {
-      const token = getUserToken();
-
       const response = await likeApi().delete(`/${meow._id}`, {
         data: { meowId: meow._id },
       });

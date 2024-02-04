@@ -2,14 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "./WhoToFollow.module.css";
 import image from "../assets/user.png";
 import FollowButton from "./FollowButton";
-import { userApi } from "../apis/apiWrapper";
-import { getUserSession } from "../Functions/local-storage";
+import { userApi } from "../functions/apiWrapper";
+import { getUserSession } from "../functions/localStorage";
 import { useNavigate } from "react-router-dom";
 import { context } from "../App";
 
 const WhoToFollow = () => {
   const [usersToFollow, setUsersToFollow] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState("");
   const [displayCount, setDisplayCount] = useState(5);
   const [showMore, setShowMore] = useState(true);
   const reload = useContext(context);
@@ -22,8 +21,6 @@ const WhoToFollow = () => {
         const userSession = getUserSession();
 
         if (userSession) {
-          setLoggedInUser(userSession);
-
           const response = await userApi().get("/");
 
           if (response.status === 200) {

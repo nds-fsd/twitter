@@ -4,13 +4,12 @@ import styles from "./UserProfile.module.css";
 import user from "../assets/user.png";
 import backgroundProfile from "../assets/backgroundProfile.jpeg";
 import TabsProfile from "../components/TabsProfile";
-import { userApi } from "../apis/apiWrapper";
+import { userApi } from "../functions/apiWrapper";
 import FollowButton from "../components/FollowButton";
-import { getUserSession } from "../Functions/local-storage.js";
+import { getUserSession } from "../functions/localStorage.js";
 import EditProfileForm from "../components/EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 import MeowsLiked from "../components/MeowsLiked.jsx";
-// import MeowsFilter from "../components/MeowsFilter.jsx";
 import MeowsFiltered from "../pages/MeowsFiltered.jsx";
 
 function UserProfile() {

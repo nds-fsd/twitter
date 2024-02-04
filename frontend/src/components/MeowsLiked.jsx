@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import styles from "../pages/Meows.module.css";
-import { meowApi, userApi } from "../apis/apiWrapper";
+import { meowApi, userApi } from "../functions/apiWrapper";
 import user from "../assets/user.png";
 import LikeButton from "./LikeButton";
-import { getUserSession, getUserToken } from "../Functions/local-storage";
+import { getUserSession, getUserToken } from "../functions/localStorage";
 import Loading from "../effects/Loading";
 import { useNavigate } from "react-router-dom";
 import { context } from "../App";
-import { formatMeowDate } from "../Functions/dateFormat";
+import { formatMeowDate } from "../functions/dateFormat";
 
 const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
@@ -32,7 +32,6 @@ const MeowsLiked = () => {
         });
         setLoading(false);
         const data = res.data;
-        console.log(res.data);
 
         setMeows(data.reverse());
 
@@ -80,7 +79,6 @@ const MeowsLiked = () => {
 
         setMeows(meowsToShow);
       } catch (error) {
-        console.log(error);
         setError(true);
         seterrorMessage(error.message);
       }
@@ -121,7 +119,6 @@ const MeowsLiked = () => {
               </div>
               <div
                 onClick={(e) => {
-                  console.log(e.target.id);
                   if (e.target.id === "likeButton") return;
                   navigate(`/meow/${meow._id}`, { state: { meow } });
                 }}

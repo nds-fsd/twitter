@@ -6,20 +6,19 @@ import LikeButton from "../components/LikeButton";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { meowApi } from "../apis/apiWrapper";
-import { getUserSession, getUserToken } from "../Functions/local-storage";
+import { meowApi } from "../functions/apiWrapper";
+import { getUserSession, getUserToken } from "../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
-import { formatMeowDate } from "../Functions/dateFormat";
+import { formatMeowDate } from "../functions/dateFormat";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
   }
-  // -----------------------------------variables------------------------------------------------------------------------
+
   const navigate = useNavigate();
   const { id } = useParams();
-
   const textareaRef = useRef(null);
   const { username, name, surname } = getUserSession();
   const [pantallaPequena, setPantallaPequena] = useState(false);
@@ -30,10 +29,6 @@ const VistaUnMeow = () => {
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
-  console.log(getUserSession());
-  console.log(getUserToken());
-
-  // ----------------------------------Funciones para hacer la pantala responsive-------------------------------------
 
   useEffect(() => {
     const handleResize = () => {
@@ -48,12 +43,11 @@ const VistaUnMeow = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  // ----------------------------------------GET parentMeow---------------------------------------------------------------------
+
   useEffect(() => {
     const getDetails = async () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
-        console.log(res);
         const parentMeowToShow = formatMeowDate(res.data.meowUpdated);
         setParentMeow(parentMeowToShow);
         setParentMeowName(res.data.userFound.name);
@@ -66,20 +60,19 @@ const VistaUnMeow = () => {
     };
     getDetails();
   }, [id]);
-  // ------------------------------GET REQUEST de las Replies del Meow-----------------------------------------------------
+
   useEffect(() => {
     const getReplies = async () => {
       try {
         const res = await meowApi().get(`replies/${id}`);
         setAllMeowReplies(res.data);
-        console.log(res);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getReplies();
   }, []);
-  // --------------------------------------POST Request para postear una respuesta-------------------------------------
+
   const postReply = async () => {
     const newReply = {
       meow: meowReply,
@@ -104,14 +97,11 @@ const VistaUnMeow = () => {
 
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
-
-      console.log(allMeowReplies);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
-  // .................................................................................................................
   return (
     parentMeow && (
       <>
@@ -154,7 +144,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              💬{replyCounter}
+              {replyCounter} 💬
               <Tooltip id="Replies" />
             </span>
             <span
@@ -165,7 +155,7 @@ const VistaUnMeow = () => {
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
               }`}
             >
-              🔁{parentMeow.reposts}
+              {parentMeow.reposts} 🔁
               <Tooltip id="Reposts" />
             </span>
             <span

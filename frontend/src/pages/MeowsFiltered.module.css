@@ -1,59 +1,58 @@
 .bigContainer {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    padding: 2.5%;
-    border-top: 1px solid rgb(44, 44, 44);
-    cursor: pointer;
-  }
-  
-  .userContainer {
-    display: flex;
-    align-items: center;
-  }
-  
-  .userContainer img {
-    width: 25px;
-    height: 25px;
-    border-radius: 20px;
-    margin-right: 10px;
-  }
-  
-  .nameText {
-    font-family: var(--main-font);
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .usernameText {
-    color: gray;
-    font-family: var(--main-font);
-    font-size: 13px;
-    padding-left: 2%;
-  }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
-  .postContainer {
-    padding: 2% 0;
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  padding: 2.5%;
+  border-top: 1px solid rgb(44, 44, 44);
+  cursor: pointer;
+}
 
-  .postContainer > p {
-    text-align: justify;
-  }
+.userContainer {
+  display: flex;
+  align-items: center;
+}
 
-  .likesContainer {
-    align-items: center;
-    display: flex;
-  }
-  
-  .likesContainer p {
-    color: gray;
-    font-size: 12px;
-    margin: 0 10px 0 0;
-  }
-  
+.userContainer img {
+  width: 25px;
+  height: 25px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.nameText {
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.usernameText {
+  color: gray;
+  font-family: var(--main-font);
+  font-size: 13px;
+  padding-left: 2%;
+}
+
+.postContainer {
+  padding: 2% 0;
+}
+
+.postContainer > p {
+  text-align: justify;
+}
+
+.likesContainer {
+  align-items: center;
+  display: flex;
+}
+
+.likesContainer p {
+  color: gray;
+  font-size: 12px;
+  margin: 0 10px 0 0;
+}

@@ -1,8 +1,8 @@
 import styles from "./PostMeow.module.css";
 import image from "../assets/user.png";
 import Swal from "sweetalert2";
-import { getUserToken } from "../Functions/local-storage.js";
-import { meowApi } from "../apis/apiWrapper.js";
+import { getUserToken } from "../functions/localStorage.js";
+import { meowApi } from "../functions/apiWrapper";
 import { useContext, useState } from "react";
 import { context } from "../App.jsx";
 
@@ -19,7 +19,6 @@ function PostForm() {
 
   const postNewMeow = async () => {
     try {
-      console.log(newMeow);
       const res = await meowApi().post(
         "/",
         { meow: newMeow, date: Date.now() },
@@ -29,7 +28,6 @@ function PostForm() {
           },
         }
       );
-      console.log(res);
       setNewMeow("");
       reload.setReload(!reload.reload);
     } catch (err) {
