@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styles from "./LikeButton.module.css";
-import { likeApi } from "../apis/apiWrapper";
-import { getUserToken } from "../local-storage";
+import { likeApi } from "../functions/apiWrapper";
 
 const LikeButton = ({ meow }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [likeCounter, setLikeCounter] = useState(meow.likes);
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
       try {
-        const token = getUserToken();
-
-        if (!token) {
-          console.error("Token is not defined");
-          return;
-        }
-
-        const response = await likeApi.get(`${meow._id}`, {
+        const response = await likeApi().get(`${meow._id}`, {
           params: {
             meowId: meow._id,
           },
-          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.status === 200) {
@@ -38,21 +30,13 @@ const LikeButton = ({ meow }) => {
   }, []);
 
   const handleLike = async () => {
+    setLikeCounter(likeCounter + 1);
     setIsLoading(true);
     try {
-      const token = getUserToken();
-
-      if (!token) {
-        console.error("Token is not defined");
-        return;
-      }
-
-      const response = await likeApi.post(
+      const response = await likeApi().post(
         `/${meow._id}`,
         { meowId: meow._id },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        {}
       );
 
       if (response.status === 200) {
@@ -68,18 +52,11 @@ const LikeButton = ({ meow }) => {
   };
 
   const handleUnlike = async () => {
+    setLikeCounter(likeCounter - 1);
     setIsLoading(true);
     try {
-      const token = getUserToken();
-
-      if (!token) {
-        console.error("Token is not defined");
-        return;
-      }
-
-      const response = await likeApi.delete(`/${meow._id}`, {
+      const response = await likeApi().delete(`/${meow._id}`, {
         data: { meowId: meow._id },
-        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.status === 200) {
@@ -95,20 +72,24 @@ const LikeButton = ({ meow }) => {
   };
 
   return (
-    <button
-      type="button"
-      className={styles.likeButton}
-      onClick={() => {
-        if (isLiked) {
-          handleUnlike();
-        } else {
-          handleLike();
-        }
-      }}
-      disabled={isLoading}
-    >
-      {isLiked ? "💔" : "❤️"}
-    </button>
+    <>
+      <span>{likeCounter}</span>
+      <button
+        id="likeButton"
+        type="button"
+        className={styles.likeButton}
+        onClick={() => {
+          if (isLiked) {
+            handleUnlike();
+          } else {
+            handleLike();
+          }
+        }}
+        disabled={isLoading}
+      >
+        {isLiked ? "💔" : "❤️"}
+      </button>
+    </>
   );
 };
 

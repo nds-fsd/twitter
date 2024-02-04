@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./FollowButton.module.css";
-import { followApi } from "../apis/apiWrapper";
-import { getUserToken } from "../local-storage";
+import { followApi } from "../functions/apiWrapper";
+import { getUserToken } from "../functions/localStorage";
 import { context } from "../App";
 
 const FollowButton = ({ username }) => {
@@ -19,7 +19,7 @@ const FollowButton = ({ username }) => {
           return;
         }
 
-        const response = await followApi.get(`/${username}`, {
+        const response = await followApi().get(`/${username}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -46,7 +46,7 @@ const FollowButton = ({ username }) => {
         return;
       }
 
-      const response = await followApi.post(
+      const response = await followApi().post(
         `/`,
         { username },
         { headers: { Authorization: `Bearer ${token}` } }
@@ -75,7 +75,7 @@ const FollowButton = ({ username }) => {
         return;
       }
 
-      const response = await followApi.delete(`/`, {
+      const response = await followApi().delete(`/`, {
         data: { username },
         headers: { Authorization: `Bearer ${token}` },
       });

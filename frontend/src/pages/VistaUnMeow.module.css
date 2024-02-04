@@ -10,6 +10,7 @@
 .firstContainer {
   height: 8%;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .postContainer {
@@ -26,7 +27,7 @@
   display: flex;
   align-items: center;
   font-size: 17px;
-  cursor: pointer;
+
   padding-left: 20px;
 }
 
@@ -38,6 +39,7 @@
 
 .post p {
   font-size: 20px;
+  cursor: pointer;
 }
 
 .username {
@@ -55,6 +57,26 @@
   height: 30px;
   margin-right: 10px;
   border-radius: 20px;
+}
+
+.userInfo {
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.userInfo:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.usernameInfo {
+  color: gray;
+  font-family: var(--main-font);
+  font-size: 12px;
+  font-weight: lighter;
+  padding-left: 1%;
 }
 
 .meow {
@@ -80,13 +102,19 @@
   align-items: center;
   justify-content: center;
 }
-.stats span {
+.statsSpan {
   margin-right: 3rem;
+  cursor: pointer;
+}
+.statsSpanSmallScreen {
+  margin-right: 1rem;
+  cursor: pointer;
 }
 
 .replies {
   display: flex;
   align-content: center;
+  justify-content: space-between;
   padding: 0 0 15px 20px;
   border-bottom: 1px solid #2f2f2f;
 }
@@ -96,6 +124,7 @@
   background-color: black;
   border: none;
   padding: 5px;
+  margin-right: 1rem;
 }
 
 .textarea:active {
@@ -116,15 +145,14 @@
 }
 
 .replies button {
-  margin-top: 1rem;
-  margin-left: -4rem;
-  width: 7rem;
-  height: 3rem;
+  width: 5rem;
+  height: 2rem;
   border-radius: 20px;
-  background-color: #00a9a5;
+  background-color: #ff5200;
   color: white;
   font-weight: bold;
   cursor: pointer;
   border: 0;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  margin-right: 0.5rem;
 }

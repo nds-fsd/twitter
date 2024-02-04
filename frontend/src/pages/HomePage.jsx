@@ -1,11 +1,11 @@
-import MeowsFilter from "../components/MeowsFilter";
+import MeowsFiltered from "../pages/MeowsFiltered";
 import PostForm from "./PostMeow";
 import Meows from "./Meows";
 
 const HomePage = () => {
   return (
     <div>
-      <MeowsFilter />
+      <MeowsFiltered />
       <PostForm />
       <Meows />
     </div>

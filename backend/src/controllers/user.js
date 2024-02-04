@@ -24,6 +24,7 @@ const getUserByUsername = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -70,10 +71,13 @@ const createUser = async (req, res) => {
       user: {
         name: createdUser.name,
         surname: createdUser.surname,
+        username: createdUser.username,
+        mail: createdUser.mail,
+        id: createdUser._id,
       },
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    return res.status(500).json(error.message);
   }
 };
 
@@ -88,6 +92,7 @@ const loginUser = async (req, res) => {
         name: foundUser.name,
         surname: foundUser.surname,
         username: foundUser.username,
+        mail: foundUser.mail,
         id: foundUser._id,
       },
     });

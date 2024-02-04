@@ -1,21 +1,23 @@
 import styles from "./RegisterForm.module.css";
 import { useForm } from "react-hook-form";
 import React, { useState, useContext } from "react";
-import { userApi } from "../apis/apiWrapper";
+import { userApi } from "../functions/apiWrapper";
 import Swal from "sweetalert2";
-import { setUserSession } from "../local-storage";
+import { setUserSession } from "../functions/localStorage";
 import { context } from "../App";
 import Loading from "../effects/Loading";
+import { ArrowLeftCircle } from "lucide-react";
 
 const RegisterForm = ({ close, change }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
+  const [mailAlreadyRegistered, setMailAlreadyRegistered] = useState(false);
   const [usernameAlreadyRegistered, setUsernameAlreadyRegistered] =
     useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [formStep, setFormStep] = useState(0);
   const reloadPage = useContext(context);
+  const [disabled, setDisabled] = useState(false);
 
   const {
     register,
@@ -26,6 +28,12 @@ const RegisterForm = ({ close, change }) => {
   const handleNext = () => {
     if (isValid) {
       setFormStep(1);
+    }
+  };
+
+  const mouseOverSubmit = () => {
+    if (!isValid) {
+      setDisabled(true);
     }
   };
 
@@ -41,35 +49,27 @@ const RegisterForm = ({ close, change }) => {
     const createUser = async () => {
       try {
         setLoading(true);
-        const res = await userApi.post("/register", {
+        const res = await userApi().post("/register", {
           ...data,
           dateOfRegister: date,
         });
         setLoading(false);
 
-        console.log(res);
-        console.log(res.data);
         if (res.status === 201) {
           setError(false);
-
           reloadPage.setPreLoader(true);
-
           reloadPage.setIsLogged(true);
-
           setUserSession(res.data);
         }
       } catch (error) {
         setLoading(false);
-        console.log(error);
         if (error.response.status !== 201 && error.response.status !== 400)
           setError(true);
-
         if (error.response.data.error.mail) {
-          setEmailAlreadyRegistered(true);
+          setMailAlreadyRegistered(true);
         } else {
-          setEmailAlreadyRegistered(false);
+          setMailAlreadyRegistered(false);
         }
-
         if (error.response.data.error.username) {
           setUsernameAlreadyRegistered(true);
         } else {
@@ -77,9 +77,18 @@ const RegisterForm = ({ close, change }) => {
         }
       }
     };
-
     createUser();
   };
+
+  const today = new Date();
+  const minYear = today.getFullYear() - 14;
+  const maxYear = today.getFullYear() - 100;
+  const minAge = new Date(
+    [minYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
+  const maxAge = new Date(
+    [maxYear, today.getMonth() + 1, today.getDate()].join("-")
+  );
 
   if (error) {
     Swal.fire({
@@ -102,9 +111,10 @@ const RegisterForm = ({ close, change }) => {
                 x
               </span>
             </header>
-            <h2>Create your account</h2>
-            <div>
+            <h2 className={styles.tittle}>Create your account</h2>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={30}
                 type="text"
                 name=""
@@ -116,8 +126,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={30}
                 type="text"
                 name=""
@@ -129,29 +140,52 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div className={styles.date}>
-              <label htmlFor="">Date of birth</label>
-              <input
-                type="date"
-                {...register("birthday", { required: true })}
-              />
+            <div className={styles.inputContainer}>
+              <div className={styles.dateContainer}>
+                <label className={styles.dateLabel} htmlFor="">
+                  Date of birth
+                </label>
+                <input
+                  className={styles.dateFields}
+                  type="date"
+                  max={maxAge}
+                  min={minAge}
+                  {...register("birthday", {
+                    required: true,
+                    validate: {
+                      validDate: (value) => {
+                        const inputDate = new Date(value);
+                        return maxAge <= inputDate && inputDate <= minAge;
+                      },
+                    },
+                  })}
+                />
+              </div>
               {errors.birthday?.type === "required" && (
                 <p className={styles.error}>Date of birth is required</p>
               )}
+              {errors.birthday?.type === "validDate" && (
+                <p className={styles.error}>
+                  Allow only for people between 100 and +14 years old
+                </p>
+              )}
             </div>
-            <button
-              className={styles.submit}
-              style={{ userSelect: "none" }}
-              onClick={handleNext}
-            >
-              Next
-            </button>
-            <footer>
-              <p>
+            <div className={styles.inputContainer}>
+              <button
+                onMouseOut={() => setDisabled(false)}
+                onMouseOver={mouseOverSubmit}
+                disabled={isValid ? false : true}
+                className={!disabled ? styles.submit : styles.notValid}
+                onClick={handleNext}
+              >
+                Next
+              </button>
+            </div>
+
+            <footer className={styles.footerInForm}>
+              <p className={styles.textsInForm}>
                 If you already have an account,{" "}
-                <span className={styles.link} onClick={change}>
-                  log in here
-                </span>
+                <span onClick={change}>log in here</span>
               </p>
             </footer>
           </section>
@@ -161,37 +195,43 @@ const RegisterForm = ({ close, change }) => {
           <section>
             {loading && <Loading />}
             <header>
-              <span>Step 2 of 2</span>{" "}
-              <span onClick={close} className={styles.x}>
+              <div className={styles.backContainer}>
+                <ArrowLeftCircle onClick={() => setFormStep(0)} />
+                <span>Step 2 of 2</span>{" "}
+              </div>
+              <p onClick={close} className={styles.x}>
                 x
-              </span>
+              </p>
             </header>
-            <h2>Create your account</h2>
-            <div>
+
+            <h2 className={styles.tittle}>Create your account</h2>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={80}
                 type="text"
                 name=""
-                placeholder="Email"
+                placeholder="Mail"
                 {...register("mail", {
                   required: true,
                   pattern:
-                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+$/,
                 })}
               />
               {errors.mail?.type === "required" && (
                 <p className={styles.error}>Mail is required</p>
               )}
               {errors.mail?.type === "pattern" && (
-                <p className={styles.error}>Please, enter a valid email</p>
+                <p className={styles.error}>Please, enter a valid mail</p>
               )}
-              {emailAlreadyRegistered && (
-                <p className={styles.error}>Email already registered</p>
+              {mailAlreadyRegistered && (
+                <p className={styles.error}>Mail already registered</p>
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 maxLength={20}
                 type="text"
                 placeholder="Username"
@@ -205,16 +245,17 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
-                maxLength={30}
+                className={styles.inputFields}
+                maxLength={15}
                 type="password"
                 placeholder="Password"
                 {...register("password", {
                   required: true,
                   minLength: 8,
                   pattern:
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/,
+                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
                 })}
               />
               {errors.password?.type === "required" && (
@@ -222,7 +263,7 @@ const RegisterForm = ({ close, change }) => {
               )}
               {errors.password?.type === "minLength" && (
                 <p className={styles.error}>
-                  Password must be 8 to 30 character long
+                  Password must be 8 to 15 characters long
                 </p>
               )}
               {errors.password?.type === "pattern" && (
@@ -233,8 +274,9 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
+            <div className={styles.inputContainer}>
               <input
+                className={styles.inputFields}
                 onFocus={() => setPasswordError(false)}
                 maxLength={30}
                 type="password"
@@ -249,19 +291,20 @@ const RegisterForm = ({ close, change }) => {
               )}
             </div>
 
-            <div>
-              <input
-                className={styles.submit}
-                type="submit"
-                value={"Sign up"}
-              ></input>
+            <div className={styles.inputContainer}>
+              <button
+                onMouseOut={() => setDisabled(false)}
+                onMouseOver={mouseOverSubmit}
+                disabled={isValid ? false : true}
+                className={!disabled ? styles.submit : styles.notValid}
+              >
+                Submit
+              </button>
             </div>
-            <footer>
-              <p>
+            <footer className={styles.footerInForm}>
+              <p className={styles.textsInForm}>
                 If you already have an account,{" "}
-                <span className={styles.link} onClick={change}>
-                  log in here
-                </span>
+                <span onClick={change}>log in here</span>
               </p>
             </footer>
           </section>
