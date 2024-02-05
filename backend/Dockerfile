@@ -12,4 +12,4 @@ RUN npm install
 COPY src src
 
 EXPOSE 8080
-CMD [ "node", "src/index.js" ]
+CMD [ "node", "src/server.js" ]
