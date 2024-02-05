@@ -1,16 +1,25 @@
+* {
+  color: rgb(0, 0, 0);
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
 .container {
   background-color: black;
+  opacity: 1;
   padding: 2% 2.5%;
   position: absolute;
   top: 50%;
   left: 50%;
-  width: fit-content;
+  width: 20%;
   border-radius: 40px;
   user-select: none;
   transform: translate(-50%, -50%);
 }
 
 header {
+  align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 7%;
@@ -24,7 +33,6 @@ header {
   font-weight: bold;
   user-select: none;
   cursor: pointer;
-  margin-left: 90%;
 }
 
 .tittle {
@@ -32,6 +40,7 @@ header {
   font-family: var(--main-font);
   font-size: 27px;
   margin-bottom: 8%;
+  text-align: center;
 }
 
 .inputContainer {
@@ -58,6 +67,17 @@ header {
   color: gray;
 }
 
+textarea {
+  resize: none;
+}
+
+.error {
+  color: grey;
+  font-family: var(--main-font);
+  font-size: 13px;
+  margin-bottom: 5%;
+}
+
 .submit {
   background-color: var(--main-color);
   border-radius: 40px;
@@ -67,9 +87,9 @@ header {
   font-size: 20px;
   font-weight: bold;
   height: auto;
+  margin-top: 5%;
   padding: 3% 0;
   text-align: center;
-  user-select: none;
   width: 90%;
 }
 
@@ -82,27 +102,10 @@ header {
   font-size: 20px;
   font-weight: bold;
   height: auto;
+  margin-top: 5%;
   opacity: 0.3;
   padding: 3% 0;
   text-align: center;
   user-select: none;
   width: 90%;
-}
-
-.footerInForm {
-  margin-top: 5%;
-}
-
-.textsInForm {
-  font-family: var(--main-font);
-  font-size: 13px;
-  margin-bottom: 2%;
-  text-align: center;
-}
-
-.textsInForm > span {
-  cursor: pointer;
-  color: var(--main-color);
-  font-weight: bold;
-  text-decoration: underline;
 }

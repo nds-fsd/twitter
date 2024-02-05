@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MeowsFilter from "../components/MeowsFilter";
+import MeowsFiltered from "../pages/MeowsFiltered";
 import PostForm from "./PostMeow";
 import Meows from "./Meows";
 import styles from "./HomePage.module.css";
@@ -18,6 +18,8 @@ const HomePage = () => {
 
   return (
     <div className={styles.mainContainer}>
+    <div>
+      <MeowsFiltered />
       <PostForm />
       <Meows />
     </div>

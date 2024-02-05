@@ -114,17 +114,6 @@ header {
   font-size: 13px;
   margin-bottom: 5%;
 }
-/* 
-.goBack {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-img {
-  width: 3rem;
-  height: 2.5rem;
-  cursor: pointer;
-} */
 
 .submit {
   background-color: var(--main-color);
@@ -158,7 +147,7 @@ img {
   width: 90%;
 }
 
-.footerInForm{
+.footerInForm {
   margin-top: 5%;
 }
 

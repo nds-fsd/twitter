@@ -2,36 +2,36 @@ import styles from "./PublicHome.module.css";
 import Cat from "../assets/Cat.png";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 const PublicHome = ({ reloadPage }) => {
-  const [popUpRegister, setpopUpRegister] = useState(false);
-  const [popUpLogin, setpopUpLogin] = useState(false);
+  const [popUpRegister, setPopUpRegister] = useState(false);
+  const [popUpLogin, setPopUpLogin] = useState(false);
 
   const handlePopUpRegisterClick = () => {
-    setpopUpRegister(!popUpRegister);
-    setpopUpLogin(false);
+    setPopUpRegister(!popUpRegister);
+    setPopUpLogin(false);
   };
 
   const handlePopUpLoginClick = () => {
-    setpopUpLogin(!popUpLogin);
-    setpopUpRegister(false);
+    setPopUpLogin(!popUpLogin);
+    setPopUpRegister(false);
   };
 
   const changeToLoginForm = () => {
-    setpopUpRegister(false);
-    setpopUpLogin(true);
+    setPopUpRegister(false);
+    setPopUpLogin(true);
   };
 
   const changeToRegisterForm = () => {
-    setpopUpLogin(false);
-    setpopUpRegister(true);
+    setPopUpLogin(false);
+    setPopUpRegister(true);
   };
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      setpopUpRegister(false);
-      setpopUpLogin(false);
+      setPopUpRegister(false);
+      setPopUpLogin(false);
     }
   });
 
@@ -70,14 +70,14 @@ const PublicHome = ({ reloadPage }) => {
       {popUpRegister && (
         <RegisterForm
           reloadPage={reloadPage}
-          close={() => setpopUpRegister(!popUpRegister)}
+          close={() => setPopUpRegister(!popUpRegister)}
           change={changeToLoginForm}
         />
       )}
       {popUpLogin && (
         <LoginForm
           reloadPage={reloadPage}
-          close={() => setpopUpLogin(!popUpLogin)}
+          close={() => setPopUpLogin(!popUpLogin)}
           change={changeToRegisterForm}
         />
       )}

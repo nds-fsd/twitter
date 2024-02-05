@@ -46,7 +46,7 @@ describe("User Controller TEST", () => {
 
       expect(res.body).toEqual({
         message:
-          "Password must be 8 to 15 character long, contain one lower case, one upper case, one number and one special character.",
+          "Password must be 8 to 15 characters long, contain one lowercase, one uppercase, one number, and one special character.",
       });
     });
 
@@ -204,6 +204,7 @@ describe("User Controller TEST", () => {
       expect(res.body).toHaveProperty("user");
       expect(res.body.user).toEqual({
         name: userTest.name,
+        mail: userTest.mail,
         surname: userTest.surname,
         username: userTest.username,
         id: userTest._id,

@@ -3,19 +3,21 @@
   align-items: center;
   flex-direction: column;
 }
+
 .container {
   display: flex;
   flex-direction: column;
   width: 95%;
-  padding: 20px;
+  padding: 2.5%;
   border-top: 1px solid rgb(44, 44, 44);
+  cursor: pointer;
 }
 
 .userContainer {
   display: flex;
-  margin-bottom: 10px;
   align-items: center;
 }
+
 .userContainer img {
   width: 25px;
   height: 25px;
@@ -23,29 +25,34 @@
   margin-right: 10px;
 }
 
-.nameSurname {
-  cursor: pointer;
+.nameText {
   font-family: var(--main-font);
   font-size: 16px;
   font-weight: bold;
-  margin: 0.15rem 0;
-  width: fit-content;
 }
 
-.nameSurname:hover {
-  text-decoration: underline;
-}
-
-.username {
+.usernameText {
   color: gray;
   font-family: var(--main-font);
   font-size: 13px;
-  padding-left: 1%;
+  padding-left: 2%;
+}
+
+.postContainer {
+  padding: 2% 0;
+}
+
+.postContainer > p {
+  text-align: justify;
 }
 
 .likesContainer {
+  align-items: center;
   display: flex;
 }
+
 .likesContainer p {
+  color: gray;
+  font-size: 12px;
   margin: 0 10px 0 0;
 }

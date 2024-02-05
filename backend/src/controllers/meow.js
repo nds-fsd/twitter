@@ -1,9 +1,9 @@
 const Meow = require("../schemas/meow");
 const User = require("../schemas/user");
 const Follow = require("../schemas/follow");
+const Like = require("../schemas/like");
 const mongoose = require("mongoose");
 
-// -------------------------------------------------------------------------------------------------------------------------------
 const getFeedMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
@@ -22,18 +22,48 @@ const getFeedMeows = async (req, res) => {
       return !meow.parentMeow;
     });
 
-    function compararPorFecha(a, b) {
-      return a.date - b.date;
-    }
+    meowsToSend.sort((a, b) => a.date - b.date);
 
-    meowsToSend.sort(compararPorFecha);
+   const meowsWithOriginalAuthors = await Promise.all(
+      meowsToSend.map(async (meow) => {
+        if (meow.repostedMeowId) {
+          const originalMeow = await Meow.findById(meow.repostedMeowId);
+          if (originalMeow) {
+            const originalAuthor = await User.findById(originalMeow.author);
+            return {
+              ...meow._doc,
+              originalUsername: originalAuthor.username,
+            };
+          }
+        }
+        return meow;
+      })
+    );
 
-    return res.status(200).json(meowsToSend);
+    return res.json(meowsWithOriginalAuthors);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 };
-// ----------------------------------------------------------------------------------------------------------------------------
+
+const getMeowsLiked = async (req, res) => {
+  try {
+    const userId = req.jwtPayload.id;
+
+    // Obtener los IDs de los tweets a los que el usuario le ha dado like
+    const likes = await Like.find({ userId: userId });
+    const meowsIdsLiked = likes.map((like) => like.meowId);
+
+    // Obtener los Meows que corresponden a los IDs de los tweets que le gustan al usuario
+    const meowsLiked = await Meow.find({ _id: { $in: meowsIdsLiked } });
+
+    return res.status(200).json(meowsLiked);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error fetching data", message: error.message });
+  }
+};
 
 const getMeowById = async (req, res) => {
   try {
@@ -49,7 +79,22 @@ const getMeowById = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-// ----------------------------------------------------------------------------------------------------------------------------------------
+
+const getProfileMeows = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    const user = await User.findOne({ username: username });
+    const { _id } = user;
+    const meowsProfile = await Meow.find({
+      author: _id,
+      parentMeow: undefined,
+    });
+    res.status(200).json({ meowsProfile, user });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
 
 const getMeowReplies = async (req, res) => {
   try {
@@ -64,18 +109,25 @@ const getMeowReplies = async (req, res) => {
 
       const authorDetails = await User.find(
         { _id: { $in: uniqueAuthorIds } },
-        "username"
+        "username name surname"
       );
 
       const authorMap = authorDetails.reduce((map, user) => {
-        map[user._id] = user.username;
+        map[user._id] = {
+          username: user.username,
+          name: user.name,
+          surname: user.surname,
+        };
         return map;
       }, {});
 
       const meowRepliesWithUsernames = meowReplies.map((meow) => {
+        const author = authorMap[meow.author];
         return {
           ...meow.toObject(),
-          authorUsername: authorMap[meow.author] || "Unknown User",
+          authorUsername: author ? author.username : "Unknown User",
+          authorName: author ? author.name : "Unknown",
+          authorSurname: author ? author.surname : "Unknown",
         };
       });
       return res.status(200).json(meowRepliesWithUsernames.reverse());
@@ -88,8 +140,6 @@ const getMeowReplies = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-// ---------------------------------------------------------------------------------------------------------------------------------
 
 const createMeow = async (req, res) => {
   try {
@@ -104,6 +154,7 @@ const createMeow = async (req, res) => {
     };
     if (body.parentMeow) {
       meow.parentMeow = body.parentMeow;
+      meow.author = userId;
 
       await Meow.updateOne({ _id: body.parentMeow }, { $inc: { replies: 1 } });
     }
@@ -119,7 +170,38 @@ const createMeow = async (req, res) => {
     return res.status(400).json(error.message);
   }
 };
-// -------------------------------------------------------------------------------------------------------------------------------
+
+const repostMeow = async (req, res) => {
+  try {
+    const userId = req.jwtPayload.id;
+    const repost = req.body;
+
+    const meow = {
+      text: repost.text,
+      author: userId,
+      date: repost.date,
+    };
+    if (repost.repostedMeowId) {
+      meow.repostedMeowId = repost.repostedMeowId;
+      await Meow.updateOne(
+        { _id: meow.repostedMeowId },
+        { $inc: { reposts: 1 } }
+      );
+    } else {
+      meow.repostedMeowId = repost._id;
+      await Meow.updateOne({ _id: repost._id }, { $inc: { reposts: 1 } });
+    }
+    const meowToSave = new Meow(meow);
+    await meowToSave.save();
+    await User.updateOne({ _id: userId }, { $inc: { meowCounter: 1 } });
+    return res
+      .status(201)
+      .json({ message: "Meow reposted successfully", meow });
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+};
+
 const updateMeow = async (req, res) => {
   try {
     const { id } = req.params;
@@ -138,8 +220,6 @@ const updateMeow = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
-// -------------------------------------------------------------------------------------------------------------------------------
 
 const deleteMeow = async (req, res) => {
   try {
@@ -163,5 +243,8 @@ module.exports = {
   createMeow,
   updateMeow,
   deleteMeow,
+  repostMeow,
   getMeowReplies,
+  getMeowsLiked,
+  getProfileMeows,
 };

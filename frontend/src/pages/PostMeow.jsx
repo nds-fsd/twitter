@@ -1,8 +1,8 @@
 import styles from "./PostMeow.module.css";
-import image from "../assets/Elon-Musk.jpg";
+import image from "../assets/user.png";
 import Swal from "sweetalert2";
-import { getUserToken } from "../local-storage.js";
-import { meowApi } from "../apis/apiWrapper.js";
+import { getUserToken } from "../functions/localStorage.js";
+import { meowApi } from "../functions/apiWrapper";
 import { useContext, useState } from "react";
 import { context } from "../App.jsx";
 
@@ -29,8 +29,7 @@ function PostForm() {
 
   const postNewMeow = async () => {
     try {
-      console.log(newMeow);
-      const res = await meowApi.post(
+      const res = await meowApi().post(
         "/",
         { meow: newMeow, date: Date.now() },
         {
@@ -39,7 +38,6 @@ function PostForm() {
           },
         }
       );
-      console.log(res);
       setNewMeow("");
       reload.setReload(!reload.reload);
     } catch (err) {
@@ -72,7 +70,8 @@ function PostForm() {
           name="text"
           id="text"
           cols="1"
-          rows="5"
+          rows="3"
+          maxLength="300"
           placeholder="What is on your mind?"
         ></textarea>
       </div>
