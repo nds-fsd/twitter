@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./UserProfile.module.css";
-import user from "../assets/user.png";
-import backgroundProfile from "../assets/backgroundProfile.jpeg";
-import TabsProfile from "../components/TabsProfile";
-import { userApi } from "../functions/apiWrapper";
-import FollowButton from "../components/FollowButton";
-import { getUserSession } from "../functions/localStorage.js";
-import EditProfileForm from "../components/EditProfileForm.jsx";
+import user from "../../assets/user.png";
+import backgroundProfile from "../../assets/backgroundProfile.jpeg";
+import TabsProfile from "./TabsProfile.jsx";
+import { userApi } from "../../functions/apiWrapper.js";
+import FollowButton from "../Buttons/FollowButton.jsx";
+import { getUserSession } from "../../functions/localStorage.js";
+import EditProfileForm from "./EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
-import MeowsLiked from "../components/MeowsLiked.jsx";
-import MeowsFiltered from "../pages/MeowsFiltered.jsx";
+import MeowsLiked from "../Meows/MeowsLiked.jsx";
+import MeowsFiltered from "../Meows/MeowsFiltered.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");

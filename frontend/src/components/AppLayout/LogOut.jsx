@@ -1,8 +1,8 @@
 import styles from "./LogOut.module.css";
-import Cat from "../assets/Cat.png";
+import Cat from "../../assets/Cat.png";
 import { useState, useContext } from "react";
-import { context } from "../App";
-import { removeSession } from "../functions/localStorage";
+import { context } from "../../App";
+import { removeSession } from "../../functions/localStorage";
 
 const LogOut = () => {
   const reloadPage = useContext(context);

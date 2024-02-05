@@ -1,11 +1,9 @@
-import MeowsFiltered from "../pages/MeowsFiltered";
 import PostForm from "./PostMeow";
-import Meows from "./Meows";
+import Meows from "../Meows/ListOfMeows";
 
 const HomePage = () => {
   return (
     <div>
-      <MeowsFiltered />
       <PostForm />
       <Meows />
     </div>

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { meowApi } from "../functions/apiWrapper";
+import { meowApi } from "../../functions/apiWrapper";
 import styles from "./MeowsFiltered.module.css";
-import user from "../assets/user.png";
-import LikeButton from "../components/LikeButton";
+import user from "../../assets/user.png";
+import LikeButton from "../Buttons/LikeButton";
 import { useNavigate } from "react-router-dom";
-import { formatMeowDate } from "../functions/dateFormat";
+import { formatMeowDate } from "../../functions/dateFormat";
 
 function MeowsFiltered({ username }) {
   const [meows, setMeows] = useState("");

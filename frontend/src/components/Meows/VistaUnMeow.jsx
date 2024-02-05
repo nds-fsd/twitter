@@ -1,15 +1,15 @@
 import styles from "./VistaUnMeow.module.css";
-import userpic from "../assets/user.png";
+import userpic from "../../assets/user.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import LikeButton from "../components/LikeButton";
+import LikeButton from "../Buttons/LikeButton";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { meowApi } from "../functions/apiWrapper";
-import { getUserSession, getUserToken } from "../functions/localStorage";
+import { meowApi } from "../../functions/apiWrapper";
+import { getUserSession, getUserToken } from "../../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
-import { formatMeowDate } from "../functions/dateFormat";
+import { formatMeowDate } from "../../functions/dateFormat";
 
 const VistaUnMeow = () => {
   function handleKeyDown(e) {

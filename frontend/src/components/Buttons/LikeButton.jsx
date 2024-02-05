@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./LikeButton.module.css";
-import { likeApi } from "../functions/apiWrapper";
+import { likeApi } from "../../functions/apiWrapper";
 
 const LikeButton = ({ meow }) => {
   const [isLiked, setIsLiked] = useState(false);

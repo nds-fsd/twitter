@@ -1,8 +1,8 @@
 import styles from "./MeowReplies.module.css";
-import LikeButton from "../components/LikeButton";
-import user from "../assets/user.png";
+import LikeButton from "../Buttons/LikeButton";
+import user from "../../assets/user.png";
 import { useNavigate } from "react-router-dom";
-import { formatMeowDate } from "../functions/dateFormat";
+import { formatMeowDate } from "../../functions/dateFormat";
 const MeowReplies = ({ allMeowReplies }) => {
   const navigate = useNavigate();
   const meowsToShow = allMeowReplies.map((meow) => formatMeowDate(meow));
