@@ -18,10 +18,11 @@ const HomePage = () => {
 
   return (
     <div className={styles.mainContainer}>
-    <div>
-      <MeowsFiltered />
-      <PostForm />
-      <Meows />
+      <div>
+        <MeowsFiltered />
+        <PostForm />
+        <Meows />
+      </div>
     </div>
   );
 };
