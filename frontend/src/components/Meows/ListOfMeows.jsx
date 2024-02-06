@@ -6,7 +6,7 @@ import Loading from "../../effects/Loading.jsx";
 import { context } from "../../App.jsx";
 import { getUserToken } from "../../functions/localStorage.js";
 import LikeButton from "../Buttons/LikeButton.jsx";
-import RepostMeow from "./RepostMeow.jsx";
+import RepostButton from "../Buttons/RepostButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
 
@@ -145,7 +145,7 @@ function Meows() {
                 </div>
                 <div className={styles.likesContainer}>
                   <LikeButton meow={meow} />
-                  <RepostMeow meow={meow} />
+                  <RepostButton meow={meow} />
                   <p>{meow.date}</p>
                 </div>
               </div>

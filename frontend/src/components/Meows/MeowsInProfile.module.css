@@ -49,10 +49,11 @@
 .likesContainer {
   align-items: center;
   display: flex;
+  justify-content: space-evenly;
 }
 
-.likesContainer p {
+.dateFormat {
   color: gray;
   font-size: 12px;
-  margin: 0 10px 0 0;
+  margin: 10px 10px 0 0;
 }

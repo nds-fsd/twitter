@@ -81,7 +81,7 @@ const LikeButton = ({ meow }) => {
       data-tooltip-content="Likes"
       data-tooltip-place="top"
     >
-      <p>{likeCounter}</p>
+      <p className={styles.buttonsText}>{likeCounter}</p>
       <button
         id="likeButton"
         type="button"
@@ -96,9 +96,9 @@ const LikeButton = ({ meow }) => {
         disabled={isLoading}
       >
         {isLiked ? (
-          <Heart fill="#f67b7b" strokeWidth={1} size={20} />
+          <Heart color="grey" fill="#f67b7b" strokeWidth={1} size={20} />
         ) : (
-          <Heart size={20} />
+          <Heart color="grey" size={20} />
         )}
         <Tooltip id="Likes" />
       </button>

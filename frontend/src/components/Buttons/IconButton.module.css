@@ -3,6 +3,11 @@
   align-items: center;
 }
 
+.buttonsText {
+  color: gray;
+  margin-right: 3px;
+}
+
 .iconButton {
   background-color: transparent;
   border: none;

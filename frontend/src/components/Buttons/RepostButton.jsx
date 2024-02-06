@@ -7,7 +7,7 @@ import { Repeat2 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
-const RepostMeow = ({ meow }) => {
+const RepostButton = ({ meow }) => {
   const reload = useContext(context);
   const token = getUserToken();
 
@@ -35,14 +35,18 @@ const RepostMeow = ({ meow }) => {
       data-tooltip-content="Reposts"
       data-tooltip-place="top"
     >
-      <p>{meow.reposts} </p>
+      <p className={styles.buttonsText}>{meow.reposts} </p>
       <button
         id="likeButton"
         type="button"
         className={styles.iconButton}
         onClick={repostMeow}
       >
-        {meow.reposts > 0 ? <Repeat2 color="#5E8DF9" /> : <Repeat2 />}
+        {meow.reposts > 0 ? (
+          <Repeat2 color="#5E8DF9" />
+        ) : (
+          <Repeat2 color="grey" />
+        )}
 
         <Tooltip id="Reposts" />
       </button>
@@ -50,4 +54,4 @@ const RepostMeow = ({ meow }) => {
   );
 };
 
-export default RepostMeow;
+export default RepostButton;

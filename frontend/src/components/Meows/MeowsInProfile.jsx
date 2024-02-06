@@ -3,6 +3,9 @@ import { meowApi } from "../../functions/apiWrapper";
 import styles from "./MeowsInProfile.module.css";
 import user from "../../assets/user.png";
 import LikeButton from "../Buttons/LikeButton";
+import ShareButton from "../Buttons/ShareButton";
+import Bookmark from "../Buttons/BookmarkButton";
+import RepostButton from "../Buttons/RepostButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
 
@@ -35,14 +38,7 @@ function MeowsInProfile({ username }) {
       {meows &&
         meows.map((meow) => {
           return (
-            <div
-              onClick={(e) => {
-                if (e.target.id === "likeButton") return;
-                navigate(`/meow/${meow._id}`, { state: { meow } });
-              }}
-              key={meow._id}
-              className={styles.container}
-            >
+            <div className={styles.container}>
               <div className={styles.userContainer}>
                 <img src={user} />
                 <p className={styles.nameText}>
@@ -50,12 +46,24 @@ function MeowsInProfile({ username }) {
                 </p>
                 <p className={styles.usernameText}>@{username}</p>
               </div>
-              <div className={styles.postContainer}>
+              <div
+                onClick={(e) => {
+                  if (e.target.id === "likeButton") return;
+                  navigate(`/meow/${meow._id}`, { state: { meow } });
+                }}
+                key={meow._id}
+                className={styles.postContainer}
+              >
                 <p>{meow.text}</p>
               </div>
               <div className={styles.likesContainer}>
                 <LikeButton meow={meow} />
-                <p>{meow.date}</p>
+                <RepostButton meow={meow} />
+                <Bookmark />
+                <ShareButton />
+              </div>
+              <div>
+                <p className={styles.dateFormat}>{meow.date}</p>
               </div>
             </div>
           );

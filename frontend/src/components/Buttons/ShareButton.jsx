@@ -1,23 +1,22 @@
 import styles from "./IconButton.module.css";
-import { Bookmark } from "lucide-react";
+import { Link } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
-const BookmarkButton = () => {
+const ShareButton = () => {
   return (
     <div
       className={styles.iconsContainer}
-      data-tooltip-id="Bookmark"
-      data-tooltip-content="Bookmark"
+      data-tooltip-id="Share"
+      data-tooltip-content="Share"
       data-tooltip-place="top"
     >
-      <p className={styles.buttonsText}>0</p>
       <button id="bookmarkButton" type="button" className={styles.iconButton}>
-        <Bookmark size={20} color="grey" />
-        <Tooltip id="Bookmark" />
+        <Link size={20} color="grey" />
+        <Tooltip id="Share" />
       </button>
     </div>
   );
 };
 
-export default BookmarkButton;
+export default ShareButton;
