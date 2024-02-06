@@ -10,7 +10,7 @@ import { getUserSession } from "../../functions/localStorage.js";
 import EditProfileForm from "./EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 import MeowsLiked from "../Meows/MeowsLiked.jsx";
-import MeowsFiltered from "../Meows/MeowsFiltered.jsx";
+import MeowsInProfile from "../Meows/MeowsInProfile.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -157,7 +157,7 @@ function UserProfile() {
             setMeowsFiltered={setMeowsFiltered}
           />
           {meowsLiked && <MeowsLiked />}
-          {meowsFiltered && <MeowsFiltered username={urlUsername} />}
+          {meowsFiltered && <MeowsInProfile username={urlUsername} />}
         </div>
       </div>
 

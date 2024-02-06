@@ -1,4 +1,4 @@
-import styles from "./VistaUnMeow.module.css";
+import styles from "./MeowView.module.css";
 import userpic from "../../assets/user.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
@@ -11,7 +11,7 @@ import { getUserSession, getUserToken } from "../../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
 import { formatMeowDate } from "../../functions/dateFormat";
 
-const VistaUnMeow = () => {
+const MeowView = () => {
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
@@ -218,4 +218,4 @@ const VistaUnMeow = () => {
     )
   );
 };
-export default VistaUnMeow;
+export default MeowView;

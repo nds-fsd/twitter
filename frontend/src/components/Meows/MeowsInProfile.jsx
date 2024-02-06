@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { meowApi } from "../../functions/apiWrapper";
-import styles from "./MeowsFiltered.module.css";
+import styles from "./MeowsInProfile.module.css";
 import user from "../../assets/user.png";
 import LikeButton from "../Buttons/LikeButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
 
-function MeowsFiltered({ username }) {
+function MeowsInProfile({ username }) {
   const [meows, setMeows] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -63,4 +63,4 @@ function MeowsFiltered({ username }) {
     </div>
   );
 }
-export default MeowsFiltered;
+export default MeowsInProfile;

@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, createContext } from "react";
 import { getUserToken } from "./functions/localStorage";
 import HomePage from "./components/HomePage/HomePage";
-import VistaUnMeow from "./components/Meows/VistaUnMeow";
+import MeowView from "./components/Meows/MeowView";
 import UserProfile from "./components/Profile/UserProfile";
 import PreLoader from "./effects/PreLoader";
 import PublicHome from "./components/PublicHome/PublicHome";
@@ -41,7 +41,7 @@ function App() {
                 </>
               }
             />
-            <Route path="/meow/:id" element={<VistaUnMeow />} />
+            <Route path="/meow/:id" element={<MeowView />} />
             <Route path="/user/:username" element={<UserProfile />} />
           </Routes>
         </AppLayout>
