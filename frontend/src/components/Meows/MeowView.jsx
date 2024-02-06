@@ -158,17 +158,9 @@ const MeowView = () => {
               {parentMeow.reposts} 🔁
               <Tooltip id="Reposts" />
             </span>
-            <span
-              data-tooltip-id="Likes"
-              data-tooltip-content="Likes"
-              data-tooltip-place="top"
-              className={`${styles.statsSpan} ${
-                pantallaPequena ? styles.statsSpanSmallScreen : ""
-              }`}
-            >
-              <LikeButton meow={parentMeow} />
-              <Tooltip id="Likes" />
-            </span>
+
+            <LikeButton meow={parentMeow} />
+
             <span
               data-tooltip-id="Bookmark"
               data-tooltip-content="Bookmark"

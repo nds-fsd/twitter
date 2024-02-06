@@ -1,11 +1,15 @@
+.likeContainer {
+  display: flex;
+  align-items: center;
+}
+
 .likeButton {
   background-color: transparent;
-  border: 1px solid black;
+  border: none;
   border-radius: 25px;
   font-size: 15px;
-  height: fit-content;
-  padding: 5px 5px;
-  width: max-content;
+  height: 30px;
+  width: 30px;
 }
 
 .likeButton:hover {
