@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { meowApi } from "../functions/apiWrapper";
-import { getUserToken } from "../functions/localStorage";
-import { context } from "../App";
+import { meowApi } from "../../functions/apiWrapper";
+import { getUserToken } from "../../functions/localStorage";
+import { context } from "../../App";
 
 const RepostMeow = ({ meow }) => {
   const reload = useContext(context);

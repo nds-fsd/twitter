@@ -1,10 +1,10 @@
 import styles from "./PostMeow.module.css";
-import image from "../assets/user.png";
+import image from "../../assets/user.png";
 import Swal from "sweetalert2";
-import { getUserToken } from "../functions/localStorage.js";
-import { meowApi } from "../functions/apiWrapper";
+import { getUserToken } from "../../functions/localStorage.js";
+import { meowApi } from "../../functions/apiWrapper.js";
 import { useContext, useState } from "react";
-import { context } from "../App.jsx";
+import { context } from "../../App.jsx";
 
 function PostForm() {
   const [newMeow, setNewMeow] = useState("");
