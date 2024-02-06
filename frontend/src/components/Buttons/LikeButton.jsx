@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./LikeButton.module.css";
+import styles from "./IconButton.module.css";
 import { likeApi } from "../../functions/apiWrapper";
 import { Heart } from "lucide-react";
 import { Tooltip } from "react-tooltip";
@@ -76,7 +76,7 @@ const LikeButton = ({ meow }) => {
 
   return (
     <div
-      className={styles.likeContainer}
+      className={styles.iconsContainer}
       data-tooltip-id="Likes"
       data-tooltip-content="Likes"
       data-tooltip-place="top"
@@ -85,7 +85,7 @@ const LikeButton = ({ meow }) => {
       <button
         id="likeButton"
         type="button"
-        className={styles.likeButton}
+        className={styles.iconButton}
         onClick={() => {
           if (isLiked) {
             handleUnlike();

@@ -3,12 +3,13 @@ import userpic from "../../assets/user.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../Buttons/LikeButton";
+import BookmarkButton from "../Buttons/BookmarkButton";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../../functions/apiWrapper";
 import { getUserSession, getUserToken } from "../../functions/localStorage";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Repeat2 } from "lucide-react";
 import { formatMeowDate } from "../../functions/dateFormat";
 
 const MeowView = () => {
@@ -148,30 +149,26 @@ const MeowView = () => {
               <Tooltip id="Replies" />
             </span>
             <span
-              data-tooltip-id="Reposts"
+            /* data-tooltip-id="Reposts"
               data-tooltip-content="Reposts"
               data-tooltip-place="top"
               className={`${styles.statsSpan} ${
                 pantallaPequena ? styles.statsSpanSmallScreen : ""
-              }`}
+              }`} */
             >
-              {parentMeow.reposts} 🔁
-              <Tooltip id="Reposts" />
+              {parentMeow.reposts}{" "}
+              {parentMeow.reposts > 0 ? (
+                <Repeat2 color="#5E8DF9" />
+              ) : (
+                <Repeat2 />
+              )}
+              {/* <Tooltip id="Reposts" /> */}
             </span>
 
             <LikeButton meow={parentMeow} />
 
-            <span
-              data-tooltip-id="Bookmark"
-              data-tooltip-content="Bookmark"
-              data-tooltip-place="top"
-              className={`${styles.statsSpan} ${
-                pantallaPequena ? styles.statsSpanSmallScreen : ""
-              }`}
-            >
-              0 🔖
-              <Tooltip id="Bookmark" />
-            </span>
+            <BookmarkButton />
+
             <span
               data-tooltip-id="Share"
               data-tooltip-content="Share"
