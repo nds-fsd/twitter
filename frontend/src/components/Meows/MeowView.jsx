@@ -109,10 +109,10 @@ const MeowView = () => {
   return (
     parentMeow && (
       <>
-        <div className={styles.container}>
+        <div className={styles.viewContainer}>
           <div className={styles.firstContainer}>
-            <div className={styles.postContainer}>
-              <div className={styles.post}>
+            <div className={styles.backContainer}>
+              <div className={styles.back}>
                 <ArrowLeft absoluteStrokeWidth />
                 <p onClick={() => navigate("/home")}>Post</p>
               </div>

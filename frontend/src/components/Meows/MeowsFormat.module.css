@@ -93,3 +93,42 @@
   margin-left: 45px;
   margin-top: 2%;
 }
+
+/* styles for MeowView component */
+.viewContainer {
+  width: 100%;
+  color: rgb(255, 255, 255);
+}
+.firstContainer {
+  height: 8%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.backContainer {
+  display: flex;
+  height: 8%;
+  background-color: black;
+  position: fixed;
+  width: 50%;
+  z-index: 1;
+  width: fit-content;
+}
+
+.back {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  padding-left: 20px;
+}
+
+.back > img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.back > p {
+  font-size: 20px;
+}

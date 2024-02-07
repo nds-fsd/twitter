@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-.container {
+.viewContainer {
   width: 100%;
   color: rgb(255, 255, 255);
 }
@@ -13,33 +13,32 @@
   flex-wrap: wrap;
 }
 
-.postContainer {
+.backContainer {
   display: flex;
   height: 8%;
   background-color: black;
   position: fixed;
   width: 50%;
   z-index: 1;
+  width: fit-content;
 }
 
-.post {
+.back {
+  cursor: pointer;
   width: 100%;
   display: flex;
   align-items: center;
   font-size: 17px;
-
   padding-left: 20px;
 }
 
-.post img {
+.back > img {
   width: 30px;
   margin-right: 10px;
-  cursor: pointer;
 }
 
-.post p {
+.back > p {
   font-size: 20px;
-  cursor: pointer;
 }
 
 .username {
