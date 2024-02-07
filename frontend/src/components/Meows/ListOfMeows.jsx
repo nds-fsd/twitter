@@ -5,9 +5,11 @@ import user from "../../assets/user.png";
 import Loading from "../../effects/Loading.jsx";
 import { context } from "../../App.jsx";
 import { getUserToken } from "../../functions/localStorage.js";
+import MessageButton from "../Buttons/MessageButton";
 import LikeButton from "../Buttons/LikeButton.jsx";
 import RepostButton from "../Buttons/RepostButton.jsx";
 import Bookmark from "../Buttons/BookmarkButton";
+import Views from "../Buttons/Views";
 import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
@@ -165,9 +167,11 @@ function Meows() {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
+                <MessageButton />
                 <LikeButton meow={meow} />
                 <RepostButton meow={meow} />
                 <Bookmark />
+                <Views />
                 <ShareButton />
               </div>
             </div>

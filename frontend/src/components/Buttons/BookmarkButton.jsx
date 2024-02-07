@@ -11,7 +11,6 @@ const BookmarkButton = () => {
       data-tooltip-content="Bookmark"
       data-tooltip-place="top"
     >
-      <p className={styles.buttonsText}>0</p>
       <button id="bookmarkButton" type="button" className={styles.iconButton}>
         <Bookmark size={20} color="grey" />
         <Tooltip id="Bookmark" />

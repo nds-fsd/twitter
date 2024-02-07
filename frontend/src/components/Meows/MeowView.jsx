@@ -6,6 +6,8 @@ import LikeButton from "../Buttons/LikeButton";
 import BookmarkButton from "../Buttons/BookmarkButton";
 import MeowReplies from "./MeowReplies";
 import ShareButton from "../Buttons/ShareButton";
+import MessageButton from "../Buttons/MessageButton";
+import Views from "../Buttons/Views";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../../functions/apiWrapper";
@@ -172,9 +174,7 @@ const MeowView = () => {
             </span>
 
             <LikeButton meow={parentMeow} />
-
             <BookmarkButton />
-
             <ShareButton />
           </div>
           <div className={styles.replies}>

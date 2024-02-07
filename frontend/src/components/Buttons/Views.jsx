@@ -11,8 +11,10 @@ const Views = () => {
       data-tooltip-content="Views"
       data-tooltip-place="top"
     >
-      <BarChart2 size={20} color="grey" />
-      <Tooltip id="Views" />
+      <button id="bookmarkButton" type="button" className={styles.iconButton}>
+        <BarChart2 size={20} color="grey" />
+        <Tooltip id="Views" />
+      </button>
     </div>
   );
 };

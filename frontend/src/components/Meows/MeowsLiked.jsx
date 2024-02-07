@@ -2,9 +2,11 @@ import { useState, useEffect, useContext } from "react";
 import styles from "./MeowsFormat.module.css";
 import { meowApi, userApi } from "../../functions/apiWrapper";
 import user from "../../assets/user.png";
+import MessageButton from "../Buttons/MessageButton";
 import LikeButton from "../Buttons/LikeButton";
 import RepostButton from "../Buttons/RepostButton.jsx";
 import Bookmark from "../Buttons/BookmarkButton";
+import Views from "../Buttons/Views";
 import ShareButton from "../Buttons/ShareButton";
 import { getUserSession, getUserToken } from "../../functions/localStorage";
 import Loading from "../../effects/Loading";
@@ -138,9 +140,11 @@ const MeowsLiked = () => {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
+                <MessageButton />
                 <LikeButton meow={meow} />
                 <RepostButton meow={meow} />
                 <Bookmark />
+                <Views />
                 <ShareButton />
               </div>
             </div>
