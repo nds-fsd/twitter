@@ -11,7 +11,7 @@ const ShareButton = () => {
       data-tooltip-content="Share"
       data-tooltip-place="top"
     >
-      <button id="bookmarkButton" type="button" className={styles.iconButton}>
+      <button id="shareButton" type="button" className={styles.iconButton}>
         <Link size={20} color="grey" />
         <Tooltip id="Share" />
       </button>

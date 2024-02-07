@@ -37,7 +37,7 @@ const RepostButton = ({ meow }) => {
     >
       <p className={styles.buttonsText}>{meow.reposts} </p>
       <button
-        id="likeButton"
+        id="repostButton"
         type="button"
         className={styles.iconButton}
         onClick={repostMeow}
