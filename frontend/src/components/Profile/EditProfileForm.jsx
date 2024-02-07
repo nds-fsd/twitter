@@ -2,6 +2,7 @@ import styles from "./EditProfileForm.module.css";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import { userApi } from "../../functions/apiWrapper";
+import UploadPhoto from "./UploadPhoto";
 import Swal from "sweetalert2";
 
 const EditProfileForm = ({
@@ -157,6 +158,8 @@ const EditProfileForm = ({
             <p className={styles.error}>Passwords do not match</p>
           )}
         </div>
+
+        <UploadPhoto />
 
         <div className={styles.inputContainer}>
           <button
