@@ -1,12 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { meowApi, userApi } from "../../functions/apiWrapper.js";
-import styles from "./ListOfMeows.module.css";
+import styles from "./MeowsFormat.module.css";
 import user from "../../assets/user.png";
 import Loading from "../../effects/Loading.jsx";
 import { context } from "../../App.jsx";
 import { getUserToken } from "../../functions/localStorage.js";
 import LikeButton from "../Buttons/LikeButton.jsx";
 import RepostButton from "../Buttons/RepostButton.jsx";
+import Bookmark from "../Buttons/BookmarkButton";
+import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
 
@@ -91,7 +93,7 @@ function Meows() {
   if (error)
     return (
       <div style={{ fontSize: "40px" }}>
-        Ops, something went wrong!
+        Oops, something went wrong!
         <p style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
           {errorMessage}
         </p>
@@ -104,11 +106,11 @@ function Meows() {
         meows.map((meow) => {
           return (
             <div key={meow._id} className={styles.container}>
-              <div className={styles.meowsContainer}>
-                <div className={styles.userContainer}>
-                  <img src={user} />
-                  {!meow.repostedMeowId && (
-                    <>
+              <div className={styles.userContainer}>
+                <img src={user} className={styles.imageProfile} />
+                {!meow.repostedMeowId && (
+                  <div className={styles.infoUserContainer}>
+                    <div className={styles.userData}>
                       <p
                         onClick={() => {
                           navigate("/user/" + meow.authorUsername);
@@ -119,35 +121,54 @@ function Meows() {
                         {meow.nameAuthor} {meow.surnameAuthor}
                       </p>
                       <p className={styles.username}>@{meow.authorUsername}</p>
-                    </>
-                  )}
-                  {meow.repostedMeowId && (
-                    <div>
-                      <p
-                        className={styles.repost}
-                        style={{ fontSize: "0.8rem" }}
-                      >
-                        Reposted by: {meow.authorUsername}
-                      </p>
-                      <p>{meow.originalUsername}</p>
                     </div>
-                  )}
-                </div>
-                <div
-                  onClick={(e) => {
-                    if (e.target.id === "likeButton") return;
-                    navigate(`/meow/${meow._id}`, { state: { meow } });
-                  }}
-                  key={meow._id}
-                  className={styles.postContainer}
-                >
-                  <p>{meow.text}</p>
-                </div>
-                <div className={styles.likesContainer}>
-                  <LikeButton meow={meow} />
-                  <RepostButton meow={meow} />
-                  <p>{meow.date}</p>
-                </div>
+                    <div>
+                      <p className={styles.dateFormat}>{meow.date}</p>
+                    </div>
+                  </div>
+                )}
+                {meow.repostedMeowId && (
+                  <div style={{ width: "100%" }}>
+                    <p className={styles.repostedBy}>
+                      Reposted by: @{meow.authorUsername}
+                    </p>
+                    <div className={styles.infoUserContainer}>
+                      <div className={styles.userData}>
+                        <p
+                          onClick={() => {
+                            navigate("/user/" + meow.originalUsername);
+                            reload.setReload(!reload.reload);
+                          }}
+                          className={styles.nameSurname}
+                        >
+                          Name
+                        </p>
+                        <p className={styles.username}>
+                          @{meow.originalUsername}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={styles.dateFormat}>{meow.date}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div
+                onClick={(e) => {
+                  if (e.target.id === "likeButton") return;
+                  navigate(`/meow/${meow._id}`, { state: { meow } });
+                }}
+                key={meow._id}
+                className={styles.postContainer}
+              >
+                <p>{meow.text}</p>
+              </div>
+              <div className={styles.iconsContainer}>
+                <LikeButton meow={meow} />
+                <RepostButton meow={meow} />
+                <Bookmark />
+                <ShareButton />
               </div>
             </div>
           );

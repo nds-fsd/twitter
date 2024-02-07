@@ -1,0 +1,94 @@
+.bigContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  padding: 2.5%;
+  border-top: 1px solid rgb(44, 44, 44);
+  border-bottom: 1px solid rgb(44, 44, 44);
+}
+
+.userContainer {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.imageProfile {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  margin-right: 15px;
+}
+
+.infoUserContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.userData {
+  align-items: center;
+  display: flex;
+  width: 70%;
+}
+
+.nameSurname {
+  cursor: pointer;
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.nameSurname:hover {
+  text-decoration: underline;
+}
+
+.username {
+  color: gray;
+  font-family: var(--main-font);
+  font-size: 13px;
+  padding-left: 1%;
+  width: fit-content;
+}
+
+.repostedBy {
+  color: gray;
+  font-size: 11px;
+  font-style: italic;
+  margin-bottom: 0.5%;
+}
+
+.postContainer {
+  cursor: pointer;
+  margin-left: 45px;
+}
+
+.iconsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: 45px;
+  margin-top: 2%;
+}
+
+.dateFormat {
+  color: gray;
+  font-size: 12px;
+}
+
+/* style for Replies component*/
+.iconsReplyContainer {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 45px;
+  margin-top: 2%;
+}

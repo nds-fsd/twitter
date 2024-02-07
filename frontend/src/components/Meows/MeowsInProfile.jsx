@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { meowApi } from "../../functions/apiWrapper";
-import styles from "./MeowsInProfile.module.css";
+import styles from "./MeowsFormat.module.css";
 import user from "../../assets/user.png";
-import LikeButton from "../Buttons/LikeButton";
-import ShareButton from "../Buttons/ShareButton";
-import Bookmark from "../Buttons/BookmarkButton";
+import LikeButton from "../Buttons/LikeButton.jsx";
 import RepostButton from "../Buttons/RepostButton.jsx";
+import Bookmark from "../Buttons/BookmarkButton";
+import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
 
@@ -40,11 +40,18 @@ function MeowsInProfile({ username }) {
           return (
             <div className={styles.container}>
               <div className={styles.userContainer}>
-                <img src={user} />
-                <p className={styles.nameText}>
-                  {name} {surname}
-                </p>
-                <p className={styles.usernameText}>@{username}</p>
+                <img src={user} className={styles.imageProfile} />
+                <div className={styles.infoUserContainer}>
+                  <div className={styles.userData}>
+                    <p className={styles.nameSurname}>
+                      {name} {surname}
+                    </p>
+                    <p className={styles.username}>@{username}</p>
+                  </div>
+                  <div>
+                    <p className={styles.dateFormat}>{meow.date}</p>
+                  </div>
+                </div>
               </div>
               <div
                 onClick={(e) => {
@@ -56,14 +63,11 @@ function MeowsInProfile({ username }) {
               >
                 <p>{meow.text}</p>
               </div>
-              <div className={styles.likesContainer}>
+              <div className={styles.iconsContainer}>
                 <LikeButton meow={meow} />
                 <RepostButton meow={meow} />
                 <Bookmark />
                 <ShareButton />
-              </div>
-              <div>
-                <p className={styles.dateFormat}>{meow.date}</p>
               </div>
             </div>
           );
