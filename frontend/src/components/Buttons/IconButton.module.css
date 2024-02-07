@@ -1,0 +1,23 @@
+.iconsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.buttonsText {
+  color: gray;
+  margin-right: 3px;
+}
+
+.iconButton {
+  background-color: transparent;
+  border: none;
+  border-radius: 25px;
+  font-size: 15px;
+  height: 30px;
+  width: 30px;
+}
+
+.iconButton:hover {
+  background-color: #2f2f2f;
+  cursor: pointer;
+}

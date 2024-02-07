@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import { meowApi } from "../../functions/apiWrapper";
-import styles from "./MeowsInProfile.module.css";
+import styles from "./MeowsFormat.module.css";
 import user from "../../assets/user.png";
-import LikeButton from "../Buttons/LikeButton";
+import MessageButton from "../Buttons/MessageButton";
+import LikeButton from "../Buttons/LikeButton.jsx";
+import RepostButton from "../Buttons/RepostButton.jsx";
+import Bookmark from "../Buttons/BookmarkButton";
+import Views from "../Buttons/Views";
+import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
 
@@ -35,27 +40,38 @@ function MeowsInProfile({ username }) {
       {meows &&
         meows.map((meow) => {
           return (
-            <div
-              onClick={(e) => {
-                if (e.target.id === "likeButton") return;
-                navigate(`/meow/${meow._id}`, { state: { meow } });
-              }}
-              key={meow._id}
-              className={styles.container}
-            >
+            <div className={styles.container}>
               <div className={styles.userContainer}>
-                <img src={user} />
-                <p className={styles.nameText}>
-                  {name} {surname}
-                </p>
-                <p className={styles.usernameText}>@{username}</p>
+                <img src={user} className={styles.imageProfile} />
+                <div className={styles.infoUserContainer}>
+                  <div className={styles.userData}>
+                    <p className={styles.nameSurname}>
+                      {name} {surname}
+                    </p>
+                    <p className={styles.username}>@{username}</p>
+                  </div>
+                  <div>
+                    <p className={styles.dateFormat}>{meow.date}</p>
+                  </div>
+                </div>
               </div>
-              <div className={styles.postContainer}>
+              <div
+                onClick={(e) => {
+                  if (e.target.id === "likeButton") return;
+                  navigate(`/meow/${meow._id}`, { state: { meow } });
+                }}
+                key={meow._id}
+                className={styles.postContainer}
+              >
                 <p>{meow.text}</p>
               </div>
-              <div className={styles.likesContainer}>
+              <div className={styles.iconsContainer}>
+                <MessageButton />
                 <LikeButton meow={meow} />
-                <p>{meow.date}</p>
+                <RepostButton meow={meow} />
+                <Bookmark />
+                <Views />
+                <ShareButton />
               </div>
             </div>
           );
