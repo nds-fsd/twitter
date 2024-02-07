@@ -137,7 +137,7 @@ const MeowView = () => {
                 </div>
               </div>
             </div>
-            <div className={general.postContainer}>
+            <div className={general.postContainerInView}>
               <p className={general.meow}>{parentMeow.text}</p>
             </div>
             <div className={general.iconsContainer}>

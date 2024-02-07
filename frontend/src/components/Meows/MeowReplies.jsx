@@ -30,7 +30,7 @@ const MeowReplies = ({ allMeowReplies }) => {
                   </div>
                 </div>
               </div>
-              <div className={styles.postContainer}>
+              <div className={styles.postContainerInView}>
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsReplyContainer}>

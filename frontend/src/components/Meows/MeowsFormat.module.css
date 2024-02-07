@@ -92,5 +92,11 @@
   display: flex;
   justify-content: flex-start;
   margin-left: 45px;
-  margin-top: 2%;
 }
+
+/* format for View and Reply components*/
+.postContainerInView {
+  margin-left: 45px;
+  padding-bottom: 3%;
+}
+
