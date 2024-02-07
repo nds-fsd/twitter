@@ -1,0 +1,10 @@
+.mainButton {
+  font-size: 2rem;
+}
+
+.popOutContainer {
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  border: 1px solid red;
+}
