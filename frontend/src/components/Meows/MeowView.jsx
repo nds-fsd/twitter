@@ -1,4 +1,5 @@
 import styles from "./MeowView.module.css";
+import general from "./MeowsFormat.module.css";
 import userpic from "../../assets/user.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
@@ -118,67 +119,72 @@ const MeowView = () => {
               </div>
             </div>
           </div>
+          <div className={styles.container}>
+            <div className={general.userContainer}>
+              <img src={userpic} alt="user" className={general.imageProfile} />
+              <div className={general.infoUserContainer}>
+                <div className={general.userData}>
+                  <p
+                    onClick={() => navigate("/user/" + parentMeowUsername)}
+                    className={general.nameSurname}
+                  >
+                    {parentMeowName} {parentMeowSurname}
+                  </p>
+                  <p className={general.username}>@{parentMeowUsername}</p>
+                </div>
+                <div>
+                  <p className={general.dateFormat}>{parentMeow.date}</p>
+                </div>
+              </div>
+            </div>
+            <div className={general.postContainer}>
+              <p className={general.meow}>{parentMeow.text}</p>
+            </div>
+            <div className={general.iconsContainer}>
+              <span
+                onClick={() => {
+                  textareaRef.current.focus();
+                }}
+                data-tooltip-id="Replies"
+                data-tooltip-content="Replies"
+                data-tooltip-place="top"
+                className={`${styles.statsSpan} ${
+                  pantallaPequena ? styles.statsSpanSmallScreen : ""
+                }`}
+              >
+                {replyCounter}
+                {replyCounter > 0 ? (
+                  <MessageSquareMore color="#F8F393" size={20} />
+                ) : (
+                  <MessageSquareMore color="grey" size={20} />
+                )}
+                <Tooltip id="Replies" />
+              </span>
+              <span
+                data-tooltip-id="Reposts"
+                data-tooltip-content="Reposts"
+                data-tooltip-place="top"
+                className={`${styles.statsSpan} ${
+                  pantallaPequena ? styles.statsSpanSmallScreen : ""
+                }`}
+              >
+                {parentMeow.reposts}
+                {parentMeow.reposts > 0 ? (
+                  <Repeat2 color="#5E8DF9" />
+                ) : (
+                  <Repeat2 color="grey" />
+                )}
+                <Tooltip id="Reposts" />
+              </span>
 
-          <div className={styles.username}>
-            <img src={userpic} alt="user" />
-            <p
-              className={styles.userInfo}
-              onClick={() => navigate("/user/" + parentMeowUsername)}
-            >
-              {" "}
-              {parentMeowName} {parentMeowSurname}
-            </p>
-            <p className={styles.usernameInfo}>@{parentMeowUsername}</p>
-          </div>
-
-          <p className={styles.meow}>{parentMeow.text}</p>
-          <div className={styles.dateAndViews}>
-            <span>{parentMeow.date}</span>
-            <span>{parentMeow.views} Views</span>
-          </div>
-          <div className={styles.stats}>
-            <span
-              onClick={() => {
-                textareaRef.current.focus();
-              }}
-              data-tooltip-id="Replies"
-              data-tooltip-content="Replies"
-              data-tooltip-place="top"
-              className={`${styles.statsSpan} ${
-                pantallaPequena ? styles.statsSpanSmallScreen : ""
-              }`}
-            >
-              {replyCounter}
-              {replyCounter > 0 ? (
-                <MessageSquareMore color="#F8F393" size={20} />
-              ) : (
-                <MessageSquareMore color="grey" size={20} />
-              )}
-              <Tooltip id="Replies" />
-            </span>
-            <span
-              data-tooltip-id="Reposts"
-              data-tooltip-content="Reposts"
-              data-tooltip-place="top"
-              className={`${styles.statsSpan} ${
-                pantallaPequena ? styles.statsSpanSmallScreen : ""
-              }`}
-            >
-              {parentMeow.reposts}
-              {parentMeow.reposts > 0 ? (
-                <Repeat2 color="#5E8DF9" />
-              ) : (
-                <Repeat2 color="grey" />
-              )}
-              <Tooltip id="Reposts" />
-            </span>
-
-            <LikeButton meow={parentMeow} />
-            <BookmarkButton />
-            <ShareButton />
+              <LikeButton meow={parentMeow} />
+              <BookmarkButton />
+              <ShareButton />
+              <span>{parentMeow.views} Views</span>
+            </div>
           </div>
           <div className={styles.replies}>
-            <img src={userpic} alt="" />
+            <img src={userpic} alt="" className={general.imageProfile} />
             <textarea
               value={meowReply}
               onChange={(e) => {
@@ -193,6 +199,7 @@ const MeowView = () => {
               onClick={() => {
                 postReply();
               }}
+              className={styles.replyButton}
             >
               Reply
             </button>
