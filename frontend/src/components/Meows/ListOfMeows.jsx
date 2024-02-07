@@ -4,7 +4,7 @@ import styles from "./ListOfMeows.module.css";
 import user from "../../assets/user.png";
 import Loading from "../../effects/Loading.jsx";
 import { context } from "../../App.jsx";
-import { getUserToken } from "../../functions/localStorage.js";
+import { getUserToken, getUserSession } from "../../functions/localStorage.js";
 import LikeButton from "../Buttons/LikeButton.jsx";
 import RepostMeow from "./RepostMeow.jsx";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,10 @@ import { formatMeowDate } from "../../functions/dateFormat.js";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
 function Meows() {
+  const session = getUserSession();
+  const userId = session.id;
+  console.log(userId);
+
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -120,6 +124,7 @@ function Meows() {
                         {meow.nameAuthor} {meow.surnameAuthor}
                       </p>
                       <p className={styles.username}>@{meow.authorUsername}</p>
+                      {meow.author === userId && <DeleteEditMeow meow={meow} />}
                     </>
                   )}
                   {meow.repostedMeowId && (
@@ -128,7 +133,10 @@ function Meows() {
                         className={styles.repost}
                         style={{ fontSize: "0.8rem" }}
                       >
-                        Reposted by: {meow.authorUsername}
+                        Reposted by: {meow.authorUsername}{" "}
+                        {meow.author === userId && (
+                          <DeleteEditMeow meow={meow} />
+                        )}
                       </p>
                       <p>{meow.originalUsername}</p>
                     </div>
