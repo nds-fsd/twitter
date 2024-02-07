@@ -1,10 +1,18 @@
 .container {
-  margin-left: 80%;
+  position: relative;
+  margin-left: 73%;
+}
+.dots {
+  width: 20%;
+  height: 10%;
+  cursor: pointer;
 }
 
 .popOutContainer {
   position: absolute;
-  width: 10%;
-  height: 10%;
+  width: 24%;
+  height: 17%;
   border: 1px solid red;
+  right: 2%;
+  top: 33%;
 }
