@@ -28,6 +28,7 @@
 .popOutContainer > div > img {
   width: 29%;
   height: 7%;
+  cursor: pointer;
 }
 .popOutContainer > div > span {
   font-weight: bold;
