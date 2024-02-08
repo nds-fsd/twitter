@@ -128,7 +128,7 @@ function Meows() {
                           @{meow.authorUsername}
                         </p>
                         {meow.author === userId && (
-                          <div >
+                          <div>
                             <DeleteEditMeow meow={meow} />
                           </div>
                         )}

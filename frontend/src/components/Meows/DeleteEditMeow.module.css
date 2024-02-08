@@ -1,6 +1,9 @@
 .container {
-  position: relative;
   margin-left: 73%;
+  position: relative;
+
+  cursor: pointer;
+  z-index: 5;
 }
 .dots {
   width: 20%;
@@ -38,6 +41,7 @@
 
 .editPopOut {
   position: fixed;
+  z-index: 9;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -81,6 +85,7 @@
 
 .deletePopOut {
   position: fixed;
+  z-index: 9;
   display: flex;
   justify-content: center;
   align-content: center;
