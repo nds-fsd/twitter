@@ -49,25 +49,32 @@
   height: 40%;
   width: 37%;
   border-radius: 2rem;
-  background-color: white;
+  background-color: #222222;
+  border: 4px solid white;
 }
 .editPopOut > textarea {
-  border: 4px solid rgb(226, 183, 183);
+  border: 1px solid rgb(255, 255, 255);
   background-color: black;
   width: 80%;
-  margin-top: 5%;
-  height: 50%;
+
+  height: 124px;
   font-size: 1.2rem;
+  border-radius: 0.5rem;
+  margin-top: 7%;
 }
 .editPopOut > div {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 17%;
 }
 
 .editPopOut > div > button {
   width: 27%;
   height: 61%;
   margin: 5%;
+  color: black;
+  font-weight: bold;
+  background-color: #e94a00;
 }

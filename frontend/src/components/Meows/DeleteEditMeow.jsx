@@ -1,8 +1,10 @@
 import styles from "./DeleteEditMeow.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import options from "../../assets/options.jpg";
 import del from "../../assets/delete.png";
 import edit from "../../assets/edit.png";
+import { meowApi } from "../../functions/apiWrapper";
+import { context } from "../../App.jsx";
 
 const DeleteEditMeow = ({ meow }) => {
   // ---------------------------------------------------------Variables-------------------------------------------------------
@@ -10,8 +12,9 @@ const DeleteEditMeow = ({ meow }) => {
   const [popOut, setPopOut] = useState(false);
   const [editPopOut, setEditPopOut] = useState(false);
   const [deletePopOut, setDeletePopOut] = useState(false);
-  const [meowToEdit, setMeowToEdit] = useState(meow);
+  const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
+  const reload = useContext(context)
 
   // ------------------------------------------------Funciones-------------------------------------------------------------------
 
@@ -35,6 +38,17 @@ const DeleteEditMeow = ({ meow }) => {
     } else {
       setPopOut(false);
       setDeletePopOut(true);
+    }
+  };
+
+  const updateMeow = async () => {
+    try {
+      const res = await meowApi().patch(meow._id, { text: meowToEdit });
+      console.log(res);
+      setEditPopOut(false);
+      reload.setReload(!reload.reload)
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -70,7 +84,7 @@ const DeleteEditMeow = ({ meow }) => {
               handleKeyDown(e);
               setMeowToEdit(e.target.value);
             }}
-            value={meowToEdit.text}
+            value={meowToEdit}
             name="text"
             id="text"
             cols="1"
@@ -78,8 +92,15 @@ const DeleteEditMeow = ({ meow }) => {
             maxLength="300"
           ></textarea>
           <div>
-            <button className={styles.cancelEdit}>Cancel</button>
-            <button className={styles.saveEdit}>Save</button>
+            <button
+              onClick={() => setEditPopOut(false)}
+              className={styles.cancelEdit}
+            >
+              Cancel
+            </button>
+            <button onClick={updateMeow} className={styles.saveEdit}>
+              Save
+            </button>
           </div>
         </div>
       )}
