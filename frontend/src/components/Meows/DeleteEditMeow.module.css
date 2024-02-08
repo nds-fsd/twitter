@@ -10,9 +10,27 @@
 
 .popOutContainer {
   position: absolute;
-  width: 24%;
-  height: 17%;
-  border: 1px solid red;
+  padding: 40%;
+
+  width: 912%;
+  height: 200%;
+  border-radius: 1rem;
   right: 2%;
   top: 33%;
+  background-color: rgb(231, 245, 182);
+}
+
+.popOutContainer > div {
+  display: flex;
+  margin: 4%;
+  margin-bottom: 9%;
+}
+.popOutContainer > div > img {
+  width: 29%;
+  height: 7%;
+}
+.popOutContainer > div > span {
+  font-weight: bold;
+  color: black;
+  font-weight: bold;
 }
