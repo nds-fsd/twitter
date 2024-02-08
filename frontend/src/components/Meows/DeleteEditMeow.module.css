@@ -35,3 +35,39 @@
   color: black;
   font-weight: bold;
 }
+
+.editPopOut {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 40%;
+  width: 37%;
+  border-radius: 2rem;
+  background-color: white;
+}
+.editPopOut > textarea {
+  border: 4px solid rgb(226, 183, 183);
+  background-color: black;
+  width: 80%;
+  margin-top: 5%;
+  height: 50%;
+  font-size: 1.2rem;
+}
+.editPopOut > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editPopOut > div > button {
+  width: 27%;
+  height: 61%;
+  margin: 5%;
+}
