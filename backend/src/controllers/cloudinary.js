@@ -1,27 +1,12 @@
 const cloudinary = require("cloudinary").v2;
 const User = require("../schemas/user");
 require("dotenv").config();
-const Multer = require("multer");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
 });
-
-const storage = new Multer.memoryStorage();
-const upload = Multer({
-  storage,
-}).single("file");
-
-async function handleUpload(file, options) {
-  try {
-    const res = await cloudinary.uploader.upload(file, options);
-    return res;
-  } catch (error) {
-    throw new Error(`Error uploading file to Cloudinary: ${error.message}`);
-  }
-}
 
 const uploadUserProfilePhoto = async (req, res) => {
   const { username } = req.body;
@@ -32,26 +17,26 @@ const uploadUserProfilePhoto = async (req, res) => {
   };
 
   try {
-    upload(req, res, async function (err) {
-      if (err) {
-        return res.status(400).json({ error: err.message });
-      }
-
       const file = req.file;
 
       if (!file) {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
-      const cldRes = await handleUpload(file.buffer, options);
+      const imageAsBase64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+      cloudinary.uploader.upload(imageAsBase64, options, async (error, result) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).json({error: "Couldn't upload photo"});
+        }
 
-      await User.findOneAndUpdate(
-        { username },
-        { userProfilePhoto: cldRes.secure_url },
-        { userProfilePhotoStatus: true }
-      );
+        await User.findOneAndUpdate(
+          { username },
+          { userProfilePhoto: result.secure_url },
+          { userProfilePhotoStatus: true }
+        );
 
-      return res.status(200).json(cldRes);
+        return res.status(200).json(result);
     });
   } catch (error) {
     console.error(error);
