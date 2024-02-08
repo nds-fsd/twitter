@@ -14,7 +14,7 @@ const DeleteEditMeow = ({ meow }) => {
   const [deletePopOut, setDeletePopOut] = useState(false);
   const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
-  const reload = useContext(context)
+  const reload = useContext(context);
 
   // ------------------------------------------------Funciones-------------------------------------------------------------------
 
@@ -46,12 +46,22 @@ const DeleteEditMeow = ({ meow }) => {
       const res = await meowApi().patch(meow._id, { text: meowToEdit });
       console.log(res);
       setEditPopOut(false);
-      reload.setReload(!reload.reload)
+      reload.setReload(!reload.reload);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const deleteMeow = async () => {
+    try {
+      const res = await meowApi().delete(meow._id);
+      console.log(res);
+      setDeletePopOut(false);
+      reload.setReload(!reload.reload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // -------------------------------------------------------------------------------------------------------------------------
 
   return (
@@ -99,8 +109,21 @@ const DeleteEditMeow = ({ meow }) => {
               Cancel
             </button>
             <button onClick={updateMeow} className={styles.saveEdit}>
-              Save
+              Edit
             </button>
+          </div>
+        </div>
+      )}
+      {deletePopOut && (
+        <div className={styles.deletePopOut}>
+          <div>
+            <p>Are you sure?</p>
+            <div className={styles.deleteButtons}>
+              <button onClick={() => setDeletePopOut(false)}>Cancel</button>
+              <button onClick={deleteMeow} style={{ color: "red" }}>
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}

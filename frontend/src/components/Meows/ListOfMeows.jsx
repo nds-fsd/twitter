@@ -128,10 +128,13 @@ function Meows() {
                           @{meow.authorUsername}
                         </p>
                         {meow.author === userId && (
-                          <DeleteEditMeow meow={meow} />
+                          <div >
+                            <DeleteEditMeow meow={meow} />
+                          </div>
                         )}
                       </>
                     )}
+                    {/* style={{ marginLeft: "74%" }} */}
                     {meow.repostedMeowId && (
                       <>
                         <div>
@@ -145,7 +148,7 @@ function Meows() {
                           <p>{meow.originalUsername}</p>
                         </div>
                         {meow.author === userId && (
-                          <div style={{ marginLeft: "74%" }}>
+                          <div>
                             {" "}
                             <DeleteEditMeow meow={meow} />
                           </div>
