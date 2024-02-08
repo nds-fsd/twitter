@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { meowApi } from "../../functions/apiWrapper";
 import styles from "./MeowsFormat.module.css";
-import user from "../../assets/user.png";
 import MessageButton from "../Buttons/MessageButton";
 import LikeButton from "../Buttons/LikeButton.jsx";
 import RepostButton from "../Buttons/RepostButton.jsx";
@@ -10,11 +9,13 @@ import Views from "../Buttons/Views";
 import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
+import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 
 function MeowsInProfile({ username }) {
   const [meows, setMeows] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const photoStyle = "meow";
 
   const navigate = useNavigate();
 
@@ -40,9 +41,12 @@ function MeowsInProfile({ username }) {
       {meows &&
         meows.map((meow) => {
           return (
-            <div className={styles.container}>
+            <div key={meow._id} className={styles.container}>
               <div className={styles.userContainer}>
-                <img src={user} className={styles.imageProfile} />
+                <PhotoUserProfile
+                  photoStyle={photoStyle}
+                  usernamePhoto={username}
+                />
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>
                     <p className={styles.nameSurname}>

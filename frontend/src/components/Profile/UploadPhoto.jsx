@@ -2,7 +2,7 @@ import "./UploadPhoto.module.css";
 import { useState } from "react";
 import { cloudinaryApi } from "../../functions/apiWrapper";
 
-function UploadPhoto() {
+function UploadPhoto({ username }) {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [res, setRes] = useState({});
@@ -19,13 +19,12 @@ function UploadPhoto() {
   const handleUpload = async () => {
     try {
       setLoading(true);
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = async () => {
-        const base64data = reader.result;
-        const res = await cloudinaryApi().post("/", { imagePath: base64data });
-        setRes(res.data);
-      };
+      const data = new FormData();
+      data.append("file", file);
+      data.append("username", username);
+      
+      const res = await cloudinaryApi().post("/", data);
+      setRes(res.data);
     } catch (error) {
       alert(error.message);
     } finally {

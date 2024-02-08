@@ -59,7 +59,7 @@ export const cloudinaryApi = () => {
   return axios.create({
     baseURL: `${BASE_URL}/cloudinary`,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,
     },
   });

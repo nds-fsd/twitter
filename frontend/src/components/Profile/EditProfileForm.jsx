@@ -159,7 +159,7 @@ const EditProfileForm = ({
           )}
         </div>
 
-        <UploadPhoto />
+        <UploadPhoto username={username} />
 
         <div className={styles.inputContainer}>
           <button

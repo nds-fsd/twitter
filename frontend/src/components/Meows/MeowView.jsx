@@ -1,6 +1,5 @@
 import styles from "./MeowView.module.css";
 import general from "./MeowsFormat.module.css";
-import userpic from "../../assets/user.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../Buttons/LikeButton";
@@ -12,9 +11,10 @@ import Views from "../Buttons/Views";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../../functions/apiWrapper";
-import { getUserSession, getUserToken } from "../../functions/localStorage";
+import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft, Repeat2, MessageSquareMore } from "lucide-react";
 import { formatMeowDate } from "../../functions/dateFormat";
+import PhotoUserProfile from "../Profile/PhotoUserProfile";
 
 const MeowView = () => {
   function handleKeyDown(e) {
@@ -34,6 +34,7 @@ const MeowView = () => {
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
+  const photoStyle = "meow";
 
   useEffect(() => {
     const handleResize = () => {
@@ -121,7 +122,10 @@ const MeowView = () => {
           </div>
           <div className={styles.container}>
             <div className={general.userContainer}>
-              <img src={userpic} alt="user" className={general.imageProfile} />
+              <PhotoUserProfile
+                photoStyle={photoStyle}
+                usernamePhoto={parentMeowUsername}
+              />
               <div className={general.infoUserContainer}>
                 <div className={general.userData}>
                   <p
@@ -184,7 +188,10 @@ const MeowView = () => {
             </div>
           </div>
           <div className={styles.replies}>
-            <img src={userpic} alt="" className={general.imageProfile} />
+            <PhotoUserProfile
+              photoStyle={photoStyle}
+              usernamePhoto={username}
+            />
             <textarea
               value={meowReply}
               onChange={(e) => {

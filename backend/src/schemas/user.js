@@ -16,6 +16,10 @@ const userSchema = new Schema({
   meowCounter: { type: Number, default: 0 },
   followingCounter: { type: Number, default: 0 },
   followerCounter: { type: Number, default: 0 },
+  userProfilePhoto: { type: String },
+  userProfilePhotoStatus: { type: Boolean, default: false },
+  backgroundProfilePhoto: { type: String },
+  backgroundProfilePhotoStatus: { type: Boolean, default: false },
 });
 
 userSchema.pre("save", function (next) {

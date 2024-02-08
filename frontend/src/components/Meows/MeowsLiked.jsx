@@ -1,24 +1,25 @@
 import { useState, useEffect, useContext } from "react";
-import styles from "./MeowsFormat.module.css";
 import { meowApi, userApi } from "../../functions/apiWrapper";
-import user from "../../assets/user.png";
+import styles from "./MeowsFormat.module.css";
 import MessageButton from "../Buttons/MessageButton";
 import LikeButton from "../Buttons/LikeButton";
 import RepostButton from "../Buttons/RepostButton.jsx";
 import Bookmark from "../Buttons/BookmarkButton";
 import Views from "../Buttons/Views";
 import ShareButton from "../Buttons/ShareButton";
-import { getUserSession, getUserToken } from "../../functions/localStorage";
+import { getUserSession } from "../../functions/localStorage";
 import Loading from "../../effects/Loading";
 import { useNavigate } from "react-router-dom";
 import { context } from "../../App";
 import { formatMeowDate } from "../../functions/dateFormat";
+import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 
 const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+  const photoStyle = "meow";
 
   const navigate = useNavigate();
 
@@ -28,13 +29,8 @@ const MeowsLiked = () => {
     const getAllMeows = async () => {
       try {
         const { id } = getUserSession();
-        const token = getUserToken();
         setLoading(true);
-        const res = await meowApi().get(`likes/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await meowApi().get(`likes/${id}`);
         setLoading(false);
         const data = res.data;
 
@@ -108,9 +104,12 @@ const MeowsLiked = () => {
       {meows &&
         meows.map((meow) => {
           return (
-            <div className={styles.container}>
+            <div key={meow._id} className={styles.container}>
               <div className={styles.userContainer}>
-                <img src={user} className={styles.imageProfile} />
+                <PhotoUserProfile
+                  photoStyle={photoStyle}
+                  usernamePhoto={meow.authorUsername}
+                />
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>
                     <p
