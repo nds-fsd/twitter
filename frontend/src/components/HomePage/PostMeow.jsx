@@ -42,10 +42,7 @@ function PostForm() {
   return (
     <div className={styles.container}>
       <div className={styles.containerPost}>
-        <PhotoUserProfile
-          photoStyle={photoStyle}
-          usernamePhoto={username}
-        />
+        <PhotoUserProfile photoStyle={photoStyle} usernamePhoto={username} />
         <textarea
           value={newMeow}
           onChange={(e) => {

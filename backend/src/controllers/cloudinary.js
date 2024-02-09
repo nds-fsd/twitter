@@ -17,27 +17,32 @@ const uploadUserProfilePhoto = async (req, res) => {
   };
 
   try {
-      const file = req.file;
+    const userFile = req.file;
 
-      if (!file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
+    if (!userFile) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
 
-      const imageAsBase64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
-      cloudinary.uploader.upload(imageAsBase64, options, async (error, result) => {
+    const imageAsBase64 = `data:${
+      userFile.mimetype
+    };base64,${userFile.buffer.toString("base64")}`;
+    cloudinary.uploader.upload(
+      imageAsBase64,
+      options,
+      async (error, result) => {
         if (error) {
           console.error(error);
-          return res.status(500).json({error: "Couldn't upload photo"});
+          return res.status(500).json({ error: "Couldn't upload photo" });
         }
 
         await User.findOneAndUpdate(
           { username },
-          { userProfilePhoto: result.secure_url },
-          { userProfilePhotoStatus: true }
+          { userProfilePhoto: result.secure_url, userProfilePhotoStatus: true }
         );
 
         return res.status(200).json(result);
-    });
+      }
+    );
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -45,7 +50,7 @@ const uploadUserProfilePhoto = async (req, res) => {
 };
 
 const uploadBackgroundProfilePhoto = async (req, res) => {
-  const { image, username } = req.body;
+  const { username } = req.body;
   const options = {
     overwrite: true,
     folder: "backgroundProfile",
@@ -53,15 +58,37 @@ const uploadBackgroundProfilePhoto = async (req, res) => {
   };
 
   try {
-    const update = await cloudinary.uploader.upload(image, options);
-    await User.findOneAndUpdate(
-      username,
-      { backgroundProfilePhoto: update.secure_url },
-      { backgroundProfilePhotoStatus: true }
+    const backgroundFile = req.file;
+
+    if (!backgroundFile) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const imageAsBase64 = `data:${
+      backgroundFile.mimetype
+    };base64,${backgroundFile.buffer.toString("base64")}`;
+    cloudinary.uploader.upload(
+      imageAsBase64,
+      options,
+      async (error, result) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).json({ error: "Couldn't upload photo" });
+        }
+
+        await User.findOneAndUpdate(
+          { username },
+          {
+            backgroundProfilePhoto: result.secure_url,
+            backgroundProfilePhotoStatus: true,
+          }
+        );
+        return res.status(200).json(result);
+      }
     );
-    return res.status(200);
   } catch (error) {
     console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

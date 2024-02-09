@@ -5,7 +5,6 @@ import { userApi } from "../../functions/apiWrapper.js";
 
 function PhotoUserProfile({ photoStyle, usernamePhoto }) {
   const [userProfilePhoto, setUserProfilePhoto] = useState("");
-  const [userProfilePhotoStatus, setUserProfilePhotoStatus] = useState("");
 
   const { username: urlUsername } = useParams();
   const targetUsername = usernamePhoto ? usernamePhoto : urlUsername;
@@ -16,7 +15,6 @@ function PhotoUserProfile({ photoStyle, usernamePhoto }) {
       .then((response) => {
         const user = response.data;
         setUserProfilePhoto(user.userProfilePhoto);
-        setUserProfilePhotoStatus(user.userProfilePhotoStatus);
       })
       .catch((error) => {
         console.error(error);
@@ -33,23 +31,7 @@ function PhotoUserProfile({ photoStyle, usernamePhoto }) {
   }
 
   return (
-    <>
-      {userProfilePhotoStatus ? (
-        <img
-          src={userProfilePhoto}
-          alt="userProfilePhoto"
-          className={className}
-        />
-      ) : (
-        <img
-          src={
-            "https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707388880/code/defaultUserProfile.jpg"
-          }
-          alt="userProfilePhoto"
-          className={className}
-        />
-      )}
-    </>
+    <img src={userProfilePhoto} alt="userProfilePhoto" className={className} />
   );
 }
 

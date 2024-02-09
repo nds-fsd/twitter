@@ -5,16 +5,17 @@ const { consoleLogType, validateToken } = require("../middlewares/index");
 const upload = require("multer")();
 
 router.post(
-  "/",
+  "/profile/",
   consoleLogType,
   validateToken,
-  upload.single('file'),
+  upload.single('userFile'),
   cloudinaryController.uploadUserProfilePhoto
 );
 router.post(
-  "/",
+  "/background/",
   consoleLogType,
   validateToken,
+  upload.single('backgroundFile'),
   cloudinaryController.uploadBackgroundProfilePhoto
 );
 router.delete(
