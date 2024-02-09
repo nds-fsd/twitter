@@ -1,38 +1,29 @@
 import styles from "./UploadPhoto.module.css";
 import { useState } from "react";
 import { cloudinaryApi } from "../../functions/apiWrapper";
+import Loading from "../../effects/Loading";
 
 function UploadUserProfilePhoto({ username }) {
-  const [userFile, setUserFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleSelectUserFile = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile || !selectedFile.type.startsWith("image/")) {
-      alert("Please select a valid image file.");
-      return;
-    }
-    setUserFile(selectedFile);
-  };
-
-  const handleUploadUser = async () => {
+  const handleUploadUser = async (e) => {
     try {
+      setIsUploading(true);
       const data = new FormData();
-      data.append("userFile", userFile);
+      data.append("userFile", e.target.files[0]);
       data.append("username", username);
 
       await cloudinaryApi().post("/profile/", data);
+      setIsUploading(false);
     } catch (error) {
+      setIsUploading(false);
       alert(error.message);
     }
   };
   return (
     <div className={styles.button}>
-      {userFile ? (
-        <>
-          <button onClick={handleUploadUser} className={styles.upload}>
-            Upload
-          </button>
-        </>
+      {isUploading ? (
+        <Loading />
       ) : (
         <>
           <label htmlFor="userFile" className={styles.upload}>
@@ -41,7 +32,7 @@ function UploadUserProfilePhoto({ username }) {
           <input
             id="userFile"
             type="file"
-            onChange={handleSelectUserFile}
+            onChange={handleUploadUser}
             multiple={false}
           />
         </>

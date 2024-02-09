@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./FollowButton.module.css";
 import { followApi } from "../../functions/apiWrapper";
-import { getUserToken } from "../../functions/localStorage";
 import { context } from "../../App";
 
 const FollowButton = ({ username }) => {
@@ -12,16 +11,7 @@ const FollowButton = ({ username }) => {
   useEffect(() => {
     const fetchFollowStatus = async () => {
       try {
-        const token = getUserToken();
-
-        if (!token) {
-          console.error("Token is not defined");
-          return;
-        }
-
-        const response = await followApi().get(`/${username}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await followApi().get(`/${username}`);
 
         if (response.status === 200) {
           setIsFollowing(response.data.isFollowing);
@@ -39,18 +29,7 @@ const FollowButton = ({ username }) => {
   const handleFollow = async () => {
     setIsLoading(true);
     try {
-      const token = getUserToken();
-
-      if (!token) {
-        console.error("Token is not defined");
-        return;
-      }
-
-      const response = await followApi().post(
-        `/`,
-        { username },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await followApi().post(`/`, { username });
 
       if (response.status === 200) {
         setIsFollowing(true);
@@ -68,16 +47,8 @@ const FollowButton = ({ username }) => {
   const handleUnfollow = async () => {
     setIsLoading(true);
     try {
-      const token = getUserToken();
-
-      if (!token) {
-        console.error("Token is not defined");
-        return;
-      }
-
       const response = await followApi().delete(`/`, {
         data: { username },
-        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.status === 200) {

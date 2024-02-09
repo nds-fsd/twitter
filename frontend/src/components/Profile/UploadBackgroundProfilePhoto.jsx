@@ -1,38 +1,29 @@
 import styles from "./UploadPhoto.module.css";
 import { useState } from "react";
 import { cloudinaryApi } from "../../functions/apiWrapper";
+import Loading from "../../effects/Loading";
 
 function UploadBackgroundProfilePhoto({ username }) {
-  const [backgroundFile, setBackgroundFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleSelectBackgroundFile = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile || !selectedFile.type.startsWith("image/")) {
-      alert("Please select a valid image file.");
-      return;
-    }
-    setBackgroundFile(selectedFile);
-  };
-
-  const handleUploadBackground = async () => {
+  const handleUploadBackground = async (e) => {
     try {
+      setIsUploading(true);
       const data = new FormData();
-      data.append("backgroundFile", backgroundFile);
+      data.append("backgroundFile", e.target.files[0]);
       data.append("username", username);
 
       await cloudinaryApi().post("/background/", data);
+      setIsUploading(false);
     } catch (error) {
+      setIsUploading(false);
       alert(error.message);
     }
   };
   return (
     <div className={styles.button}>
-      {backgroundFile ? (
-        <>
-          <button onClick={handleUploadBackground} className={styles.upload}>
-            Upload
-          </button>
-        </>
+      {isUploading ? (
+        <Loading />
       ) : (
         <>
           <label htmlFor="backgroundFile" className={styles.upload}>
@@ -41,7 +32,7 @@ function UploadBackgroundProfilePhoto({ username }) {
           <input
             id="backgroundFile"
             type="file"
-            onChange={handleSelectBackgroundFile}
+            onChange={handleUploadBackground}
             multiple={false}
           />
         </>
