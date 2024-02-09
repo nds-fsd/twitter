@@ -1,12 +1,13 @@
 .container {
-  margin-left: 73%;
   position: relative;
+  width: fit-content;
+  height: fit-content;
   cursor: pointer;
   z-index: 5;
 }
 .dots {
-  width: 20%;
-  height: 10%;
+  width: 2%;
+  height: 2%;
   cursor: pointer;
 }
 
