@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.viewContainer {
+  width: 100%;
+  color: rgb(255, 255, 255);
+}
+.firstContainer {
+  height: 8%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.backContainer {
+  display: flex;
+  height: 8%;
+  background-color: black;
+  position: fixed;
+  width: 50%;
+  z-index: 1;
+  width: fit-content;
+}
+
+.back {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  padding-left: 20px;
+}
+
+.back > img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.back > p {
+  font-size: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  padding: 2.5%;
+  border-top: 1px solid rgb(44, 44, 44);
+  border-bottom: 1px solid rgb(44, 44, 44);
+  margin: 70px 0 20px 0;
+}
+
+.statsSpanSmallScreen {
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.replies {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.5% 15px 2.5%;
+  border-bottom: 1px solid #2f2f2f;
+}
+
+.textarea {
+  width: 80%;
+  background-color: black;
+  border: none;
+  padding: 1%;
+}
+
+.textarea:active {
+  border: 1px solid #2f2f2f;
+}
+
+.textarea::placeholder {
+  color: #2f2f2f;
+  font-family: var(--main-font);
+  font-size: 15px;
+}
+
+.replyButton {  
+  background-color: var(--main-color);
+  border: solid 1px var(--main-color);
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-weight: lighter;
+  font-size: 15px;
+  height: fit-content;
+  margin-left: 2%;
+  padding: 7px 15px;
+  width: fit-content;
+}

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styles from "./LikeButton.module.css";
-import { likeApi } from "../functions/apiWrapper";
+import styles from "./IconButton.module.css";
+import { likeApi } from "../../functions/apiWrapper";
+import { Heart } from "lucide-react";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 const LikeButton = ({ meow }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -72,12 +75,17 @@ const LikeButton = ({ meow }) => {
   };
 
   return (
-    <>
-      <span>{likeCounter}</span>
+    <div
+      className={styles.iconsContainer}
+      data-tooltip-id="Likes"
+      data-tooltip-content="Likes"
+      data-tooltip-place="top"
+    >
+      <p className={styles.buttonsText}>{likeCounter}</p>
       <button
         id="likeButton"
         type="button"
-        className={styles.likeButton}
+        className={styles.iconButton}
         onClick={() => {
           if (isLiked) {
             handleUnlike();
@@ -87,9 +95,14 @@ const LikeButton = ({ meow }) => {
         }}
         disabled={isLoading}
       >
-        {isLiked ? "💔" : "❤️"}
+        {isLiked ? (
+          <Heart color="grey" fill="#f67b7b" strokeWidth={1} size={20} />
+        ) : (
+          <Heart color="grey" size={20} />
+        )}
+        <Tooltip id="Likes" />
       </button>
-    </>
+    </div>
   );
 };
 

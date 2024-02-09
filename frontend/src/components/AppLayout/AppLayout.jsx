@@ -1,8 +1,7 @@
 import Navbar from "./Navbar";
-import Hashtag from "./Hashtags";
 import WhoToFollow from "./WhoToFollow";
 import styles from "./AppLayout.module.css";
-import Buscador from "./Buscador";
+import SearchBar from "./SearchBar";
 
 function AppLayout({ children }) {
   return (
@@ -14,9 +13,8 @@ function AppLayout({ children }) {
           </div>
           <div>{children}</div>
           <div className={styles.right}>
-            <Buscador />
+            <SearchBar />
             <WhoToFollow />
-            {/* <Hashtag /> */}
           </div>
         </div>
       </div>

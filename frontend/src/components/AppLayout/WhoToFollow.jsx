@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./WhoToFollow.module.css";
-import image from "../assets/user.png";
-import FollowButton from "./FollowButton";
-import { userApi } from "../functions/apiWrapper";
-import { getUserSession } from "../functions/localStorage";
+import image from "../../assets/user.png";
+import FollowButton from "../Buttons/FollowButton";
+import { userApi } from "../../functions/apiWrapper";
+import { getUserSession } from "../../functions/localStorage";
 import { useNavigate } from "react-router-dom";
-import { context } from "../App";
+import { context } from "../../App";
 
 const WhoToFollow = () => {
   const [usersToFollow, setUsersToFollow] = useState([]);

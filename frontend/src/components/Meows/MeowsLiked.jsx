@@ -1,13 +1,18 @@
 import { useState, useEffect, useContext } from "react";
-import styles from "../pages/Meows.module.css";
-import { meowApi, userApi } from "../functions/apiWrapper";
-import user from "../assets/user.png";
-import LikeButton from "./LikeButton";
-import { getUserSession, getUserToken } from "../functions/localStorage";
-import Loading from "../effects/Loading";
+import styles from "./MeowsFormat.module.css";
+import { meowApi, userApi } from "../../functions/apiWrapper";
+import user from "../../assets/user.png";
+import MessageButton from "../Buttons/MessageButton";
+import LikeButton from "../Buttons/LikeButton";
+import RepostButton from "../Buttons/RepostButton.jsx";
+import Bookmark from "../Buttons/BookmarkButton";
+import Views from "../Buttons/Views";
+import ShareButton from "../Buttons/ShareButton";
+import { getUserSession, getUserToken } from "../../functions/localStorage";
+import Loading from "../../effects/Loading";
 import { useNavigate } from "react-router-dom";
-import { context } from "../App";
-import { formatMeowDate } from "../functions/dateFormat";
+import { context } from "../../App";
+import { formatMeowDate } from "../../functions/dateFormat";
 
 const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
@@ -105,17 +110,24 @@ const MeowsLiked = () => {
           return (
             <div className={styles.container}>
               <div className={styles.userContainer}>
-                <img src={user} />
-                <p
-                  onClick={() => {
-                    navigate("/user/" + meow.authorUsername);
-                    reload.setReload(!reload.reload);
-                  }}
-                  className={styles.nameSurname}
-                >
-                  {meow.nameAuthor} {meow.surnameAuthor}
-                </p>
-                <p className={styles.username}>@{meow.authorUsername}</p>
+                <img src={user} className={styles.imageProfile} />
+                <div className={styles.infoUserContainer}>
+                  <div className={styles.userData}>
+                    <p
+                      onClick={() => {
+                        navigate("/user/" + meow.authorUsername);
+                        reload.setReload(!reload.reload);
+                      }}
+                      className={styles.nameSurname}
+                    >
+                      {meow.nameAuthor} {meow.surnameAuthor}
+                    </p>
+                    <p className={styles.username}>@{meow.authorUsername}</p>
+                  </div>
+                  <div>
+                    <p className={styles.dateFormat}>{meow.date}</p>
+                  </div>
+                </div>
               </div>
               <div
                 onClick={(e) => {
@@ -126,12 +138,14 @@ const MeowsLiked = () => {
                 className={styles.postContainer}
               >
                 <p>{meow.text}</p>
-                <div className={styles.likesContainer}>
-                  <p>
-                    <LikeButton meow={meow} />
-                  </p>
-                  <p>{meow.date}</p>
-                </div>
+              </div>
+              <div className={styles.iconsContainer}>
+                <MessageButton />
+                <LikeButton meow={meow} />
+                <RepostButton meow={meow} />
+                <Bookmark />
+                <Views />
+                <ShareButton />
               </div>
             </div>
           );

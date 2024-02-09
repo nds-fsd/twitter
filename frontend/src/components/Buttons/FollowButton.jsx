@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./FollowButton.module.css";
-import { followApi } from "../functions/apiWrapper";
-import { getUserToken } from "../functions/localStorage";
-import { context } from "../App";
+import { followApi } from "../../functions/apiWrapper";
+import { getUserToken } from "../../functions/localStorage";
+import { context } from "../../App";
 
 const FollowButton = ({ username }) => {
   const [isFollowing, setIsFollowing] = useState(false);

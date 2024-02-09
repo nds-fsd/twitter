@@ -1,6 +1,6 @@
-import styles from "./Buscador.module.css";
+import styles from "./SearchBar.module.css";
 
-function Buscador() {
+function SearchBar() {
   return (
     <div className={styles.search}>
       <input
@@ -12,4 +12,4 @@ function Buscador() {
   );
 }
 
-export default Buscador;
+export default SearchBar;
