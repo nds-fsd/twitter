@@ -1,7 +1,6 @@
 .container {
   margin-left: 73%;
   position: relative;
-
   cursor: pointer;
   z-index: 5;
 }

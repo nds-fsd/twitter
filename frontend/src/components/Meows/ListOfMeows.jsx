@@ -20,9 +20,7 @@ function Meows() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
-
   const navigate = useNavigate();
-
   const reload = useContext(context);
 
   useEffect(() => {
@@ -128,13 +126,17 @@ function Meows() {
                           @{meow.authorUsername}
                         </p>
                         {meow.author === userId && (
-                          <div>
-                            <DeleteEditMeow meow={meow} />
+                          <div style={{ marginLeft: "70%" }}>
+                            <DeleteEditMeow
+                              meow={meow}
+                              meows={meows}
+                              setMeows={setMeows}
+                            />
                           </div>
                         )}
                       </>
                     )}
-                    {/* style={{ marginLeft: "74%" }} */}
+
                     {meow.repostedMeowId && (
                       <>
                         <div>
@@ -148,8 +150,7 @@ function Meows() {
                           <p>{meow.originalUsername}</p>
                         </div>
                         {meow.author === userId && (
-                          <div>
-                            {" "}
+                          <div style={{ marginLeft: "73%" }}>
                             <DeleteEditMeow meow={meow} />
                           </div>
                         )}
