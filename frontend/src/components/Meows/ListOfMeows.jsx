@@ -1,12 +1,15 @@
 import { useState, useContext, useEffect } from "react";
 import { meowApi, userApi } from "../../functions/apiWrapper.js";
-import styles from "./ListOfMeows.module.css";
+import styles from "./MeowsFormat.module.css";
 import user from "../../assets/user.png";
 import Loading from "../../effects/Loading.jsx";
 import { context } from "../../App.jsx";
 import { getUserToken, getUserSession } from "../../functions/localStorage.js";
 import LikeButton from "../Buttons/LikeButton.jsx";
-import RepostMeow from "./RepostMeow.jsx";
+import RepostButton from "../Buttons/RepostButton.jsx";
+import Bookmark from "../Buttons/BookmarkButton";
+import Views from "../Buttons/Views";
+import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
@@ -94,7 +97,7 @@ function Meows() {
   if (error)
     return (
       <div style={{ fontSize: "40px" }}>
-        Ops, something went wrong!
+        Oops, something went wrong!
         <p style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
           {errorMessage}
         </p>

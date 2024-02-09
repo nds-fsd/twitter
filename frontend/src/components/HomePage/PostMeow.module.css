@@ -1,9 +1,3 @@
-:root {
-  --sections-color: #222222;
-  --sections-hover: #2f2f2f;
-  --main-color: #ff5200;
-}
-
 .container {
   display: flex;
   align-items: center;
@@ -15,7 +9,7 @@
   border-bottom: 1px solid var(--sections-hover);
   display: flex;
   gap: 20px;
-  padding: 20px;
+  padding: 2.5%;
   width: 95%;
 }
 
@@ -37,7 +31,7 @@
   color: white;
   border: transparent;
   font-size: 17px;
-  width: 700px;
+  width: 100%;
 }
 
 .containerButtons {
