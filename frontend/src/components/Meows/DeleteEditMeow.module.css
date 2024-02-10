@@ -14,9 +14,10 @@
 
 .popOutContainer {
   position: absolute;
+
   padding: 40%;
 
-  width: 274%;
+  width: 223%;
   height: 178%;
   border-radius: 1rem;
   right: 2%;
