@@ -111,14 +111,17 @@ function Meows() {
             <div key={meow._id} className={styles.container}>
               <div className={styles.userContainer}>
                 <img src={user} className={styles.imageProfile} />
+
                 {!meow.repostedMeowId && (
                   <div className={styles.infoUserContainer}>
-                    {/* <DeleteEditMeow
-                      meow={meow}
-                      meows={meows}
-                      setMeows={setMeows}
-                    /> */}
+                    {/* -------------------------------------------------------------------------------------
+                    ------------------------------------------------------------------------------------- */}
                     <div className={styles.userData}>
+                      <DeleteEditMeow
+                        meow={meow}
+                        meows={meows}
+                        setMeows={setMeows}
+                      />
                       <p
                         onClick={() => {
                           navigate("/user/" + meow.authorUsername);
@@ -130,6 +133,9 @@ function Meows() {
                       </p>
                       <p className={styles.username}>@{meow.authorUsername}</p>
                     </div>
+                    {/* ------------------------------------------------------------------------------
+                    ------------------------------------------------------------------------------ */}
+
                     <div>
                       <p className={styles.dateFormat}>{meow.date}</p>
                     </div>
