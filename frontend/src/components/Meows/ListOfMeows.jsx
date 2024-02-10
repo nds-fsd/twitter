@@ -4,7 +4,7 @@ import styles from "./MeowsFormat.module.css";
 import user from "../../assets/user.png";
 import Loading from "../../effects/Loading.jsx";
 import { context } from "../../App.jsx";
-import { getUserToken } from "../../functions/localStorage.js";
+import { getUserToken, getUserSession } from "../../functions/localStorage.js";
 import MessageButton from "../Buttons/MessageButton";
 import LikeButton from "../Buttons/LikeButton.jsx";
 import RepostButton from "../Buttons/RepostButton.jsx";
@@ -20,6 +20,8 @@ function Meows() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+  const { id } = getUserSession();
+  const userId = id;
 
   const navigate = useNavigate();
 
@@ -114,14 +116,14 @@ function Meows() {
 
                 {!meow.repostedMeowId && (
                   <div className={styles.infoUserContainer}>
-                    {/* -------------------------------------------------------------------------------------
-                    ------------------------------------------------------------------------------------- */}
                     <div className={styles.userData}>
-                      <DeleteEditMeow
-                        meow={meow}
-                        meows={meows}
-                        setMeows={setMeows}
-                      />
+                      {meow.author === userId && (
+                        <DeleteEditMeow
+                          meow={meow}
+                          meows={meows}
+                          setMeows={setMeows}
+                        />
+                      )}
                       <p
                         onClick={() => {
                           navigate("/user/" + meow.authorUsername);
@@ -133,8 +135,6 @@ function Meows() {
                       </p>
                       <p className={styles.username}>@{meow.authorUsername}</p>
                     </div>
-                    {/* ------------------------------------------------------------------------------
-                    ------------------------------------------------------------------------------ */}
 
                     <div>
                       <p className={styles.dateFormat}>{meow.date}</p>
