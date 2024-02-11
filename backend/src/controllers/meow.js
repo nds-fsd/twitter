@@ -225,8 +225,6 @@ const deleteMeow = async (req, res) => {
     const userId = req.jwtPayload.id;
     const meowFound = await Meow.findById(id);
 
-    console.log(userId);
-
     if (meowFound) {
       await Meow.findByIdAndDelete(id);
       await User.updateOne({ _id: userId }, { $inc: { meowCounter: -1 } });
