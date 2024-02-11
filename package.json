@@ -31,6 +31,8 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.18",
     "@mui/x-date-pickers": "^6.18.2",
+    "@tanstack/react-query": "^5.20.1",
+    "@tanstack/react-query-devtools": "^5.20.1",
     "axios": "^1.6.2",
     "cypress": "^13.6.3",
     "date-fns": "^2.30.0",
@@ -44,6 +46,7 @@
     "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.21.1",
     "rsuite": "^5.51.0"
   }

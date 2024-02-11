@@ -3,7 +3,6 @@ import { meowApi, userApi } from "../../functions/apiWrapper.js";
 import styles from "./MeowsFormat.module.css";
 import user from "../../assets/user.png";
 import Loading from "../../effects/Loading.jsx";
-import { context } from "../../App.jsx";
 import { getUserToken, getUserSession } from "../../functions/localStorage.js";
 import MessageButton from "../Buttons/MessageButton";
 import LikeButton from "../Buttons/LikeButton.jsx";
@@ -14,6 +13,7 @@ import ShareButton from "../Buttons/ShareButton";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
+import { meowContext } from "../HomePage/HomePage.jsx";
 
 function Meows() {
   const [meows, setMeows] = useState("");
@@ -21,11 +21,23 @@ function Meows() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
   const { id } = getUserSession();
+  const context = useContext(meowContext);
+  const newMeow = context.newMeow;
+
   const userId = id;
 
   const navigate = useNavigate();
 
   const reload = useContext(context);
+
+  useEffect(() => {
+    const fetchNewTweetDetails = () => {
+      setMeows((prevMeows) => [newMeow, ...prevMeows]);
+      console.log("hola");
+
+      fetchNewTweetDetails();
+    };
+  }, []);
 
   useEffect(() => {
     const getAllMeows = async () => {
@@ -91,7 +103,12 @@ function Meows() {
       }
     };
     getAllMeows();
-  }, [reload.reload]);
+  }, []);
+  useEffect(() => {
+    if (newMeow) {
+      setMeows((prevMeows) => [newMeow.meowToSave, ...prevMeows]);
+    }
+  }, [newMeow]);
 
   if (loading) return <Loading />;
 

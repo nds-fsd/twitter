@@ -4,13 +4,13 @@ import Swal from "sweetalert2";
 import { getUserToken } from "../../functions/localStorage.js";
 import { meowApi } from "../../functions/apiWrapper.js";
 import { useContext, useState } from "react";
-import { context } from "../../App.jsx";
+import { meowContext } from "./HomePage.jsx";
 
 function PostForm() {
   const [newMeow, setNewMeow] = useState("");
   const [error, setError] = useState(false);
   const token = getUserToken();
-  const reload = useContext(context);
+  const context = useContext(meowContext);
 
   function handleKeyDown(e) {
     e.target.style.height = "inherit";
@@ -28,8 +28,10 @@ function PostForm() {
           },
         }
       );
+      context.setNewMeow(res.data);
       setNewMeow("");
-      reload.setReload(!reload.reload);
+
+      // reload.setReload(!reload.reload);
     } catch (err) {
       setError(true);
     }

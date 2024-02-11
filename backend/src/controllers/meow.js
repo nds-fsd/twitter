@@ -165,7 +165,7 @@ const createMeow = async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: "Meow created successfully", meowId: meowToSave._id });
+      .json({ message: "Meow created successfully", meowToSave });
   } catch (error) {
     return res.status(400).json(error.message);
   }
