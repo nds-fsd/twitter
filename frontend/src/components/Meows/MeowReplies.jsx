@@ -13,7 +13,7 @@ const MeowReplies = ({ allMeowReplies, setAllMeowReplies }) => {
       {meowsToShow && (
         <div className={styles.bigContainer}>
           {meowsToShow.map((meow) => (
-            <div key={meow._id} className={styles.container}>
+            <div key={meow._id || meow.text} className={styles.container}>
               <div className={styles.userContainer}>
                 <img src={user} alt="user" className={styles.imageProfile} />
                 <DeleteEditMeow
@@ -40,7 +40,7 @@ const MeowReplies = ({ allMeowReplies, setAllMeowReplies }) => {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsReplyContainer}>
-                <LikeButton meow={meow} />
+                {meow._id && <LikeButton meow={meow} />}
               </div>
             </div>
           ))}

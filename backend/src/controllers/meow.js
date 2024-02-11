@@ -24,7 +24,7 @@ const getFeedMeows = async (req, res) => {
 
     meowsToSend.sort((a, b) => a.date - b.date);
 
-   const meowsWithOriginalAuthors = await Promise.all(
+    const meowsWithOriginalAuthors = await Promise.all(
       meowsToSend.map(async (meow) => {
         if (meow.repostedMeowId) {
           const originalMeow = await Meow.findById(meow.repostedMeowId);
@@ -132,7 +132,7 @@ const getMeowReplies = async (req, res) => {
       });
       return res.status(200).json(meowRepliesWithUsernames.reverse());
     } else {
-      return res.status(404).json({
+      return res.status(204).json({
         message: "No replies found.",
       });
     }

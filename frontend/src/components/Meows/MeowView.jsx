@@ -28,6 +28,7 @@ const MeowView = () => {
   const { username, name, surname } = getUserSession();
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
+  const [reloadReplies, setReloadReplies] = useState(false);
   const [parentMeowUsername, setParentMeowUsername] = useState("");
   const [parentMeowName, setParentMeowName] = useState("");
   const [parentMeowSurname, setParentMeowSurname] = useState("");
@@ -76,7 +77,7 @@ const MeowView = () => {
       }
     };
     getReplies();
-  }, [allMeowReplies]);
+  }, [reloadReplies]);
 
   const postReply = async () => {
     const newReply = {
@@ -102,6 +103,7 @@ const MeowView = () => {
 
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
+      setReloadReplies(!reloadReplies);
     } catch (err) {
       console.error(err);
     }
