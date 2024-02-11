@@ -1,6 +1,5 @@
 import styles from "./MeowView.module.css";
 import general from "./MeowsFormat.module.css";
-import userpic from "../../assets/user.png";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import LikeButton from "../Buttons/LikeButton";
@@ -13,6 +12,7 @@ import { meowApi } from "../../functions/apiWrapper";
 import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft, Repeat2, MessageSquareMore } from "lucide-react";
 import { formatMeowDate } from "../../functions/dateFormat";
+import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import { handleResize } from "../../functions/responsiveFunctions";
 
 const MeowView = () => {
@@ -33,6 +33,7 @@ const MeowView = () => {
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
+  const photoStyle = "meow";
 
   useEffect(() => {
     const cleanup = handleResize(setPantallaPequena);
@@ -111,7 +112,10 @@ const MeowView = () => {
           </div>
           <div className={styles.container}>
             <div className={general.userContainer}>
-              <img src={userpic} alt="user" className={general.imageProfile} />
+              <PhotoUserProfile
+                photoStyle={photoStyle}
+                usernamePhoto={parentMeowUsername}
+              />
               <div className={general.infoUserContainer}>
                 <div className={general.userData}>
                   <p
@@ -174,7 +178,10 @@ const MeowView = () => {
             </div>
           </div>
           <div className={styles.replies}>
-            <img src={userpic} alt="" className={general.imageProfile} />
+            <PhotoUserProfile
+              photoStyle={photoStyle}
+              usernamePhoto={username}
+            />
             <textarea
               value={meowReply}
               onChange={(e) => {

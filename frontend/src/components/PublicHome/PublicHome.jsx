@@ -1,5 +1,4 @@
 import styles from "./PublicHome.module.css";
-import Cat from "../../assets/Cat.png";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import { useState } from "react";
@@ -44,7 +43,12 @@ const PublicHome = ({ reloadPage }) => {
           backgroundColor: popUpRegister || popUpLogin ? "grey" : "black",
         }}
       >
-        <img className={styles.logo} src={Cat} />
+        <img
+          className={styles.logo}
+          src={
+            "https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707355087/cat.png"
+          }
+        />
 
         <div className={styles.right}>
           <h1>Happening now</h1>

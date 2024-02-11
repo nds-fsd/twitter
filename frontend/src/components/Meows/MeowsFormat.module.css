@@ -20,13 +20,6 @@
   align-items: center;
 }
 
-.imageProfile {
-  width: 30px;
-  height: 30px;
-  border-radius: 20px;
-  margin-right: 15px;
-}
-
 .infoUserContainer {
   align-items: center;
   display: flex;

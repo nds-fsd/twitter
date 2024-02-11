@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { meowApi, userApi } from "../../functions/apiWrapper.js";
 import styles from "./MeowsFormat.module.css";
-import user from "../../assets/user.png";
 import Loading from "../../effects/Loading.jsx";
 import { getUserToken, getUserSession } from "../../functions/localStorage.js";
 import MessageButton from "../Buttons/MessageButton";
@@ -16,12 +15,14 @@ import { formatMeowDate } from "../../functions/dateFormat.js";
 import { meowContext } from "../HomePage/HomePage.jsx";
 import { context } from "../../App";
 import { updateMeowsWithNewMeow } from "../../functions/addNewMeow.js";
+import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+  const photoStyle = "meow";
   const { id } = getUserSession();
   const mContext = useContext(meowContext);
   const reload = useContext(context);
@@ -35,13 +36,8 @@ function Meows() {
   useEffect(() => {
     const getAllMeows = async () => {
       try {
-        const token = getUserToken();
         setLoading(true);
-        const res = await meowApi().get("/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await meowApi().get("/");
         setLoading(false);
         const data = res.data;
         setMeows(data.reverse());
@@ -164,7 +160,7 @@ function Meows() {
                           }}
                           className={styles.nameSurname}
                         >
-                          Name
+                          {meow.nameAuthor} {meow.surnameAuthor}
                         </p>
                         <p className={styles.username}>
                           @{meow.originalUsername}

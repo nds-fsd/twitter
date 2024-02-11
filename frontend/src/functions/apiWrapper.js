@@ -53,3 +53,14 @@ export const likeApi = () => {
     },
   });
 };
+
+export const cloudinaryApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/cloudinary`,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

@@ -1,12 +1,14 @@
 import styles from "./MeowsFormat.module.css";
 import LikeButton from "../Buttons/LikeButton";
-import user from "../../assets/user.png";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
+import PhotoUserProfile from "../Profile/PhotoUserProfile";
+
 import DeleteEditMeow from "./DeleteEditMeow";
 const MeowReplies = ({ allMeowReplies, setAllMeowReplies }) => {
   const navigate = useNavigate();
   const meowsToShow = allMeowReplies.map((meow) => formatMeowDate(meow));
+  const photoStyle = "meow";
 
   return (
     <>
@@ -15,7 +17,10 @@ const MeowReplies = ({ allMeowReplies, setAllMeowReplies }) => {
           {meowsToShow.map((meow) => (
             <div key={meow._id || meow.text} className={styles.container}>
               <div className={styles.userContainer}>
-                <img src={user} alt="user" className={styles.imageProfile} />
+                <PhotoUserProfile
+                  photoStyle={photoStyle}
+                  usernamePhoto={meow.authorUsername}
+                />
                 <DeleteEditMeow
                   meow={meow}
                   meows={allMeowReplies}

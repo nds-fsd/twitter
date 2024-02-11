@@ -1,33 +1,25 @@
 import styles from "./PostMeow.module.css";
-import image from "../../assets/user.png";
 import Swal from "sweetalert2";
-import { getUserToken } from "../../functions/localStorage.js";
 import { meowApi } from "../../functions/apiWrapper.js";
 import { useContext, useState } from "react";
-import { meowContext } from "./HomePage.jsx";
+import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
+import { getUserSession } from "../../functions/localStorage.js";
+
+import { context } from "../../App.jsx";
 
 function PostForm() {
   const [newMeow, setNewMeow] = useState("");
   const [error, setError] = useState(false);
-  const token = getUserToken();
   const context = useContext(meowContext);
-
-  function handleKeyDown(e) {
-    e.target.style.height = "inherit";
-    e.target.style.height = `${e.target.scrollHeight}px`;
-  }
+  const photoStyle = "component";
+  const { username } = getUserSession();
 
   const postNewMeow = async () => {
     try {
-      const res = await meowApi().post(
-        "/",
-        { meow: newMeow, date: Date.now() },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await meowApi().post("/", {
+        meow: newMeow,
+        date: Date.now(),
+      });
       console.log(res.data);
       context.setNewMeow(res.data.meowToSave);
       setNewMeow("");
@@ -49,7 +41,7 @@ function PostForm() {
   return (
     <div className={styles.container}>
       <div className={styles.containerPost}>
-        <img className={styles.accountImage} src={image} alt="Profile Photo" />
+        <PhotoUserProfile photoStyle={photoStyle} usernamePhoto={username} />
         <textarea
           value={newMeow}
           onChange={(e) => {
