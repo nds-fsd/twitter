@@ -28,7 +28,8 @@ function PostForm() {
           },
         }
       );
-      context.setNewMeow(res.data);
+      console.log(res.data);
+      context.setNewMeow(res.data.meowToSave);
       setNewMeow("");
 
       // reload.setReload(!reload.reload);

@@ -14,6 +14,7 @@ import DeleteEditMeow from "./DeleteEditMeow.jsx";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
 import { meowContext } from "../HomePage/HomePage.jsx";
+import { updateMeowsWithNewMeow } from "../../functions/addNewMeow.js";
 
 function Meows() {
   const [meows, setMeows] = useState("");
@@ -105,9 +106,7 @@ function Meows() {
     getAllMeows();
   }, []);
   useEffect(() => {
-    if (newMeow) {
-      setMeows((prevMeows) => [newMeow.meowToSave, ...prevMeows]);
-    }
+    setMeows((prevMeows) => updateMeowsWithNewMeow(prevMeows, newMeow));
   }, [newMeow]);
 
   if (loading) return <Loading />;
