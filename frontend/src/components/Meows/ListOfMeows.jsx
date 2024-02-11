@@ -32,15 +32,6 @@ function Meows() {
   const reload = useContext(context);
 
   useEffect(() => {
-    const fetchNewTweetDetails = () => {
-      setMeows((prevMeows) => [newMeow, ...prevMeows]);
-      console.log("hola");
-
-      fetchNewTweetDetails();
-    };
-  }, []);
-
-  useEffect(() => {
     const getAllMeows = async () => {
       try {
         const token = getUserToken();
