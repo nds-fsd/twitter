@@ -4,8 +4,7 @@ import { meowApi } from "../../functions/apiWrapper.js";
 import { useContext, useState } from "react";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import { getUserSession } from "../../functions/localStorage.js";
-
-import { context } from "../../App.jsx";
+import { meowContext } from "./HomePage.jsx";
 
 function PostForm() {
   const [newMeow, setNewMeow] = useState("");
@@ -14,17 +13,20 @@ function PostForm() {
   const photoStyle = "component";
   const { username } = getUserSession();
 
+  function handleKeyDown(e) {
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  }
+
   const postNewMeow = async () => {
     try {
       const res = await meowApi().post("/", {
         meow: newMeow,
         date: Date.now(),
       });
-      console.log(res.data);
+      console.log(res.data.meowToSave);
       context.setNewMeow(res.data.meowToSave);
       setNewMeow("");
-
-      // reload.setReload(!reload.reload);
     } catch (err) {
       setError(true);
     }

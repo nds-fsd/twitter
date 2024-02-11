@@ -222,10 +222,14 @@ const updateMeow = async (req, res) => {
 const deleteMeow = async (req, res) => {
   try {
     const { id } = req.params;
+    const userId = req.jwtPayload.id;
     const meowFound = await Meow.findById(id);
+
+    console.log(userId);
 
     if (meowFound) {
       await Meow.findByIdAndDelete(id);
+      await User.updateOne({ _id: userId }, { $inc: { meowCounter: -1 } });
       res.status(201).json({ message: "Successfully deleted meow" });
     } else {
       res.status(404).json({ error: "Meow not found" });

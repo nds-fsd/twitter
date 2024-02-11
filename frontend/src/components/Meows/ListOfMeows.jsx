@@ -12,8 +12,10 @@ import ShareButton from "../Buttons/ShareButton";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
-import { meowContext } from "../HomePage/HomePage.jsx";
+
 import { context } from "../../App";
+import { meowContext } from "../HomePage/HomePage.jsx";
+
 import { updateMeowsWithNewMeow } from "../../functions/addNewMeow.js";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 
@@ -118,7 +120,10 @@ function Meows() {
           return (
             <div key={meow._id} className={styles.container}>
               <div className={styles.userContainer}>
-                <img src={user} className={styles.imageProfile} />
+                <PhotoUserProfile
+                  photoStyle={photoStyle}
+                  usernamePhoto={meow.authorUsername}
+                />
                 {meow.author === userId && (
                   <DeleteEditMeow
                     meow={meow}

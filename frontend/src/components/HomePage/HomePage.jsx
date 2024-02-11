@@ -7,12 +7,14 @@ export const meowContext = createContext();
 const HomePage = () => {
   const [newMeow, setNewMeow] = useState("");
   return (
-    <div className={styles.mainContainer}>
-      <div>
-        <PostForm />
-        <Meows />
+    <meowContext.Provider value={{ newMeow, setNewMeow }}>
+      <div className={styles.mainContainer}>
+        <div>
+          <PostForm />
+          <Meows />
+        </div>
       </div>
-    </div>
+    </meowContext.Provider>
   );
 };
 
