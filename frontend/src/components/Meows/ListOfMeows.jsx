@@ -24,12 +24,8 @@ function Meows() {
   const { id } = getUserSession();
   const context = useContext(meowContext);
   const newMeow = context.newMeow;
-
   const userId = id;
-
   const navigate = useNavigate();
-
-  const reload = useContext(context);
 
   useEffect(() => {
     const getAllMeows = async () => {
@@ -96,9 +92,11 @@ function Meows() {
     };
     getAllMeows();
   }, []);
-  useEffect(() => {
-    setMeows((prevMeows) => updateMeowsWithNewMeow(prevMeows, newMeow));
-  }, [newMeow]);
+  // useEffect(() => {
+  //   if (newMeow) {
+  //     setMeows((prevMeows) => updateMeowsWithNewMeow(prevMeows, newMeow));
+  //   }
+  // }, [newMeow]);
 
   if (loading) return <Loading />;
 
