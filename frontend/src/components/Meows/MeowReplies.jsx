@@ -40,7 +40,7 @@ const MeowReplies = ({ allMeowReplies, setAllMeowReplies }) => {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsReplyContainer}>
-                {meow._id && <LikeButton meow={meow} />}
+                <LikeButton meow={meow} />
               </div>
             </div>
           ))}

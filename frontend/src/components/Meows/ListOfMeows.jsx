@@ -92,11 +92,11 @@ function Meows() {
     };
     getAllMeows();
   }, []);
-  // useEffect(() => {
-  //   if (newMeow) {
-  //     setMeows((prevMeows) => updateMeowsWithNewMeow(prevMeows, newMeow));
-  //   }
-  // }, [newMeow]);
+  useEffect(() => {
+    if (newMeow) {
+      setMeows((prevMeows) => updateMeowsWithNewMeow(prevMeows, newMeow));
+    }
+  }, [newMeow]);
 
   if (loading) return <Loading />;
 

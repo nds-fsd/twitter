@@ -7,14 +7,13 @@ import LikeButton from "../Buttons/LikeButton";
 import BookmarkButton from "../Buttons/BookmarkButton";
 import MeowReplies from "./MeowReplies";
 import ShareButton from "../Buttons/ShareButton";
-import MessageButton from "../Buttons/MessageButton";
-import Views from "../Buttons/Views";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../../functions/apiWrapper";
-import { getUserSession, getUserToken } from "../../functions/localStorage";
+import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft, Repeat2, MessageSquareMore } from "lucide-react";
 import { formatMeowDate } from "../../functions/dateFormat";
+import { handleResize } from "../../functions/responsiveFunctions";
 
 const MeowView = () => {
   function handleKeyDown(e) {
@@ -28,7 +27,6 @@ const MeowView = () => {
   const { username, name, surname } = getUserSession();
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
-  const [reloadReplies, setReloadReplies] = useState(false);
   const [parentMeowUsername, setParentMeowUsername] = useState("");
   const [parentMeowName, setParentMeowName] = useState("");
   const [parentMeowSurname, setParentMeowSurname] = useState("");
@@ -37,17 +35,8 @@ const MeowView = () => {
   const [allMeowReplies, setAllMeowReplies] = useState([]);
 
   useEffect(() => {
-    const handleResize = () => {
-      const esPantallaPequena = window.matchMedia(
-        "(max-width: 1000px)"
-      ).matches;
-      setPantallaPequena(esPantallaPequena);
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    const cleanup = handleResize(setPantallaPequena);
+    return cleanup;
   }, []);
 
   useEffect(() => {
@@ -77,7 +66,7 @@ const MeowView = () => {
       }
     };
     getReplies();
-  }, [reloadReplies]);
+  }, []);
 
   const postReply = async () => {
     const newReply = {
@@ -95,7 +84,7 @@ const MeowView = () => {
           authorSurname: surname,
           date: Date.now(),
           parentMeow: parentMeow._id,
-          _id: res.data._id,
+          _id: res.data.meowToSave._id,
           likes: 0,
         },
         ...allMeowReplies,
@@ -103,7 +92,6 @@ const MeowView = () => {
 
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
-      setReloadReplies(!reloadReplies);
     } catch (err) {
       console.error(err);
     }
