@@ -24,7 +24,7 @@ const getFeedMeows = async (req, res) => {
 
     meowsToSend.sort((a, b) => a.date - b.date);
 
-   const meowsWithOriginalAuthors = await Promise.all(
+    const meowsWithOriginalAuthors = await Promise.all(
       meowsToSend.map(async (meow) => {
         if (meow.repostedMeowId) {
           const originalMeow = await Meow.findById(meow.repostedMeowId);
@@ -50,11 +50,9 @@ const getMeowsLiked = async (req, res) => {
   try {
     const userId = req.jwtPayload.id;
 
-    // Obtener los IDs de los tweets a los que el usuario le ha dado like
     const likes = await Like.find({ userId: userId });
     const meowsIdsLiked = likes.map((like) => like.meowId);
 
-    // Obtener los Meows que corresponden a los IDs de los tweets que le gustan al usuario
     const meowsLiked = await Meow.find({ _id: { $in: meowsIdsLiked } });
 
     return res.status(200).json(meowsLiked);

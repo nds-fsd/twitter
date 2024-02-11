@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { meowApi } from "../../functions/apiWrapper";
-import { getUserToken } from "../../functions/localStorage";
 import { context } from "../../App";
 import styles from "../Buttons/IconButton.module.css";
 import { Repeat2 } from "lucide-react";
@@ -9,19 +8,13 @@ import "react-tooltip/dist/react-tooltip.css";
 
 const RepostButton = ({ meow }) => {
   const reload = useContext(context);
-  const token = getUserToken();
 
   const repostMeow = async () => {
     try {
-      const res = await meowApi().post(
-        "/repost",
-        { ...meow, date: Date.now() },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await meowApi().post("/repost", {
+        ...meow,
+        date: Date.now(),
+      });
 
       reload.setReload(!reload.reload);
     } catch (error) {

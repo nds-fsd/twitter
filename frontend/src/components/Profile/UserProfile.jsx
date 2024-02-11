@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./UserProfile.module.css";
-import user from "../../assets/user.png";
-import backgroundProfile from "../../assets/backgroundProfile.jpeg";
 import TabsProfile from "./TabsProfile.jsx";
 import { userApi } from "../../functions/apiWrapper.js";
 import FollowButton from "../Buttons/FollowButton.jsx";
@@ -11,6 +9,8 @@ import EditProfileForm from "./EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 import MeowsLiked from "../Meows/MeowsLiked.jsx";
 import MeowsInProfile from "../Meows/MeowsInProfile.jsx";
+import PhotoUserProfile from "./PhotoUserProfile.jsx";
+import PhotoBackgroundProfile from "./PhotoBackgroundProfile.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -24,6 +24,7 @@ function UserProfile() {
   const [meowCounter, setMeowCounter] = useState(0);
   const [followingCounter, setFollowingCounter] = useState(0);
   const [followerCounter, setFollowerCounter] = useState(0);
+
   const { username: urlUsername } = useParams();
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
@@ -84,8 +85,9 @@ function UserProfile() {
       setColor(false);
     }
   };
-
   window.addEventListener("scroll", changeColor);
+
+  const photoStyle = "profile"
 
   return (
     <>
@@ -103,13 +105,10 @@ function UserProfile() {
               <p className={styles.grayFont}>{meowCounter} posts</p>
             </div>
             <div className={styles.relativeContainer}>
-              <img
-                src={backgroundProfile}
-                alt="user"
-                className={styles.imageContainer}
-              />
+              <PhotoBackgroundProfile />
               <div className={styles.photoContainer}>
-                <img src={user} alt="user" className={styles.photoProfile} />
+                <PhotoUserProfile photoStyle={photoStyle} />
+
                 {isOwnProfile ? (
                   <button
                     className={styles.editProfile}

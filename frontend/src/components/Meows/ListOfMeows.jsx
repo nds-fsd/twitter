@@ -1,10 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { meowApi, userApi } from "../../functions/apiWrapper.js";
 import styles from "./MeowsFormat.module.css";
-import user from "../../assets/user.png";
 import Loading from "../../effects/Loading.jsx";
 import { context } from "../../App.jsx";
-import { getUserToken } from "../../functions/localStorage.js";
 import MessageButton from "../Buttons/MessageButton";
 import LikeButton from "../Buttons/LikeButton.jsx";
 import RepostButton from "../Buttons/RepostButton.jsx";
@@ -13,12 +11,14 @@ import Views from "../Buttons/Views";
 import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
+import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 
 function Meows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+  const photoStyle = "meow";
 
   const navigate = useNavigate();
 
@@ -27,13 +27,8 @@ function Meows() {
   useEffect(() => {
     const getAllMeows = async () => {
       try {
-        const token = getUserToken();
         setLoading(true);
-        const res = await meowApi().get("/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await meowApi().get("/");
         setLoading(false);
         const data = res.data;
         setMeows(data.reverse());
@@ -109,7 +104,10 @@ function Meows() {
           return (
             <div key={meow._id} className={styles.container}>
               <div className={styles.userContainer}>
-                <img src={user} className={styles.imageProfile} />
+                <PhotoUserProfile
+                  photoStyle={photoStyle}
+                  usernamePhoto={meow.authorUsername}
+                />
                 {!meow.repostedMeowId && (
                   <div className={styles.infoUserContainer}>
                     <div className={styles.userData}>
@@ -143,7 +141,7 @@ function Meows() {
                           }}
                           className={styles.nameSurname}
                         >
-                          Name
+                          {meow.nameAuthor} {meow.surnameAuthor}
                         </p>
                         <p className={styles.username}>
                           @{meow.originalUsername}

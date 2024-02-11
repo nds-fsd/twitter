@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./WhoToFollow.module.css";
-import image from "../../assets/user.png";
 import FollowButton from "../Buttons/FollowButton";
 import { userApi } from "../../functions/apiWrapper";
 import { getUserSession } from "../../functions/localStorage";
 import { useNavigate } from "react-router-dom";
 import { context } from "../../App";
+import PhotoUserProfile from "../Profile/PhotoUserProfile";
 
 const WhoToFollow = () => {
   const [usersToFollow, setUsersToFollow] = useState([]);
   const [displayCount, setDisplayCount] = useState(5);
   const [showMore, setShowMore] = useState(true);
   const reload = useContext(context);
-
+  const photoStyle = "component";
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const WhoToFollow = () => {
 
   const singleUser = (user) => (
     <div key={user.username} className={styles.containerFollow}>
-      <img className={styles.accountImage} src={image} alt="" />
+      <PhotoUserProfile photoStyle={photoStyle} usernamePhoto={user.username}/>
       <div>
         <p
           className={styles.name}

@@ -1,10 +1,3 @@
-* {
-  color: rgb(0, 0, 0);
-  margin: 0;
-  padding: 0;
-  user-select: none;
-}
-
 .container {
   background-color: black;
   opacity: 1;
@@ -12,41 +5,37 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 20%;
+  width: 50%;
   border-radius: 40px;
   user-select: none;
   transform: translate(-50%, -50%);
 }
 
-header {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 7%;
-  font-weight: bold;
-  user-select: none;
-}
-
-.x {
-  font-size: 20px;
-  color: white;
-  font-weight: bold;
-  user-select: none;
-  cursor: pointer;
-}
-
-.tittle {
+h2 {
   color: var(--main-color);
   font-family: var(--main-font);
-  font-size: 27px;
-  margin-bottom: 8%;
+  font-size: 24px;
+  margin-bottom: 4%;
   text-align: center;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
 }
 
 .inputContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 3%;
+}
+
+.uploadPhotosContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }
@@ -56,10 +45,11 @@ header {
   font-family: var(--main-font);
   font-size: 15px;
   height: auto;
-  margin-bottom: 7%;
   padding: 2% 0 2% 3%;
-  user-select: none;
-  width: 90%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 0;
 }
 
 .inputFields::placeholder {
@@ -69,10 +59,13 @@ header {
 
 textarea {
   resize: none;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 2% 3%;
 }
 
 .error {
-  color: grey;
+  color: red;
   font-family: var(--main-font);
   font-size: 13px;
   margin-bottom: 5%;
@@ -93,19 +86,22 @@ textarea {
   width: 90%;
 }
 
+.submit:hover {
+  background-color: #a50000;
+}
+
 .notValid {
   background-color: #e7e1e1;
-  border-radius: 40px;
+  border-radius: 5px;
   color: rgb(0, 0, 0);
   cursor: not-allowed;
   font-family: var(--main-font);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   height: auto;
   margin-top: 5%;
   opacity: 0.3;
   padding: 3% 0;
   text-align: center;
-  user-select: none;
-  width: 90%;
+  width: 100%;
 }

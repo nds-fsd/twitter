@@ -1,5 +1,4 @@
 import styles from "./Navbar.module.css";
-import cat from "../../assets/Cat.png";
 import LogOut from "./LogOut";
 import { useContext, useEffect, useState } from "react";
 import { context } from "../../App";
@@ -38,7 +37,7 @@ function Navbar() {
     <div className={styles.container}>
       <img
         className={styles.logo}
-        src={cat}
+        src={"https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707388881/code/cat.png"}
         alt="logo"
         onClick={() => navigate("/home")}
       />
