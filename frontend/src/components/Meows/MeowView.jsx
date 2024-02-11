@@ -76,7 +76,7 @@ const MeowView = () => {
       }
     };
     getReplies();
-  }, []);
+  }, [allMeowReplies]);
 
   const postReply = async () => {
     const newReply = {
@@ -205,7 +205,12 @@ const MeowView = () => {
             </button>
           </div>
         </div>
-        {allMeowReplies && <MeowReplies allMeowReplies={allMeowReplies} />}
+        {allMeowReplies && (
+          <MeowReplies
+            allMeowReplies={allMeowReplies}
+            setAllMeowReplies={setAllMeowReplies}
+          />
+        )}
       </>
     )
   );
