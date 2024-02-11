@@ -31,7 +31,7 @@ router.post(
   meowController.repostMeow
 );
 
-router.patch("/:id", consoleLogType, meowController.updateMeow);
-router.delete("/:id", consoleLogType, meowController.deleteMeow);
+router.patch("/:id", consoleLogType, validateToken, meowController.updateMeow);
+router.delete("/:id", consoleLogType, validateToken, meowController.deleteMeow);
 
 module.exports = router;

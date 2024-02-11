@@ -8,14 +8,14 @@ router.post(
   "/profile/",
   consoleLogType,
   validateToken,
-  upload.single('userFile'),
+  upload.single("userFile"),
   cloudinaryController.uploadUserProfilePhoto
 );
 router.post(
   "/background/",
   consoleLogType,
   validateToken,
-  upload.single('backgroundFile'),
+  upload.single("backgroundFile"),
   cloudinaryController.uploadBackgroundProfilePhoto
 );
 router.delete(
