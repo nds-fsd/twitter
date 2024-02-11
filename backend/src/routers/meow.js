@@ -12,12 +12,6 @@ router.get(
 );
 router.get("/:id", consoleLogType, validateToken, meowController.getMeowById);
 router.get(
-  "/likes/:id",
-  consoleLogType,
-  validateToken,
-  meowController.getMeowsLiked
-);
-router.get(
   "/replies/:id",
   consoleLogType,
   validateToken,

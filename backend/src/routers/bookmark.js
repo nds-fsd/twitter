@@ -9,6 +9,12 @@ router.get(
   validateToken,
   bookmarkController.checkBookmarkStatus
 );
+router.get(
+  "/user/:userId",
+  consoleLogType,
+  validateToken,
+  bookmarkController.getMeowsBookmarked
+);
 router.post(
   "/:meowId",
   consoleLogType,

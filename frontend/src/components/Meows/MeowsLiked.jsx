@@ -1,18 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import { meowApi, userApi } from "../../functions/apiWrapper";
+import { likeApi, userApi } from "../../functions/apiWrapper";
 import styles from "./MeowsFormat.module.css";
-import MessageButton from "../Buttons/MessageButton";
-import LikeButton from "../Buttons/LikeButton";
-import RepostButton from "../Buttons/RepostButton.jsx";
-import Bookmark from "../Buttons/BookmarkButton";
-import Views from "../Buttons/Views";
-import ShareButton from "../Buttons/ShareButton";
 import { getUserSession } from "../../functions/localStorage";
 import Loading from "../../effects/Loading";
 import { useNavigate } from "react-router-dom";
 import { context } from "../../App";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
+import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
 
 const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
@@ -28,9 +23,9 @@ const MeowsLiked = () => {
   useEffect(() => {
     const getAllMeows = async () => {
       try {
-        const { id } = getUserSession();
+        const { userId } = getUserSession();
         setLoading(true);
-        const res = await meowApi().get(`likes/${id}`);
+        const res = await likeApi().get(`/user/${userId}`);
         setLoading(false);
         const data = res.data;
 
@@ -129,8 +124,7 @@ const MeowsLiked = () => {
                 </div>
               </div>
               <div
-                onClick={(e) => {
-                  if (e.target.id === "likeButton") return;
+                onClick={() => {
                   navigate(`/meow/${meow._id}`, { state: { meow } });
                 }}
                 key={meow._id}
@@ -139,12 +133,7 @@ const MeowsLiked = () => {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
-                <MessageButton />
-                <LikeButton meow={meow} />
-                <RepostButton meow={meow} />
-                <Bookmark />
-                <Views />
-                <ShareButton />
+                <AllMeowButtons meow={meow} />
               </div>
             </div>
           );

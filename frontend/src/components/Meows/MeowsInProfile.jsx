@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
 import { meowApi } from "../../functions/apiWrapper";
 import styles from "./MeowsFormat.module.css";
-import MessageButton from "../Buttons/MessageButton";
-import LikeButton from "../Buttons/LikeButton.jsx";
-import RepostButton from "../Buttons/RepostButton.jsx";
-import Bookmark from "../Buttons/BookmarkButton";
-import Views from "../Buttons/Views";
-import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
+import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
 
 function MeowsInProfile({ username }) {
   const [meows, setMeows] = useState("");
@@ -70,12 +65,7 @@ function MeowsInProfile({ username }) {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
-                <MessageButton />
-                <LikeButton meow={meow} />
-                <RepostButton meow={meow} />
-                <Bookmark />
-                <Views />
-                <ShareButton />
+                <AllMeowButtons meow={meow} />
               </div>
             </div>
           );

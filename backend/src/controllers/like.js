@@ -24,6 +24,23 @@ const checkLikeStatus = async (req, res) => {
   }
 };
 
+const getMeowsLiked = async (req, res) => {
+  try {
+    const userId = req.jwtPayload.id;
+
+    const likes = await Like.find({ userId: userId });
+    const meowsIdsLiked = likes.map((like) => like.meowId);
+
+    const meowsLiked = await Meow.find({ _id: { $in: meowsIdsLiked } });
+
+    return res.status(200).json(meowsLiked);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error fetching data", message: error.message });
+  }
+};
+
 const likeMeow = async (req, res) => {
   try {
     const meowId = req.params.meowId;
@@ -123,6 +140,7 @@ const unlikeMeow = async (req, res) => {
 
 module.exports = {
   checkLikeStatus,
+  getMeowsLiked,
   likeMeow,
   unlikeMeow,
 };

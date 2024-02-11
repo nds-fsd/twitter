@@ -28,7 +28,7 @@ const RepostButton = ({ meow }) => {
       data-tooltip-content="Reposts"
       data-tooltip-place="top"
     >
-      <p className={styles.buttonsText}>{meow.reposts} </p>
+      <p className={styles.buttonsText}>{meow.reposts}</p>
       <button
         id="repostButton"
         type="button"
@@ -40,7 +40,6 @@ const RepostButton = ({ meow }) => {
         ) : (
           <Repeat2 color="grey" />
         )}
-
         <Tooltip id="Reposts" />
       </button>
     </div>

@@ -49,7 +49,12 @@ function Navbar() {
           </div>
           {/* <div className={styles.options}> <BellRing /> <p>Notifications</p> </div> */}
           {/* <div className={styles.options}> <Mail /> <p>Messages</p> </div> */}
-          {/* <div className={styles.options}> <Bookmark /> <p>Bookmark</p> </div> */}
+          <div
+          onClick={() => {
+            navigate("/bookmark/" + loggedUsername);
+            reload.setReload(!reload.reload);
+          }}
+          className={styles.options}> <Bookmark /> <p>Bookmark</p> </div>
           <div
             onClick={() => {
               navigate("/user/" + loggedUsername);

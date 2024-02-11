@@ -9,6 +9,12 @@ router.get(
   validateToken,
   likeController.checkLikeStatus
 );
+router.get(
+  "/user/:userId",
+  consoleLogType,
+  validateToken,
+  likeController.getMeowsLiked
+);
 router.post("/:meowId", consoleLogType, validateToken, likeController.likeMeow);
 router.delete(
   "/:meowId",
