@@ -13,12 +13,14 @@ import Loading from "../../effects/Loading";
 import { useNavigate } from "react-router-dom";
 import { context } from "../../App";
 import { formatMeowDate } from "../../functions/dateFormat";
+import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
 const MeowsLiked = () => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
+  const { id } = getUserSession();
 
   const navigate = useNavigate();
 
@@ -27,7 +29,6 @@ const MeowsLiked = () => {
   useEffect(() => {
     const getAllMeows = async () => {
       try {
-        const { id } = getUserSession();
         const token = getUserToken();
         setLoading(true);
         const res = await meowApi().get(`likes/${id}`, {
@@ -111,6 +112,13 @@ const MeowsLiked = () => {
             <div className={styles.container}>
               <div className={styles.userContainer}>
                 <img src={user} className={styles.imageProfile} />
+                {meow.author === id && (
+                  <DeleteEditMeow
+                    meow={meow}
+                    meows={meows}
+                    setMeows={setMeows}
+                  />
+                )}
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>
                     <p

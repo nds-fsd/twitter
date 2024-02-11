@@ -14,6 +14,7 @@ import DeleteEditMeow from "./DeleteEditMeow.jsx";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
 import { meowContext } from "../HomePage/HomePage.jsx";
+import { context } from "../../App";
 import { updateMeowsWithNewMeow } from "../../functions/addNewMeow.js";
 
 function Meows() {
@@ -22,10 +23,14 @@ function Meows() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
   const { id } = getUserSession();
-  const context = useContext(meowContext);
-  const newMeow = context.newMeow;
+  const mContext = useContext(meowContext);
+  const reload = useContext(context);
+
+  const newMeow = mContext.newMeow;
   const userId = id;
   const navigate = useNavigate();
+
+  console.log(reload);
 
   useEffect(() => {
     const getAllMeows = async () => {
@@ -91,7 +96,7 @@ function Meows() {
       }
     };
     getAllMeows();
-  }, []);
+  }, [reload.reload]);
   useEffect(() => {
     if (newMeow) {
       setMeows((prevMeows) => updateMeowsWithNewMeow(prevMeows, newMeow));
@@ -132,7 +137,6 @@ function Meows() {
                       <p
                         onClick={() => {
                           navigate("/user/" + meow.authorUsername);
-                          reload.setReload(!reload.reload);
                         }}
                         className={styles.nameSurname}
                       >
