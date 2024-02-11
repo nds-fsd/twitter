@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { meowApi } from "../../functions/apiWrapper";
+import { getUserSession } from "../../functions/localStorage.js";
 import styles from "./MeowsFormat.module.css";
 import user from "../../assets/user.png";
 import MessageButton from "../Buttons/MessageButton";
@@ -10,11 +11,14 @@ import Views from "../Buttons/Views";
 import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
+import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
 function MeowsInProfile({ username }) {
   const [meows, setMeows] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const { id } = getUserSession();
+  const userId = id;
 
   const navigate = useNavigate();
 
@@ -43,6 +47,7 @@ function MeowsInProfile({ username }) {
             <div className={styles.container}>
               <div className={styles.userContainer}>
                 <img src={user} className={styles.imageProfile} />
+                <DeleteEditMeow meow={meow} meows={meows} setMeows={setMeows} />
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>
                     <p className={styles.nameSurname}>
