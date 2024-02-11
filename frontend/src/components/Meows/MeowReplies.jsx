@@ -1,8 +1,8 @@
 import styles from "./MeowsFormat.module.css";
-import LikeButton from "../Buttons/LikeButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
+import AllMeowButtons from "../Buttons/AllMeowButtons";
 
 const MeowReplies = ({ allMeowReplies }) => {
   const navigate = useNavigate();
@@ -38,8 +38,8 @@ const MeowReplies = ({ allMeowReplies }) => {
               <div className={styles.postContainerInView}>
                 <p>{meow.text}</p>
               </div>
-              <div className={styles.iconsReplyContainer}>
-                <LikeButton meow={meow} />
+              <div className={styles.iconsContainer}>
+                <AllMeowButtons meow={meow} />
               </div>
             </div>
           ))}

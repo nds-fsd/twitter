@@ -1,4 +1,3 @@
-dotenv.config();
 const express = require("express");
 const { connectDB } = require("./mongo");
 const router = require("./routers/index");
@@ -6,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+dotenv.config();
 
 const createApp = () => {
   const app = express();

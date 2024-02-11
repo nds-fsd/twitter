@@ -92,21 +92,7 @@ const uploadBackgroundProfilePhoto = async (req, res) => {
   }
 };
 
-const deleteProfilePhoto = async (req, res) => {
-  const { public_id } = req.body;
-
-  try {
-    await cloudinary.uploader.destroy(public_id);
-    return res.status(200).json({
-      message: "Image deleted successfully",
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 module.exports = {
   uploadUserProfilePhoto,
   uploadBackgroundProfilePhoto,
-  deleteProfilePhoto,
 };

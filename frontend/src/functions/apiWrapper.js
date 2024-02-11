@@ -54,6 +54,17 @@ export const likeApi = () => {
   });
 };
 
+export const bookmarkApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/bookmark`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export const cloudinaryApi = () => {
   const token = getUserToken();
   return axios.create({

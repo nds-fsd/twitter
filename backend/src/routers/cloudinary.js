@@ -16,6 +16,5 @@ router.post(
   upload.single("backgroundFile"),
   cloudinaryController.uploadBackgroundProfilePhoto
 );
-router.delete("/", validateToken, cloudinaryController.deleteProfilePhoto);
 
 module.exports = router;

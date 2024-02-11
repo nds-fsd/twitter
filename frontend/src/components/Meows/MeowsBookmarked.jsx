@@ -1,14 +1,15 @@
-import { useState, useContext, useEffect } from "react";
-import { meowApi, userApi } from "../../functions/apiWrapper.js";
+import { useState, useEffect, useContext } from "react";
+import { bookmarkApi, userApi } from "../../functions/apiWrapper.js";
 import styles from "./MeowsFormat.module.css";
+import { getUserSession } from "../../functions/localStorage.js";
 import Loading from "../../effects/Loading.jsx";
-import { context } from "../../App.jsx";
-import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
 import { useNavigate } from "react-router-dom";
+import { context } from "../../App.jsx";
 import { formatMeowDate } from "../../functions/dateFormat.js";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
+import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
 
-function Meows() {
+const MeowsBookmarked = () => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -22,10 +23,12 @@ function Meows() {
   useEffect(() => {
     const getAllMeows = async () => {
       try {
+        const { userId } = getUserSession();
         setLoading(true);
-        const res = await meowApi().get("/");
+        const res = await bookmarkApi().get(`/user/${userId}`);
         setLoading(false);
         const data = res.data;
+
         setMeows(data.reverse());
 
         const uniqueAuthorIds = Array.from(
@@ -72,7 +75,6 @@ function Meows() {
 
         setMeows(meowsToShow);
       } catch (error) {
-        console.error(error);
         setError(true);
         seterrorMessage(error.message);
       }
@@ -103,51 +105,23 @@ function Meows() {
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
                 />
-                {!meow.repostedMeowId && (
-                  <div className={styles.infoUserContainer}>
-                    <div className={styles.userData}>
-                      <p
-                        onClick={() => {
-                          navigate("/user/" + meow.authorUsername);
-                          reload.setReload(!reload.reload);
-                        }}
-                        className={styles.nameSurname}
-                      >
-                        {meow.nameAuthor} {meow.surnameAuthor}
-                      </p>
-                      <p className={styles.username}>@{meow.authorUsername}</p>
-                    </div>
-                    <div>
-                      <p className={styles.dateFormat}>{meow.date}</p>
-                    </div>
-                  </div>
-                )}
-                {meow.repostedMeowId && (
-                  <div style={{ width: "100%" }}>
-                    <p className={styles.repostedBy}>
-                      Reposted by: @{meow.authorUsername}
+                <div className={styles.infoUserContainer}>
+                  <div className={styles.userData}>
+                    <p
+                      onClick={() => {
+                        navigate("/user/" + meow.authorUsername);
+                        reload.setReload(!reload.reload);
+                      }}
+                      className={styles.nameSurname}
+                    >
+                      {meow.nameAuthor} {meow.surnameAuthor}
                     </p>
-                    <div className={styles.infoUserContainer}>
-                      <div className={styles.userData}>
-                        <p
-                          onClick={() => {
-                            navigate("/user/" + meow.originalUsername);
-                            reload.setReload(!reload.reload);
-                          }}
-                          className={styles.nameSurname}
-                        >
-                          {meow.nameAuthor} {meow.surnameAuthor}
-                        </p>
-                        <p className={styles.username}>
-                          @{meow.originalUsername}
-                        </p>
-                      </div>
-                      <div>
-                        <p className={styles.dateFormat}>{meow.date}</p>
-                      </div>
-                    </div>
+                    <p className={styles.username}>@{meow.authorUsername}</p>
                   </div>
-                )}
+                  <div>
+                    <p className={styles.dateFormat}>{meow.date}</p>
+                  </div>
+                </div>
               </div>
               <div
                 onClick={() => {
@@ -166,5 +140,6 @@ function Meows() {
         })}
     </div>
   );
-}
-export default Meows;
+};
+
+export default MeowsBookmarked;
