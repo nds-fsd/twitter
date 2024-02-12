@@ -34,7 +34,7 @@
   position: fixed;
   z-index: 1;
   height: 70px;
-  width: 40%;
+  width: 50%;
   background-color: black;
   opacity: 0.8;
 }
@@ -135,4 +135,5 @@
 span {
   color: white;
   font-size: 20px;
+  cursor: pointer;
 }
