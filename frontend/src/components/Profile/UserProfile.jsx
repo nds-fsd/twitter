@@ -161,18 +161,19 @@ function UserProfile() {
       </div>
 
       {popUpEditProfile && (
-        <div
-          className={`${styles.overlay} ${
-            popUpEditProfile ? styles.active : ""
-          }`}
-        >
+        <>
+          <div
+            className={`${styles.overlay} ${
+              popUpEditProfile ? styles.active : ""
+            }`}
+          />
           <EditProfileForm
             close={() => setPopUpEditProfile(!popUpEditProfile)}
             username={urlUsername}
             dataUserToEdit={dataUserToEdit}
             onSubmitSuccess={handleEditProfileSubmit}
           />
-        </div>
+        </>
       )}
     </>
   );
