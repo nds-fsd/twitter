@@ -5,7 +5,13 @@ import del from "../../assets/delete.png";
 import edit from "../../assets/edit.png";
 import { meowApi } from "../../functions/apiWrapper";
 
-const DeleteEditMeow = ({ meow, setMeows, meows }) => {
+const DeleteEditMeow = ({
+  meow,
+  setMeows,
+  meows,
+  replyCounter,
+  setReplyCounter,
+}) => {
   // ---------------------------------------------------------Variables-------------------------------------------------------
 
   const [popOut, setPopOut] = useState(false);
@@ -60,6 +66,7 @@ const DeleteEditMeow = ({ meow, setMeows, meows }) => {
       console.log(res);
       setDeletePopOut(false);
       setMeows(meows.filter((element) => element._id !== meow._id));
+      setReplyCounter(replyCounter - 1);
     } catch (error) {
       console.log(error);
     }

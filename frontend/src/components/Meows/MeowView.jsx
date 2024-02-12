@@ -204,6 +204,8 @@ const MeowView = () => {
         </div>
         {allMeowReplies && (
           <MeowReplies
+            replyCounter={replyCounter}
+            setReplyCounter={setReplyCounter}
             allMeowReplies={allMeowReplies}
             setAllMeowReplies={setAllMeowReplies}
           />
