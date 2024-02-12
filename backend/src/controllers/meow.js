@@ -32,6 +32,8 @@ const getFeedMeows = async (req, res) => {
             const originalAuthor = await User.findById(originalMeow.author);
             return {
               ...meow._doc,
+              originalName: originalAuthor.name,
+              originalSurname: originalAuthor.surname,
               originalUsername: originalAuthor.username,
             };
           }

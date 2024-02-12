@@ -28,6 +28,7 @@ function Meows() {
   const { id } = getUserSession();
   const mContext = useContext(meowContext);
   const reload = useContext(context);
+  console.log(meows);
 
   const newMeow = mContext.newMeow;
   const userId = id;
@@ -163,7 +164,7 @@ function Meows() {
                           }}
                           className={styles.nameSurname}
                         >
-                          {meow.nameAuthor} {meow.surnameAuthor}
+                          {meow.originalName} {meow.originalSurname}
                         </p>
                         <p className={styles.username}>
                           @{meow.originalUsername}
