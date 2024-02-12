@@ -33,8 +33,6 @@ function Meows() {
   const userId = id;
   const navigate = useNavigate();
 
-  console.log(reload);
-
   useEffect(() => {
     const getAllMeows = async () => {
       try {

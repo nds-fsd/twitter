@@ -4,6 +4,7 @@ import options from "../../assets/options.jpg";
 import del from "../../assets/delete.png";
 import edit from "../../assets/edit.png";
 import { meowApi } from "../../functions/apiWrapper";
+import { useLocation } from "react-router-dom";
 
 const DeleteEditMeow = ({
   meow,
@@ -11,9 +12,12 @@ const DeleteEditMeow = ({
   meows,
   replyCounter,
   setReplyCounter,
+  meowCounter,
+  setMeowCounter,
 }) => {
   // ---------------------------------------------------------Variables-------------------------------------------------------
-
+  const location = useLocation();
+  const isUserRoute = location.pathname.startsWith("/user/");
   const [popOut, setPopOut] = useState(false);
   const [editPopOut, setEditPopOut] = useState(false);
   const [deletePopOut, setDeletePopOut] = useState(false);
@@ -66,6 +70,10 @@ const DeleteEditMeow = ({
       console.log(res);
       setDeletePopOut(false);
       setMeows(meows.filter((element) => element._id !== meow._id));
+      isUserRoute
+        ? setMeowCounter(meowCounter - 1)
+        : setReplyCounter(replyCounter - 1);
+
       setReplyCounter(replyCounter - 1);
     } catch (error) {
       console.log(error);

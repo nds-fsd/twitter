@@ -15,7 +15,7 @@ import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
-const MeowsLiked = () => {
+const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -113,6 +113,8 @@ const MeowsLiked = () => {
                 />
                 {meow.author === id && (
                   <DeleteEditMeow
+                    meowCounter={meowCounter}
+                    setMeowCounter={setMeowCounter}
                     meow={meow}
                     meows={meows}
                     setMeows={setMeows}

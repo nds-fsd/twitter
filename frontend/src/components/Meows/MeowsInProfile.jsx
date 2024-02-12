@@ -13,7 +13,7 @@ import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
-function MeowsInProfile({ username }) {
+function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
   const [meows, setMeows] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -51,7 +51,13 @@ function MeowsInProfile({ username }) {
                   photoStyle={photoStyle}
                   usernamePhoto={username}
                 />
-                <DeleteEditMeow meow={meow} meows={meows} setMeows={setMeows} />
+                <DeleteEditMeow
+                  meow={meow}
+                  meows={meows}
+                  setMeows={setMeows}
+                  meowCounter={meowCounter}
+                  setMeowCounter={setMeowCounter}
+                />
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>
                     <p className={styles.nameSurname}>
