@@ -10,7 +10,7 @@
   z-index: 1;
 }
 
-.overlay.active {
+.active {
   opacity: 0.8;
   background-color: grey;
 }
@@ -19,6 +19,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  border-right: 1px solid #2c2c2c;
 }
 
 .nameContainer {
@@ -33,7 +34,7 @@
   position: fixed;
   z-index: 1;
   height: 70px;
-  width: 50%;
+  width: 40%;
   background-color: black;
   opacity: 0.8;
 }
@@ -47,7 +48,7 @@
 }
 
 .container {
-  border: 1px solid rgb(44, 44, 44);
+  border: 1px solid #2c2c2c;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -91,6 +92,10 @@
   margin-top: -80px;
 }
 
+.tabsContainer {
+  border-right: 1px solid #2c2c2c;
+}
+
 .editProfile {
   background-color: transparent;
   border: 1px solid white;
@@ -129,4 +134,5 @@
 
 span {
   color: white;
+  font-size: 20px;
 }

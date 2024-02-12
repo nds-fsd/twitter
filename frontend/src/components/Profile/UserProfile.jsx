@@ -87,7 +87,7 @@ function UserProfile() {
   };
   window.addEventListener("scroll", changeColor);
 
-  const photoStyle = "profile"
+  const photoStyle = "profile";
 
   return (
     <>
@@ -149,7 +149,7 @@ function UserProfile() {
             </div>
           </div>
         </div>
-        <div>
+        <div className={styles.tabsContainer}>
           <TabsProfile
             tabs={tabs}
             setMeowsLiked={setMeowsLiked}

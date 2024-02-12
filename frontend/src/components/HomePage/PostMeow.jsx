@@ -13,6 +13,11 @@ function PostForm() {
   const photoStyle = "component";
   const { username } = getUserSession();
 
+  function handleKeyDown(e) {
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  }
+
   const postNewMeow = async () => {
     try {
       const res = await meowApi().post("/", {
