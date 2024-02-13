@@ -40,7 +40,6 @@ const DeleteEditMeow = ({
   };
 
   const handleClick = (e) => {
-    console.log(e.target.innerHTML);
     if (e.target.innerHTML === "Edit" || e.target.id === "edit") {
       setPopOut(false);
       setEditPopOut(true);
@@ -61,9 +60,6 @@ const DeleteEditMeow = ({
         return element;
       });
       setMeows(updatedMeows);
-      console.log(updatedMeows);
-      // meows.map((m) => console.log(m._id));
-      // console.log(meows);
     } catch (error) {
       console.log(error);
     }
