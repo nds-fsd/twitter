@@ -117,6 +117,8 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
                     meow={meow}
                     meows={meows}
                     setMeows={setMeows}
+                    meowCounter={meowCounter}
+                    setMeowCounter={setMeowCounter}
                   />
                 )}
 

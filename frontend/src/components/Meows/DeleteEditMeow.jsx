@@ -58,7 +58,7 @@ const DeleteEditMeow = ({
           element._id === meow._id ? { ...element, text: meowToEdit } : meow
         )
       );
-      meows.map((m) => console.log(m._id));
+      meows.map((m) => console.log(m));
     } catch (error) {
       console.log(error);
     }
@@ -69,11 +69,8 @@ const DeleteEditMeow = ({
       const res = await meowApi().delete(meow._id);
       setDeletePopOut(false);
       setMeows(meows.filter((element) => element._id !== meow._id));
-      isUserRoute
-        ? setMeowCounter(meowCounter - 1)
-        : setReplyCounter(replyCounter - 1);
-
-      setReplyCounter(replyCounter - 1);
+      if (isUserRoute) setMeowCounter(meowCounter - 1);
+      if (meow.parentMeowId) setReplyCounter(replyCounter - 1);
     } catch (error) {
       console.log(error);
     }
