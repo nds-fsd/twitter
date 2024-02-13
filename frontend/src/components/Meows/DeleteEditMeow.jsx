@@ -1,10 +1,14 @@
 import styles from "./DeleteEditMeow.module.css";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useEffect } from "react";
 import options from "../../assets/options.jpg";
 import del from "../../assets/delete.png";
 import edit from "../../assets/edit.png";
 import { meowApi } from "../../functions/apiWrapper";
 import { useLocation } from "react-router-dom";
+import {
+  ajustarAlturaTextArea,
+  handleKeyDown,
+} from "../../functions/adjustTextAreaHeight";
 
 const DeleteEditMeow = ({
   meow,
@@ -23,6 +27,7 @@ const DeleteEditMeow = ({
   const [deletePopOut, setDeletePopOut] = useState(false);
   const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
+  const textAreaRef = useRef();
 
   // ------------------------------------------------Funciones-------------------------------------------------------------------
 
@@ -34,10 +39,11 @@ const DeleteEditMeow = ({
     }
   });
 
-  const handleKeyDown = (e) => {
-    e.target.style.height = "inherit";
-    e.target.style.height = `${e.target.scrollHeight}px`;
-  };
+  useEffect(() => {
+    if (editPopOut) {
+      ajustarAlturaTextArea(textAreaRef);
+    }
+  }, [editPopOut]);
 
   const handleClick = (e) => {
     if (e.target.innerHTML === "Edit" || e.target.id === "edit") {
@@ -108,6 +114,7 @@ const DeleteEditMeow = ({
       {editPopOut && (
         <div className={styles.editPopOut}>
           <textarea
+            ref={textAreaRef}
             onChange={(e) => {
               handleKeyDown(e);
               setMeowToEdit(e.target.value);
