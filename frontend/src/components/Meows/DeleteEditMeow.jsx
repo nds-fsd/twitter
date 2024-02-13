@@ -28,6 +28,7 @@ const DeleteEditMeow = ({
   const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
   const textAreaRef = useRef();
+  console.log(meows);
 
   // ------------------------------------------------Funciones-------------------------------------------------------------------
 
@@ -76,12 +77,20 @@ const DeleteEditMeow = ({
       const res = await meowApi().delete(meow._id);
       setDeletePopOut(false);
 
+      const updatedMeows = meows.map((element) => {
+        if (element._id === meow.repostedMeowId) {
+          return { ...element, reposts: element.reposts - 1 };
+        }
+        return element;
+      });
+
       setMeows(
-        meows.filter(
+        updatedMeows.filter(
           (element) =>
             element._id !== meow._id && element.repostedMeowId !== meow._id
         )
       );
+
       if (isUserRoute) setMeowCounter(meowCounter - 1);
       if (meow.parentMeowId) setReplyCounter(replyCounter - 1);
     } catch (error) {
