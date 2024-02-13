@@ -22,13 +22,13 @@ const DeleteEditMeow = ({
   // ---------------------------------------------------------Variables-------------------------------------------------------
   const location = useLocation();
   const isUserRoute = location.pathname.startsWith("/user/");
+  const isMeowViewRoute = location.pathname.startsWith("/meow/");
   const [popOut, setPopOut] = useState(false);
   const [editPopOut, setEditPopOut] = useState(false);
   const [deletePopOut, setDeletePopOut] = useState(false);
   const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
   const textAreaRef = useRef();
-  console.log(meows);
 
   // ------------------------------------------------Funciones-------------------------------------------------------------------
 
@@ -76,6 +76,7 @@ const DeleteEditMeow = ({
     try {
       const res = await meowApi().delete(meow._id);
       setDeletePopOut(false);
+      if (isMeowViewRoute) setReplyCounter(replyCounter - 1);
 
       const updatedMeows = meows.map((element) => {
         if (element._id === meow.repostedMeowId) {
@@ -92,7 +93,6 @@ const DeleteEditMeow = ({
       );
 
       if (isUserRoute) setMeowCounter(meowCounter - 1);
-      if (meow.parentMeowId) setReplyCounter(replyCounter - 1);
     } catch (error) {
       console.log(error);
     }
@@ -109,10 +109,15 @@ const DeleteEditMeow = ({
         />
 
         {popOut && (
-          <div className={styles.popOutContainer}>
-            <div id="edit" onClick={handleClick}>
-              <img id="edit" src={edit} /> <span>Edit</span>
-            </div>
+          <div
+            className={styles.popOutContainer}
+            style={{ height: !meow.repostedMeowId ? "178%" : "98%" }}
+          >
+            {!meow.repostedMeowId && (
+              <div id="edit" onClick={handleClick}>
+                <img id="edit" src={edit} /> <span>Edit</span>
+              </div>
+            )}
 
             <div id="delete" onClick={handleClick}>
               <img src={del} /> <span style={{ color: "#b30b0b" }}>Delete</span>
