@@ -14,6 +14,7 @@
 
 .popOutContainer {
   position: absolute;
+  cursor: default;
 
   padding: 40%;
 
@@ -29,11 +30,11 @@
   display: flex;
   margin: 4%;
   margin-bottom: 9%;
+  cursor: pointer;
 }
 .popOutContainer > div > img {
   width: 29%;
   height: 7%;
-  cursor: pointer;
 }
 .popOutContainer > div > span {
   font-weight: bold;
