@@ -243,7 +243,6 @@ const deleteMeow = async (req, res) => {
     const { id } = req.params;
     const userId = req.jwtPayload.id;
     const meowFound = await Meow.findById(id);
-    console.log(meowFound);
 
     if (meowFound) {
       if (meowFound.parentMeow) {
@@ -252,6 +251,15 @@ const deleteMeow = async (req, res) => {
           { $inc: { replies: -1 } }
         );
       }
+      if (meowFound.repostedMeowId) {
+        const originalMeow = await Meow.findById(meowFound.repostedMeowId);
+        await Meow.updateOne(
+          { _id: originalMeow._id },
+          { $inc: { reposts: -1 } }
+        );
+      }
+      await Meow.deleteMany({ repostedMeowId: id });
+
       await Meow.findByIdAndDelete(id);
       await User.updateOne({ _id: userId }, { $inc: { meowCounter: -1 } });
       res.status(201).json({ message: "Successfully deleted meow" });

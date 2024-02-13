@@ -69,7 +69,13 @@ const DeleteEditMeow = ({
     try {
       const res = await meowApi().delete(meow._id);
       setDeletePopOut(false);
-      setMeows(meows.filter((element) => element._id !== meow._id));
+
+      setMeows(
+        meows.filter(
+          (element) =>
+            element._id !== meow._id && element.repostedMeowId !== meow._id
+        )
+      );
       if (isUserRoute) setMeowCounter(meowCounter - 1);
       if (meow.parentMeowId) setReplyCounter(replyCounter - 1);
     } catch (error) {
