@@ -121,7 +121,10 @@ const DeleteEditMeow = ({
           ></textarea>
           <div>
             <button
-              onClick={() => setEditPopOut(false)}
+              onClick={() => {
+                setEditPopOut(false);
+                setMeowToEdit(meow.text);
+              }}
               className={styles.cancelEdit}
             >
               Cancel
