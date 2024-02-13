@@ -52,13 +52,13 @@ const DeleteEditMeow = ({
   const updateMeow = async () => {
     try {
       const res = await meowApi().patch(meow._id, { text: meowToEdit });
-      console.log(res);
       setEditPopOut(false);
       setMeows(
         meows.map((element) =>
           element._id === meow._id ? { ...element, text: meowToEdit } : meow
         )
       );
+      meows.map((m) => console.log(m._id));
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +67,6 @@ const DeleteEditMeow = ({
   const deleteMeow = async () => {
     try {
       const res = await meowApi().delete(meow._id);
-      console.log(res);
       setDeletePopOut(false);
       setMeows(meows.filter((element) => element._id !== meow._id));
       isUserRoute

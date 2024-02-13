@@ -14,6 +14,7 @@ import { ArrowLeft, Repeat2, MessageSquareMore } from "lucide-react";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import { handleResize } from "../../functions/responsiveFunctions";
+import { all } from "cypress/types/bluebird";
 
 const MeowView = () => {
   function handleKeyDown(e) {
@@ -77,6 +78,7 @@ const MeowView = () => {
     };
     try {
       const res = await meowApi().post("/", newReply);
+
       setAllMeowReplies([
         {
           text: meowReply,

@@ -21,7 +21,7 @@ const MeowReplies = ({
       {meowsToShow && (
         <div className={styles.bigContainer}>
           {meowsToShow.map((meow) => (
-            <div key={meow._id || meow.text} className={styles.container}>
+            <div key={meow._id} className={styles.container}>
               <div className={styles.userContainer}>
                 <PhotoUserProfile
                   photoStyle={photoStyle}
