@@ -93,7 +93,7 @@ const DeleteEditMeow = ({
 
         {popOut && (
           <div className={styles.popOutContainer}>
-            <div onClick={handleClick}>
+            <div id="edit" onClick={handleClick}>
               <img id="edit" src={edit} /> <span>Edit</span>
             </div>
 
