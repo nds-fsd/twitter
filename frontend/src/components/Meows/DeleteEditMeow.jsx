@@ -40,7 +40,8 @@ const DeleteEditMeow = ({
   };
 
   const handleClick = (e) => {
-    if (e.target.id === "edit") {
+    console.log(e.target.innerHTML);
+    if (e.target.innerHTML === "Edit") {
       setPopOut(false);
       setEditPopOut(true);
     } else {
@@ -92,14 +93,12 @@ const DeleteEditMeow = ({
 
         {popOut && (
           <div className={styles.popOutContainer}>
-            <div>
-              <img id="edit" src={edit} onClick={handleClick} />{" "}
-              <span>Edit</span>
+            <div id="edit" onClick={handleClick}>
+              <img src={edit} /> <span>Edit</span>
             </div>
 
-            <div>
-              <img id="delete" src={del} onClick={handleClick} />{" "}
-              <span style={{ color: "#b30b0b" }}>Delete</span>
+            <div id="delete" onClick={handleClick}>
+              <img src={del} /> <span style={{ color: "#b30b0b" }}>Delete</span>
             </div>
           </div>
         )}
