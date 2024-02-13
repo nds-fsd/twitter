@@ -28,7 +28,6 @@ function Meows() {
   const { id } = getUserSession();
   const mContext = useContext(meowContext);
   const reload = useContext(context);
-  console.log(meows);
 
   const newMeow = mContext.newMeow;
   const userId = id;

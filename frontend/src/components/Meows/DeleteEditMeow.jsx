@@ -53,12 +53,16 @@ const DeleteEditMeow = ({
     try {
       const res = await meowApi().patch(meow._id, { text: meowToEdit });
       setEditPopOut(false);
-      setMeows(
-        meows.map((element) =>
-          element._id === meow._id ? { ...element, text: meowToEdit } : meow
-        )
-      );
-      meows.map((m) => console.log(m));
+      const updatedMeows = meows.map((element) => {
+        if (element._id === meow._id) {
+          return { ...element, text: meowToEdit };
+        }
+        return element;
+      });
+      setMeows(updatedMeows);
+      console.log(updatedMeows);
+      // meows.map((m) => console.log(m._id));
+      // console.log(meows);
     } catch (error) {
       console.log(error);
     }

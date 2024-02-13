@@ -24,7 +24,6 @@ function PostForm() {
         meow: newMeow,
         date: Date.now(),
       });
-      console.log(res.data.meowToSave);
       context.setNewMeow(res.data.meowToSave);
       setNewMeow("");
     } catch (err) {
