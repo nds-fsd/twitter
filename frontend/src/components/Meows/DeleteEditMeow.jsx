@@ -1,6 +1,6 @@
 import styles from "./DeleteEditMeow.module.css";
 import { useState, useRef, useEffect } from "react";
-import { MoreHorizontal, Trash2, Pencil } from "lucide-react";
+import { MoreHorizontal, Trash2, FilePenLine } from "lucide-react";
 import del from "../../assets/delete.png";
 import edit from "../../assets/edit.png";
 import { meowApi } from "../../functions/apiWrapper";
@@ -101,18 +101,30 @@ const DeleteEditMeow = ({
         <MoreHorizontal onClick={() => setPopOut(true)} />
 
         {popOut && (
-          <div
-            className={styles.popOutContainer}
-            style={{ height: !meow.repostedMeowId ? "178%" : "98%" }}
-          >
+          <div className={styles.popOutContainer}>
             {!meow.repostedMeowId && (
-              <div id="edit" onClick={handleClick}>
-                <img id="edit" src={edit} /> <span>Edit</span>
+              <div
+                id="edit"
+                onClick={handleClick}
+                className={styles.editDeleteOptions}
+              >
+                <FilePenLine strokeWidth={1} color="grey" size={20} />
+                <p className={styles.editDeleteTexts}>Edit</p>
               </div>
             )}
 
-            <div id="delete" onClick={handleClick}>
-              <img src={del} /> <span style={{ color: "#b30b0b" }}>Delete</span>
+            <div
+              id="delete"
+              onClick={handleClick}
+              className={styles.editDeleteOptions}
+            >
+              <Trash2 strokeWidth={1} color="#b30b0b" size={25} />
+              <p
+                className={styles.editDeleteTexts}
+                style={{ color: "#b30b0b" }}
+              >
+                Delete
+              </p>
             </div>
           </div>
         )}
