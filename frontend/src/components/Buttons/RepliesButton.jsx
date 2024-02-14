@@ -3,7 +3,7 @@ import { MessageSquareMore } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
-const MessageButton = () => {
+const RepliesButton = ({ meow }) => {
   return (
     <div
       className={styles.iconsContainer}
@@ -11,18 +11,17 @@ const MessageButton = () => {
       data-tooltip-content="Replies"
       data-tooltip-place="top"
     >
+      <p className={styles.buttonsText}>{meow.replies}</p>
       <button id="messageButton" type="button" className={styles.iconButton}>
-        {/* {replyCounter}
-        {replyCounter > 0 ? (
+        {meow.replies > 0 ? (
           <MessageSquareMore color="#F8F393" size={20} />
         ) : (
           <MessageSquareMore color="grey" size={20} />
-        )} */}
-        <MessageSquareMore size={20} color="grey" />
+        )}
         <Tooltip id="Replies" />
       </button>
     </div>
   );
 };
 
-export default MessageButton;
+export default RepliesButton;

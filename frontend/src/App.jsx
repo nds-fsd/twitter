@@ -4,7 +4,7 @@ import { getUserToken } from "./functions/localStorage";
 import HomePage from "./components/HomePage/HomePage";
 import MeowView from "./components/Meows/MeowView";
 import UserProfile from "./components/Profile/UserProfile";
-import PreLoader from "./effects/PreLoader";
+import MeowsBookmarked from "./components/Meows/MeowsBookmarked";
 import PublicHome from "./components/PublicHome/PublicHome";
 import AppLayout from "./components/AppLayout/AppLayout";
 
@@ -36,13 +36,13 @@ function App() {
               path="/home"
               element={
                 <>
-                  {/* {preLoader && <PreLoader />} */}
                   <HomePage />
                 </>
               }
             />
             <Route path="/meow/:id" element={<MeowView />} />
             <Route path="/user/:username" element={<UserProfile />} />
+            <Route path="/bookmark/:username" element={<MeowsBookmarked />} />
           </Routes>
         </AppLayout>
       </context.Provider>

@@ -155,8 +155,19 @@ function UserProfile() {
             setMeowsLiked={setMeowsLiked}
             setMeowsFiltered={setMeowsFiltered}
           />
-          {meowsLiked && <MeowsLiked />}
-          {meowsFiltered && <MeowsInProfile username={urlUsername} />}
+          {meowsLiked && (
+            <MeowsLiked
+              meowCounter={meowCounter}
+              setMeowCounter={setMeowCounter}
+            />
+          )}
+          {meowsFiltered && (
+            <MeowsInProfile
+              meowCounter={meowCounter}
+              setMeowCounter={setMeowCounter}
+              username={urlUsername}
+            />
+          )}
         </div>
       </div>
 

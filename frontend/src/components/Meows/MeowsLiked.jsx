@@ -1,25 +1,23 @@
 import { useState, useEffect, useContext } from "react";
-import { meowApi, userApi } from "../../functions/apiWrapper";
+import { likeApi, userApi } from "../../functions/apiWrapper";
 import styles from "./MeowsFormat.module.css";
-import MessageButton from "../Buttons/MessageButton";
-import LikeButton from "../Buttons/LikeButton";
-import RepostButton from "../Buttons/RepostButton.jsx";
-import Bookmark from "../Buttons/BookmarkButton";
-import Views from "../Buttons/Views";
-import ShareButton from "../Buttons/ShareButton";
 import { getUserSession } from "../../functions/localStorage";
 import Loading from "../../effects/Loading";
 import { useNavigate } from "react-router-dom";
 import { context } from "../../App";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
+import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
+import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
-const MeowsLiked = () => {
+const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
   const photoStyle = "meow";
+  const { id } = getUserSession();
+  const userId = id;
 
   const navigate = useNavigate();
 
@@ -28,9 +26,8 @@ const MeowsLiked = () => {
   useEffect(() => {
     const getAllMeows = async () => {
       try {
-        const { id } = getUserSession();
         setLoading(true);
-        const res = await meowApi().get(`likes/${id}`);
+        const res = await likeApi().get(`/user/${userId}`);
         setLoading(false);
         const data = res.data;
 
@@ -110,27 +107,64 @@ const MeowsLiked = () => {
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
                 />
-                <div className={styles.infoUserContainer}>
-                  <div className={styles.userData}>
-                    <p
-                      onClick={() => {
-                        navigate("/user/" + meow.authorUsername);
-                        reload.setReload(!reload.reload);
-                      }}
-                      className={styles.nameSurname}
-                    >
-                      {meow.nameAuthor} {meow.surnameAuthor}
+                {meow.author === userId && (
+                  <DeleteEditMeow
+                    meow={meow}
+                    meows={meows}
+                    setMeows={setMeows}
+                    meowCounter={meowCounter}
+                    setMeowCounter={setMeowCounter}
+                  />
+                )}
+
+                {!meow.repostedMeowId && (
+                  <div className={styles.infoUserContainer}>
+                    <div className={styles.userData}>
+                      <p
+                        onClick={() => {
+                          navigate("/user/" + meow.authorUsername);
+                        }}
+                        className={styles.nameSurname}
+                      >
+                        {meow.nameAuthor} {meow.surnameAuthor}
+                      </p>
+                      <p className={styles.username}>@{meow.authorUsername}</p>
+                    </div>
+
+                    <div>
+                      <p className={styles.dateFormat}>{meow.date}</p>
+                    </div>
+                  </div>
+                )}
+                {meow.repostedMeowId && (
+                  <div style={{ width: "100%" }}>
+                    <p className={styles.repostedBy}>
+                      Reposted by: @{meow.authorUsername}
                     </p>
-                    <p className={styles.username}>@{meow.authorUsername}</p>
+                    <div className={styles.infoUserContainer}>
+                      <div className={styles.userData}>
+                        <p
+                          onClick={() => {
+                            navigate("/user/" + meow.originalUsername);
+                            reload.setReload(!reload.reload);
+                          }}
+                          className={styles.nameSurname}
+                        >
+                          {meow.originalName} {meow.originalSurname}
+                        </p>
+                        <p className={styles.username}>
+                          @{meow.originalUsername}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={styles.dateFormat}>{meow.date}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className={styles.dateFormat}>{meow.date}</p>
-                  </div>
-                </div>
+                )}
               </div>
               <div
-                onClick={(e) => {
-                  if (e.target.id === "likeButton") return;
+                onClick={() => {
                   navigate(`/meow/${meow._id}`, { state: { meow } });
                 }}
                 key={meow._id}
@@ -139,12 +173,7 @@ const MeowsLiked = () => {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
-                <MessageButton />
-                <LikeButton meow={meow} />
-                <RepostButton meow={meow} />
-                <Bookmark />
-                <Views />
-                <ShareButton />
+                <AllMeowButtons meow={meow} />
               </div>
             </div>
           );

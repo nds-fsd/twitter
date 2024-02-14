@@ -1,7 +1,6 @@
 const Meow = require("../schemas/meow");
 const User = require("../schemas/user");
 const Follow = require("../schemas/follow");
-const Like = require("../schemas/like");
 const mongoose = require("mongoose");
 
 const getFeedMeows = async (req, res) => {
@@ -32,6 +31,8 @@ const getFeedMeows = async (req, res) => {
             const originalAuthor = await User.findById(originalMeow.author);
             return {
               ...meow._doc,
+              originalName: originalAuthor.name,
+              originalSurname: originalAuthor.surname,
               originalUsername: originalAuthor.username,
             };
           }
@@ -43,23 +44,6 @@ const getFeedMeows = async (req, res) => {
     return res.json(meowsWithOriginalAuthors);
   } catch (error) {
     return res.status(500).json(error.message);
-  }
-};
-
-const getMeowsLiked = async (req, res) => {
-  try {
-    const userId = req.jwtPayload.id;
-
-    const likes = await Like.find({ userId: userId });
-    const meowsIdsLiked = likes.map((like) => like.meowId);
-
-    const meowsLiked = await Meow.find({ _id: { $in: meowsIdsLiked } });
-
-    return res.status(200).json(meowsLiked);
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Error fetching data", message: error.message });
   }
 };
 
@@ -130,7 +114,7 @@ const getMeowReplies = async (req, res) => {
       });
       return res.status(200).json(meowRepliesWithUsernames.reverse());
     } else {
-      return res.status(404).json({
+      return res.status(204).json({
         message: "No replies found.",
       });
     }
@@ -163,7 +147,7 @@ const createMeow = async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: "Meow created successfully", meowId: meowToSave._id });
+      .json({ message: "Meow created successfully", meowToSave });
   } catch (error) {
     return res.status(400).json(error.message);
   }
@@ -222,10 +206,27 @@ const updateMeow = async (req, res) => {
 const deleteMeow = async (req, res) => {
   try {
     const { id } = req.params;
+    const userId = req.jwtPayload.id;
     const meowFound = await Meow.findById(id);
 
     if (meowFound) {
+      if (meowFound.parentMeow) {
+        await Meow.updateOne(
+          { _id: meowFound.parentMeow },
+          { $inc: { replies: -1 } }
+        );
+      }
+      if (meowFound.repostedMeowId) {
+        const originalMeow = await Meow.findById(meowFound.repostedMeowId);
+        await Meow.updateOne(
+          { _id: originalMeow._id },
+          { $inc: { reposts: -1 } }
+        );
+      }
+      await Meow.deleteMany({ repostedMeowId: id });
+
       await Meow.findByIdAndDelete(id);
+      await User.updateOne({ _id: userId }, { $inc: { meowCounter: -1 } });
       res.status(201).json({ message: "Successfully deleted meow" });
     } else {
       res.status(404).json({ error: "Meow not found" });
@@ -243,6 +244,5 @@ module.exports = {
   deleteMeow,
   repostMeow,
   getMeowReplies,
-  getMeowsLiked,
   getProfileMeows,
 };

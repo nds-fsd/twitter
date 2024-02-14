@@ -24,6 +24,40 @@ const checkLikeStatus = async (req, res) => {
   }
 };
 
+const getMeowsLiked = async (req, res) => {
+  try {
+    const userId = req.jwtPayload.id;
+
+    const likes = await Like.find({ userId: userId });
+    const meowsIdsLiked = likes.map((like) => like.meowId);
+
+    const meowsLiked = await Meow.find({ _id: { $in: meowsIdsLiked } });
+    const meowsWithOriginalAuthors = await Promise.all(
+      meowsLiked.map(async (meow) => {
+        if (meow.repostedMeowId) {
+          const originalMeow = await Meow.findById(meow.repostedMeowId);
+          if (originalMeow) {
+            const originalAuthor = await User.findById(originalMeow.author);
+            return {
+              ...meow._doc,
+              originalName: originalAuthor.name,
+              originalSurname: originalAuthor.surname,
+              originalUsername: originalAuthor.username,
+            };
+          }
+        }
+        return meow;
+      })
+    );
+
+    return res.status(200).json(meowsWithOriginalAuthors);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error fetching data", message: error.message });
+  }
+};
+
 const likeMeow = async (req, res) => {
   try {
     const meowId = req.params.meowId;
@@ -123,6 +157,7 @@ const unlikeMeow = async (req, res) => {
 
 module.exports = {
   checkLikeStatus,
+  getMeowsLiked,
   likeMeow,
   unlikeMeow,
 };
