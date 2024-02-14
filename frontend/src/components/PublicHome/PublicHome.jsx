@@ -46,7 +46,7 @@ const PublicHome = ({ reloadPage }) => {
         <img
           className={styles.logo}
           src={
-            "https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707355087/cat.png"
+            "https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707388881/code/cat.png"
           }
         />
 
