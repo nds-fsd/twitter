@@ -80,13 +80,13 @@
 }
 
 /* style for Replies component*/
-/* .iconsReplyContainer { */
-  /* align-items: center; */
-  /* display: flex; */
-  /* justify-content: space-evenly; */
-  /* justify-content: flex-start; */
-  /* margin-left: 45px; */
-/* } */
+.iconsReplyContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  justify-content: flex-start;
+  margin-left: 45px;
+}
 
 /* format for View and Reply components*/
 .postContainerInView {

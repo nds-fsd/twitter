@@ -24,7 +24,6 @@ router.post(
   validateToken,
   meowController.repostMeow
 );
-
 router.patch("/:id", consoleLogType, validateToken, meowController.updateMeow);
 router.delete("/:id", consoleLogType, validateToken, meowController.deleteMeow);
 

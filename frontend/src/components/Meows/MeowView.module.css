@@ -80,7 +80,7 @@
   font-size: 15px;
 }
 
-.replyButton {  
+.replyButton {
   background-color: var(--main-color);
   border: solid 1px var(--main-color);
   border-radius: 20px;
