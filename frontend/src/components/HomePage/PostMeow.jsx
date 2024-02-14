@@ -2,16 +2,21 @@ import styles from "./PostMeow.module.css";
 import Swal from "sweetalert2";
 import { meowApi } from "../../functions/apiWrapper.js";
 import { useContext, useState } from "react";
-import { context } from "../../App.jsx";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import { getUserSession } from "../../functions/localStorage.js";
+import { meowContext } from "./HomePage.jsx";
 
 function PostForm() {
   const [newMeow, setNewMeow] = useState("");
   const [error, setError] = useState(false);
-  const reload = useContext(context);
+  const context = useContext(meowContext);
   const photoStyle = "component";
   const { username } = getUserSession();
+
+  function handleKeyDown(e) {
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  }
 
   const postNewMeow = async () => {
     try {
@@ -19,8 +24,8 @@ function PostForm() {
         meow: newMeow,
         date: Date.now(),
       });
+      context.setNewMeow(res.data.meowToSave);
       setNewMeow("");
-      reload.setReload(!reload.reload);
     } catch (err) {
       setError(true);
     }

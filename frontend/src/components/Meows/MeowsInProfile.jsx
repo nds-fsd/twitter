@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { meowApi } from "../../functions/apiWrapper";
+import { getUserSession } from "../../functions/localStorage.js";
 import styles from "./MeowsFormat.module.css";
 import MessageButton from "../Buttons/MessageButton";
 import LikeButton from "../Buttons/LikeButton.jsx";
@@ -10,12 +11,15 @@ import ShareButton from "../Buttons/ShareButton";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
+import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
-function MeowsInProfile({ username }) {
+function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
   const [meows, setMeows] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const photoStyle = "meow";
+  const { id } = getUserSession();
+  const userId = id;
 
   const navigate = useNavigate();
 
@@ -46,6 +50,13 @@ function MeowsInProfile({ username }) {
                 <PhotoUserProfile
                   photoStyle={photoStyle}
                   usernamePhoto={username}
+                />
+                <DeleteEditMeow
+                  meow={meow}
+                  meows={meows}
+                  setMeows={setMeows}
+                  meowCounter={meowCounter}
+                  setMeowCounter={setMeowCounter}
                 />
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>

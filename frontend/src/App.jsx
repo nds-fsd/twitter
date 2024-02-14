@@ -4,7 +4,6 @@ import { getUserToken } from "./functions/localStorage";
 import HomePage from "./components/HomePage/HomePage";
 import MeowView from "./components/Meows/MeowView";
 import UserProfile from "./components/Profile/UserProfile";
-import PreLoader from "./effects/PreLoader";
 import PublicHome from "./components/PublicHome/PublicHome";
 import AppLayout from "./components/AppLayout/AppLayout";
 

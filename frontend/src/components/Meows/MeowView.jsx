@@ -6,8 +6,6 @@ import LikeButton from "../Buttons/LikeButton";
 import BookmarkButton from "../Buttons/BookmarkButton";
 import MeowReplies from "./MeowReplies";
 import ShareButton from "../Buttons/ShareButton";
-import MessageButton from "../Buttons/MessageButton";
-import Views from "../Buttons/Views";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../../functions/apiWrapper";
@@ -15,6 +13,7 @@ import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft, Repeat2, MessageSquareMore } from "lucide-react";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
+import { handleResize } from "../../functions/responsiveFunctions";
 
 const MeowView = () => {
   function handleKeyDown(e) {
@@ -37,17 +36,8 @@ const MeowView = () => {
   const photoStyle = "meow";
 
   useEffect(() => {
-    const handleResize = () => {
-      const esPantallaPequena = window.matchMedia(
-        "(max-width: 1000px)"
-      ).matches;
-      setPantallaPequena(esPantallaPequena);
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    const cleanup = handleResize(setPantallaPequena);
+    return cleanup;
   }, []);
 
   useEffect(() => {
@@ -87,6 +77,7 @@ const MeowView = () => {
     };
     try {
       const res = await meowApi().post("/", newReply);
+
       setAllMeowReplies([
         {
           text: meowReply,
@@ -95,7 +86,7 @@ const MeowView = () => {
           authorSurname: surname,
           date: Date.now(),
           parentMeow: parentMeow._id,
-          _id: res.data._id,
+          _id: res.data.meowToSave._id,
           likes: 0,
         },
         ...allMeowReplies,
@@ -212,7 +203,14 @@ const MeowView = () => {
             </button>
           </div>
         </div>
-        {allMeowReplies && <MeowReplies allMeowReplies={allMeowReplies} />}
+        {allMeowReplies && (
+          <MeowReplies
+            replyCounter={replyCounter}
+            setReplyCounter={setReplyCounter}
+            allMeowReplies={allMeowReplies}
+            setAllMeowReplies={setAllMeowReplies}
+          />
+        )}
       </>
     )
   );

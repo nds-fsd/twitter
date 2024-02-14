@@ -4,7 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
 
-const MeowReplies = ({ allMeowReplies }) => {
+import DeleteEditMeow from "./DeleteEditMeow";
+
+const MeowReplies = ({
+  allMeowReplies,
+  setAllMeowReplies,
+  setReplyCounter,
+  replyCounter,
+}) => {
   const navigate = useNavigate();
   const meowsToShow = allMeowReplies.map((meow) => formatMeowDate(meow));
   const photoStyle = "meow";
@@ -19,6 +26,13 @@ const MeowReplies = ({ allMeowReplies }) => {
                 <PhotoUserProfile
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
+                />
+                <DeleteEditMeow
+                  meow={meow}
+                  meows={allMeowReplies}
+                  setMeows={setAllMeowReplies}
+                  setReplyCounter={setReplyCounter}
+                  replyCounter={replyCounter}
                 />
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>

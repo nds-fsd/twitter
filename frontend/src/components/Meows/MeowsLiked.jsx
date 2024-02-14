@@ -13,13 +13,16 @@ import { useNavigate } from "react-router-dom";
 import { context } from "../../App";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
+import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
-const MeowsLiked = () => {
+const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
   const photoStyle = "meow";
+  const { id } = getUserSession();
+  const userId = id;
 
   const navigate = useNavigate();
 
@@ -28,7 +31,6 @@ const MeowsLiked = () => {
   useEffect(() => {
     const getAllMeows = async () => {
       try {
-        const { id } = getUserSession();
         setLoading(true);
         const res = await meowApi().get(`likes/${id}`);
         setLoading(false);
@@ -110,23 +112,61 @@ const MeowsLiked = () => {
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
                 />
-                <div className={styles.infoUserContainer}>
-                  <div className={styles.userData}>
-                    <p
-                      onClick={() => {
-                        navigate("/user/" + meow.authorUsername);
-                        reload.setReload(!reload.reload);
-                      }}
-                      className={styles.nameSurname}
-                    >
-                      {meow.nameAuthor} {meow.surnameAuthor}
+                {meow.author === userId && (
+                  <DeleteEditMeow
+                    meow={meow}
+                    meows={meows}
+                    setMeows={setMeows}
+                    meowCounter={meowCounter}
+                    setMeowCounter={setMeowCounter}
+                  />
+                )}
+
+                {!meow.repostedMeowId && (
+                  <div className={styles.infoUserContainer}>
+                    <div className={styles.userData}>
+                      <p
+                        onClick={() => {
+                          navigate("/user/" + meow.authorUsername);
+                        }}
+                        className={styles.nameSurname}
+                      >
+                        {meow.nameAuthor} {meow.surnameAuthor}
+                      </p>
+                      <p className={styles.username}>@{meow.authorUsername}</p>
+                    </div>
+
+                    <div>
+                      <p className={styles.dateFormat}>{meow.date}</p>
+                    </div>
+                  </div>
+                )}
+                {meow.repostedMeowId && (
+                  <div style={{ width: "100%" }}>
+                    <p className={styles.repostedBy}>
+                      Reposted by: @{meow.authorUsername}
                     </p>
-                    <p className={styles.username}>@{meow.authorUsername}</p>
+                    <div className={styles.infoUserContainer}>
+                      <div className={styles.userData}>
+                        <p
+                          onClick={() => {
+                            navigate("/user/" + meow.originalUsername);
+                            reload.setReload(!reload.reload);
+                          }}
+                          className={styles.nameSurname}
+                        >
+                          {meow.originalName} {meow.originalSurname}
+                        </p>
+                        <p className={styles.username}>
+                          @{meow.originalUsername}
+                        </p>
+                      </div>
+                      <div>
+                        <p className={styles.dateFormat}>{meow.date}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className={styles.dateFormat}>{meow.date}</p>
-                  </div>
-                </div>
+                )}
               </div>
               <div
                 onClick={(e) => {
