@@ -6,7 +6,7 @@ const followRouter = require("./follow");
 const likeRouter = require("./like");
 const bookmarkRouter = require("./bookmark");
 const cloudinaryRouter = require("./cloudinary");
-const webpushRouter = require("./webpush");
+const notificationRouter = require("./notification");
 const router = express.Router();
 
 router.use("/meow", meowRouter);
@@ -15,6 +15,6 @@ router.use("/follow", followRouter);
 router.use("/like", likeRouter);
 router.use("/bookmark", bookmarkRouter);
 router.use("/cloudinary", cloudinaryRouter);
-router.use("/webpush", webpushRouter);
+router.use("/notification", notificationRouter);
 
 module.exports = router;
