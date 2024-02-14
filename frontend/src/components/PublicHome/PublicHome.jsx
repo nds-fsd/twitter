@@ -2,6 +2,7 @@ import styles from "./PublicHome.module.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import { useState } from "react";
+import { logo } from "../../assets/defaultAssets";
 
 const PublicHome = ({ reloadPage }) => {
   const [popUpRegister, setPopUpRegister] = useState(false);
@@ -43,12 +44,7 @@ const PublicHome = ({ reloadPage }) => {
           backgroundColor: popUpRegister || popUpLogin ? "grey" : "black",
         }}
       >
-        <img
-          className={styles.logo}
-          src={
-            "https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707388881/code/cat.png"
-          }
-        />
+        <img className={styles.logo} src={logo} />
 
         <div className={styles.right}>
           <h1>Happening now</h1>
