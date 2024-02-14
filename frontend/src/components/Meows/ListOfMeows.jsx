@@ -2,10 +2,16 @@ import { useState, useContext, useEffect } from "react";
 import { meowApi, userApi } from "../../functions/apiWrapper.js";
 import styles from "./MeowsFormat.module.css";
 import Loading from "../../effects/Loading.jsx";
-import { context } from "../../App.jsx";
 import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
+import { getUserSession } from "../../functions/localStorage.js";
+import DeleteEditMeow from "./DeleteEditMeow.jsx";
 import { useNavigate } from "react-router-dom";
 import { formatMeowDate } from "../../functions/dateFormat.js";
+
+import { context } from "../../App";
+import { meowContext } from "../HomePage/HomePage.jsx";
+
+import { updateMeowsWithNewMeow } from "../../functions/addNewMeow.js";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 
 function Meows() {
@@ -14,10 +20,13 @@ function Meows() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, seterrorMessage] = useState("");
   const photoStyle = "meow";
-
-  const navigate = useNavigate();
-
+  const { id } = getUserSession();
+  const mContext = useContext(meowContext);
   const reload = useContext(context);
+
+  const newMeow = mContext.newMeow;
+  const userId = id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllMeows = async () => {
@@ -80,6 +89,12 @@ function Meows() {
     getAllMeows();
   }, [reload.reload]);
 
+  useEffect(() => {
+    if (newMeow) {
+      setMeows((prevMeows) => updateMeowsWithNewMeow(prevMeows, newMeow));
+    }
+  }, [newMeow]);
+
   if (loading) return <Loading />;
 
   if (error)
@@ -103,13 +118,20 @@ function Meows() {
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
                 />
+                {meow.author === userId && (
+                  <DeleteEditMeow
+                    meow={meow}
+                    meows={meows}
+                    setMeows={setMeows}
+                  />
+                )}
+
                 {!meow.repostedMeowId && (
                   <div className={styles.infoUserContainer}>
                     <div className={styles.userData}>
                       <p
                         onClick={() => {
                           navigate("/user/" + meow.authorUsername);
-                          reload.setReload(!reload.reload);
                         }}
                         className={styles.nameSurname}
                       >
@@ -117,6 +139,7 @@ function Meows() {
                       </p>
                       <p className={styles.username}>@{meow.authorUsername}</p>
                     </div>
+
                     <div>
                       <p className={styles.dateFormat}>{meow.date}</p>
                     </div>
@@ -136,7 +159,7 @@ function Meows() {
                           }}
                           className={styles.nameSurname}
                         >
-                          {meow.nameAuthor} {meow.surnameAuthor}
+                          {meow.originalName} {meow.originalSurname}
                         </p>
                         <p className={styles.username}>
                           @{meow.originalUsername}

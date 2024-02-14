@@ -1,0 +1,131 @@
+.container {
+  position: relative;
+  width: 32px;
+  height: 29px;
+  cursor: pointer;
+  z-index: 5;
+  margin-right: 14px;
+}
+.dots {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.popOutContainer {
+  position: absolute;
+  cursor: default;
+
+  padding: 40%;
+
+  width: 223%;
+  height: 178%;
+  border-radius: 1rem;
+  right: 2%;
+  top: 33%;
+  background-color: rgb(231, 245, 182);
+}
+
+.popOutContainer > div {
+  display: flex;
+  margin: 4%;
+  margin-bottom: 9%;
+  cursor: pointer;
+}
+.popOutContainer > div > img {
+  width: 29%;
+  height: 7%;
+}
+.popOutContainer > div > span {
+  font-weight: bold;
+  color: black;
+  font-weight: bold;
+}
+
+.editPopOut {
+  position: fixed;
+  z-index: 9;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 40%;
+  width: 37%;
+  border-radius: 2rem;
+  background-color: #222222;
+  border: 4px solid white;
+}
+.editPopOut > textarea {
+  border: transparent;
+  background-color: black;
+  width: 80%;
+
+  height: 124px;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  margin-top: 7%;
+
+  color: white;
+}
+.editPopOut > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 17%;
+}
+
+.editPopOut > div > button {
+  width: 27%;
+  height: 61%;
+  margin: 5%;
+  color: black;
+  font-weight: bold;
+  background-color: #e94a00;
+}
+
+.deletePopOut {
+  position: fixed;
+  z-index: 9;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 12%;
+  width: 30%;
+  border-radius: 2rem;
+  background-color: #222222;
+  border: 4px solid white;
+}
+.deletePopOut > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.3rem;
+  font-weight: bold;
+
+  width: 100%;
+  height: 100%;
+}
+
+.deleteButtons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 3%;
+}
+
+.deleteButtons > button {
+  width: 24%;
+  height: 140%;
+  font-size: 1rem;
+  color: black;
+  font-weight: bold;
+}
