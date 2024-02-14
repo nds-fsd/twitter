@@ -1,7 +1,6 @@
 const Meow = require("../schemas/meow");
 const User = require("../schemas/user");
 const Follow = require("../schemas/follow");
-const Like = require("../schemas/like");
 const mongoose = require("mongoose");
 
 const getFeedMeows = async (req, res) => {
@@ -45,40 +44,6 @@ const getFeedMeows = async (req, res) => {
     return res.json(meowsWithOriginalAuthors);
   } catch (error) {
     return res.status(500).json(error.message);
-  }
-};
-
-const getMeowsLiked = async (req, res) => {
-  try {
-    const userId = req.jwtPayload.id;
-
-    const likes = await Like.find({ userId: userId });
-    const meowsIdsLiked = likes.map((like) => like.meowId);
-
-    const meowsLiked = await Meow.find({ _id: { $in: meowsIdsLiked } });
-    const meowsWithOriginalAuthors = await Promise.all(
-      meowsLiked.map(async (meow) => {
-        if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findById(meow.repostedMeowId);
-          if (originalMeow) {
-            const originalAuthor = await User.findById(originalMeow.author);
-            return {
-              ...meow._doc,
-              originalName: originalAuthor.name,
-              originalSurname: originalAuthor.surname,
-              originalUsername: originalAuthor.username,
-            };
-          }
-        }
-        return meow;
-      })
-    );
-
-    return res.status(200).json(meowsWithOriginalAuthors);
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Error fetching data", message: error.message });
   }
 };
 
@@ -279,6 +244,5 @@ module.exports = {
   deleteMeow,
   repostMeow,
   getMeowReplies,
-  getMeowsLiked,
   getProfileMeows,
 };

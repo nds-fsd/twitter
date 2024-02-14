@@ -12,12 +12,6 @@ router.get(
 );
 router.get("/:id", consoleLogType, validateToken, meowController.getMeowById);
 router.get(
-  "/likes/:id",
-  consoleLogType,
-  validateToken,
-  meowController.getMeowsLiked
-);
-router.get(
   "/replies/:id",
   consoleLogType,
   validateToken,
@@ -30,8 +24,7 @@ router.post(
   validateToken,
   meowController.repostMeow
 );
-
-router.patch("/:id", consoleLogType, meowController.updateMeow);
+router.patch("/:id", consoleLogType, validateToken, meowController.updateMeow);
 router.delete("/:id", consoleLogType, validateToken, meowController.deleteMeow);
 
 module.exports = router;

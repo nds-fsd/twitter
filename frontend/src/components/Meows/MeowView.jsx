@@ -1,18 +1,14 @@
 import styles from "./MeowView.module.css";
 import general from "./MeowsFormat.module.css";
-import { Tooltip } from "react-tooltip";
-import "react-tooltip/dist/react-tooltip.css";
-import LikeButton from "../Buttons/LikeButton";
-import BookmarkButton from "../Buttons/BookmarkButton";
 import MeowReplies from "./MeowReplies";
-import ShareButton from "../Buttons/ShareButton";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { meowApi } from "../../functions/apiWrapper";
 import { getUserSession } from "../../functions/localStorage";
-import { ArrowLeft, Repeat2, MessageSquareMore } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { formatMeowDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
+import AllMeowButtons from "../Buttons/AllMeowButtons";
 import { handleResize } from "../../functions/responsiveFunctions";
 
 const MeowView = () => {
@@ -136,46 +132,7 @@ const MeowView = () => {
               <p className={general.meow}>{parentMeow.text}</p>
             </div>
             <div className={general.iconsContainer}>
-              <span
-                onClick={() => {
-                  textareaRef.current.focus();
-                }}
-                data-tooltip-id="Replies"
-                data-tooltip-content="Replies"
-                data-tooltip-place="top"
-                className={`${styles.statsSpan} ${
-                  pantallaPequena ? styles.statsSpanSmallScreen : ""
-                }`}
-              >
-                {replyCounter}
-                {replyCounter > 0 ? (
-                  <MessageSquareMore color="#F8F393" size={20} />
-                ) : (
-                  <MessageSquareMore color="grey" size={20} />
-                )}
-                <Tooltip id="Replies" />
-              </span>
-              <span
-                data-tooltip-id="Reposts"
-                data-tooltip-content="Reposts"
-                data-tooltip-place="top"
-                className={`${styles.statsSpan} ${
-                  pantallaPequena ? styles.statsSpanSmallScreen : ""
-                }`}
-              >
-                {parentMeow.reposts}
-                {parentMeow.reposts > 0 ? (
-                  <Repeat2 color="#5E8DF9" />
-                ) : (
-                  <Repeat2 color="grey" />
-                )}
-                <Tooltip id="Reposts" />
-              </span>
-
-              <LikeButton meow={parentMeow} />
-              <BookmarkButton />
-              <ShareButton />
-              <span>{parentMeow.views} Views</span>
+              <AllMeowButtons meow={parentMeow} />
             </div>
           </div>
           <div className={styles.replies}>

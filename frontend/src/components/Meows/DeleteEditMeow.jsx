@@ -1,6 +1,6 @@
 import styles from "./DeleteEditMeow.module.css";
 import { useState, useRef, useEffect } from "react";
-import options from "../../assets/options.jpg";
+import { MoreHorizontal, Trash2, Pencil } from "lucide-react";
 import del from "../../assets/delete.png";
 import edit from "../../assets/edit.png";
 import { meowApi } from "../../functions/apiWrapper";
@@ -19,7 +19,6 @@ const DeleteEditMeow = ({
   meowCounter,
   setMeowCounter,
 }) => {
-  // ---------------------------------------------------------Variables-------------------------------------------------------
   const location = useLocation();
   const isUserRoute = location.pathname.startsWith("/user/");
   const isMeowViewRoute = location.pathname.startsWith("/meow/");
@@ -29,8 +28,6 @@ const DeleteEditMeow = ({
   const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
   const textAreaRef = useRef();
-
-  // ------------------------------------------------Funciones-------------------------------------------------------------------
 
   document.addEventListener("click", (e) => {
     if (divRef.current && divRef.current.contains(e.target)) {
@@ -97,16 +94,11 @@ const DeleteEditMeow = ({
       console.log(error);
     }
   };
-  // -------------------------------------------------------------------------------------------------------------------------
 
   return (
     <>
       <div ref={divRef} className={styles.container}>
-        <img
-          src={options}
-          onClick={() => setPopOut(true)}
-          className={styles.dots}
-        />
+        <MoreHorizontal onClick={() => setPopOut(true)} />
 
         {popOut && (
           <div
@@ -125,6 +117,7 @@ const DeleteEditMeow = ({
           </div>
         )}
       </div>
+
       {editPopOut && (
         <div className={styles.editPopOut}>
           <textarea
@@ -156,6 +149,7 @@ const DeleteEditMeow = ({
           </div>
         </div>
       )}
+
       {deletePopOut && (
         <div className={styles.deletePopOut}>
           <div>

@@ -3,7 +3,7 @@ import { Link } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
-const ShareButton = () => {
+const ShareButton = ({ meow }) => {
   return (
     <div
       className={styles.iconsContainer}
