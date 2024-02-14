@@ -28,13 +28,6 @@ const MeowReplies = ({
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
                 />
-                <DeleteEditMeow
-                  meow={meow}
-                  meows={allMeowReplies}
-                  setMeows={setAllMeowReplies}
-                  setReplyCounter={setReplyCounter}
-                  replyCounter={replyCounter}
-                />
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>
                     <p
@@ -45,7 +38,14 @@ const MeowReplies = ({
                     </p>
                     <p className={styles.username}>@{meow.authorUsername}</p>
                   </div>
-                  <div>
+                  <div className={styles.buttonDateContainer}>
+                    <DeleteEditMeow
+                      meow={meow}
+                      meows={allMeowReplies}
+                      setMeows={setAllMeowReplies}
+                      setReplyCounter={setReplyCounter}
+                      replyCounter={replyCounter}
+                    />
                     <p className={styles.dateFormat}>{meow.date}</p>
                   </div>
                 </div>
@@ -54,9 +54,6 @@ const MeowReplies = ({
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
-                {/* <div className={styles.iconsReplyContainer}>
-                <LikeButton meow={meow} />
-                <BookmarkButton meow={meow} /> */}
                 <AllMeowButtons meow={meow} />
               </div>
             </div>

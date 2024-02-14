@@ -30,7 +30,7 @@
 .userData {
   align-items: center;
   display: flex;
-  width: 70%;
+  width: 65%;
 }
 
 .nameSurname {
@@ -77,6 +77,11 @@
 .dateFormat {
   color: gray;
   font-size: 12px;
+}
+
+.buttonDateContainer {
+  display: flex;
+  align-items: center;
 }
 
 /* style for Replies component*/

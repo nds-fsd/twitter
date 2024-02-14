@@ -46,13 +46,7 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
                   photoStyle={photoStyle}
                   usernamePhoto={username}
                 />
-                <DeleteEditMeow
-                  meow={meow}
-                  meows={meows}
-                  setMeows={setMeows}
-                  meowCounter={meowCounter}
-                  setMeowCounter={setMeowCounter}
-                />
+
                 <div className={styles.infoUserContainer}>
                   <div className={styles.userData}>
                     <p className={styles.nameSurname}>
@@ -60,7 +54,14 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
                     </p>
                     <p className={styles.username}>@{username}</p>
                   </div>
-                  <div>
+                  <div className={styles.buttonDateContainer}>
+                    <DeleteEditMeow
+                      meow={meow}
+                      meows={meows}
+                      setMeows={setMeows}
+                      meowCounter={meowCounter}
+                      setMeowCounter={setMeowCounter}
+                    />
                     <p className={styles.dateFormat}>{meow.date}</p>
                   </div>
                 </div>
