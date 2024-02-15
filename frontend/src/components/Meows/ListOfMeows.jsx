@@ -118,14 +118,6 @@ function Meows() {
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
                 />
-                {meow.author === userId && (
-                  <DeleteEditMeow
-                    meow={meow}
-                    meows={meows}
-                    setMeows={setMeows}
-                  />
-                )}
-
                 {!meow.repostedMeowId && (
                   <div className={styles.infoUserContainer}>
                     <div className={styles.userData}>
@@ -140,7 +132,14 @@ function Meows() {
                       <p className={styles.username}>@{meow.authorUsername}</p>
                     </div>
 
-                    <div>
+                    <div className={styles.buttonDateContainer}>
+                      {meow.author === userId && (
+                        <DeleteEditMeow
+                          meow={meow}
+                          meows={meows}
+                          setMeows={setMeows}
+                        />
+                      )}
                       <p className={styles.dateFormat}>{meow.date}</p>
                     </div>
                   </div>
@@ -165,7 +164,14 @@ function Meows() {
                           @{meow.originalUsername}
                         </p>
                       </div>
-                      <div>
+                      <div className={styles.buttonDateContainer}>
+                        {meow.author === userId && (
+                          <DeleteEditMeow
+                            meow={meow}
+                            meows={meows}
+                            setMeows={setMeows}
+                          />
+                        )}
                         <p className={styles.dateFormat}>{meow.date}</p>
                       </div>
                     </div>
