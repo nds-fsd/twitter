@@ -99,3 +99,6 @@
   padding-bottom: 3%;
 }
 
+.titleBookmarks {
+  font-family: var(--main-font);
+}

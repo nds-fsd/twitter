@@ -96,6 +96,9 @@ const MeowsBookmarked = () => {
 
   return (
     <div className={styles.bigContainer}>
+      <div>
+        <h2 className={styles.titleBookmarks}>Meows Bookmarked!</h2>
+      </div>
       {meows &&
         meows.map((meow) => {
           return (
