@@ -3,17 +3,21 @@ import { Eye, EyeOff } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { notificationApi } from "../../functions/apiWrapper";
+import { useState } from "react";
 
 const ReadNotificationButton = ({ notificationId, read }) => {
+  const [isRead, setIsRead] = useState(read);
+
   const handleClickToView = async () => {
     await notificationApi().patch(`/${notificationId}`);
+    setIsRead(!isRead);
   };
 
   return (
     <div
       className={styles.iconsContainer}
-      data-tooltip-id="ReadNotification"
-      data-tooltip-content="ReadNotification"
+      data-tooltip-id="Read"
+      data-tooltip-content={isRead ? "Viewed" : "Not viewed"}
       data-tooltip-place="top"
     >
       <button
@@ -22,12 +26,12 @@ const ReadNotificationButton = ({ notificationId, read }) => {
         className={styles.iconButton}
         onClick={handleClickToView}
       >
-        {!read ? (
+        {!isRead ? (
           <Eye color="grey" size={20} />
         ) : (
           <EyeOff color="grey" size={20} />
         )}
-        {!read ? <Tooltip id="Viewed" /> : <Tooltip id="Not viewed" />}
+        <Tooltip id="Read" />
       </button>
     </div>
   );
