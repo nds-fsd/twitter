@@ -89,6 +89,17 @@ function UserProfile() {
 
   const photoStyle = "profile";
 
+  useEffect(() => {
+    if (popUpEditProfile) {
+      document.body.classList.add("noScroll");
+    } else {
+      document.body.classList.remove("noScroll");
+    }
+    return () => {
+      document.body.classList.remove("noScroll");
+    };
+  }, [popUpEditProfile]);
+
   return (
     <>
       <div>

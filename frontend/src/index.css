@@ -28,6 +28,10 @@ body {
   background-color: black;
 }
 
+.noScroll {
+  overflow: hidden;
+}
+
 * {
   margin: 0;
   padding: 0;

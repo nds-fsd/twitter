@@ -6,7 +6,9 @@
 .container {
   background-color: var(--sections-color);
   border-radius: 20px;
+  z-index: -2;
   margin: 80px 5% 0 0;
+  position: relative;
 }
 
 .title {
