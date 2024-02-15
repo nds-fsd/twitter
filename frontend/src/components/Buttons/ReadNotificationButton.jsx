@@ -5,9 +5,8 @@ import "react-tooltip/dist/react-tooltip.css";
 import { notificationApi } from "../../functions/apiWrapper";
 
 const ReadNotificationButton = ({ notificationId, read }) => {
-  
   const handleClickToView = async () => {
-    await notificationApi().put(`/${notificationId}`);
+    await notificationApi().patch(`/${notificationId}`);
   };
 
   return (

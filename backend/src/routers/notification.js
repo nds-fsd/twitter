@@ -4,7 +4,7 @@ const notificationController = require("../controllers/notification");
 const { validateToken } = require("../middlewares/index");
 
 router.post("/", validateToken, notificationController.createNotification);
-router.put(
+router.patch(
   "/:notificationId",
   validateToken,
   notificationController.editNotification

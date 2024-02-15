@@ -8,9 +8,6 @@ import styles from "./Notifications.module.css";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
-  const [usernames, setUsernames] = useState({});
-  const [name, setName] = useState({});
-  const [surname, setSurname] = useState({});
   const { username: urlUsername } = useParams();
   const navigate = useNavigate();
   const photoStyle = "component";
@@ -27,12 +24,11 @@ const Notifications = () => {
               const userResponse = await userApi().get(
                 `/id/${notification.sender}`
               );
-              setName(userResponse.data.name);
-              setSurname(userResponse.data.surname);
-              setUsernames(userResponse.data.username);
-              console.log(userResponse);
               return {
                 ...notification,
+                name: userResponse.data.name,
+                surname: userResponse.data.surname,
+                username: userResponse.data.username,
                 date: formatDate(notification).date,
               };
             } catch (error) {
@@ -102,11 +98,12 @@ const Notifications = () => {
             >
               <PhotoUserProfile
                 photoStyle={photoStyle}
-                usernamePhoto={usernames}
+                usernamePhoto={notification.username}
               />
               <div className={styles.notificationText}>
                 <p>
-                  {name} {surname} <em>(@{usernames})</em> {actionText}
+                  {notification.name} {notification.surname}{" "}
+                  <em>(@{notification.username})</em> {actionText}
                 </p>
                 <p className={styles.notificationDate}>{notification.date}</p>
               </div>
