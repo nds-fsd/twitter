@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "./FollowButton.module.css";
-import { followApi } from "../../functions/apiWrapper";
+import { followApi, notificationApi } from "../../functions/apiWrapper";
+import { getUserSession } from "../../functions/localStorage";
 import { context } from "../../App";
 
 const FollowButton = ({ username }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const reload = useContext(context);
+  const loggedInUser = getUserSession();
 
   useEffect(() => {
     const fetchFollowStatus = async () => {
@@ -33,6 +35,20 @@ const FollowButton = ({ username }) => {
 
       if (response.status === 200) {
         setIsFollowing(true);
+        const dataNotification = {
+          recipient: username,
+          sender: loggedInUser.username,
+          action: "follow",
+          post: null,
+        };
+        const notification = await notificationApi().post(
+          `/`,
+          dataNotification
+        );
+        if (notification.status === 201) {
+        } else {
+          throw new Error(notification.data.error);
+        }
         reload.setReload(!reload.reload);
       } else {
         throw new Error(response.data.error);
@@ -53,6 +69,20 @@ const FollowButton = ({ username }) => {
 
       if (response.status === 200) {
         setIsFollowing(false);
+        const dataNotification = {
+          recipient: username,
+          sender: loggedInUser.username,
+          action: "unfollow",
+          post: null,
+        };
+        const notification = await notificationApi().post(
+          `/`,
+          dataNotification
+        );
+        if (notification.status === 201) {
+        } else {
+          throw new Error(notification.data.error);
+        }
         reload.setReload(!reload.reload);
       } else {
         throw new Error(response.data.error);

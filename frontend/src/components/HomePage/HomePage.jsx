@@ -1,6 +1,6 @@
 import styles from "./HomePage.module.css";
 import PostForm from "./PostMeow";
-import Meows from "../Meows/ListOfMeows";
+import ListOFMeows from "../Meows/ListOfMeows";
 import { useState, createContext } from "react";
 export const meowContext = createContext();
 
@@ -11,7 +11,7 @@ const HomePage = () => {
       <div className={styles.mainContainer}>
         <div>
           <PostForm />
-          <Meows />
+          <ListOFMeows />
         </div>
       </div>
     </meowContext.Provider>

@@ -6,7 +6,7 @@ import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
 import { getUserSession } from "../../functions/localStorage.js";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
 import { useNavigate } from "react-router-dom";
-import { formatMeowDate } from "../../functions/dateFormat.js";
+import { formatDate } from "../../functions/dateFormat.js";
 
 import { context } from "../../App";
 import { meowContext } from "../HomePage/HomePage.jsx";
@@ -14,7 +14,7 @@ import { meowContext } from "../HomePage/HomePage.jsx";
 import { updateMeowsWithNewMeow } from "../../functions/addNewMeow.js";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 
-function Meows() {
+function ListOFMeows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -75,9 +75,7 @@ function Meows() {
           };
         });
 
-        const meowsToShow = meowsWithUsernames.map((meow) =>
-          formatMeowDate(meow)
-        );
+        const meowsToShow = meowsWithUsernames.map((meow) => formatDate(meow));
 
         setMeows(meowsToShow);
       } catch (error) {
@@ -188,7 +186,10 @@ function Meows() {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
-                <AllMeowButtons meow={meow} />
+                <AllMeowButtons
+                  meow={meow}
+                  authorUsername={meow.authorUsername}
+                />
               </div>
             </div>
           );
@@ -196,4 +197,4 @@ function Meows() {
     </div>
   );
 }
-export default Meows;
+export default ListOFMeows;

@@ -4,13 +4,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const secret = process.env.JWT_SECRET;
 
-// ---------------------------------Console Logotype---------------------------------------------------------
-
-const consoleLogType = (req, res, next) => {
-  console.log("Request Type:", req.method, "Router Type:", req.baseUrl);
-  next();
-};
-
 // ------------------------------------------Patterns--------------------------------------------------
 
 const patternMail = (mail) => {
@@ -162,7 +155,6 @@ const validateToken = (req, res, next) => {
 };
 
 module.exports = {
-  consoleLogType,
   validateUpdateUser,
   validateUser,
   validateLogin,

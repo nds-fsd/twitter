@@ -3,10 +3,10 @@ import general from "./MeowsFormat.module.css";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { meowApi } from "../../functions/apiWrapper";
+import { meowApi, notificationApi } from "../../functions/apiWrapper";
 import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
-import { formatMeowDate } from "../../functions/dateFormat";
+import { formatDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import AllMeowButtons from "../Buttons/AllMeowButtons";
 import { handleResize } from "../../functions/responsiveFunctions";
@@ -40,7 +40,7 @@ const MeowView = () => {
     const getDetails = async () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
-        const parentMeowToShow = formatMeowDate(res.data.meowUpdated);
+        const parentMeowToShow = formatDate(res.data.meowUpdated);
         setParentMeow(parentMeowToShow);
         setParentMeowName(res.data.userFound.name);
         setParentMeowSurname(res.data.userFound.surname);
@@ -90,6 +90,22 @@ const MeowView = () => {
 
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
+      if (res.status === 201) {
+        const dataNotification = {
+          recipient: parentMeowUsername,
+          sender: username,
+          action: "replie",
+          post: res.data.meowToSave._id,
+        };
+        const notification = await notificationApi().post(
+          `/`,
+          dataNotification
+        );
+        if (notification.status === 201) {
+        } else {
+          throw new Error(notification.data.error);
+        }
+      }
     } catch (err) {
       console.error(err);
     }
@@ -132,7 +148,7 @@ const MeowView = () => {
               <p className={general.meow}>{parentMeow.text}</p>
             </div>
             <div className={general.iconsContainer}>
-              <AllMeowButtons meow={parentMeow} />
+              <AllMeowButtons meow={parentMeow} authorUsername={username} />
             </div>
           </div>
           <div className={styles.replies}>

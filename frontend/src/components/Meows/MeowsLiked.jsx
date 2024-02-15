@@ -5,7 +5,7 @@ import { getUserSession } from "../../functions/localStorage";
 import Loading from "../../effects/Loading";
 import { useNavigate } from "react-router-dom";
 import { context } from "../../App";
-import { formatMeowDate } from "../../functions/dateFormat";
+import { formatDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
@@ -71,9 +71,7 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
           };
         });
 
-        const meowsToShow = meowsWithUsernames.map((meow) =>
-          formatMeowDate(meow)
-        );
+        const meowsToShow = meowsWithUsernames.map((meow) => formatDate(meow));
 
         setMeows(meowsToShow);
       } catch (error) {
@@ -181,7 +179,10 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
-                <AllMeowButtons meow={meow} />
+                <AllMeowButtons
+                  meow={meow}
+                  authorUsername={meow.authorUsername}
+                />
               </div>
             </div>
           );

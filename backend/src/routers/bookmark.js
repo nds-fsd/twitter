@@ -1,31 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const bookmarkController = require("../controllers/bookmark");
-const { consoleLogType, validateToken } = require("../middlewares/index");
+const { validateToken } = require("../middlewares/index");
 
-router.get(
-  "/:meowId",
-  consoleLogType,
-  validateToken,
-  bookmarkController.checkBookmarkStatus
-);
+router.get("/:meowId", validateToken, bookmarkController.checkBookmarkStatus);
 router.get(
   "/user/:userId",
-  consoleLogType,
   validateToken,
   bookmarkController.getMeowsBookmarked
 );
-router.post(
-  "/:meowId",
-  consoleLogType,
-  validateToken,
-  bookmarkController.bookmarkMeow
-);
-router.delete(
-  "/:meowId",
-  consoleLogType,
-  validateToken,
-  bookmarkController.unbookmarkMeow
-);
+router.post("/:meowId", validateToken, bookmarkController.bookmarkMeow);
+router.delete("/:meowId", validateToken, bookmarkController.unbookmarkMeow);
 
 module.exports = router;

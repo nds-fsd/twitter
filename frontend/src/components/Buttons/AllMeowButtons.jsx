@@ -6,13 +6,13 @@ import Views from "./Views";
 import ShareButton from "./ShareButton";
 import RepliesButton from "./RepliesButton";
 
-const AllMeowButtons = ({ meow }) => {
+const AllMeowButtons = ({ meow, authorUsername }) => {
   return (
     <>
       <RepliesButton meow={meow} />
-      <LikeButton meow={meow} />
-      <RepostButton meow={meow} />
-      <BookmarkButton meow={meow} />
+      <LikeButton meow={meow} authorUsername={authorUsername} />
+      <RepostButton meow={meow} authorUsername={authorUsername} />
+      <BookmarkButton meow={meow} authorUsername={authorUsername} />
       <Views meow={meow} />
       <ShareButton meow={meow} />
     </>
