@@ -4,11 +4,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { formatDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import ReadNotificationButton from "../Buttons/ReadNotificationButton";
-// import styles from "./Notifications.module.css";
+import styles from "./Notifications.module.css";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [usernames, setUsernames] = useState({});
+  const [name, setName] = useState({});
+  const [surname, setSurname] = useState({});
   const [notificationId, setNotificationId] = useState("");
   const { username: urlUsername } = useParams();
   const navigate = useNavigate();
@@ -27,8 +29,10 @@ const Notifications = () => {
               const userResponse = await userApi().get(
                 `/id/${notification.sender}`
               );
+              setName(userResponse.data.name);
+              setSurname(userResponse.data.surname);
               setUsernames(userResponse.data.username);
-
+              console.log(userResponse);
               return {
                 ...notification,
                 date: formatDate(notification).date,
@@ -60,10 +64,10 @@ const Notifications = () => {
           actionText = `has stopped following you`;
           break;
         case "like":
-          actionText = `has liked one of your posts`;
+          actionText = `liked one of your posts`;
           break;
         case "unlike":
-          actionText = `has unliked one of your posts`;
+          actionText = `unliked one of your posts`;
           break;
         case "bookmark":
           actionText = `has bookmarked one of your posts`;
@@ -72,13 +76,13 @@ const Notifications = () => {
           actionText = `has unbookmarked one of your posts`;
           break;
         case "replie":
-          actionText = `has commented on one of your posts`;
+          actionText = `commented one of your posts`;
           break;
         case "repost":
-          actionText = `has reposted one of your posts`;
+          actionText = `reposted one of your posts`;
           break;
         default:
-          actionText = `has performed an action on one of your posts`;
+          actionText = `performed an action on one of your posts`;
       }
 
       const handleClickToMeow = () => {
@@ -92,19 +96,28 @@ const Notifications = () => {
 
       return (
         <>
-          <div key={notification._id} onClick={handleClickToMeow}>
-            <PhotoUserProfile
-              photoStyle={photoStyle}
-              usernamePhoto={usernames}
+          <div className={styles.mainContainerNotifications}>
+            <div
+              key={notification._id}
+              onClick={handleClickToMeow}
+              className={styles.containerNotifications}
+            >
+              <PhotoUserProfile
+                photoStyle={photoStyle}
+                usernamePhoto={usernames}
+              />
+              <div className={styles.notificationText}>
+                <p>
+                  {name} {surname} <em>(@{usernames})</em> {actionText}
+                </p>
+                <p className={styles.notificationDate}>{notification.date}</p>
+              </div>
+            </div>
+            <ReadNotificationButton
+              notificationId={notificationId}
+              read={notification.read}
             />
-            <p>
-              User {usernames} {actionText} - {notification.date}
-            </p>
           </div>
-          <ReadNotificationButton
-            notificationId={notificationId}
-            read={notification.read}
-          />
         </>
       );
     });
@@ -112,7 +125,7 @@ const Notifications = () => {
 
   return (
     <div>
-      <h2>Notifications</h2>
+      <h2 className={styles.titleNotifications}>Notifications</h2>
       {generateNotificationDivs()}
     </div>
   );
