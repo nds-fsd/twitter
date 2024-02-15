@@ -20,6 +20,16 @@ const MeowsBookmarked = () => {
 
   const reload = useContext(context);
 
+  const [color, setColor] = useState(false);
+  const changeColor = () => {
+    if (window.scrollY >= 70) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+  window.addEventListener("scroll", changeColor);
+
   useEffect(() => {
     const getAllMeows = async () => {
       try {
@@ -96,7 +106,15 @@ const MeowsBookmarked = () => {
 
   return (
     <div className={styles.bigContainer}>
-      {meows &&
+      <div
+        className={color ? styles.titleBookmarksScroll : styles.titleBookmarks}
+      >
+        <h2 className={styles.titleText}>Meows Bookmarked</h2>
+      </div>
+
+      {meows.length === 0 ? (
+        <p>You can Bookmark some meows to find them again easily.</p>
+      ) : (
         meows.map((meow) => {
           return (
             <div key={meow._id} className={styles.container}>
@@ -137,7 +155,8 @@ const MeowsBookmarked = () => {
               </div>
             </div>
           );
-        })}
+        })
+      )}
     </div>
   );
 };
