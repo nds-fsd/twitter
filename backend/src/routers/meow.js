@@ -9,7 +9,7 @@ router.get("/:id", validateToken, meowController.getMeowById);
 router.get("/replies/:id", validateToken, meowController.getMeowReplies);
 router.post("/", validateToken, meowController.createMeow);
 router.post("/repost", validateToken, meowController.repostMeow);
-router.patch("/:id", meowController.updateMeow);
-router.delete("/:id", meowController.deleteMeow);
+router.patch("/:id", validateToken, meowController.updateMeow);
+router.delete("/:id", validateToken, meowController.deleteMeow);
 
 module.exports = router;
