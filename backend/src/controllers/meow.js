@@ -210,6 +210,7 @@ const deleteMeow = async (req, res) => {
     const meowFound = await Meow.findById(id);
 
     if (meowFound) {
+      await Meow.deleteMany({ parentMeow: id });
       if (meowFound.parentMeow) {
         await Meow.updateOne(
           { _id: meowFound.parentMeow },

@@ -11,7 +11,6 @@ const Notifications = () => {
   const [usernames, setUsernames] = useState({});
   const [name, setName] = useState({});
   const [surname, setSurname] = useState({});
-  const [notificationId, setNotificationId] = useState("");
   const { username: urlUsername } = useParams();
   const navigate = useNavigate();
   const photoStyle = "component";
@@ -24,7 +23,6 @@ const Notifications = () => {
         );
         const formattedNotifications = notificationResponse.data.map(
           async (notification) => {
-            setNotificationId(notification._id);
             try {
               const userResponse = await userApi().get(
                 `/id/${notification.sender}`
@@ -114,7 +112,7 @@ const Notifications = () => {
               </div>
             </div>
             <ReadNotificationButton
-              notificationId={notificationId}
+              notificationId={notification._id}
               read={notification.read}
             />
           </div>

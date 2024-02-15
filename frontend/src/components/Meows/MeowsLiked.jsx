@@ -105,16 +105,6 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
                 />
-                {meow.author === userId && (
-                  <DeleteEditMeow
-                    meow={meow}
-                    meows={meows}
-                    setMeows={setMeows}
-                    meowCounter={meowCounter}
-                    setMeowCounter={setMeowCounter}
-                  />
-                )}
-
                 {!meow.repostedMeowId && (
                   <div className={styles.infoUserContainer}>
                     <div className={styles.userData}>
@@ -129,7 +119,16 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
                       <p className={styles.username}>@{meow.authorUsername}</p>
                     </div>
 
-                    <div>
+                    <div className={styles.buttonDateContainer}>
+                      {meow.author === userId && (
+                        <DeleteEditMeow
+                          meow={meow}
+                          meows={meows}
+                          setMeows={setMeows}
+                          meowCounter={meowCounter}
+                          setMeowCounter={setMeowCounter}
+                        />
+                      )}
                       <p className={styles.dateFormat}>{meow.date}</p>
                     </div>
                   </div>
@@ -154,7 +153,16 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
                           @{meow.originalUsername}
                         </p>
                       </div>
-                      <div>
+                      <div className={styles.buttonDateContainer}>
+                        {meow.author === userId && (
+                          <DeleteEditMeow
+                            meow={meow}
+                            meows={meows}
+                            setMeows={setMeows}
+                            meowCounter={meowCounter}
+                            setMeowCounter={setMeowCounter}
+                          />
+                        )}
                         <p className={styles.dateFormat}>{meow.date}</p>
                       </div>
                     </div>
