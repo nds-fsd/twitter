@@ -6,6 +6,7 @@ import { getUserSession } from "../../functions/localStorage";
 import { userApi } from "../../functions/apiWrapper";
 import { useNavigate } from "react-router-dom";
 import { Home, UserRound, Mail, BellRing, Bookmark } from "lucide-react";
+import { logo } from "../../assets/defaultAssets";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function Navbar() {
     <div className={styles.container}>
       <img
         className={styles.logo}
-        src={"https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707388881/code/cat.png"}
+        src={logo}
         alt="logo"
         onClick={() => navigate("/home")}
       />
@@ -47,14 +48,27 @@ function Navbar() {
             <Home />
             <p>Home</p>
           </div>
-          {/* <div className={styles.options}> <BellRing /> <p>Notifications</p> </div> */}
+          <div
+            onClick={() => {
+              navigate("/notification/" + loggedUsername);
+              reload.setReload(!reload.reload);
+            }}
+            className={styles.options}
+          >
+            <BellRing />
+            <p>Notifications</p>
+          </div>
           {/* <div className={styles.options}> <Mail /> <p>Messages</p> </div> */}
           <div
-          onClick={() => {
-            navigate("/bookmark/" + loggedUsername);
-            reload.setReload(!reload.reload);
-          }}
-          className={styles.options}> <Bookmark /> <p>Bookmark</p> </div>
+            onClick={() => {
+              navigate("/bookmark/" + loggedUsername);
+              reload.setReload(!reload.reload);
+            }}
+            className={styles.options}
+          >
+            <Bookmark />
+            <p>Bookmark</p>
+          </div>
           <div
             onClick={() => {
               navigate("/user/" + loggedUsername);
@@ -65,7 +79,6 @@ function Navbar() {
             <UserRound />
             <p>Profile</p>
           </div>
-          {/* <button>Post</button> */}
         </div>
       </nav>
       <div className={styles.usuario}>

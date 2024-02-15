@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "./IconButton.module.css";
-import { bookmarkApi } from "../../functions/apiWrapper";
+import { bookmarkApi, notificationApi } from "../../functions/apiWrapper";
+import { getUserSession } from "../../functions/localStorage";
 import { Bookmark } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
-const BookmarkButton = ({ meow }) => {
+const BookmarkButton = ({ meow, authorUsername }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bookmarkCounter, setBookmarkCounter] = useState(meow.bookmarks);
+  const loggedInUser = getUserSession();
 
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
@@ -44,6 +46,21 @@ const BookmarkButton = ({ meow }) => {
 
       if (response.status === 200) {
         setIsBookmarked(true);
+        const recipientUsername = authorUsername || meow.authorUsername;
+        const dataNotification = {
+          recipient: recipientUsername,
+          sender: loggedInUser.username,
+          action: "bookmark",
+          post: meow._id,
+        };
+        const notification = await notificationApi().post(
+          `/`,
+          dataNotification
+        );
+        if (notification.status === 201) {
+        } else {
+          throw new Error(notification.data.error);
+        }
       } else {
         throw new Error(response.data.error);
       }
@@ -64,6 +81,21 @@ const BookmarkButton = ({ meow }) => {
 
       if (response.status === 200) {
         setIsBookmarked(false);
+        const recipientUsername = authorUsername || meow.authorUsername;
+        const dataNotification = {
+          recipient: recipientUsername,
+          sender: loggedInUser.username,
+          action: "unbookmark",
+          post: meow._id,
+        };
+        const notification = await notificationApi().post(
+          `/`,
+          dataNotification
+        );
+        if (notification.status === 201) {
+        } else {
+          throw new Error(notification.data.error);
+        }
       } else {
         throw new Error(response.data.error);
       }

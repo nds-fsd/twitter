@@ -2,7 +2,16 @@ const { Schema, model } = require("mongoose");
 const mongoose = require("mongoose");
 
 const validateAction = (value) => {
-  const allowedActions = ["follow", "like", "comment", "repost"];
+  const allowedActions = [
+    "follow",
+    "unfollow",
+    "like",
+    "unlike",
+    "bookmark",
+    "unbookmark",
+    "replie",
+    "repost",
+  ];
   return allowedActions.includes(value);
 };
 

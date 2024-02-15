@@ -1,5 +1,5 @@
 import { getUserSession } from "./localStorage.js";
-import { formatMeowDate } from "./dateFormat.js";
+import { formatDate } from "./dateFormat.js";
 
 export function updateMeowsWithNewMeow(meows, newMeow) {
   if (!newMeow) return meows;
@@ -10,7 +10,7 @@ export function updateMeowsWithNewMeow(meows, newMeow) {
     nameAuthor: name,
     surnameAuthor: surname,
     authorUsername: username,
-    date: formatMeowDate(newMeow).date,
+    date: formatDate(newMeow).date,
   };
 
   return [newMeowToShow, ...meows];

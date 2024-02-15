@@ -75,3 +75,14 @@ export const cloudinaryApi = () => {
     },
   });
 };
+
+export const notificationApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/notification`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

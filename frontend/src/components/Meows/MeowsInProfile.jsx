@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { meowApi } from "../../functions/apiWrapper";
-// import { getUserSession } from "../../functions/localStorage.js";
 import styles from "./MeowsFormat.module.css";
 import { useNavigate } from "react-router-dom";
-import { formatMeowDate } from "../../functions/dateFormat";
+import { formatDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
 import DeleteEditMeow from "./DeleteEditMeow.jsx";
@@ -13,8 +12,6 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const photoStyle = "meow";
-  // const { id } = getUserSession();
-  // const userId = id;
 
   const navigate = useNavigate();
 
@@ -23,7 +20,7 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
       try {
         const res = await meowApi().get(username);
         const meowsToShow = res.data.meowsProfile.map((meow) =>
-          formatMeowDate(meow)
+          formatDate(meow)
         );
         setMeows(meowsToShow.reverse());
         setName(res.data.user.name);
@@ -76,7 +73,7 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
-                <AllMeowButtons meow={meow} />
+                <AllMeowButtons meow={meow} authorUsername={username} />
               </div>
             </div>
           );
