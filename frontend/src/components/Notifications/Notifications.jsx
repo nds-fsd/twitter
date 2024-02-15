@@ -5,6 +5,7 @@ import { formatDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import ReadNotificationButton from "../Buttons/ReadNotificationButton";
 import styles from "./Notifications.module.css";
+import toast, { Toaster } from "react-hot-toast";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -44,6 +45,12 @@ const Notifications = () => {
 
     fetchNotifications();
   }, [urlUsername]);
+
+  useEffect(() => {
+    if (notifications.length > 0) {
+      toast.success("Notifications loaded successfully!");
+    }
+  }, [notifications]);
 
   const generateNotificationDivs = () => {
     const lastNotifications = notifications.slice(-20).reverse();
@@ -88,6 +95,12 @@ const Notifications = () => {
         }
       };
 
+      if (!notification.read) {
+        toast.success(
+          `New notification: @${notification.username} ${actionText}`
+        );
+      }
+
       return (
         <>
           <div className={styles.mainContainerNotifications}>
@@ -122,6 +135,7 @@ const Notifications = () => {
     <div>
       <h2 className={styles.titleNotifications}>Notifications</h2>
       {generateNotificationDivs()}
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
