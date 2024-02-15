@@ -100,5 +100,30 @@
 }
 
 .titleBookmarks {
+  align-items: center;
+  color: var(--main-color);
+  display: flex;
   font-family: var(--main-font);
+  font-size: 24px;
+  justify-content: center;
+  height: 70px;
+}
+
+.titleBookmarksScroll {
+  align-items: center;
+  background-color: black;
+  color: var(--main-color);
+  display: flex;
+  font-family: var(--main-font);
+  font-size: 24px;
+  justify-content: center;
+  height: 70px;
+  opacity: 0.8;
+  position: fixed;
+  width: 50%;
+}
+
+.titleText {
+  font-family: var(--main-font);
+  margin: 0;
 }
