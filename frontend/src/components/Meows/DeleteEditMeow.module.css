@@ -5,17 +5,12 @@
   cursor: pointer;
   z-index: 5;
 }
-/* .dots {
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-} */
 
 .popOutContainer {
   position: absolute;
   cursor: default;
   padding: 20%;
-  width: max-content;
+  width: 300%;
   height: fit-content;
   border-radius: 1rem;
   right: 2%;
@@ -31,6 +26,10 @@
   width: 100%;
 }
 
+.editDeleteOptions:hover {
+  background-color: var(--sections-hover);
+}
+
 .editDeleteTexts {
   color: gray;
   font-family: var(--main-font);
@@ -38,89 +37,89 @@
 }
 
 .editPopOut {
-  position: fixed;
-  z-index: 9;
+  align-items: center;
+  border-radius: 25px;
+  background-color: var(--sections-color);
+  border: 1px solid white;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
-  top: 50%;
   left: 50%;
+  top: 50%;
   transform: translate(-50%, -50%);
-  min-height: 40%;
-  width: 37%;
-  border-radius: 2rem;
-  background-color: #222222;
-  border: 4px solid white;
+  position: fixed;
+  width: 35%;
+  z-index: 9;
 }
-.editPopOut > textarea {
-  border: transparent;
+
+.editTextArea {
   background-color: black;
-  width: 80%;
-
-  height: 124px;
-  font-size: 1.2rem;
+  border: transparent;
   border-radius: 0.5rem;
-  margin-top: 7%;
-
   color: white;
-}
-.editPopOut > div {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 17%;
+  font-family: var(--main-font);
+  font-size: 15px;
+  margin-top: 3%;
+  width: 80%;
 }
 
-.editPopOut > div > button {
-  width: 27%;
-  height: 61%;
-  margin: 5%;
+.buttonsDiv {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5% 0;
+  width: 100%;
+}
+
+.cancelButton {
+  background-color: white;
+  border: solid 1px white;
+  border-radius: 20px;
   color: black;
-  font-weight: bold;
-  background-color: #e94a00;
+  font-family: var(--main-font);
+  font-size: 15px;
+  height: fit-content;
+  padding: 7px 15px;
+  width: 100px;
+}
+
+.cancelButton:hover {
+  background-color: whitesmoke;
+}
+
+.saveAndDelete {
+  background-color: var(--main-color);
+  border: solid 1px var(--main-color);
+  border-radius: 20px;
+  color: black;
+  font-family: var(--main-font);
+  font-size: 15px;
+  height: fit-content;
+  padding: 7px 15px;
+  width: 100px;
+}
+
+.saveAndDelete:hover {
+  background-color: var(--color-hover);
 }
 
 .deletePopOut {
-  position: fixed;
-  z-index: 9;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 12%;
-  width: 30%;
-  border-radius: 2rem;
-  background-color: #222222;
-  border: 4px solid white;
-}
-.deletePopOut > div {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  font-size: 1.3rem;
-  font-weight: bold;
-
-  width: 100%;
-  height: 100%;
-}
-
-.deleteButtons {
+  background-color: var(--sections-color);
+  border: 1px solid white;
+  border-radius: 25px;
   display: flex;
-  justify-content: space-around;
-  width: 100%;
-  margin-top: 3%;
+  flex-direction: column;
+  justify-content: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  width: 28%;
+  z-index: 9;
 }
 
-.deleteButtons > button {
-  width: 24%;
-  height: 140%;
-  font-size: 1rem;
-  color: black;
-  font-weight: bold;
+.editDeleteTitle {
+  font-size: 17px;
+  margin-top: 5%;
 }
