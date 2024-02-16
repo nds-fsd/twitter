@@ -1,4 +1,4 @@
-export function formatMeowDate(meow) {
+export function formatDate(dateToChange) {
   const dateFormat = {
     year: "numeric",
     month: "short",
@@ -8,14 +8,14 @@ export function formatMeowDate(meow) {
     timeZoneName: "short",
   };
 
-  const dateString = meow.date;
+  const dateString = dateToChange.date;
   const dateObject = dateString ? new Date(dateString) : null;
   const formattedDate = dateObject
     ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
     : "Fecha no disponible";
 
   return {
-    ...meow,
+    ...dateToChange,
     date: formattedDate.slice(0, -3),
   };
 }

@@ -5,7 +5,7 @@ import { getUserSession } from "../../functions/localStorage.js";
 import Loading from "../../effects/Loading.jsx";
 import { useNavigate } from "react-router-dom";
 import { context } from "../../App.jsx";
-import { formatMeowDate } from "../../functions/dateFormat.js";
+import { formatDate } from "../../functions/dateFormat.js";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
 
@@ -19,6 +19,16 @@ const MeowsBookmarked = () => {
   const navigate = useNavigate();
 
   const reload = useContext(context);
+
+  const [color, setColor] = useState(false);
+  const changeColor = () => {
+    if (window.scrollY >= 70) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+  window.addEventListener("scroll", changeColor);
 
   useEffect(() => {
     const getAllMeows = async () => {
@@ -69,9 +79,7 @@ const MeowsBookmarked = () => {
           };
         });
 
-        const meowsToShow = meowsWithUsernames.map((meow) =>
-          formatMeowDate(meow)
-        );
+        const meowsToShow = meowsWithUsernames.map((meow) => formatDate(meow));
 
         setMeows(meowsToShow);
       } catch (error) {
@@ -96,7 +104,15 @@ const MeowsBookmarked = () => {
 
   return (
     <div className={styles.bigContainer}>
-      {meows &&
+      <div
+        className={color ? styles.titleBookmarksScroll : styles.titleBookmarks}
+      >
+        <h2 className={styles.titleText}>Meows Bookmarked</h2>
+      </div>
+
+      {meows.length === 0 ? (
+        <p>You can Bookmark some meows to find them again easily.</p>
+      ) : (
         meows.map((meow) => {
           return (
             <div key={meow._id} className={styles.container}>
@@ -133,11 +149,15 @@ const MeowsBookmarked = () => {
                 <p>{meow.text}</p>
               </div>
               <div className={styles.iconsContainer}>
-                <AllMeowButtons meow={meow} />
+                <AllMeowButtons
+                  meow={meow}
+                  authorUsername={meow.authorUsername}
+                />
               </div>
             </div>
           );
-        })}
+        })
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import HomePage from "./components/HomePage/HomePage";
 import MeowView from "./components/Meows/MeowView";
 import UserProfile from "./components/Profile/UserProfile";
 import MeowsBookmarked from "./components/Meows/MeowsBookmarked";
+import Notifications from "./components/Notifications/Notifications";
 import PublicHome from "./components/PublicHome/PublicHome";
 import AppLayout from "./components/AppLayout/AppLayout";
 
@@ -43,6 +44,7 @@ function App() {
             <Route path="/meow/:id" element={<MeowView />} />
             <Route path="/user/:username" element={<UserProfile />} />
             <Route path="/bookmark/:username" element={<MeowsBookmarked />} />
+            <Route path="/notification/:username" element={<Notifications />} />
           </Routes>
         </AppLayout>
       </context.Provider>

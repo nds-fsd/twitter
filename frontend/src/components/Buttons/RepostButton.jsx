@@ -1,12 +1,14 @@
 import { useContext } from "react";
-import { meowApi } from "../../functions/apiWrapper";
+import { meowApi, notificationApi } from "../../functions/apiWrapper";
+import { getUserSession } from "../../functions/localStorage";
 import { context } from "../../App";
 import styles from "../Buttons/IconButton.module.css";
 import { Repeat2 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+const loggedInUser = getUserSession();
 
-const RepostButton = ({ meow }) => {
+const RepostButton = ({ meow, authorUsername }) => {
   const reload = useContext(context);
 
   const repostMeow = async () => {
@@ -16,6 +18,26 @@ const RepostButton = ({ meow }) => {
         date: Date.now(),
       });
 
+      if (res.status === 201) {
+        const recipientUsername = authorUsername || meow.authorUsername;
+        const dataNotification = {
+          recipient: recipientUsername,
+          sender: loggedInUser.username,
+          action: "repost",
+          post: meow._id,
+        };
+
+        const notification = await notificationApi().post(
+          `/`,
+          dataNotification
+        );
+        if (notification.status === 201) {
+        } else {
+          throw new Error(notification.data.error);
+        }
+      } else {
+        throw new Error(res.data.error);
+      }
       reload.setReload(!reload.reload);
     } catch (error) {
       console.error(error);
