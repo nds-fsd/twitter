@@ -1,30 +1,30 @@
 .container {
   background-color: black;
+  border-radius: 40px;
+  left: 50%;
   padding: 2% 2.5%;
   position: absolute;
   top: 50%;
-  left: 50%;
-  width: fit-content;
-  border-radius: 40px;
-  user-select: none;
   transform: translate(-50%, -50%);
+  user-select: none;
+  width: fit-content;
 }
 
 header {
   display: flex;
+  font-weight: bold;
   justify-content: space-between;
   margin-bottom: 7%;
-  font-weight: bold;
   user-select: none;
 }
 
 .x {
-  font-size: 20px;
   color: white;
-  font-weight: bold;
-  user-select: none;
   cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
   margin-left: 90%;
+  user-select: none;
 }
 
 .tittle {
@@ -35,11 +35,11 @@ header {
 }
 
 .inputContainer {
-  width: 100%;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .inputFields {
@@ -54,8 +54,8 @@ header {
 }
 
 .inputFields::placeholder {
-  font-family: var(--main-font);
   color: gray;
+  font-family: var(--main-font);
 }
 
 .submit {
@@ -101,8 +101,8 @@ header {
 }
 
 .textsInForm > span {
-  cursor: pointer;
   color: var(--main-color);
+  cursor: pointer;
   font-weight: bold;
   text-decoration: underline;
 }

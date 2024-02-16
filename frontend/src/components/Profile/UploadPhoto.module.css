@@ -1,21 +1,22 @@
 .button {
   display: flex;
-  padding: 1rem;
+  padding: 5%;
 }
 
 .upload {
   background-color: var(--main-color);
   border: none;
-  border-radius: 5px;
+  border-radius: 35px;
   color: white;
   cursor: pointer;
   font-family: var(--main-font);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
   height: auto;
   margin-top: 5%;
   padding: 1rem;
   text-align: center;
+  width: 85%;
 }
 
 [type="file"] {

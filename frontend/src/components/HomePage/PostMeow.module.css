@@ -1,14 +1,14 @@
 .container {
-  display: flex;
   align-items: center;
+  display: flex;
   flex-direction: column;
   padding-top: 70px;
 }
 
 .containerPost {
+  align-items: center;
   border-bottom: 1px solid var(--sections-hover);
   display: flex;
-  align-items: center;
   gap: 20px;
   padding: 2.5%;
   width: 95%;
@@ -29,16 +29,16 @@
 
 .postInput {
   background-color: black;
-  color: white;
   border: transparent;
+  color: white;
   font-size: 17px;
   width: 100%;
 }
 
 .containerButtons {
+  align-content: center;
   display: flex;
   justify-content: space-between;
-  align-content: center;
   padding: 2% 0;
   width: 95%;
 }

@@ -1,10 +1,19 @@
 .search {
-  display: flex;
   align-items: center;
-  position: fixed;
-  width: 23%;
-  height: 70px;
   background-color: black;
+  display: flex;
+  height: 70px;
+  width: -webkit-fill-available;
+}
+
+.searchScroll {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  width: -webkit-fill-available;
 }
 
 .buscador {
