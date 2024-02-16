@@ -1,33 +1,39 @@
 .mainContainerNotifications {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    margin: 5% 2.5%;
-    width: 95%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 5% 2.5%;
+  width: 95%;
+  border-right: 1px solid rgb(44, 44, 44);
+  border-top: 1px solid rgb(44, 44, 44);
 }
 
 .containerNotifications {
-    align-items: center;
-    display: flex;
-    width: 90%;
+  align-items: center;
+  display: flex;
+  width: 90%;
 }
 
 .notificationText {
-    margin-left: 2.5%;
+  margin-left: 2.5%;
 }
 
 .notificationDate {
-    color: gray;
-    font-size: 12px;
+  color: gray;
+  font-size: 12px;
 }
 
 .titleNotifications {
-    align-items: center;
-    color: var(--main-color);
-    display: flex;
-    font-family: var(--main-font);
-    font-size: 24px;
-    justify-content: center;
-    height: 70px;
-    
+  align-items: center;
+  color: var(--main-color);
+  display: flex;
+  font-family: var(--main-font);
+  font-size: 24px;
+  justify-content: center;
+  height: 70px;
+  border-right: 1px solid rgb(44, 44, 44);
+}
+h2 {
+  margin: 0;
+  padding-bottom: 4%;
 }
