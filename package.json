@@ -20,7 +20,6 @@
   },
   "packageManager": "npm@9.6.5",
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "dotenv-cli": "^7.0.0",
     "jest": "^29.7.0",
     "supertest": "^6.3.4",
@@ -28,28 +27,9 @@
     "morgan": "^1.10.0"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.18",
-    "@mui/x-date-pickers": "^6.18.2",
-    "@tanstack/react-query": "^5.20.1",
-    "@tanstack/react-query-devtools": "^5.20.1",
-    "axios": "^1.6.2",
-    "cloudinary": "^2.0.0",
-    "cypress": "^13.6.3",
-    "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
-    "dotenv": "^16.3.1",
     "gsap": "^3.12.4",
     "jquery": "^3.7.1",
-    "jsonwebtoken": "^9.0.2",
-    "lucide-react": "^0.314.0",
-    "react": "^18.2.0",
-    "react-datepicker": "^4.25.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.48.2",
-    "react-query": "^3.39.3",
-    "react-router-dom": "^6.21.1",
     "rsuite": "^5.51.0"
   }
 }
