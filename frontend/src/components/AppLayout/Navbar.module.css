@@ -17,11 +17,11 @@ a {
 }
 
 .logo {
-  height: 50px;
-  width: 50px;
   cursor: pointer;
-  position: fixed;
+  height: 50px;
   padding: 15px 0;
+  position: fixed;
+  width: 50px;
 }
 
 .options {
@@ -47,8 +47,8 @@ a {
 }
 
 .navigator {
-  position: fixed;
   margin-top: 70px;
+  position: fixed;
 }
 
 .navbar button {
@@ -67,10 +67,10 @@ a {
 }
 
 .usuario {
+  align-items: center;
   bottom: 1%;
   display: flex;
   position: fixed;
-  align-items: center;
 }
 
 .usuario button {
@@ -106,11 +106,11 @@ a {
   }
 
   .usuario {
+    align-items: baseline;
     bottom: 1%;
     display: flex;
     flex-direction: column;
     gap: 10px;
     position: fixed;
-    align-items: baseline;
   }
 }

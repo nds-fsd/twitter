@@ -1,41 +1,25 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.active {
-  opacity: 0.8;
-  background-color: grey;
-}
-
 .bigContainer {
-  align-items: center;
+  border-right: 1px solid #2c2c2c;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #2c2c2c;
+  width: 100%;
 }
 
 .nameContainer {
-  position: fixed;
-  z-index: 0;
-  height: 70px;
-  width: 50%;
   background-color: black;
+  height: 70px;
+  width: 100%;
+  z-index: 0;
 }
 
 .nameContainerScroll {
-  position: fixed;
-  z-index: 1;
-  height: 70px;
-  width: 50%;
   background-color: black;
+  height: 70px;
   opacity: 0.8;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
 .nameContainer p {
@@ -44,14 +28,6 @@
 
 .nameContainerScroll p {
   margin-left: 2%;
-}
-
-.container {
-  border: 1px solid #2c2c2c;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  width: 80%;
 }
 
 .profileInfo {
@@ -77,9 +53,7 @@
 }
 
 .relativeContainer {
-  /* margin: 5px; */
   position: relative;
-  /*   z-index: -1; */
 }
 
 .photoContainer {
@@ -109,9 +83,9 @@
 }
 
 .editProfile:hover {
+  background-color: white;
   color: black;
   cursor: pointer;
-  background-color: white;
 }
 
 .info {
@@ -125,14 +99,25 @@
   color: gray;
 }
 
-.options {
-  height: 20px;
-  margin-right: 1px;
-  width: 20px;
-}
-
 span {
   color: white;
-  font-size: 20px;
   cursor: pointer;
+  font-size: 20px;
+}
+
+.overlay {
+  background-color: black;
+  height: 100%;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  transition: opacity 0.3s ease;
+  width: 100%;
+  z-index: 2;
+}
+
+.active {
+  background-color: grey;
+  opacity: 0.8;
 }

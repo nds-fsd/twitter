@@ -17,18 +17,18 @@
 
 .title {
   font-size: 20px;
-  padding-top: 3%;
   margin-left: 7%;
+  padding-top: 3%;
   width: 90%;
 }
 
 .containerTrend {
+  align-items: center;
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  margin: 5% 0;
   justify-content: space-between;
-  align-items: center;
+  margin: 5% 0;
 }
 
 .containerTrend:hover {
@@ -54,31 +54,31 @@
   background-color: var(--sections-color);
   border: transparent;
   border-radius: 50%;
-  font-family: "Ubuntu", sans-serif;
-  font-size: 14px;
   color: white;
   cursor: pointer;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 14px;
   height: 20px;
-  width: 20px;
   margin-right: 5%;
+  width: 20px;
 }
 
 .trendsButton:hover {
-  color: var(--main-color);
   background-color: var(--sections-hover);
+  color: var(--main-color);
 }
 
 .showMore {
-  font-family: "Ubuntu", sans-serif;
   background-color: transparent;
   border: transparent;
-  font-size: 14px;
-  font-weight: lighter;
   color: white;
   cursor: pointer;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+  height: auto;
   margin: 0 0 7% 7%;
   width: auto;
-  height: auto;
 }
 
 .showMore:hover {

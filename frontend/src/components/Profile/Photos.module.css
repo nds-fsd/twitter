@@ -1,8 +1,10 @@
 .backgroundPhoto {
   height: 100%;
+  margin-bottom: 60px;
+  max-height: 400px;
+  max-width: 1200px;
   object-fit: contain;
   width: 100%;
-  margin-bottom: 60px;
 }
 
 .backgroundPhoto:hover {
@@ -12,8 +14,8 @@
 .userPhotoUserProfile {
   border-radius: 50%;
   height: 150px;
-  width: 150px;
   margin-top: -50px;
+  width: 150px;
 }
 
 .userPhotoUserProfile:hover {
@@ -33,8 +35,8 @@
 .userPhotoMeow {
   border-radius: 50%;
   height: 35px;
-  width: 35px;
   margin-right: 15px;
+  width: 35px;
 }
 
 .userPhotoMeow:hover {

@@ -104,59 +104,58 @@ function UserProfile() {
     <>
       <div>
         <div className={styles.bigContainer}>
-          <div>
-            <div
-              className={
-                color ? styles.nameContainerScroll : styles.nameContainer
-              }
-            >
-              <p className={styles.name}>
-                {name} {surname}
-              </p>
-              <p className={styles.grayFont}>{meowCounter} posts</p>
-            </div>
-            <div className={styles.relativeContainer}>
-              <PhotoBackgroundProfile />
-              <div className={styles.photoContainer}>
-                <PhotoUserProfile photoStyle={photoStyle} />
+          <div
+            className={
+              color ? styles.nameContainerScroll : styles.nameContainer
+            }
+          >
+            <p className={styles.name}>
+              {name} {surname}
+            </p>
+            <p className={styles.grayFont}>{meowCounter} posts</p>
+          </div>
+          <div className={styles.relativeContainer}>
+            <PhotoBackgroundProfile />
+            <div className={styles.photoContainer}>
+              <PhotoUserProfile photoStyle={photoStyle} />
 
-                {isOwnProfile ? (
-                  <button
-                    className={styles.editProfile}
-                    onClick={handlePopUpEditProfileClick}
-                  >
-                    Edit profile
-                  </button>
-                ) : (
-                  <FollowButton username={urlUsername} />
-                )}
-              </div>
+              {isOwnProfile ? (
+                <button
+                  className={styles.editProfile}
+                  onClick={handlePopUpEditProfileClick}
+                >
+                  Edit profile
+                </button>
+              ) : (
+                <FollowButton username={urlUsername} />
+              )}
             </div>
-            <div className={styles.profileInfo}>
-              <p className={styles.name}>
-                {name} {surname}
-              </p>
-              <p className={styles.grayFont}>@{username}</p>
-              <p>
-                <br />
-                {description}
-              </p>
-
+          </div>
+          <br></br>
+          <div className={styles.profileInfo}>
+            <p className={styles.name}>
+              {name} {surname}
+            </p>
+            <p className={styles.grayFont}>@{username}</p>
+            <p>
               <br />
-              <div className={styles.info}>
-                <MapPin />
-                <p>{town}</p>
-                <CalendarDays />
-                <p>Joined on {dateOfRegister}</p>
-              </div>
-              <div className={styles.info}>
-                <p className={styles.grayFont}>
-                  <span>{followingCounter} </span>Following
-                </p>
-                <p className={styles.grayFont}>
-                  <span>{followerCounter} </span>Followers
-                </p>
-              </div>
+              {description}
+            </p>
+
+            <br />
+            <div className={styles.info}>
+              <MapPin />
+              <p>{town}</p>
+              <CalendarDays />
+              <p>Joined on {dateOfRegister}</p>
+            </div>
+            <div className={styles.info}>
+              <p className={styles.grayFont}>
+                <span>{followingCounter} </span>Following
+              </p>
+              <p className={styles.grayFont}>
+                <span>{followerCounter} </span>Followers
+              </p>
             </div>
           </div>
         </div>

@@ -6,9 +6,7 @@
 .container {
   background-color: var(--sections-color);
   border-radius: 20px;
-  z-index: -2;
   margin: 80px 5% 0 0;
-  position: relative;
 }
 
 .title {
@@ -19,11 +17,11 @@
 }
 
 .containerFollow {
+  align-items: center;
   cursor: pointer;
   display: grid;
   grid-template-columns: 1fr 5fr 3fr;
   grid-template-rows: 1fr;
-  align-items: center;
   padding: 3% 3% 3% 7%;
 }
 
@@ -57,15 +55,15 @@
 
 .buttonFollow {
   background-color: white;
-  font-family: "Ubuntu", sans-serif;
   border: solid 1px var(--sections-color);
   border-radius: 20px;
   color: var(--sections-color);
+  font-family: "Ubuntu", sans-serif;
   font-size: 14px;
   font-weight: bolder;
   height: 90%;
-  width: fit-content;
   padding: 0 20%;
+  width: fit-content;
 }
 
 .buttonFollow:hover {
@@ -75,16 +73,16 @@
 }
 
 .showMore {
-  font-family: "Ubuntu", sans-serif;
   background-color: transparent;
   border: transparent;
-  font-size: 14px;
-  font-weight: lighter;
   color: var(--main-color);
   cursor: pointer;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+  height: auto;
   margin: 3% 0 7% 7%;
   width: auto;
-  height: auto;
 }
 
 .showMore:hover {
