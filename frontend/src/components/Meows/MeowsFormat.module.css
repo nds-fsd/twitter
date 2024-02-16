@@ -1,0 +1,129 @@
+/* General styles for all meows components */
+.bigContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgb(44, 44, 44);
+}
+
+.container {
+  border-bottom: 1px solid rgb(44, 44, 44);
+  border-top: 1px solid rgb(44, 44, 44);
+  display: flex;
+  flex-direction: column;
+  padding: 2.5%;
+  width: 95%;
+}
+
+.userContainer {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.infoUserContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.userData {
+  align-items: center;
+  display: flex;
+  width: 65%;
+}
+
+.nameSurname {
+  cursor: pointer;
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: bold;
+  width: fit-content;
+}
+
+.nameSurname:hover {
+  text-decoration: underline;
+}
+
+.username {
+  color: gray;
+  font-family: var(--main-font);
+  font-size: 13px;
+  padding-left: 1%;
+  width: fit-content;
+}
+
+.repostedBy {
+  color: gray;
+  font-size: 11px;
+  font-style: italic;
+  margin-bottom: 0.5%;
+}
+
+.postContainer {
+  cursor: pointer;
+  margin-left: 45px;
+  padding-bottom: 3%;
+}
+
+.iconsContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 45px;
+}
+
+.dateFormat {
+  color: gray;
+  font-size: 12px;
+}
+
+.buttonDateContainer {
+  align-items: center;
+  display: flex;
+}
+
+/* style for Replies component*/
+.iconsReplyContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  justify-content: flex-start;
+  margin-left: 45px;
+}
+
+/* format for View and Reply components*/
+.postContainerInView {
+  margin-left: 45px;
+  padding-bottom: 3%;
+}
+
+.titleBookmarks {
+  align-items: center;
+  color: var(--main-color);
+  display: flex;
+  font-family: var(--main-font);
+  font-size: 24px;
+  height: 70px;
+  justify-content: center;
+}
+
+.titleBookmarksScroll {
+  align-items: center;
+  background-color: black;
+  color: var(--main-color);
+  display: flex;
+  font-family: var(--main-font);
+  font-size: 24px;
+  height: 70px;
+  justify-content: center;
+  opacity: 0.8;
+  position: fixed;
+  width: 50%;
+}
+
+.titleText {
+  font-family: var(--main-font);
+  margin: 0;
+}

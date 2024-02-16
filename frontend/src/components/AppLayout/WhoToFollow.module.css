@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background-color: var(--sections-color);
+  border-radius: 20px;
+  margin: 1% 5% 0 0;
+}
+
+.title {
+  font-size: 20px;
+  margin-left: 7%;
+  padding: 4% 0 2% 0;
+  width: 90%;
+}
+
+.containerFollow {
+  align-items: center;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 5fr 3fr;
+  grid-template-rows: 1fr;
+  padding: 3% 3% 3% 7%;
+}
+
+.containerFollow:hover {
+  background-color: var(--sections-hover);
+}
+
+.accountImage {
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0.15rem 0;
+  padding-left: 5%;
+  width: fit-content;
+}
+
+.name:hover {
+  text-decoration: underline;
+}
+
+.accountName {
+  color: gray;
+  font-size: 12px;
+  padding-left: 5%;
+}
+
+.buttonFollow {
+  background-color: white;
+  border: solid 1px var(--sections-color);
+  border-radius: 20px;
+  color: var(--sections-color);
+  font-family: "Ubuntu", sans-serif;
+  font-size: 14px;
+  font-weight: bolder;
+  height: 90%;
+  padding: 0 20%;
+  width: fit-content;
+}
+
+.buttonFollow:hover {
+  background-color: whitesmoke;
+  border: solid 1px var(--sections-hover);
+  cursor: pointer;
+}
+
+.showMore {
+  background-color: transparent;
+  border: transparent;
+  color: var(--main-color);
+  cursor: pointer;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+  height: auto;
+  margin: 3% 0 7% 7%;
+  width: auto;
+}
+
+.showMore:hover {
+  text-decoration: underline;
+}
+
+.rightButton {
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    display: none;
+  }
+}

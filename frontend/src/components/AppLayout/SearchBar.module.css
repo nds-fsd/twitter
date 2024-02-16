@@ -1,0 +1,44 @@
+.search {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  height: 70px;
+  width: -webkit-fill-available;
+}
+
+.searchScroll {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  width: -webkit-fill-available;
+}
+
+.buscador {
+  background-color: var(--sections-color);
+  border: none;
+  border-radius: var(--border-radius);
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  height: 60%;
+  margin-bottom: 0;
+  margin-right: 5%;
+  padding-left: 10%;
+  width: 100%;
+}
+
+.buscador::placeholder {
+  color: gray;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  font-weight: lighter;
+}
+
+@media (max-width: 1000px) {
+  .search {
+    display: none;
+  }
+}

@@ -1,0 +1,54 @@
+.mainButton {
+  background-color: var(--main-color);
+  border: none;
+  font-family: var(--main-font);
+  font-size: 14px;
+  font-weight: 500;
+  height: fit-content;
+  padding: 7px 15px;
+  width: max-content;
+}
+
+.popOut {
+  align-items: center;
+  background-color: #222222;
+  border: 2px solid white;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  height: 419px;
+  left: 373px;
+  position: absolute;
+  top: -552px;
+  width: 441px;
+  z-index: 999;
+}
+
+.popOut h2 {
+  margin-bottom: 0;
+  margin-top: 5%;
+}
+
+.logo {
+  height: 6rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  width: 7rem;
+}
+
+.popOut > button {
+  border: none;
+  font-family: var(--main-font);
+  font-size: 17px;
+  height: 3rem;
+  margin-top: 1.5rem;
+  width: 10rem;
+}
+
+.logoutButton {
+  background-color: var(--main-color);
+}
+
+.cancelButton {
+  background-color: white;
+}

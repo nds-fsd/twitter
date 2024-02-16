@@ -1,0 +1,61 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 70px;
+}
+
+.containerPost {
+  align-items: center;
+  border-bottom: 1px solid var(--sections-hover);
+  display: flex;
+  gap: 20px;
+  padding: 2.5%;
+  width: 95%;
+}
+
+.containerPost textarea::placeholder {
+  color: white;
+  font-family: var(--main-font);
+  font-size: 17px;
+  font-weight: lighter;
+}
+
+.accountImage {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.postInput {
+  background-color: black;
+  border: transparent;
+  color: white;
+  font-size: 17px;
+  width: 100%;
+}
+
+.containerButtons {
+  align-content: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 0;
+  width: 95%;
+}
+
+.postButton {
+  background-color: var(--main-color);
+  border: solid 1px var(--main-color);
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--main-font);
+  font-size: 17px;
+  font-weight: lighter;
+  height: 40px;
+  width: 100px;
+}
+
+.postButton:hover {
+  background-color: #e94a00;
+  border: solid 1px #e94a00;
+}

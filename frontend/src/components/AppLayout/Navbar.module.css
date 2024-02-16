@@ -1,0 +1,116 @@
+:root {
+  --main-color: #ff5200;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  height: 100%;
+  width: 20%;
+}
+
+.logo {
+  cursor: pointer;
+  height: 50px;
+  padding: 15px 0;
+  position: fixed;
+  width: 50px;
+}
+
+.options {
+  align-items: center;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  font-size: 17px;
+  gap: 8%;
+  margin: 10px;
+  padding: 20px;
+  width: fit-content;
+}
+
+.options:hover {
+  background-color: rgb(34, 34, 34);
+}
+
+.options img {
+  height: 17px;
+  margin-right: 15px;
+  width: 17px;
+}
+
+.navigator {
+  margin-top: 70px;
+  position: fixed;
+}
+
+.navbar button {
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 110%;
+  height: 55px;
+  margin-left: 15px;
+  width: 270%;
+}
+
+.navbar button:hover {
+  background-color: #e94a00;
+}
+
+.usuario {
+  align-items: center;
+  bottom: 1%;
+  display: flex;
+  position: fixed;
+}
+
+.usuario button {
+  color: black;
+  font-weight: 500;
+}
+
+.userInfo {
+  margin-right: 15px;
+}
+
+.usernameColor {
+  color: gray;
+  font-size: 13px;
+}
+
+.user {
+  border-radius: 20px;
+  height: 7%;
+  margin-right: 15px;
+  width: 7%;
+}
+
+@media (max-width: 1000px) {
+  .options p {
+    display: none;
+  }
+
+  .options img {
+    height: 17px;
+    margin-right: 15px;
+    width: 17px;
+  }
+
+  .usuario {
+    align-items: baseline;
+    bottom: 1%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: fixed;
+  }
+}

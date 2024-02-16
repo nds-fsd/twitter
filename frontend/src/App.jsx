@@ -1,12 +1,13 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, createContext } from "react";
 import { getUserToken } from "./functions/localStorage";
-import HomePage from "./pages/HomePage";
-import VistaUnMeow from "./pages/VistaUnMeow";
-import UserProfile from "./pages/UserProfile";
-import PreLoader from "./effects/PreLoader";
-import PublicHome from "./pages/PublicHome";
-import AppLayout from "./components/AppLayout";
+import HomePage from "./components/HomePage/HomePage";
+import MeowView from "./components/Meows/MeowView";
+import UserProfile from "./components/Profile/UserProfile";
+import MeowsBookmarked from "./components/Meows/MeowsBookmarked";
+import Notifications from "./components/Notifications/Notifications";
+import PublicHome from "./components/PublicHome/PublicHome";
+import AppLayout from "./components/AppLayout/AppLayout";
 
 export const context = createContext();
 
@@ -36,13 +37,14 @@ function App() {
               path="/home"
               element={
                 <>
-                  {/* {preLoader && <PreLoader />} */}
                   <HomePage />
                 </>
               }
             />
-            <Route path="/meow/:id" element={<VistaUnMeow />} />
+            <Route path="/meow/:id" element={<MeowView />} />
             <Route path="/user/:username" element={<UserProfile />} />
+            <Route path="/bookmark/:username" element={<MeowsBookmarked />} />
+            <Route path="/notification/:username" element={<Notifications />} />
           </Routes>
         </AppLayout>
       </context.Provider>

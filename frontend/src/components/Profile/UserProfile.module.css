@@ -1,0 +1,123 @@
+.bigContainer {
+  border-right: 1px solid #2c2c2c;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.nameContainer {
+  background-color: black;
+  height: 70px;
+  width: 100%;
+  z-index: 0;
+}
+
+.nameContainerScroll {
+  background-color: black;
+  height: 70px;
+  opacity: 0.8;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.nameContainer p {
+  margin-left: 2%;
+}
+
+.nameContainerScroll p {
+  margin-left: 2%;
+}
+
+.profileInfo {
+  padding-left: 20px;
+}
+
+.name {
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: bold;
+  margin: 2px 0;
+  width: fit-content;
+}
+
+.name:hover {
+  text-decoration: underline;
+}
+
+.grayFont {
+  color: gray;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.relativeContainer {
+  position: relative;
+}
+
+.photoContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-inline-end: 5%;
+  margin-inline-start: 5%;
+  margin-top: -80px;
+}
+
+.tabsContainer {
+  border-right: 1px solid #2c2c2c;
+}
+
+.editProfile {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 30px;
+  color: white;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  height: fit-content;
+  padding: 7px 15px;
+  width: max-content;
+}
+
+.editProfile:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.info {
+  color: gray;
+  display: flex;
+  gap: 10px;
+  margin: 2% 0px;
+}
+
+.info p {
+  color: gray;
+}
+
+span {
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.overlay {
+  background-color: black;
+  height: 100%;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  transition: opacity 0.3s ease;
+  width: 100%;
+  z-index: 2;
+}
+
+.active {
+  background-color: grey;
+  opacity: 0.8;
+}

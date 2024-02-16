@@ -6,6 +6,7 @@ const meowSchema = new Schema({
   reposts: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   views: { type: Number, default: 0 },
+  bookmarks: { type: Number, default: 0 },
   date: { type: Date, default: Date.now() },
   replies: { type: Number, default: 0 },
   parentMeow: {

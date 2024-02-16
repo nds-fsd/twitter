@@ -1,14 +1,14 @@
 #root {
   font-family: "Ubuntu", sans-serif;
   font-size: 15px;
-  line-height: 1.5;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  font-weight: 400;
+  line-height: 1.5;
   min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
 }
 
 :root {
@@ -16,20 +16,25 @@
   --border-radius: 20px;
   --margin-left-general: 7%;
   --main-color: #ff5200;
+  --color-hover: #e94a00;
   --sections-color: #222222;
   --sections-hover: #2f2f2f;
   --main-font: "Ubuntu", sans-serif;
 }
 
 body {
+  background-color: black;
+  background-color: black;
   display: flex;
-  background-color: black;
   height: 100vh;
-  background-color: black;
+}
+
+.noScroll {
+  overflow: hidden;
 }
 
 * {
+  color: white;
   margin: 0;
   padding: 0;
-  color: white;
 }

@@ -16,6 +16,16 @@ const userSchema = new Schema({
   meowCounter: { type: Number, default: 0 },
   followingCounter: { type: Number, default: 0 },
   followerCounter: { type: Number, default: 0 },
+  userProfilePhoto: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707388880/code/defaultUserProfile.jpg",
+  },
+  backgroundProfilePhoto: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/dkfs5w0ga/image/upload/v1707388880/code/defaultBackgroundProfile.jpg",
+  },
 });
 
 userSchema.pre("save", function (next) {
