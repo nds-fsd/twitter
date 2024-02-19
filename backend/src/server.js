@@ -8,12 +8,12 @@ const startServer = () => {
     console.log(`Express server is up and running at ${port}`);
   });
 
-  // const io = app.get("io");
+  const io = app.get("io");
 
-  // io.attach(server);
+  io.attach(server);
 
-  // const webSocketPort = process.env.WS_PORT || 3010;
-  // console.log(`WebSocket server is up and running at ${webSocketPort}`);
+  const webSocketPort = process.env.WS_PORT || 3010;
+  console.log(`WebSocket server is up and running at ${webSocketPort}`);
 };
 
 startServer();

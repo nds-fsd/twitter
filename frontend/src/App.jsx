@@ -8,6 +8,9 @@ import MeowsBookmarked from "./components/Meows/MeowsBookmarked";
 import Notifications from "./components/Notifications/Notifications";
 import PublicHome from "./components/PublicHome/PublicHome";
 import AppLayout from "./components/AppLayout/AppLayout";
+import io from "socket.io-client";
+
+const socket = io('ws://localhost:3001');
 
 export const context = createContext();
 
