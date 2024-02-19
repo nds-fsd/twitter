@@ -91,6 +91,9 @@ const MeowView = () => {
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
       if (res.status === 201) {
+        if (parentMeowUsername === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: parentMeowUsername,
           sender: username,

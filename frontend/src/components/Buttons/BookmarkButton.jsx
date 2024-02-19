@@ -47,6 +47,9 @@ const BookmarkButton = ({ meow, authorUsername }) => {
       if (response.status === 200) {
         setIsBookmarked(true);
         const recipientUsername = authorUsername || meow.authorUsername;
+        if (recipientUsername === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: recipientUsername,
           sender: loggedInUser.username,
@@ -82,6 +85,9 @@ const BookmarkButton = ({ meow, authorUsername }) => {
       if (response.status === 200) {
         setIsBookmarked(false);
         const recipientUsername = authorUsername || meow.authorUsername;
+        if (recipientUsername === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: recipientUsername,
           sender: loggedInUser.username,

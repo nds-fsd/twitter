@@ -1,8 +1,6 @@
 import styles from "./DeleteEditMeow.module.css";
 import { useState, useRef, useEffect } from "react";
 import { MoreHorizontal, Trash2, FilePenLine } from "lucide-react";
-import del from "../../assets/delete.png";
-import edit from "../../assets/edit.png";
 import { meowApi } from "../../functions/apiWrapper";
 import { useLocation } from "react-router-dom";
 import {
