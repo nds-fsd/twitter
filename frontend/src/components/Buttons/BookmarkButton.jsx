@@ -134,7 +134,7 @@ const BookmarkButton = ({ meow, authorUsername }) => {
         disabled={isLoading}
       >
         {isBookmarked ? (
-          <Bookmark color="grey" fill="#ff5200" strokeWidth={0} size={20} />
+          <Bookmark color="grey" fill="#568340" strokeWidth={0} size={20} />
         ) : (
           <Bookmark color="grey" size={20} />
         )}

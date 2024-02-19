@@ -160,6 +160,7 @@ header {
 
 .textsInForm > span {
   color: var(--main-color);
+  font-size: 13px;
   cursor: pointer;
   font-weight: bold;
   text-decoration: underline;
