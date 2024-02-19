@@ -70,12 +70,7 @@ function UserProfile() {
     setTown(data.town || town);
   };
 
-  const tabs = [
-    { text: "Meows" },
-    { text: "Replies" },
-    { text: "Photos and videos" },
-    { text: "Likes" },
-  ];
+  const tabs = [{ text: "Meows" }, { text: "Likes" }];
 
   const [color, setColor] = useState(false);
   const changeColor = () => {

@@ -9,6 +9,10 @@
   width: max-content;
 }
 
+.mainButton:hover {
+  background-color: var(--color-hover);
+}
+
 .popOut {
   align-items: center;
   background-color: #222222;
@@ -47,6 +51,10 @@
 
 .logoutButton {
   background-color: var(--main-color);
+}
+
+.logoutButton:hover {
+  background-color: var(--color-hover);
 }
 
 .cancelButton {
