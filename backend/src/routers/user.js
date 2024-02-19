@@ -7,6 +7,7 @@ const {
   validateUpdateUser,
   validateToken,
 } = require("../middlewares/index");
+const { sendWelcomeEmail } = require("../service/email-service");
 
 router.get("/", validateToken, userController.getAllUsers);
 router.get("/:username", validateToken, userController.getUserByUsername);
@@ -20,5 +21,9 @@ router.patch(
   userController.updateUser
 );
 router.delete("/:username", validateToken, userController.deleteUser);
+router.post("/email", async (req, res) => {
+  await sendWelcomeEmail({name:'Meower', email: 'cecilia.lorenzo.galarza@gmail.com'});
+  return res.status(200).send();
+})
 
 module.exports = router;
