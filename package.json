@@ -22,10 +22,5 @@
   "devDependencies": {
     "turbo": "^1.10.16"
   },
-  "dependencies": {
-    "dayjs": "^1.11.10",
-    "gsap": "^3.12.4",
-    "jquery": "^3.7.1",
-    "rsuite": "^5.51.0"
-  }
+  "dependencies": {}
 }
