@@ -11,6 +11,8 @@ import MeowsLiked from "../Meows/MeowsLiked.jsx";
 import MeowsInProfile from "../Meows/MeowsInProfile.jsx";
 import UploadUserProfilePhoto from "./UploadUserProfilePhoto.jsx";
 import UploadBackgroundProfilePhoto from "./UploadBackgroundProfilePhoto.jsx";
+import PhotoUserProfile from "./PhotoUserProfile.jsx";
+import PhotoBackgroundProfile from "./PhotoBackgroundProfile.jsx"
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -110,12 +112,22 @@ function UserProfile() {
             <p className={styles.grayFont}>{meowCounter} posts</p>
           </div>
           <div className={styles.relativeContainer}>
-            <UploadBackgroundProfilePhoto />
+            {isOwnProfile ? (
+              <UploadBackgroundProfilePhoto />
+            ) : (
+              <PhotoBackgroundProfile />
+            )}
+            {/* <UploadBackgroundProfilePhoto /> */}
             <div className={styles.photoContainer}>
-              <UploadUserProfilePhoto
-                username={username}
-                photoStyle={photoStyle}
-              />
+              {isOwnProfile ? (
+                <UploadUserProfilePhoto
+                  username={username}
+                  photoStyle={photoStyle}
+                />
+              ) : (
+                <PhotoUserProfile username={username} photoStyle={photoStyle} />
+              )}
+
               {isOwnProfile ? (
                 <button
                   className={styles.editProfile}

@@ -4,7 +4,7 @@ import styles from "./Photos.module.css";
 import { cloudinaryApi, userApi } from "../../functions/apiWrapper";
 import Loading from "../../effects/Loading";
 
-function UploadUserProfilePhoto({ photoStyle, username }) {
+function UploadUserProfilePhoto({ username }) {
   const [userProfilePhoto, setUserProfilePhoto] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const { username: urlUsername } = useParams();
