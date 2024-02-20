@@ -110,7 +110,6 @@ const deleteUser = async (req, res) => {
   try {
     const username = req.params.username;
     const userFound = await User.findOne({ username });
-    console.log(userFound);
 
     if (userFound) {
       const userMeows = await Meow.find({ author: userFound._id });
