@@ -10,14 +10,9 @@ const ShareButton = ({ meow }) => {
   const currentUrl = window.location.origin;
   const meowUrl = `${currentUrl}/meow/${meow._id}`;
 
-  const [copied, setCopied] = useState(false);
   const handleCopy = () => {
-    setCopied(true);
-  };
-
-  if (copied === true) {
     toast.success("Link copied!");
-  }
+  };
 
   return (
     <div
