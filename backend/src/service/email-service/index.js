@@ -1,7 +1,7 @@
 const formData = require('form-data');
 const Mailgun = require('mailgun.js');
 const mailgun = new Mailgun(formData);
-const mg = mailgun.client({username: 'api', key: '01e3c106a85da6f49f14c2dc8526ca89-408f32f3-6add9783'});
+const mg = mailgun.client({username: 'api', key: MAILGUN_KEY});
 const fs = require("fs");
 const Handlebars = require('handlebars');
 const path = require('path');
