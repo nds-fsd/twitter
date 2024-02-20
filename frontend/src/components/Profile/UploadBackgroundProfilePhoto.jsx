@@ -1,17 +1,32 @@
-import styles from "./UploadPhoto.module.css";
-import { useState } from "react";
-import { cloudinaryApi } from "../../functions/apiWrapper";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import styles from "./Photos.module.css";
+import { cloudinaryApi, userApi } from "../../functions/apiWrapper";
 import Loading from "../../effects/Loading";
 
-function UploadBackgroundProfilePhoto({ username }) {
+function UploadBackgroundProfilePhoto() {
+  const [backgroundProfilePhoto, setBackgroundProfilePhoto] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const { username: urlUsername } = useParams();
+
+  useEffect(() => {
+    userApi()
+      .get(`/${urlUsername}`)
+      .then((response) => {
+        const user = response.data;
+        setBackgroundProfilePhoto(user.backgroundProfilePhoto);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [urlUsername, isUploading]);
 
   const handleUploadBackground = async (e) => {
     try {
       setIsUploading(true);
       const data = new FormData();
       data.append("backgroundFile", e.target.files[0]);
-      data.append("username", username);
+      data.append("username", urlUsername);
 
       await cloudinaryApi().post("/background/", data);
       setIsUploading(false);
@@ -20,15 +35,23 @@ function UploadBackgroundProfilePhoto({ username }) {
       alert(error.message);
     }
   };
+
+  const handleBackgroundPhotoClick = () => {
+    document.getElementById("backgroundFile").click();
+  };
+
   return (
-    <div className={styles.button}>
+    <div className={styles.container}>
       {isUploading ? (
         <Loading />
       ) : (
         <>
-          <label htmlFor="backgroundFile" className={styles.upload}>
-            Select Background Photo
-          </label>
+          <img
+            src={backgroundProfilePhoto}
+            alt="backgroundProfilePhoto"
+            className={styles.backgroundPhoto}
+            onClick={handleBackgroundPhotoClick}
+          />
           <input
             id="backgroundFile"
             type="file"

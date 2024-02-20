@@ -1,10 +1,28 @@
-import styles from "./UploadPhoto.module.css";
-import { useState } from "react";
-import { cloudinaryApi } from "../../functions/apiWrapper";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import styles from "./Photos.module.css";
+import { cloudinaryApi, userApi } from "../../functions/apiWrapper";
 import Loading from "../../effects/Loading";
 
-function UploadUserProfilePhoto({ username }) {
+function UploadUserProfilePhoto({ photoStyle, username }) {
+  const [userProfilePhoto, setUserProfilePhoto] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const { username: urlUsername } = useParams();
+  const targetUsername = username ? username : urlUsername;
+
+  useEffect(() => {
+    if (targetUsername) {
+      userApi()
+        .get(`/${targetUsername}`)
+        .then((response) => {
+          const user = response.data;
+          setUserProfilePhoto(user.userProfilePhoto);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [targetUsername, isUploading]);
 
   const handleUploadUser = async (e) => {
     try {
@@ -20,19 +38,28 @@ function UploadUserProfilePhoto({ username }) {
       alert(error.message);
     }
   };
+
+  const handleProfilePhotoClick = () => {
+    document.getElementById("userFile").click();
+  };
+
   return (
-    <div className={styles.button}>
+    <div className={styles.container}>
       {isUploading ? (
         <Loading />
       ) : (
         <>
-          <label htmlFor="userFile" className={styles.upload}>
-            Select User Photo
-          </label>
+          <img
+            src={userProfilePhoto}
+            alt="userProfilePhoto"
+            className={styles.userPhotoUserProfile}
+            onClick={handleProfilePhotoClick}
+          />
           <input
             id="userFile"
             type="file"
             onChange={handleUploadUser}
+            className={styles.inputFile}
             multiple={false}
           />
         </>
@@ -40,4 +67,5 @@ function UploadUserProfilePhoto({ username }) {
     </div>
   );
 }
+
 export default UploadUserProfilePhoto;

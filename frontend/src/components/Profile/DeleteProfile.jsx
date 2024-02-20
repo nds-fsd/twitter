@@ -10,7 +10,7 @@ const DeleteProfile = ({ username }) => {
 
   const handleDelete = async () => {
     try {
-      const res = await userApi().delete(`/${username}`);
+      await userApi().delete(`/${username}`);
     } catch (error) {
       console.error(error);
     }
@@ -20,7 +20,7 @@ const DeleteProfile = ({ username }) => {
     <div className={styles.button}>
       {confirmDelete ? (
         <div>
-          <p>¿Estás seguro de que quieres eliminar tu perfil?</p>
+          <p>Are you sure you want to delete your profile?</p>
           <button
             className={styles.upload}
             onClick={() => {
@@ -29,13 +29,13 @@ const DeleteProfile = ({ username }) => {
               reloadPage.setIsLogged(false);
             }}
           >
-            Sí, eliminar perfil
+            Yes, delete profile
           </button>
           <button
             className={styles.upload}
             onClick={() => setConfirmDelete(false)}
           >
-            Cancelar
+            Cancel
           </button>
         </div>
       ) : (
@@ -43,7 +43,7 @@ const DeleteProfile = ({ username }) => {
           className={styles.upload}
           onClick={() => setConfirmDelete(true)}
         >
-          Eliminar perfil
+          Delete profile
         </button>
       )}
     </div>

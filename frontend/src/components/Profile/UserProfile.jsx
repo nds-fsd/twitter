@@ -9,8 +9,8 @@ import EditProfileForm from "./EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 import MeowsLiked from "../Meows/MeowsLiked.jsx";
 import MeowsInProfile from "../Meows/MeowsInProfile.jsx";
-import PhotoUserProfile from "./PhotoUserProfile.jsx";
-import PhotoBackgroundProfile from "./PhotoBackgroundProfile.jsx";
+import UploadUserProfilePhoto from "./UploadUserProfilePhoto.jsx";
+import UploadBackgroundProfilePhoto from "./UploadBackgroundProfilePhoto.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -110,10 +110,12 @@ function UserProfile() {
             <p className={styles.grayFont}>{meowCounter} posts</p>
           </div>
           <div className={styles.relativeContainer}>
-            <PhotoBackgroundProfile />
+            <UploadBackgroundProfilePhoto />
             <div className={styles.photoContainer}>
-              <PhotoUserProfile photoStyle={photoStyle} />
-
+              <UploadUserProfilePhoto
+                username={username}
+                photoStyle={photoStyle}
+              />
               {isOwnProfile ? (
                 <button
                   className={styles.editProfile}
