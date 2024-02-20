@@ -19,6 +19,12 @@ const Notifications = () => {
         const notificationResponse = await notificationApi().get(
           `/${urlUsername}`
         );
+
+        if (notificationResponse.status === 204) {
+          setNotifications([]);
+          return;
+        }
+
         const formattedNotifications = notificationResponse.data.map(
           async (notification) => {
             try {
@@ -53,6 +59,14 @@ const Notifications = () => {
   }, [notifications]);
 
   const generateNotificationDivs = () => {
+    if (notifications.length === 0) {
+      return (
+        <p className={styles.noNotification}>
+          You don't have notifications yet.
+        </p>
+      );
+    }
+
     const lastNotifications = notifications.slice(-20).reverse();
 
     return lastNotifications.map((notification) => {
