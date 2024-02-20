@@ -1,5 +1,10 @@
 const express = require("express");
 const User = require("../schemas/user");
+const Like = require("../schemas/like");
+const Follow = require("../schemas/follow");
+const Bookmark = require("../schemas/bookmark");
+const Meow = require("../schemas/meow");
+const Notification = require("../schemas/notification");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -105,9 +110,107 @@ const deleteUser = async (req, res) => {
   try {
     const username = req.params.username;
     const userFound = await User.findOne({ username });
+    console.log(userFound);
 
     if (userFound) {
-      await User.findOneAndDelete({ username });
+      const userMeows = await Meow.find({ author: userFound._id });
+
+      const interactedMeowIds = userMeows
+        .map((meow) => meow.parentMeow || meow.repostedMeowId)
+        .filter((id) => id);
+
+      const interactedUsersIds = await Meow.distinct("author", {
+        _id: { $in: interactedMeowIds },
+      });
+
+      await User.updateMany(
+        { _id: { $in: interactedUsersIds } },
+        { $inc: { meowCounter: -1 } }
+      );
+
+      const deletedParentMeowsIds = await Meow.distinct("_id", {
+        parentMeow: { $nin: await Meow.find({}, "_id") },
+      });
+
+      const deletedRepostedMeowsIds = await Meow.distinct("_id", {
+        repostedMeowId: { $nin: await Meow.find({}, "_id") },
+      });
+
+      const deletedBookmarkAndLikeIds = [
+        ...(await Bookmark.distinct("_id", {
+          meowId: { $nin: await Meow.find({}, "_id") },
+        })),
+        ...(await Like.distinct("_id", {
+          meowId: { $nin: await Meow.find({}, "_id") },
+        })),
+      ];
+
+      await Bookmark.deleteMany({
+        meowId: { $nin: await Meow.find({}, "_id") },
+      });
+      await Like.deleteMany({ meowId: { $nin: await Meow.find({}, "_id") } });
+
+      await Meow.updateMany(
+        {
+          _id: {
+            $in: [
+              ...interactedMeowIds,
+              ...deletedParentMeowsIds,
+              ...deletedRepostedMeowsIds,
+            ],
+          },
+          author: { $ne: userFound._id },
+        },
+        { $inc: { replies: -1, reposts: -1, likes: -1, bookmarks: -1 } }
+      );
+
+      await Meow.deleteMany({
+        $or: [
+          { author: userFound._id },
+          {
+            repostedMeowId: {
+              $in: await Meow.find({ author: userFound._id }, "_id"),
+            },
+          },
+          { parentMeow: { $in: deletedParentMeowsIds } },
+          { repostedMeowId: { $in: deletedRepostedMeowsIds } },
+        ],
+      });
+
+      await Bookmark.deleteMany({ userId: userFound._id });
+
+      await Notification.deleteMany({
+        $or: [{ recipient: userFound._id }, { sender: userFound._id }],
+      });
+
+      await Like.deleteMany({
+        $or: [
+          { userId: userFound._id },
+          {
+            meowId: { $in: await Meow.find({ author: userFound._id }, "_id") },
+          },
+        ],
+      });
+
+      const userFollows = await Follow.find({
+        $or: [{ follower: userFound._id }, { followed: userFound._id }],
+      });
+      for (const follow of userFollows) {
+        await User.updateOne(
+          { _id: follow.follower },
+          { $inc: { followingCounter: -1 } }
+        );
+        await User.updateOne(
+          { _id: follow.followed },
+          { $inc: { followerCounter: -1 } }
+        );
+      }
+      await Follow.deleteMany({
+        $or: [{ follower: userFound._id }, { followed: userFound._id }],
+      });
+
+      await userFound.remove();
+
       res.status(201).json({ message: "Successfully deleted user" });
     } else {
       res.status(404).json({ error: "User not found" });
@@ -125,5 +228,4 @@ module.exports = {
   loginUser,
   updateUser,
   deleteUser,
-  getUserById,
 };

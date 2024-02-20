@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { userApi } from "../../functions/apiWrapper";
 import UploadUserProfilePhoto from "./UploadUserProfilePhoto";
 import UploadBackgroundProfilePhoto from "./UploadBackgroundProfilePhoto";
+import DeleteProfile from "./DeleteProfile";
 import Swal from "sweetalert2";
 
 const EditProfileForm = ({
@@ -75,6 +76,7 @@ const EditProfileForm = ({
           <div className={styles.uploadPhotosContainer}>
             <UploadUserProfilePhoto username={username} />
             <UploadBackgroundProfilePhoto username={username} />
+            <DeleteProfile username={username} />
           </div>
           <div>
             <div className={styles.inputContainer}>
