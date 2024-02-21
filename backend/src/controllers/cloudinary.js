@@ -17,7 +17,6 @@ const uploadUserProfilePhoto = async (req, res) => {
       height: 150,
       width: 150,
       crop: "thumb",
-      gravity: "face:auto",
     },
   };
 
