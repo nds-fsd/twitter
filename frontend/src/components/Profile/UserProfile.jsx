@@ -121,7 +121,6 @@ function UserProfile() {
             ) : (
               <PhotoBackgroundProfile />
             )}
-            {/* <UploadBackgroundProfilePhoto /> */}
             <div className={styles.photoContainer}>
               {isOwnProfile ? (
                 <UploadUserProfilePhoto
@@ -157,8 +156,8 @@ function UserProfile() {
 
             <br />
             <div className={styles.info}>
-              <MapPin />
-              <p>{town}</p>
+              {town !== undefined ? <MapPin /> : ""}
+              {town !== undefined ? <p>{town}</p> : ""}
               <CalendarDays />
               <p>Joined on {dateOfRegister}</p>
             </div>
