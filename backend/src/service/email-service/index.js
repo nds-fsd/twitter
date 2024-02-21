@@ -13,8 +13,8 @@ exports.sendWelcomeEmail = async (user) => {
     console.log("template ready");
 
     try {
-        await mg.messages.create('sandbox0430825f35df4764800ea3959f45b47b.mailgun.org', {
-            from: 'Meower <meower@sandbox0430825f35df4764800ea3959f45b47b.mailgun.org>',
+        await mg.messages.create('sandboxbba2338f871f463baafcee1bb5762c1f.mailgun.org', {
+            from: 'Meower <meower@sandboxbba2338f871f463baafcee1bb5762c1f.mailgun.org>',
             to: user.email,
             subject:"Welcome to Meower",
             html: template({user})
