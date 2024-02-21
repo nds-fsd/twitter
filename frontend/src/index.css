@@ -29,10 +29,6 @@ body {
   height: 100vh;
 }
 
-.noScroll {
-  overflow: hidden;
-}
-
 * {
   color: white;
   margin: 0;
