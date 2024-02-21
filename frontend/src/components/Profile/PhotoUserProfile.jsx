@@ -10,17 +10,15 @@ function PhotoUserProfile({ photoStyle, usernamePhoto }) {
   const targetUsername = usernamePhoto ? usernamePhoto : urlUsername;
 
   useEffect(() => {
-    if (targetUsername) {
-      userApi()
-        .get(`/${targetUsername}`)
-        .then((response) => {
-          const user = response.data;
-          setUserProfilePhoto(user.userProfilePhoto);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+    userApi()
+      .get(`/${targetUsername}`)
+      .then((response) => {
+        const user = response.data;
+        setUserProfilePhoto(user.userProfilePhoto);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [targetUsername]);
 
   let className = "";
