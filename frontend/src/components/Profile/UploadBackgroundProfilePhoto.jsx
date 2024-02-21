@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./Photos.module.css";
+import styles from "./UploadPhoto.module.css";
 import { cloudinaryApi, userApi } from "../../functions/apiWrapper";
 import Loading from "../../effects/Loading";
 
@@ -41,7 +41,7 @@ function UploadBackgroundProfilePhoto() {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       {isUploading ? (
         <Loading />
       ) : (

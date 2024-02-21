@@ -7,19 +7,11 @@
   width: 100%;
 }
 
-.backgroundPhoto:hover {
-  cursor: pointer;
-}
-
 .userPhotoUserProfile {
   border-radius: 50%;
   height: 150px;
   margin-top: -50px;
   width: 150px;
-}
-
-.userPhotoUserProfile:hover {
-  cursor: pointer;
 }
 
 .userPhotoComponents {
@@ -28,17 +20,9 @@
   width: 45px;
 }
 
-.userPhotoComponents:hover {
-  cursor: pointer;
-}
-
 .userPhotoMeow {
   border-radius: 50%;
   height: 35px;
   margin-right: 15px;
   width: 35px;
-}
-
-.userPhotoMeow:hover {
-  cursor: pointer;
 }
