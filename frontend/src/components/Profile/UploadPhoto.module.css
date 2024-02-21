@@ -1,8 +1,6 @@
 .backgroundPhoto {
   height: 100%;
   margin-bottom: 60px;
-  max-height: 400px;
-  max-width: 1200px;
   object-fit: contain;
   width: 100%;
 }

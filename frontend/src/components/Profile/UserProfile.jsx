@@ -12,7 +12,7 @@ import MeowsInProfile from "../Meows/MeowsInProfile.jsx";
 import UploadUserProfilePhoto from "./UploadUserProfilePhoto.jsx";
 import UploadBackgroundProfilePhoto from "./UploadBackgroundProfilePhoto.jsx";
 import PhotoUserProfile from "./PhotoUserProfile.jsx";
-import PhotoBackgroundProfile from "./PhotoBackgroundProfile.jsx"
+import PhotoBackgroundProfile from "./PhotoBackgroundProfile.jsx";
 
 function UserProfile() {
   const [name, setName] = useState("");
@@ -117,7 +117,6 @@ function UserProfile() {
             ) : (
               <PhotoBackgroundProfile />
             )}
-            {/* <UploadBackgroundProfilePhoto /> */}
             <div className={styles.photoContainer}>
               {isOwnProfile ? (
                 <UploadUserProfilePhoto
@@ -153,8 +152,8 @@ function UserProfile() {
 
             <br />
             <div className={styles.info}>
-              <MapPin />
-              <p>{town}</p>
+              {town !== undefined ? <MapPin /> : ""}
+              {town !== undefined ? <p>{town}</p> : ""}
               <CalendarDays />
               <p>Joined on {dateOfRegister}</p>
             </div>

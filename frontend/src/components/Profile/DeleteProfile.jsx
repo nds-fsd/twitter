@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { context } from "../../App";
 import { userApi } from "../../functions/apiWrapper";
 import { removeSession } from "../../functions/localStorage";
-import styles from "./UploadPhoto.module.css";
+import styles from "./DeleteProfile.module.css";
 
 const DeleteProfile = ({ username }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
