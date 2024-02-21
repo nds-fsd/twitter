@@ -30,6 +30,17 @@ const LogOut = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (popOut) {
+      document.body.classList.add("noScroll");
+    } else {
+      document.body.classList.remove("noScroll");
+    }
+    return () => {
+      document.body.classList.remove("noScroll");
+    };
+  }, [popOut]);
+
   return (
     <>
       <div className={styles.usuario}>
