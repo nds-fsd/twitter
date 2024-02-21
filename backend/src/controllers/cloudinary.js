@@ -13,7 +13,12 @@ const uploadUserProfilePhoto = async (req, res) => {
     overwrite: true,
     folder: "userProfile",
     public_id: `userProfile-${username}`,
-    transformation: { aspect_ratio: "1:1", crop: "fill" },
+    transformation: {
+      height: 150,
+      width: 150,
+      crop: "thumb",
+      gravity: "face:auto",
+    },
   };
 
   try {
