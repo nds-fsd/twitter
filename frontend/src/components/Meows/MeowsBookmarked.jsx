@@ -13,7 +13,7 @@ const MeowsBookmarked = () => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, seterrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const photoStyle = "meow";
 
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ const MeowsBookmarked = () => {
         setMeows(meowsToShow);
       } catch (error) {
         setError(true);
-        seterrorMessage(error.message);
+        setErrorMessage(error.message);
       }
     };
     getAllMeows();

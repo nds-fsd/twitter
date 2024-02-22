@@ -30,7 +30,7 @@ const MeowView = () => {
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
   const photoStyle = "meow";
-
+  
   useEffect(() => {
     const cleanup = handleResize(setPantallaPequena);
     return cleanup;
@@ -91,7 +91,7 @@ const MeowView = () => {
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
       if (res.status === 201) {
-        if (parentMeowUsername === loggedInUser.username) {
+        if (parentMeowUsername === username) {
           return;
         }
         const dataNotification = {

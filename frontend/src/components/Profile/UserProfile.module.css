@@ -69,6 +69,12 @@
   border-right: 1px solid #2c2c2c;
 }
 
+.tabsContainer span {
+  color: white;
+  cursor: pointer;
+  font-size: 17px;
+}
+
 .editProfile {
   background-color: transparent;
   border: 1px solid white;
@@ -99,10 +105,10 @@
   color: gray;
 }
 
-span {
+.info span {
   color: white;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .overlay {

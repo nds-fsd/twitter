@@ -1,38 +1,16 @@
 import styles from "./Navbar.module.css";
-import LogOut from "./LogOut";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { context } from "../../App";
 import { getUserSession } from "../../functions/localStorage";
-import { userApi } from "../../functions/apiWrapper";
 import { useNavigate } from "react-router-dom";
 import { Home, UserRound, Mail, BellRing, Bookmark } from "lucide-react";
 import { logo } from "../../assets/defaultAssets";
 
 function Navbar() {
   const navigate = useNavigate();
-
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [username, setUsername] = useState("");
-
   const loggedUser = getUserSession();
   const loggedUsername = loggedUser.username;
-
   const reload = useContext(context);
-
-  useEffect(() => {
-    userApi()
-      .get(`/${loggedUsername}`)
-      .then((response) => {
-        const user = response.data;
-        setName(user.name);
-        setSurname(user.surname);
-        setUsername(user.username);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -81,15 +59,6 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <div className={styles.usuario}>
-        <div className={styles.userInfo}>
-          <p>
-            {name} {surname}
-          </p>
-          <p className={styles.usernameColor}>@{username}</p>
-        </div>
-        <LogOut />
-      </div>
     </div>
   );
 }
