@@ -4,7 +4,7 @@ require("dotenv").config();
 
 let mongodb = null;
 
-const connectDB = async () => {
+const connectMongoDB = async () => {
   mongoose.set("strictQuery", false);
   try {
     let dbUrl = process.env.MONGO_URL;
@@ -23,7 +23,7 @@ const connectDB = async () => {
   }
 };
 
-const disconnectDB = async () => {
+const disconnectMongoDB = async () => {
   try {
     await mongoose.connection.close();
     if (mongodb) {
@@ -35,6 +35,6 @@ const disconnectDB = async () => {
 };
 
 module.exports = {
-  connectDB,
-  disconnectDB,
+  connectMongoDB,
+  disconnectMongoDB,
 };

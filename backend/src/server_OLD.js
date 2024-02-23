@@ -1,4 +1,4 @@
-const { createApp } = require("./index");
+const { createApp } = require("./index_OLD");
 
 const startServer = () => {
   const app = createApp();
