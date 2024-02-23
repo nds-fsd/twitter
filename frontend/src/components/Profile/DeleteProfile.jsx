@@ -4,7 +4,7 @@ import { userApi } from "../../functions/apiWrapper";
 import { removeSession } from "../../functions/localStorage";
 import styles from "./DeleteProfile.module.css";
 
-const DeleteProfile = ({ username }) => {
+const DeleteProfile = ({ username, hide, show }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const reloadPage = useContext(context);
 
@@ -35,7 +35,10 @@ const DeleteProfile = ({ username }) => {
           </button>
           <button
             className={styles.upload}
-            onClick={() => setConfirmDelete(false)}
+            onClick={() => {
+              setConfirmDelete(false);
+              show();
+            }}
           >
             Cancel
           </button>
@@ -43,7 +46,10 @@ const DeleteProfile = ({ username }) => {
       ) : (
         <button
           className={styles.delete}
-          onClick={() => setConfirmDelete(true)}
+          onClick={() => {
+            setConfirmDelete(true);
+            hide();
+          }}
         >
           Delete profile
         </button>
