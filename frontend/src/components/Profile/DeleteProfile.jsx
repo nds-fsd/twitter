@@ -17,12 +17,14 @@ const DeleteProfile = ({ username }) => {
   };
 
   return (
-    <div className={styles.button}>
+    <>
       {confirmDelete ? (
-        <div>
-          <p>Are you sure you want to delete your profile?</p>
+        <div className={styles.button}>
+          <p style={{ fontSize: "12px", marginBottom: "5px" }}>
+            Are you sure you want to delete your profile?
+          </p>
           <button
-            className={styles.upload}
+            className={styles.delete}
             onClick={() => {
               handleDelete();
               removeSession();
@@ -40,13 +42,13 @@ const DeleteProfile = ({ username }) => {
         </div>
       ) : (
         <button
-          className={styles.upload}
+          className={styles.delete}
           onClick={() => setConfirmDelete(true)}
         >
           Delete profile
         </button>
       )}
-    </div>
+    </>
   );
 };
 

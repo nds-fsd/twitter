@@ -64,7 +64,7 @@ const EditProfileForm = ({
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <header>
+        <header style={{ margin: 0 }}>
           <span onClick={close} className={styles.x}>
             x
           </span>
