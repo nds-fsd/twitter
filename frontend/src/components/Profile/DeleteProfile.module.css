@@ -3,6 +3,12 @@
   flex-direction: column;
 }
 
+.deleteCancelButton {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+
 .upload {
   background-color: var(--main-color);
   border: none;
@@ -13,7 +19,6 @@
   font-size: 15px;
   font-weight: bold;
   height: fit-content;
-  margin-top: 5%;
   padding: 7px 15px;
   text-align: center;
   width: fit-content;

@@ -20,28 +20,28 @@ const DeleteProfile = ({ username, hide, show }) => {
     <>
       {confirmDelete ? (
         <div className={styles.button}>
-          <p style={{ fontSize: "12px", marginBottom: "5px" }}>
-            Are you sure you want to delete your profile?
-          </p>
-          <button
-            className={styles.delete}
-            onClick={() => {
-              handleDelete();
-              removeSession();
-              reloadPage.setIsLogged(false);
-            }}
-          >
-            Yes, delete profile
-          </button>
-          <button
-            className={styles.upload}
-            onClick={() => {
-              setConfirmDelete(false);
-              show();
-            }}
-          >
-            Cancel
-          </button>
+          <p>Are you sure you want to delete your profile?</p>
+          <div className={styles.deleteCancelButton}>
+            <button
+              className={styles.delete}
+              onClick={() => {
+                handleDelete();
+                removeSession();
+                reloadPage.setIsLogged(false);
+              }}
+            >
+              Yes, delete account
+            </button>
+            <button
+              className={styles.upload}
+              onClick={() => {
+                setConfirmDelete(false);
+                show();
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       ) : (
         <button
@@ -51,7 +51,7 @@ const DeleteProfile = ({ username, hide, show }) => {
             hide();
           }}
         >
-          Delete profile
+          Delete account
         </button>
       )}
     </>
