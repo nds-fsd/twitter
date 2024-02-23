@@ -1,6 +1,7 @@
 .mainButton {
   background-color: var(--main-color);
   border: none;
+  color: white;
   font-family: var(--main-font);
   font-size: 14px;
   font-weight: 500;
@@ -85,11 +86,6 @@
   bottom: 1%;
   display: flex;
   position: fixed;
-}
-
-.usuario button {
-  color: black;
-  font-weight: 500;
 }
 
 .userInfo {
