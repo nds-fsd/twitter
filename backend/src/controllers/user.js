@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../schemas/user");
+const { sendWelcomeEmail } = require("../service/email-service");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -117,6 +118,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const welcomeEmail = async (req, res) => {
+  await sendWelcomeEmail({name: 'Cecilia', email: 'cecilia.lorenzo.galarza@gmail.com'});
+  return res.status(200).send();
+};
+
 module.exports = {
   getAllUsers,
   getUserByUsername,
@@ -126,4 +132,5 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserById,
+  welcomeEmail,
 };

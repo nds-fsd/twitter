@@ -21,10 +21,7 @@ router.patch(
   userController.updateUser
 );
 router.delete("/:username", validateToken, userController.deleteUser);
+router.post("/email", userController.welcomeEmail);
 
-router.post("/email", async (req, res) => {
-  await sendWelcomeEmail({name: 'Cecilia', email: 'cecilia.lorenzo20@gmail.com'});
-  return res.status(200).send();
-})
 
 module.exports = router;
