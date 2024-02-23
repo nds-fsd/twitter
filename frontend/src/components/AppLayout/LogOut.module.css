@@ -21,12 +21,12 @@
   top: 0;
   transition: opacity 0.3s ease;
   width: 100%;
-  z-index: 2;
 }
 
 .active {
   background-color: grey;
   opacity: 0.8;
+  z-index: 5;
 }
 
 .popOut {
@@ -43,7 +43,7 @@
   transform: translate(-50%, -50%);
   width: auto;
   padding: 3%;
-  z-index: 999;
+  z-index: 5;
 }
 
 .popOut h2 {
