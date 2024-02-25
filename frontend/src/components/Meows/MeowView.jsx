@@ -10,6 +10,7 @@ import { formatDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import AllMeowButtons from "../Buttons/AllMeowButtons";
 import { handleResize } from "../../functions/responsiveFunctions";
+import DeleteEditMeow from "./DeleteEditMeow";
 
 const MeowView = () => {
   function handleKeyDown(e) {
@@ -30,7 +31,7 @@ const MeowView = () => {
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
   const photoStyle = "meow";
-  
+
   useEffect(() => {
     const cleanup = handleResize(setPantallaPequena);
     return cleanup;
@@ -132,6 +133,7 @@ const MeowView = () => {
                 photoStyle={photoStyle}
                 usernamePhoto={parentMeowUsername}
               />
+              <DeleteEditMeow meow={parentMeow} />
               <div className={general.infoUserContainer}>
                 <div className={general.userData}>
                   <p
