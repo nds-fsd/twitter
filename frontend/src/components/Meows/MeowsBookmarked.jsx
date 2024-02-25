@@ -14,6 +14,7 @@ const MeowsBookmarked = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [userMentions, setUserMentions] = useState([]);
   const photoStyle = "meow";
 
   const navigate = useNavigate();
@@ -81,6 +82,35 @@ const MeowsBookmarked = () => {
 
         const meowsToShow = meowsWithUsernames.map((meow) => formatDate(meow));
 
+        const possibleMentions = new Set();
+
+        meowsToShow.forEach((meowToReview) => {
+          const regex = /@(\w+)/g;
+          const matchAll = meowToReview.text.matchAll(regex);
+          for (const match of matchAll) {
+            possibleMentions.add(match[1]);
+          }
+        });
+
+        const mentionDetails = await Promise.all(
+          [...possibleMentions].map(async (possibleMention) => {
+            try {
+              const userRes = await userApi().get(`/${possibleMention}`);
+              return possibleMention;
+            } catch (userError) {
+              console.error(
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+              );
+              return undefined;
+            }
+          })
+        );
+
+        const successfulMentions = mentionDetails.filter(
+          (mention) => mention !== undefined
+        );
+
+        setUserMentions(successfulMentions);
         setMeows(meowsToShow);
       } catch (error) {
         setError(true);
@@ -89,6 +119,38 @@ const MeowsBookmarked = () => {
     };
     getAllMeows();
   }, [reload.reload]);
+
+  const renderMeowText = (baseMeowText) => {
+    const regex = /@(\w+)/g;
+    let lastIndex = 0;
+    const meowText = [];
+
+    baseMeowText.replace(regex, (match, mention, index) => {
+      if (index > lastIndex) {
+        const beforeMention = baseMeowText.substring(lastIndex, index);
+        meowText.push(beforeMention);
+      }
+
+      if (userMentions.includes(mention)) {
+        meowText.push(
+          <a key={index} href={`/user/${mention}`}>
+            {match}
+          </a>
+        );
+      } else {
+        meowText.push(<span key={index}>{match}</span>);
+      }
+
+      lastIndex = index + match.length;
+    });
+
+    if (lastIndex < baseMeowText.length) {
+      const remainingText = baseMeowText.substring(lastIndex);
+      meowText.push(remainingText);
+    }
+
+    return <p>{meowText}</p>;
+  };
 
   if (loading) return <Loading />;
 
@@ -146,7 +208,7 @@ const MeowsBookmarked = () => {
                 key={meow._id}
                 className={styles.postContainer}
               >
-                <p>{meow.text}</p>
+                {renderMeowText(meow.text)}
               </div>
               <div className={styles.iconsContainer}>
                 <AllMeowButtons

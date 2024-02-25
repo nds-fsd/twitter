@@ -67,6 +67,10 @@
   padding-bottom: 3%;
 }
 
+.postContainer a {
+  color: var(--main-color);
+}
+
 .iconsContainer {
   align-items: center;
   display: flex;
@@ -97,6 +101,10 @@
 .postContainerInView {
   margin-left: 45px;
   padding-bottom: 3%;
+}
+
+.postContainerInView a {
+  color: var(--main-color);
 }
 
 .titleBookmarks {
