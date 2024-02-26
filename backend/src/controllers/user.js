@@ -77,6 +77,9 @@ const createUser = async (req, res) => {
         id: createdUser._id,
       },
     });
+   /*  if(createdUser){
+      await sendWelcomeEmail({name: createdUser.name, email: createdUser.mail});
+    } */
   } catch (error) {
     return res.status(500).json(error.message);
   }
