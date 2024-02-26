@@ -147,7 +147,11 @@ const Notifications = () => {
 
   return (
     <div>
-      <h2 className={styles.titleNotifications}>Notifications</h2>
+      <div
+        className={color ? styles.titleBookmarksScroll : styles.titleBookmarks}
+      >
+        <h2 className={styles.titleNotifications}>Notifications</h2>
+      </div>
       {generateNotificationDivs()}
       <Toaster position="top-right" reverseOrder={false} />
     </div>
