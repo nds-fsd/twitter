@@ -2,7 +2,7 @@ import styles from "./DeleteEditMeow.module.css";
 import { useState, useRef, useEffect } from "react";
 import { MoreHorizontal, Trash2, FilePenLine } from "lucide-react";
 import { meowApi } from "../../functions/apiWrapper";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import {
   ajustarAlturaTextArea,
   handleKeyDown,
@@ -26,6 +26,7 @@ const DeleteEditMeow = ({
   const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
   const textAreaRef = useRef();
+  const navigate = useNavigate()
 
   document.addEventListener("click", (e) => {
     if (divRef.current && divRef.current.contains(e.target)) {
@@ -74,6 +75,10 @@ const DeleteEditMeow = ({
     try {
       const res = await meowApi().delete(meow._id);
       setDeletePopOut(false);
+      if (isMeowViewRoute && !meow.parentMeow) {
+        return navigate('/home')
+        
+       }
       if (isMeowViewRoute) setReplyCounter(replyCounter - 1);
 
       const updatedMeows = meows.map((element) => {
