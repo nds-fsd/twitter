@@ -55,6 +55,9 @@ const DeleteEditMeow = ({
     try {
       const res = await meowApi().patch(meow._id, { text: meowToEdit });
       setEditPopOut(false);
+      if (isMeowViewRoute && !meow.parentMeow) {
+       return setMeows(res.data.meowUpdated)
+      }
       const updatedMeows = meows.map((element) => {
         if (element._id === meow._id) {
           return { ...element, text: meowToEdit };

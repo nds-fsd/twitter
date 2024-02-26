@@ -36,16 +36,17 @@ const LoginForm = ({ close, change, load }) => {
 
         const res = await userApi().post("/login", data);
         setLoading(false);
+        
 
         setUserSession(res.data);
         success.setIsLogged(true);
         success.setPreLoader(true);
       } catch (err) {
         setLoading(false);
-        if (err.code === "ERR_NETWORK") setServerError(true);
-        if (err.response.status !== 201 && err.response.status !== 400) {
-          setServerError(true);
-        }
+        // if (err.code === "ERR_NETWORK") setServerError(true);
+        // if (err.response.status !== 201 && err.response.status !== 400) {
+        //   setServerError(true);
+        // }
 
         if (err.response.data.error.mail) {
           setMailNotFound(true);

@@ -20,7 +20,6 @@
   },
   "packageManager": "npm@9.6.5",
   "devDependencies": {
-    "turbo": "^1.10.16"
-  },
-  "dependencies": {}
+    "turbo": "^1.12.4"
+  }
 }
