@@ -3,7 +3,7 @@ import general from "./MeowsFormat.module.css";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { meowApi, notificationApi } from "../../functions/apiWrapper";
+import { meowApi, notificationApi, userApi } from "../../functions/apiWrapper";
 import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
 import { formatDate } from "../../functions/dateFormat";
@@ -38,11 +38,14 @@ const MeowView = () => {
     return cleanup;
   }, []);
 
+  console.log(parentMeow);
+
   useEffect(() => {
     const getDetails = async () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
         const parentMeowToShow = formatDate(res.data.meowUpdated);
+
         setParentMeow(parentMeowToShow);
         setParentMeowName(res.data.userFound.name);
         setParentMeowSurname(res.data.userFound.surname);

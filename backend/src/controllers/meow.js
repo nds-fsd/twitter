@@ -197,6 +197,14 @@ const updateMeow = async (req, res) => {
     const body = req.body;
     const meowUpdated = await Meow.findByIdAndUpdate(id, body, { new: true });
 
+    if (meowUpdated.repostedMeowId) {
+      const originalMeow = await Meow.findById(meowUpdated.repostedMeowId);
+      const originalUser = await User.findById(originalMeow.author);
+      meowUpdated.originalName = originalUser.name;
+      meowUpdated.originalUsername = originalUser.username;
+      meowUpdated.originalSurname = originalUser.surname;
+    }
+
     return res.status(200).json({ userFound, meowUpdated });
   } catch (error) {
     return res.status(500).json(error.message);
