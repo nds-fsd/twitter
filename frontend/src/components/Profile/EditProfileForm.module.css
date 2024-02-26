@@ -7,11 +7,15 @@
   top: 50%;
   transform: translate(-50%, -50%);
   user-select: none;
-  width: 30%;
+  width: 25%;
   z-index: 3;
 }
 
-h2 {
+.x {
+  cursor: pointer;
+}
+
+.tittle {
   color: var(--main-color);
   font-family: var(--main-font);
   font-size: 24px;
@@ -34,15 +38,15 @@ h2 {
 }
 
 .inputFields {
-  border: 1px solid #ddd;
+  border: transparent;
   border-radius: 15px;
   color: black;
   font-family: var(--main-font);
   font-size: 15px;
   height: auto;
   margin-bottom: 0;
-  padding: 2% 0 2% 3%;
-  width: 100%;
+  padding: 2.5%;
+  width: 95%;
 }
 
 .inputFields::placeholder {
@@ -67,17 +71,16 @@ textarea {
 .submit {
   background-color: var(--main-color);
   border: none;
-  border-radius: 40px;
+  border-radius: 30px;
   color: white;
   cursor: pointer;
   font-family: var(--main-font);
   font-size: 15px;
   font-weight: bold;
-  height: auto;
-  margin-top: 5%;
-  padding: 2% 0;
+  height: fit-content;
+  padding: 7px 15px;
   text-align: center;
-  width: 25%;
+  width: fit-content;
 }
 
 .submit:hover {
@@ -104,7 +107,7 @@ textarea {
   align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 5%;
+  justify-content: space-evenly;
   width: 100%;
+  margin-top: 2%;
 }

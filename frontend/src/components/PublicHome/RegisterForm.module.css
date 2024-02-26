@@ -117,6 +117,7 @@ header {
 
 .submit {
   background-color: var(--main-color);
+  border: transparent;
   border-radius: 40px;
   color: white;
   cursor: pointer;
@@ -128,6 +129,11 @@ header {
   padding: 3% 0;
   text-align: center;
   width: 90%;
+}
+
+.submit:hover{
+  background-color: var(--color-hover);
+  border: 1px solid var(--color-hover);
 }
 
 .notValid {
