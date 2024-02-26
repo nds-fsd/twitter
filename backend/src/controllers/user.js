@@ -1,5 +1,10 @@
 const express = require("express");
 const User = require("../schemas/user");
+const Like = require("../schemas/like");
+const Follow = require("../schemas/follow");
+const Bookmark = require("../schemas/bookmark");
+const Meow = require("../schemas/meow");
+const Notification = require("../schemas/notification");
 const { sendWelcomeEmail } = require("../service/email-service");
 
 const getAllUsers = async (req, res) => {
@@ -111,13 +116,96 @@ const deleteUser = async (req, res) => {
     const userFound = await User.findOne({ username });
 
     if (userFound) {
-      await User.findOneAndDelete({ username });
+      // Obtener IDs de Meows en los que el parentMeow ha sido eliminado
+      const deletedParentMeowsIds = await Meow.distinct("_id", {
+        parentMeow: { $nin: await Meow.find({}, "_id") },
+      });
+
+      // Obtener IDs de Meows que han sido eliminados por su repostedMeowId
+      const deletedRepostedMeowsIds = await Meow.distinct("_id", {
+        repostedMeowId: { $nin: await Meow.find({}, "_id") },
+      });
+
+      // Obtener IDs de Bookmarks que se deben eliminar
+      const deletedBookmarkIds = await Bookmark.distinct("_id", {
+        meowId: { $nin: await Meow.find({}, "_id") },
+      });
+
+      // Obtener IDs de Likes que se deben eliminar
+      const deletedLikeIds = await Like.distinct("_id", {
+        meowId: { $nin: await Meow.find({}, "_id") },
+      });
+
+      // Eliminar todos los Bookmarks y Likes relacionados con Meows que ya no existen
+      await Bookmark.deleteMany({ _id: { $in: deletedBookmarkIds } });
+      await Like.deleteMany({ _id: { $in: deletedLikeIds } });
+
+      // Eliminar todos los Bookmark donde el usuario sea el userId o el meowId pertenezca a un Meow publicado por el usuario
+      await Bookmark.deleteMany({
+        $or: [
+          { userId: userFound._id },
+          {
+            meowId: { $in: await Meow.find({ author: userFound._id }, "_id") },
+          },
+        ],
+      });
+
+      // Eliminar todos los Likes donde el usuario sea el userId o el meowId pertenezca a un Meow publicado por el usuario
+      await Like.deleteMany({
+        $or: [
+          { userId: userFound._id },
+          {
+            meowId: { $in: await Meow.find({ author: userFound._id }, "_id") },
+          },
+        ],
+      });
+
+      // Eliminar todas las Notificaciones relacionadas con el usuario
+      await Notification.deleteMany({
+        $or: [{ recipient: userFound._id }, { sender: userFound._id }],
+      });
+
+      // Eliminar todos los Follows del usuario y restar 1 a los contadores de seguidores y seguidos
+      const userFollows = await Follow.find({
+        $or: [{ follower: userFound._id }, { followed: userFound._id }],
+      });
+      for (const follow of userFollows) {
+        await User.updateOne(
+          { _id: follow.follower },
+          { $inc: { followingCounter: -1 } }
+        );
+        await User.updateOne(
+          { _id: follow.followed },
+          { $inc: { followerCounter: -1 } }
+        );
+      }
+      await Follow.deleteMany({
+        $or: [{ follower: userFound._id }, { followed: userFound._id }],
+      });
+
+      // Eliminar todos los Meows del usuario y los que ha reposteado
+      await Meow.deleteMany({
+        $or: [
+          { author: userFound._id },
+          {
+            repostedMeowId: {
+              $in: await Meow.find({ author: userFound._id }, "_id"),
+            },
+          },
+          { parentMeow: { $in: deletedParentMeowsIds } },
+          { repostedMeowId: { $in: deletedRepostedMeowsIds } },
+        ],
+      });
+
+      // Eliminar el usuario
+      await userFound.remove();
+
       res.status(201).json({ message: "Successfully deleted user" });
     } else {
       res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
-    return res.status(500).json(error.message);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -134,6 +222,5 @@ module.exports = {
   loginUser,
   updateUser,
   deleteUser,
-  getUserById,
   welcomeEmail,
 };

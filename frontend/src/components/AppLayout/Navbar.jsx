@@ -81,7 +81,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <div className={styles.usuario}>
+      {/* <div className={styles.usuario}>
         <div className={styles.userInfo}>
           <p>
             {name} {surname}
@@ -89,7 +89,7 @@ function Navbar() {
           <p className={styles.usernameColor}>@{username}</p>
         </div>
         <LogOut />
-      </div>
+      </div> */}
     </div>
   );
 }

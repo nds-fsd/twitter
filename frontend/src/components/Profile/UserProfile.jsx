@@ -9,6 +9,8 @@ import EditProfileForm from "./EditProfileForm.jsx";
 import { MapPin, CalendarDays } from "lucide-react";
 import MeowsLiked from "../Meows/MeowsLiked.jsx";
 import MeowsInProfile from "../Meows/MeowsInProfile.jsx";
+import UploadUserProfilePhoto from "./UploadUserProfilePhoto.jsx";
+import UploadBackgroundProfilePhoto from "./UploadBackgroundProfilePhoto.jsx";
 import PhotoUserProfile from "./PhotoUserProfile.jsx";
 import PhotoBackgroundProfile from "./PhotoBackgroundProfile.jsx";
 
@@ -34,6 +36,10 @@ function UserProfile() {
   const [popUpEditProfile, setPopUpEditProfile] = useState(false);
   const handlePopUpEditProfileClick = () => {
     setPopUpEditProfile(!popUpEditProfile);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   window.addEventListener("keydown", (e) => {
@@ -110,9 +116,20 @@ function UserProfile() {
             <p className={styles.grayFont}>{meowCounter} posts</p>
           </div>
           <div className={styles.relativeContainer}>
-            <PhotoBackgroundProfile />
+            {isOwnProfile ? (
+              <UploadBackgroundProfilePhoto />
+            ) : (
+              <PhotoBackgroundProfile />
+            )}
             <div className={styles.photoContainer}>
-              <PhotoUserProfile photoStyle={photoStyle} />
+              {isOwnProfile ? (
+                <UploadUserProfilePhoto
+                  username={username}
+                  photoStyle={photoStyle}
+                />
+              ) : (
+                <PhotoUserProfile username={username} photoStyle={photoStyle} />
+              )}
 
               {isOwnProfile ? (
                 <button
@@ -139,8 +156,8 @@ function UserProfile() {
 
             <br />
             <div className={styles.info}>
-              <MapPin />
-              <p>{town}</p>
+              {town !== undefined ? <MapPin /> : ""}
+              {town !== undefined ? <p>{town}</p> : ""}
               <CalendarDays />
               <p>Joined on {dateOfRegister}</p>
             </div>
