@@ -22,10 +22,6 @@
   font-size: 12px;
 }
 
-.bigContainer {
-  border-right: 1px solid rgb(44, 44, 44);
-}
-
 .titleBookmarks {
   align-items: center;
   border-bottom: 1px solid rgb(44, 44, 44);
@@ -62,4 +58,5 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin-top: 5%;
 }

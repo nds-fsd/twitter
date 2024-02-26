@@ -22,11 +22,13 @@ body {
   border-right: 1px solid #2f2f2f;
   display: flex;
   flex-direction: column;
+  height: 100%;
   margin-left: 20%;
 }
 
 .right {
   padding-left: 15px;
+  border-left: 1px solid rgb(44, 44, 44);
 }
 
 @media screen and  (width <= 1000px) {
