@@ -107,6 +107,7 @@
   font-size: 24px;
   height: 70px;
   justify-content: center;
+  width: 100%;
 }
 
 .titleBookmarksScroll {
@@ -124,6 +125,10 @@
 }
 
 .titleText {
+  color: var(--main-color);
   font-family: var(--main-font);
   margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
 }

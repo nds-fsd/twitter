@@ -19,18 +19,17 @@ body {
 }
 
 .navbar {
-  align-items: center;
   border-right: 1px solid #2f2f2f;
   display: flex;
   flex-direction: column;
-  padding-right: 15px;
+  margin-left: 20%;
 }
 
 .right {
   padding-left: 15px;
 }
 
-@media (max-width: 1000px) {
+@media screen and  (width <= 1000px) {
   .mainContainer {
     border-right: 1px solid #2f2f2f;
     display: grid;
