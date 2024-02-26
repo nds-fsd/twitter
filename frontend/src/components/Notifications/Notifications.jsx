@@ -145,8 +145,18 @@ const Notifications = () => {
     });
   };
 
+  const [color, setColor] = useState(false);
+  const changeColor = () => {
+    if (window.scrollY >= 40) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+  window.addEventListener("scroll", changeColor);
+
   return (
-    <div>
+    <div className={styles.bigContainer}>
       <div
         className={color ? styles.titleBookmarksScroll : styles.titleBookmarks}
       >

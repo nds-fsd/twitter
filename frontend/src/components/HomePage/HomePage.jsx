@@ -1,4 +1,3 @@
-import styles from "./HomePage.module.css";
 import PostForm from "./PostMeow";
 import ListOFMeows from "../Meows/ListOfMeows";
 import { useState, createContext } from "react";
@@ -8,7 +7,7 @@ const HomePage = () => {
   const [newMeow, setNewMeow] = useState("");
   return (
     <meowContext.Provider value={{ newMeow, setNewMeow }}>
-      <div className={styles.mainContainer}>
+      <div style={{ width: "100%" }}>
         <div>
           <PostForm />
           <ListOFMeows />
