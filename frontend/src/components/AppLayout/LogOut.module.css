@@ -1,6 +1,7 @@
 .mainButton {
   background-color: var(--main-color);
   border: none;
+  color: white;
   font-family: var(--main-font);
   font-size: 14px;
   font-weight: 500;
@@ -27,7 +28,7 @@
 .active {
   background-color: grey;
   opacity: 0.8;
-  z-index: 5;
+  z-index: 10;
 }
 
 .popOut {
@@ -86,11 +87,6 @@
   bottom: 1%;
   display: flex;
   position: fixed;
-}
-
-.usuario button {
-  color: black;
-  font-weight: 500;
 }
 
 .userInfo {

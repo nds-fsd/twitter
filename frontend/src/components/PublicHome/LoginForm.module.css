@@ -60,6 +60,7 @@ header {
 
 .submit {
   background-color: var(--main-color);
+  border: transparent;
   border-radius: 40px;
   color: white;
   cursor: pointer;
@@ -71,6 +72,11 @@ header {
   text-align: center;
   user-select: none;
   width: 90%;
+}
+
+.submit:hover {
+  background-color: var(--color-hover);
+  border: 1px solid var(--color-hover);
 }
 
 .notValid {

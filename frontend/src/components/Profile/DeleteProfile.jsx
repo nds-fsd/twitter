@@ -4,7 +4,7 @@ import { userApi } from "../../functions/apiWrapper";
 import { removeSession } from "../../functions/localStorage";
 import styles from "./DeleteProfile.module.css";
 
-const DeleteProfile = ({ username }) => {
+const DeleteProfile = ({ username, hide, show }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const reloadPage = useContext(context);
 
@@ -17,36 +17,44 @@ const DeleteProfile = ({ username }) => {
   };
 
   return (
-    <div className={styles.button}>
+    <>
       {confirmDelete ? (
-        <div>
+        <div className={styles.button}>
           <p>Are you sure you want to delete your profile?</p>
-          <button
-            className={styles.upload}
-            onClick={() => {
-              handleDelete();
-              removeSession();
-              reloadPage.setIsLogged(false);
-            }}
-          >
-            Yes, delete profile
-          </button>
-          <button
-            className={styles.upload}
-            onClick={() => setConfirmDelete(false)}
-          >
-            Cancel
-          </button>
+          <div className={styles.deleteCancelButton}>
+            <button
+              className={styles.delete}
+              onClick={() => {
+                handleDelete();
+                removeSession();
+                reloadPage.setIsLogged(false);
+              }}
+            >
+              Yes, delete account
+            </button>
+            <button
+              className={styles.upload}
+              onClick={() => {
+                setConfirmDelete(false);
+                show();
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       ) : (
         <button
-          className={styles.upload}
-          onClick={() => setConfirmDelete(true)}
+          className={styles.delete}
+          onClick={() => {
+            setConfirmDelete(true);
+            hide();
+          }}
         >
-          Delete profile
+          Delete account
         </button>
       )}
-    </div>
+    </>
   );
 };
 
