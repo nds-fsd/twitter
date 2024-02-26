@@ -31,8 +31,7 @@ const MeowView = () => {
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
   const photoStyle = "meow";
-  const userId = getUserSession().id
-  
+  const userId = getUserSession().id;
 
   useEffect(() => {
     const cleanup = handleResize(setPantallaPequena);
@@ -55,7 +54,7 @@ const MeowView = () => {
     };
     getDetails();
   }, [id]);
-  console.log(parentMeow)
+  console.log(parentMeow);
 
   useEffect(() => {
     const getReplies = async () => {
@@ -68,7 +67,6 @@ const MeowView = () => {
     };
     getReplies();
   }, []);
- 
 
   const postReply = async () => {
     const newReply = {
@@ -119,7 +117,7 @@ const MeowView = () => {
       console.error(err);
     }
   };
-  console.log(parentMeow)
+  console.log(parentMeow);
 
   return (
     parentMeow && (
@@ -139,8 +137,7 @@ const MeowView = () => {
                 photoStyle={photoStyle}
                 usernamePhoto={parentMeowUsername}
               />
-              {userId === parentMeow.author &&<DeleteEditMeow meow={parentMeow} setMeows={setParentMeow} />
-}
+
               <div className={general.infoUserContainer}>
                 <div className={general.userData}>
                   <p
@@ -151,7 +148,13 @@ const MeowView = () => {
                   </p>
                   <p className={general.username}>@{parentMeowUsername}</p>
                 </div>
-                <div>
+                <div className={general.buttonDateContainer}>
+                  {userId === parentMeow.author && (
+                    <DeleteEditMeow
+                      meow={parentMeow}
+                      setMeows={setParentMeow}
+                    />
+                  )}
                   <p className={general.dateFormat}>{parentMeow.date}</p>
                 </div>
               </div>
