@@ -4,6 +4,7 @@ import { formatDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import AllMeowButtons from "../Buttons/AllMeowButtons";
 import DeleteEditMeow from "./DeleteEditMeow";
+import { getUserSession } from "../../functions/localStorage";
 
 const MeowReplies = ({
   allMeowReplies,
@@ -14,6 +15,7 @@ const MeowReplies = ({
   const navigate = useNavigate();
   const meowsToShow = allMeowReplies.map((meow) => formatDate(meow));
   const photoStyle = "meow";
+  const userId = getUserSession().id
 
   return (
     <>
@@ -37,13 +39,13 @@ const MeowReplies = ({
                     <p className={styles.username}>@{meow.authorUsername}</p>
                   </div>
                   <div className={styles.buttonDateContainer}>
-                    <DeleteEditMeow
+                   {meow.author === userId && (<DeleteEditMeow
                       meow={meow}
                       meows={allMeowReplies}
                       setMeows={setAllMeowReplies}
                       setReplyCounter={setReplyCounter}
                       replyCounter={replyCounter}
-                    />
+                    />)} 
                     <p className={styles.dateFormat}>{meow.date}</p>
                   </div>
                 </div>
