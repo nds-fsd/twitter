@@ -1,10 +1,10 @@
-const express = require("express");
-const User = require("../schemas/user");
-const Like = require("../schemas/like");
-const Follow = require("../schemas/follow");
-const Bookmark = require("../schemas/bookmark");
-const Meow = require("../schemas/meow");
-const Notification = require("../schemas/notification");
+const User = require("../schemas/mongo/user");
+const Like = require("../schemas/mongo/like");
+const Follow = require("../schemas/mongo/follow");
+const Bookmark = require("../schemas/mongo/bookmark");
+const Meow = require("../schemas/mongo/meow");
+const Notification = require("../schemas/mongo/notification");
+const Userpg = require("../schemas/pg/userpg");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -70,6 +70,16 @@ const createUser = async (req, res) => {
     console.log(newUser);
 
     const createdUser = await newUser.save();
+
+    try {
+      const mongoUserId = createdUser._id.toString();
+      await Userpg.create({
+        mongo_user_id: mongoUserId,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json(error.message);
+    }
 
     res.status(201).json({
       token: createdUser.generateJWT(),
@@ -192,6 +202,17 @@ const deleteUser = async (req, res) => {
           { repostedMeowId: { $in: deletedRepostedMeowsIds } },
         ],
       });
+
+      // Eliminar usuario de Postgres SQL
+      try {
+        const mongoUserId = userFound._id.toString();
+        await Userpg.destroy({
+          where: { mongo_user_id: mongoUserId },
+        });
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json(error.message);
+      }
 
       // Eliminar el usuario
       await userFound.remove();

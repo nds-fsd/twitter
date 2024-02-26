@@ -21,7 +21,6 @@
   position: fixed;
   width: 50%;
   width: fit-content;
-  z-index: 1;
 }
 
 .back {

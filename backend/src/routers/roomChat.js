@@ -3,8 +3,7 @@ const router = express.Router();
 const roomChatController = require("../controllers/roomChat");
 const { validateToken } = require("../middlewares/index");
 
-router.get("/:userId", validateToken, roomChatController.getRoomChat);
-router.post("/:userId", validateToken, roomChatController.postRoomChat);
-router.delete("/:userId", validateToken, roomChatController.deleteRoomChat);
+router.get("/:roomId", validateToken, roomChatController.getRoomChat);
+router.post("/:roomId", validateToken, roomChatController.createRoomChat);
 
 module.exports = router;

@@ -5,7 +5,7 @@ const sequelize = new Sequelize(process.env.POSTGRES_URL);
 
 const connectPostgresDB = async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
   } catch (error) {
     console.log(error);
   }

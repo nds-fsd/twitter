@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../connections/postgres.js");
-const { Userpg } = require("../schemas/userpg.js");
-const { Message } = require("../schemas/message.js");
+const { sequelize } = require("../../connections/postgres");
+// const { Userpg } = require("./userpg");
+// const { Message } = require("./message");
 
 const RoomChat = sequelize.define(
   "chat",
@@ -14,18 +14,18 @@ const RoomChat = sequelize.define(
     user1: {
       type: DataTypes.STRING(24),
       allowNull: false,
-      // references: {
-      //   model: "userpg",
-      //   key: "mongo_user_id",
-      // },
+      references: {
+        model: "userpg",
+        key: "mongo_user_id",
+      },
     },
     user2: {
       type: DataTypes.STRING(24),
       allowNull: false,
-      // references: {
-      //   model: "userpg",
-      //   key: "mongo_user_id",
-      // },
+      references: {
+        model: "userpg",
+        key: "mongo_user_id",
+      },
     },
   },
   {

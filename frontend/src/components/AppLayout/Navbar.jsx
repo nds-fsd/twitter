@@ -36,7 +36,15 @@ function Navbar() {
             <BellRing />
             <p>Notifications</p>
           </div>
-          {/* <div className={styles.options}> <Mail /> <p>Messages</p> </div> */}
+          <div
+            onClick={() => {
+              navigate("/messages/" + loggedUsername);
+              reload.setReload(!reload.reload);
+            }}
+            className={styles.options}
+          >
+            <Mail /> <p>Messages</p>
+          </div>
           <div
             onClick={() => {
               navigate("/bookmark/" + loggedUsername);

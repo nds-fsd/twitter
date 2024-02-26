@@ -1,21 +1,28 @@
-const Userpg = require("../schemas/userpg");
-const RoomChat = require("../schemas/roomChat");
-const Message = require("../schemas/message");
+const Userpg = require("../schemas/pg/userpg");
+const RoomChat = require("../schemas/pg/roomChat");
+const { Message } = require("../schemas/pg/message");
 
-const getMessage = (req, res) => {
-  res.send("getMessage");
+const getMessage = async(req, res) => {
+  try {
+    const roomId = req.params.roomId;
+    const messages = await Message.findAll({ where: { roomChat: roomId } });
+    res.status(200).json(messages);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
 };
 
-const postMessage = (req, res) => {
-  res.send("postMessage");
-};
-
-const deleteMessage = (req, res) => {
-  res.send("deleteMessage");
+const postMessage = async (req, res) => {
+  try {
+    const { user, roomChat, text } = req.body;
+    const newMessage = await Message.create({ user, roomChat, message: text });
+    res.status(201).json(newMessage);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
 };
 
 module.exports = {
   getMessage,
   postMessage,
-  deleteMessage,
 };

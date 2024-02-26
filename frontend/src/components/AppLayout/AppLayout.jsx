@@ -3,7 +3,6 @@ import WhoToFollow from "./WhoToFollow";
 import styles from "./AppLayout.module.css";
 import SearchBar from "./SearchBar";
 import LogOut from "./LogOut";
-import Chat from "../Chat/Chat";
 
 function AppLayout({ children }) {
   return (
@@ -18,7 +17,6 @@ function AppLayout({ children }) {
           <div className={styles.right}>
             <SearchBar />
             <WhoToFollow />
-            <Chat />
           </div>
         </div>
       </div>

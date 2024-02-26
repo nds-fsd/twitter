@@ -1,6 +1,6 @@
-const Like = require("../schemas/like");
-const Meow = require("../schemas/meow");
-const User = require("../schemas/user");
+const Like = require("../schemas/mongo/like");
+const Meow = require("../schemas/mongo/meow");
+const User = require("../schemas/mongo/user");
 
 const checkLikeStatus = async (req, res) => {
   try {

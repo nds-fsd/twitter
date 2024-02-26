@@ -1,5 +1,5 @@
 const cloudinary = require("cloudinary").v2;
-const User = require("../schemas/user");
+const User = require("../schemas/mongo/user");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,

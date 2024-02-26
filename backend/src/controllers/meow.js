@@ -1,6 +1,6 @@
-const Meow = require("../schemas/meow");
-const User = require("../schemas/user");
-const Follow = require("../schemas/follow");
+const Meow = require("../schemas/mongo/meow");
+const User = require("../schemas/mongo/user");
+const Follow = require("../schemas/mongo/follow");
 const mongoose = require("mongoose");
 
 const getFeedMeows = async (req, res) => {

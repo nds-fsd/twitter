@@ -1,5 +1,4 @@
-const express = require("express");
-const User = require("../schemas/user.js");
+const User = require("../schemas/mongo/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const secret = process.env.JWT_SECRET;

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const { sequelize } = require("../connections/postgres.js");
-const { RoomChat } = require("./roomChat.js");
-const { Message } = require("./message.js");
+const { sequelize } = require("../../connections/postgres");
+// const { RoomChat } = require("./roomChat");
+// const { Message } = require("./message");
 
 const Userpg = sequelize.define(
   "userpg",

@@ -1,21 +1,20 @@
-const Userpg = require("../schemas/userpg");
-const RoomChat = require("../schemas/roomChat");
-const Message = require("../schemas/message");
+const Userpg = require("../schemas/pg/userpg");
 
-const getUserpg = (req, res) => {
-  res.send("getUserpg");
-};
+const getUserpg = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await Userpg.findByPk(userId);
 
-const postUserpg = (req, res) => {
-  res.send("postUserpg");
-};
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-const deleteUserpg = (req, res) => {
-  res.send("deleteUserpg");
+    res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
 };
 
 module.exports = {
   getUserpg,
-  postUserpg,
-  deleteUserpg,
 };
