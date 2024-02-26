@@ -3,7 +3,7 @@ import general from "./MeowsFormat.module.css";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { meowApi, notificationApi } from "../../functions/apiWrapper";
+import { meowApi, notificationApi, userApi } from "../../functions/apiWrapper";
 import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
 import { formatDate } from "../../functions/dateFormat";
@@ -30,6 +30,7 @@ const MeowView = () => {
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
+  const [userMentions, setUserMentions] = useState([]);
   const photoStyle = "meow";
   const userId = getUserSession().id;
 
@@ -48,6 +49,33 @@ const MeowView = () => {
         setParentMeowSurname(res.data.userFound.surname);
         setParentMeowUsername(res.data.userFound.username);
         setReplyCounter(res.data.meowUpdated.replies);
+
+        const possibleMentions = new Set();
+        const regex = /@([^@\s]+)/g;
+        const matchAll = parentMeowToShow.text.matchAll(regex);
+        for (const match of matchAll) {
+          possibleMentions.add(match[1]);
+        }
+
+        const mentionDetails = await Promise.all(
+          [...possibleMentions].map(async (possibleMention) => {
+            try {
+              const userRes = await userApi().get(`/${possibleMention}`);
+              return possibleMention;
+            } catch (userError) {
+              console.error(
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+              );
+              return undefined;
+            }
+          })
+        );
+
+        const successfulMentions = mentionDetails.filter(
+          (mention) => mention !== undefined
+        );
+
+        setUserMentions(successfulMentions);
       } catch (error) {
         console.error("Error fetching details:", error);
       }
@@ -67,6 +95,38 @@ const MeowView = () => {
     };
     getReplies();
   }, []);
+
+  const renderMeowText = (baseMeowText) => {
+    const regex = /@([^@\s]+)/g;
+    let lastIndex = 0;
+    const meowText = [];
+
+    baseMeowText.replace(regex, (match, mention, index) => {
+      if (index > lastIndex) {
+        const beforeMention = baseMeowText.substring(lastIndex, index);
+        meowText.push(beforeMention);
+      }
+
+      if (userMentions.includes(mention)) {
+        meowText.push(
+          <a key={index} href={`/user/${mention}`}>
+            {match}
+          </a>
+        );
+      } else {
+        meowText.push(<span key={index}>{match}</span>);
+      }
+
+      lastIndex = index + match.length;
+    });
+
+    if (lastIndex < baseMeowText.length) {
+      const remainingText = baseMeowText.substring(lastIndex);
+      meowText.push(remainingText);
+    }
+
+    return <p>{meowText}</p>;
+  };
 
   const postReply = async () => {
     const newReply = {
@@ -160,7 +220,7 @@ const MeowView = () => {
               </div>
             </div>
             <div className={general.postContainerInView}>
-              <p className={general.meow}>{parentMeow.text}</p>
+              <p className={general.meow}>{renderMeowText(parentMeow.text)}</p>
             </div>
             <div className={general.iconsContainer}>
               <AllMeowButtons meow={parentMeow} authorUsername={username} />
