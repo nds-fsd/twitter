@@ -49,7 +49,7 @@ const MeowView = () => {
         setReplyCounter(res.data.meowUpdated.replies);
 
         const possibleMentions = new Set();
-        const regex = /@(\w+)/g;
+        const regex = /@([^@\s]+)/g;
         const matchAll = parentMeowToShow.text.matchAll(regex);
         for (const match of matchAll) {
           possibleMentions.add(match[1]);
@@ -94,7 +94,7 @@ const MeowView = () => {
   }, []);
 
   const renderMeowText = (baseMeowText) => {
-    const regex = /@(\w+)/g;
+    const regex = /@([^@\s]+)/g;
     let lastIndex = 0;
     const meowText = [];
 

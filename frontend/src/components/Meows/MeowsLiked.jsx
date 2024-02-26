@@ -77,7 +77,7 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
         const possibleMentions = new Set();
 
         meowsToShow.forEach((meowToReview) => {
-          const regex = /@(\w+)/g;
+          const regex = /@([^@\s]+)/g;
           const matchAll = meowToReview.text.matchAll(regex);
           for (const match of matchAll) {
             possibleMentions.add(match[1]);
@@ -114,7 +114,7 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
   }, [reload.reload]);
 
   const renderMeowText = (baseMeowText) => {
-    const regex = /@(\w+)/g;
+    const regex = /@([^@\s]+)/g;
     let lastIndex = 0;
     const meowText = [];
 
