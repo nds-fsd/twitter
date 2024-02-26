@@ -21,13 +21,17 @@ function ListOFMeows() {
   const [userMentions, setUserMentions] = useState([]);
   const [errorMessage, seterrorMessage] = useState("");
   const photoStyle = "meow";
-  const { id } = getUserSession();
+  const { id, username } = getUserSession();
   const mContext = useContext(meowContext);
   const reload = useContext(context);
 
   const newMeow = mContext.newMeow;
   const userId = id;
   const navigate = useNavigate();
+
+console.log(meows)
+console.log(username)
+
 
   useEffect(() => {
     const getAllMeows = async () => {
@@ -192,13 +196,13 @@ function ListOFMeows() {
                     </div>
 
                     <div className={styles.buttonDateContainer}>
-                      {meow.author === userId && (
-                        <DeleteEditMeow
+                    {meow.author === userId&&(
+                      <DeleteEditMeow
                           meow={meow}
                           meows={meows}
-                          setMeows={setMeows}
-                        />
-                      )}
+                         setMeows={setMeows}
+                   />
+                          )}
                       <p className={styles.dateFormat}>{meow.date}</p>
                     </div>
                   </div>
