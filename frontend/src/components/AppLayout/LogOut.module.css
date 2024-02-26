@@ -27,6 +27,7 @@
 .active {
   background-color: grey;
   opacity: 0.8;
+  z-index: 5;
 }
 
 .popOut {
