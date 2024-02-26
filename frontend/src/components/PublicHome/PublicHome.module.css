@@ -67,6 +67,11 @@ button {
   transform: translateY(4px);
 }
 
+.createButton:hover {
+  background-color: var(--color-hover);
+  border: 1px solid var(--color-hover);
+}
+
 .loginButton {
   background-color: white;
   border: 1px solid white;
