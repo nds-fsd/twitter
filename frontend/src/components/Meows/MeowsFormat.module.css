@@ -101,10 +101,7 @@
 
 .titleBookmarks {
   align-items: center;
-  color: var(--main-color);
   display: flex;
-  font-family: var(--main-font);
-  font-size: 24px;
   height: 70px;
   justify-content: center;
   width: 100%;
@@ -113,20 +110,20 @@
 .titleBookmarksScroll {
   align-items: center;
   background-color: black;
-  color: var(--main-color);
   display: flex;
-  font-family: var(--main-font);
-  font-size: 24px;
   height: 70px;
   justify-content: center;
   opacity: 0.8;
-  position: fixed;
-  width: 50%;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
 }
 
 .titleText {
   color: var(--main-color);
   font-family: var(--main-font);
+  font-size: 25px;
   margin: 0;
   padding: 0;
   text-align: center;
