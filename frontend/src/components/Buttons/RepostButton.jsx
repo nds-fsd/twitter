@@ -21,7 +21,7 @@ const RepostButton = ({ meow, authorUsername }) => {
       if (res.status === 201) {
         const recipientUsername = authorUsername || meow.authorUsername;
         if (recipientUsername === loggedInUser.username) {
-          return;
+          return reload.setReload(!reload.reload);
         }
         const dataNotification = {
           recipient: recipientUsername,
