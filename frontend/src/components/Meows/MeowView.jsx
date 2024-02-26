@@ -82,6 +82,7 @@ const MeowView = () => {
       setAllMeowReplies([
         {
           text: meowReply,
+          author: userId,
           authorUsername: username,
           authorName: name,
           authorSurname: surname,
