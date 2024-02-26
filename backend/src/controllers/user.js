@@ -5,6 +5,7 @@ const Follow = require("../schemas/follow");
 const Bookmark = require("../schemas/bookmark");
 const Meow = require("../schemas/meow");
 const Notification = require("../schemas/notification");
+const { sendWelcomeEmail } = require("../service/email-service");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -81,6 +82,9 @@ const createUser = async (req, res) => {
         id: createdUser._id,
       },
     });
+   /*  if(createdUser){
+      await sendWelcomeEmail({name: createdUser.name, email: createdUser.mail});
+    } */
   } catch (error) {
     return res.status(500).json(error.message);
   }
@@ -205,6 +209,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const welcomeEmail = async (req, res) => {
+  await sendWelcomeEmail({name: 'Cecilia', email: 'cecilia.lorenzo.galarza@gmail.com'});
+  return res.status(200).send();
+};
+
 module.exports = {
   getAllUsers,
   getUserByUsername,
@@ -213,4 +222,5 @@ module.exports = {
   loginUser,
   updateUser,
   deleteUser,
+  welcomeEmail,
 };
