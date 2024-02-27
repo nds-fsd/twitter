@@ -63,7 +63,7 @@
 
 .postContainer {
   cursor: pointer;
-  margin-left: 45px;
+  margin-left: 50px;
   padding-bottom: 3%;
 }
 
@@ -71,7 +71,7 @@
   align-items: center;
   display: flex;
   justify-content: space-evenly;
-  margin-left: 45px;
+  margin-left: 50px;
 }
 
 .dateFormat {
@@ -90,12 +90,12 @@
   display: flex;
   justify-content: space-evenly;
   justify-content: flex-start;
-  margin-left: 45px;
+  margin-left: 50px;
 }
 
 /* format for View and Reply components*/
 .postContainerInView {
-  margin-left: 45px;
+  margin-left: 50px;
   padding-bottom: 3%;
 }
 
