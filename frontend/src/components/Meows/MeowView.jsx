@@ -24,7 +24,10 @@ const MeowView = () => {
   const { username, name, surname } = getUserSession();
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
+  const [parentMeowName, setParentMeowName] = useState('')
+  const [parentMeowSurname, setParentMeowSurname] = useState("");
   const [parentMeowUsername, setParentMeowUsername] = useState("");
+ 
 
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
@@ -46,8 +49,11 @@ const MeowView = () => {
         const parentMeowToShow = formatDate(res.data.meowsWithOriginalAuthors[0]);
 
         setParentMeow(parentMeowToShow);
+        console.log(res.data.userFound)
         
         setParentMeowUsername(res.data.userFound.username);
+        setParentMeowName(res.data.userFound.name)
+        setParentMeowSurname(res.data.userFound.surname)
     
 
      
@@ -123,7 +129,7 @@ const MeowView = () => {
     }
   };
 
-
+console.log(parentMeow)
  
 
 
@@ -161,14 +167,14 @@ const MeowView = () => {
                   >
                     {
                    !parentMeow.repostedMeowId
-                   ? `${parentMeow.name} ${parentMeow.surname}`
+                   ? `${parentMeowName} ${parentMeowSurname}`
                     : `${parentMeow.originalName} ${parentMeow.originalSurname}`
 }
                   
                   </p>
                   <p className={general.username}>
                      @{!parentMeow.repostedMeowId
-                        ? parentMeow.username
+                        ? parentMeowUsername
                          : parentMeow.originalUsername}
                         </p>
                 </div>
