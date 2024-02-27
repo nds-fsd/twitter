@@ -19,7 +19,7 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
     const getProfileMeows = async () => {
       try {
         const res = await meowApi().get(username);
-        const meowsToShow = res.data.meowsProfile.map((meow) =>
+        const meowsToShow = res.data.meowsWithOriginalAuthors.map((meow) =>
           formatDate(meow)
         );
         setMeows(meowsToShow.reverse());

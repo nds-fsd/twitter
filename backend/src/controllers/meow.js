@@ -72,7 +72,24 @@ const getProfileMeows = async (req, res) => {
       author: _id,
       parentMeow: undefined,
     });
-    res.status(200).json({ meowsProfile, user });
+    const meowsWithOriginalAuthors = await Promise.all(
+      meowsProfile.map(async (meow) => {
+        if (meow.repostedMeowId) {
+          const originalMeow = await Meow.findById(meow.repostedMeowId);
+          if (originalMeow) {
+            const originalAuthor = await User.findById(originalMeow.author);
+            return {
+              ...meow._doc,
+              originalName: originalAuthor.name,
+              originalSurname: originalAuthor.surname,
+              originalUsername: originalAuthor.username,
+            };
+          }
+        }
+        return meow;
+      })
+    );
+    res.status(200).json({ meowsWithOriginalAuthors, user });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
