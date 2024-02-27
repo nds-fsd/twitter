@@ -83,10 +83,17 @@ const getProfileMeows = async (req, res) => {
               originalName: originalAuthor.name,
               originalSurname: originalAuthor.surname,
               originalUsername: originalAuthor.username,
+              authorUsername: username,
+              authorName: user.name,
+              authorSurname: user.surname
             };
           }
         }
-        return meow;
+        return {...meow._doc,
+          authorUsername: username,
+          authorName: user.name,
+          authorSurname: user.surname
+        };
       })
     );
     res.status(200).json({ meowsWithOriginalAuthors, user });
