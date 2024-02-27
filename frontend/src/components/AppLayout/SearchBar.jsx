@@ -31,17 +31,21 @@ function SearchBar() {
   window.addEventListener("scroll", changeColor);
 
   return (
-    <div className={color ? styles.searchScroll : styles.search}>
+    <>
+     <div className={color ? styles.searchScroll : styles.search}>
       <input
         className={styles.buscador}
         onChange={(e) => searchUsernames(e)} // Llamamos a la función searchUsernames en el evento onChange
         placeholder="Search"
         type="text"
       />
-      {result.length > 0 && (result.map((user)=>{
-        return <p>{user.username}</p>
-      }))}
+     
     </div>
+    {result.length > 0 && <div className={styles.results}>{
+      (result.map((user)=>{
+        return <p>{user.username}</p>
+      }))}</div> }</>
+   
   );
 }
 

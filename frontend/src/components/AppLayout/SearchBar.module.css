@@ -37,6 +37,26 @@
   font-weight: lighter;
 }
 
+.results {
+  position: absolute;
+  width: 100%;
+  color: white;
+  background-color: rgb(130, 187, 187);
+  z-index: 999;
+  top: 57px;
+  font-size: 15px;
+  border-radius: 20px;
+
+}
+
+.results > p {
+  padding: 1%;
+  
+
+}
+
+
+
 @media (max-width: 1000px) {
   .search {
     display: none;
