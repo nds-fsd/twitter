@@ -25,8 +25,7 @@ const MeowView = () => {
   const [pantallaPequena, setPantallaPequena] = useState(false);
   const [parentMeow, setParentMeow] = useState("");
   const [parentMeowUsername, setParentMeowUsername] = useState("");
-  const [parentMeowName, setParentMeowName] = useState("");
-  const [parentMeowSurname, setParentMeowSurname] = useState("");
+
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
@@ -47,9 +46,12 @@ const MeowView = () => {
         const parentMeowToShow = formatDate(res.data.meowsWithOriginalAuthors[0]);
 
         setParentMeow(parentMeowToShow);
-        setParentMeowName(res.data.userFound.name);
-        setParentMeowSurname(res.data.userFound.surname);
+        
         setParentMeowUsername(res.data.userFound.username);
+    
+
+     
+      
         setReplyCounter(res.data.meowsWithOriginalAuthors[0].replies);
       } catch (error) {
         console.error("Error fetching details:", error);
@@ -122,8 +124,14 @@ const MeowView = () => {
   };
 
 
+ 
+
+
+
+
+
   return (
-    parentMeow && (
+   parentMeow &&(
       <>
         <div className={styles.viewContainer}>
           <div className={styles.firstContainer}>
@@ -142,14 +150,27 @@ const MeowView = () => {
               />
 
               <div className={general.infoUserContainer}>
+              {parentMeow.repostedMeowId && 
+              <p className={styles.repostedBy}>Reposted by: @{parentMeowUsername}</p>
+}
                 <div className={general.userData}>
+                 
                   <p
-                    onClick={() => navigate("/user/" + parentMeowUsername)}
+                  onClick={() => navigate("/user/" + (!parentMeow.repostedMeowId ? parentMeow.username : parentMeow.originalUsername))}
                     className={general.nameSurname}
                   >
-                    {parentMeowName} {parentMeowSurname}
+                    {
+                   !parentMeow.repostedMeowId
+                   ? `${parentMeow.name} ${parentMeow.surname}`
+                    : `${parentMeow.originalName} ${parentMeow.originalSurname}`
+}
+                  
                   </p>
-                  <p className={general.username}>@{parentMeowUsername}</p>
+                  <p className={general.username}>
+                     @{!parentMeow.repostedMeowId
+                        ? parentMeow.username
+                         : parentMeow.originalUsername}
+                        </p>
                 </div>
                 <div className={general.buttonDateContainer}>
                   {userId === parentMeow.author && (
