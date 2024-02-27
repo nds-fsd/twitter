@@ -8,12 +8,10 @@ import MeowsBookmarked from "./components/Meows/MeowsBookmarked";
 import Notifications from "./components/Notifications/Notifications";
 import PublicHome from "./components/PublicHome/PublicHome";
 import AppLayout from "./components/AppLayout/AppLayout";
-import Chat from "./components/Messages/Chat";
-import io from "socket.io-client";
+import ListOfChats from "./components/Messages/ListOfChats";
+import { Chat } from "./components/Messages/Chat";
 
 export const context = createContext();
-const socket = io("ws://localhost:3001");
-console.log(socket);
 
 function App() {
   const [isLogged, setIsLogged] = useState(!!getUserToken());
@@ -49,7 +47,8 @@ function App() {
             <Route path="/user/:username" element={<UserProfile />} />
             <Route path="/bookmark/:username" element={<MeowsBookmarked />} />
             <Route path="/notification/:username" element={<Notifications />} />
-            <Route path="/messages/:username" element={<Chat socket={socket}/>} />
+            <Route path="/messages/:username" element={<ListOfChats />} />
+            <Route path="/messages/:username/chat/:chatId" element={<Chat />} />
           </Routes>
         </AppLayout>
       </context.Provider>

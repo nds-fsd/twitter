@@ -72,6 +72,7 @@ const createUser = async (req, res) => {
 
     const createdUser = await newUser.save();
 
+    // >> crear usuario en postgres
     try {
       const mongoUserId = createdUser._id.toString();
       await Userpg.create({
@@ -81,6 +82,7 @@ const createUser = async (req, res) => {
       console.error(error);
       return res.status(500).json(error.message);
     }
+    // <<
 
     res.status(201).json({
       token: createdUser.generateJWT(),
@@ -92,7 +94,7 @@ const createUser = async (req, res) => {
         id: createdUser._id,
       },
     });
-   /*  if(createdUser){
+    /*  if(createdUser){
       await sendWelcomeEmail({name: createdUser.name, email: createdUser.mail});
     } */
   } catch (error) {
@@ -231,7 +233,10 @@ const deleteUser = async (req, res) => {
 };
 
 const welcomeEmail = async (req, res) => {
-  await sendWelcomeEmail({name: 'Cecilia', email: 'cecilia.lorenzo.galarza@gmail.com'});
+  await sendWelcomeEmail({
+    name: "Cecilia",
+    email: "cecilia.lorenzo.galarza@gmail.com",
+  });
   return res.status(200).send();
 };
 

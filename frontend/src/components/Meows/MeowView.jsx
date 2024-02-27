@@ -54,7 +54,6 @@ const MeowView = () => {
     };
     getDetails();
   }, [id]);
-  console.log(parentMeow);
 
   useEffect(() => {
     const getReplies = async () => {
@@ -117,7 +116,6 @@ const MeowView = () => {
       console.error(err);
     }
   };
-  console.log(parentMeow);
 
   return (
     parentMeow && (

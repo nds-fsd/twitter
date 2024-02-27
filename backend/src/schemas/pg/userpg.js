@@ -14,6 +14,7 @@ const Userpg = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName: true,
   }
 );
 

@@ -2,25 +2,19 @@ import { useEffect, useState } from "react";
 import { getUserSession } from "../../functions/localStorage.js";
 import Message from "./Message.jsx";
 import styles from "./Chat.module.css";
+import io from "socket.io-client";
 
-const Chat = ({ socket }) => {
+const socket = io("ws://localhost:3001");
+
+const Chat = ({}) => {
   const logedUser = getUserSession();
   const userProp = logedUser.username;
   const [messages, setMessages] = useState([]);
-  const [textToSend, setTextToSend] = useState("");
+  const [messageToSend, setMessageToSend] = useState("");
 
-  
-  
   useEffect(() => {
-    socket.on("connect", () => {
-      setMessages((current) => [
-        ...current,
-        { user: "Bot", text: "Bienvenidx a la sala de chat 👋" },
-      ]);
-    });
-
-    socket.on("msg", ({ user, text }) => {
-      setMessages((current) => [...current, { user, text }]);
+    socket.on("msg", ({ user, message }) => {
+      setMessages((current) => [...current, { user, message }]);
     });
 
     return () => {
@@ -29,10 +23,12 @@ const Chat = ({ socket }) => {
   }, []);
 
   const handleClick = () => {
-    if (!userProp || !textToSend) return;
-    socket.emit("msg", { user: userProp, text: textToSend });
+    if (!userProp || !messageToSend) return;
+    socket.emit("msg", { user: userProp, message: messageToSend });
+    console.log(socket);
+    setMessageToSend("");
   };
-
+  
   return (
     <div className={styles.container}>
       <div>
@@ -40,19 +36,19 @@ const Chat = ({ socket }) => {
           {messages.length > 0 &&
             messages.map((message) => (
               <li>
-                <Message user={message.user} text={message.text} />
+                <Message user={message.user} text={message.message} />
               </li>
             ))}
         </ul>
         <input
           placeholder="Tu mensaje"
           type="text"
-          onChange={(e) => setTextToSend(e.target.value)}
+          onChange={(e) => setMessageToSend(e.target.value)}
         />
-        <button onClick={handleClick}>Enviar mensaje</button>
+        <button onClick={handleClick}>Send message</button>
       </div>
     </div>
   );
 };
 
-export default Chat;
+export { Chat, socket };
