@@ -38,21 +38,21 @@
 }
 
 .results {
-  position: absolute;
-  width: 100%;
-  color: white;
-  background-color: rgb(130, 187, 187);
-  z-index: 999;
-  top: 57px;
-  font-size: 15px;
+  background-color: white;
   border-radius: 20px;
-
+  height: fit-content;
+  opacity: 0.9;
+  padding: 7px 15px;
+  position: absolute;
+  top: 60px;
+  width: 20%;
+  z-index: 999;
 }
 
-.results > p {
+.listOfUsers {
+  color: black;
+  font-size: 14px;
   padding: 1%;
-  
-
 }
 
 
