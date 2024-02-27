@@ -5,7 +5,7 @@ import styles from "./SearchBar.module.css";
 function SearchBar() {
   const [color, setColor] = useState(false);
   const [substring, setSubstring] = useState('');
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState([]);
 
   const changeColor = () => {
     if (window.scrollY >= 70) {
@@ -38,6 +38,9 @@ function SearchBar() {
         placeholder="Search"
         type="text"
       />
+      {result.length > 0 && (result.map((user)=>{
+        return <p>{user.username}</p>
+      }))}
     </div>
   );
 }
