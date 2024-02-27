@@ -7,7 +7,7 @@
 }
 
 .containerPost {
-  align-items: center;
+  align-items: flex-start;
   border-bottom: 1px solid var(--sections-hover);
   display: flex;
   gap: 20px;

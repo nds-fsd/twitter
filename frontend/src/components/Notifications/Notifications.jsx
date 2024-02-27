@@ -62,7 +62,7 @@ const Notifications = () => {
     if (notifications.length === 0) {
       return (
         <p className={styles.noNotification}>
-          You don't have notifications yet.
+          You don't have any notifications yet.
         </p>
       );
     }
