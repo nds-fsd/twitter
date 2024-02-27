@@ -195,17 +195,28 @@ const updateMeow = async (req, res) => {
 
     const userFound = await User.findById(meowFound.author);
     const body = req.body;
+    const meowsToSend = []
     const meowUpdated = await Meow.findByIdAndUpdate(id, body, { new: true });
+    meowsToSend.push(meowUpdated)
+    const meowsWithOriginalAuthors = await Promise.all(
+      meowsToSend.map(async (meow) => {
+        if (meow.repostedMeowId) {
+          const originalMeow = await Meow.findById(meow.repostedMeowId);
+          if (originalMeow) {
+            const originalAuthor = await User.findById(originalMeow.author);
+            return {
+              ...meow._doc,
+              originalName: originalAuthor.name,
+              originalSurname: originalAuthor.surname,
+              originalUsername: originalAuthor.username,
+            };
+          }
+        }
+        return meow;
+      })
+    );
 
-    if (meowUpdated.repostedMeowId) {
-      const originalMeow = await Meow.findById(meowUpdated.repostedMeowId);
-      const originalUser = await User.findById(originalMeow.author);
-      meowUpdated.originalName = originalUser.name;
-      meowUpdated.originalUsername = originalUser.username;
-      meowUpdated.originalSurname = originalUser.surname;
-    }
-
-    return res.status(200).json({ userFound, meowUpdated });
+    return res.status(200).json({ userFound, meowsWithOriginalAuthors });
   } catch (error) {
     return res.status(500).json(error.message);
   }

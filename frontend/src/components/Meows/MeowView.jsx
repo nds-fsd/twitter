@@ -38,19 +38,19 @@ const MeowView = () => {
     return cleanup;
   }, []);
 
-  console.log(parentMeow);
 
   useEffect(() => {
     const getDetails = async () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
-        const parentMeowToShow = formatDate(res.data.meowUpdated);
+        console.log(res.data)
+        const parentMeowToShow = formatDate(res.data.meowsWithOriginalAuthors[0]);
 
         setParentMeow(parentMeowToShow);
         setParentMeowName(res.data.userFound.name);
         setParentMeowSurname(res.data.userFound.surname);
         setParentMeowUsername(res.data.userFound.username);
-        setReplyCounter(res.data.meowUpdated.replies);
+        setReplyCounter(res.data.meowsWithOriginalAuthors[0].replies);
       } catch (error) {
         console.error("Error fetching details:", error);
       }
@@ -120,7 +120,7 @@ const MeowView = () => {
       console.error(err);
     }
   };
-  console.log(parentMeow);
+
 
   return (
     parentMeow && (
