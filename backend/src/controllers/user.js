@@ -64,6 +64,21 @@ const updateUser = async (req, res) => {
   }
 };
 
+const searchUsers = async (req, res) => {
+  try {
+    const { substring } = req.params;
+    
+    const regex = new RegExp(`^${substring}`, 'i'); 
+    const users = await User.find({ username: regex });
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 const createUser = async (req, res) => {
   try {
     const body = req.body;
@@ -218,6 +233,7 @@ module.exports = {
   getAllUsers,
   getUserByUsername,
   getUserById,
+  searchUsers,
   createUser,
   loginUser,
   updateUser,
