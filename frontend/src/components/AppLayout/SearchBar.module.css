@@ -41,4 +41,8 @@
   .search {
     display: none;
   }
+
+  .searchScroll {
+    display: none;
+  }
 }
