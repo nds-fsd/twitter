@@ -70,4 +70,8 @@ span:hover {
   .search {
     display: none;
   }
+
+  .searchScroll {
+    display: none;
+  }
 }

@@ -173,7 +173,9 @@ const MeowsBookmarked = () => {
       </div>
 
       {meows.length === 0 ? (
-        <p>You can Bookmark some meows to find them again easily.</p>
+        <p className={styles.noNotification}>
+          You can bookmark some meows to easily find them later.
+        </p>
       ) : (
         meows.map((meow) => {
           return (
