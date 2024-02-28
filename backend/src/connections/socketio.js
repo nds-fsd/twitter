@@ -30,7 +30,7 @@ const connectSocketIO = async (server) => {
       });
 
       for (const chat of chats) {
-        const roomId = chat.id;
+        const roomId = chat.id.toString();
         socket.join(roomId);
         socket.joinedRooms.add(roomId);
       }
@@ -42,7 +42,12 @@ const connectSocketIO = async (server) => {
       console.error("Error retrieving chats:", error);
     }
 
-    socket.on("reply", (data) => {
+    // socket.on("joinRoom", (room) => {
+    //   console.log("ha llegado al join room", room);
+    //   socket.join(room);
+    // });
+
+    socket.on("chat", (data) => {
       console.log("Recived from front", data);
       socket.to(data.room).emit("chat", {
         user: data.user,

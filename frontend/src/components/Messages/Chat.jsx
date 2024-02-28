@@ -42,7 +42,7 @@ const Chat = ({}) => {
       text: messageToSend,
       room: chatId,
     });
-    socket.emit("reply", {
+    socket.emit("chat", {
       user: userProp,
       text: messageToSend,
       room: chatId,
