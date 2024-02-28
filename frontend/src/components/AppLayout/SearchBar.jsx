@@ -19,6 +19,7 @@ function SearchBar() {
   };
 
   const searchUsernames = async (e) => {
+    setSubstring(e.target.value)
     const value = e.target.value;
     if(!value) return setResult([])
     setSubstring(value); // Actualizamos el estado substring con el valor del campo de entrada
@@ -61,7 +62,7 @@ function SearchBar() {
         <input
           className={styles.buscador}
           value={substring}
-          onChange={(e) => searchUsernames(e)} // Llamamos a la función searchUsernames en el evento onChange
+          onChange={(e) =>{searchUsernames(e)} } // Llamamos a la función searchUsernames en el evento onChange
           placeholder="Search"
           type="text"
         />

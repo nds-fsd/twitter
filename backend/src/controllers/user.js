@@ -63,21 +63,40 @@ const updateUser = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
 const searchUsers = async (req, res) => {
   try {
     const { substring } = req.params;
-    
-    const regex = new RegExp(`^${substring}`, 'i'); 
-    const users = await User.find({ username: regex });
 
-    res.status(200).json(users);
+    // Dividir el substring en palabras separadas
+    const keywords = substring.split(" ");
+
+    // Crear un arreglo de expresiones regulares para cada palabra clave
+    const regexKeywords = keywords.map(keyword => new RegExp(`^${keyword}`, 'i'));
+
+    // Crear una expresión regular para buscar coincidencias en name y surname
+    const regexNameSurname = new RegExp(`^${substring}`, 'i'); 
+
+    // Buscar usuarios que coincidan con el substring en name, surname o username
+    const users = await User.find({
+      $or: [
+        { name: { $in: regexKeywords } },
+        { surname: { $in: regexKeywords } },
+        { username: regexNameSurname }
+      ]
+    });
+
+    // Filtrar usuarios únicos basados en su ID
+    const uniqueUsers = users.filter((user, index, self) => 
+      index === self.findIndex((u) => (
+        u._id === user._id
+      ))
+    );
+
+    res.status(200).json(uniqueUsers);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
-
 
 const createUser = async (req, res) => {
   try {
