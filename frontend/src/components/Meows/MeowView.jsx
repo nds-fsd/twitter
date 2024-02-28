@@ -82,8 +82,7 @@ const MeowView = () => {
     };
     getDetails();
   }, [id]);
-  console.log(parentMeow);
-
+  
   useEffect(() => {
     const getReplies = async () => {
       try {
