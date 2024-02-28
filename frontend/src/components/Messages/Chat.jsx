@@ -3,8 +3,14 @@ import { getUserSession } from "../../functions/localStorage.js";
 import Message from "./Message.jsx";
 import styles from "./Chat.module.css";
 import io from "socket.io-client";
+import { getUserToken } from "../../functions/localStorage.js";
 
-const socket = io("ws://localhost:3001");
+const socket = io("http://localhost:3001", {
+  reconnection: false,
+  auth: {
+    token: getUserToken(),
+  },
+});
 
 const Chat = ({}) => {
   const logedUser = getUserSession();
@@ -13,22 +19,27 @@ const Chat = ({}) => {
   const [messageToSend, setMessageToSend] = useState("");
 
   useEffect(() => {
-    socket.on("msg", ({ user, message }) => {
+    socket.on("connection", () => {
+      setMessages((current) => [
+        ...current,
+        { user: "Bot", message: "Bienvenidx a la sala de chat 👋" },
+      ]);
+    });
+
+    socket.on("chat", ({ user, message }) => {
       setMessages((current) => [...current, { user, message }]);
     });
 
     return () => {
-      socket.off("msg");
+      socket.off("chat");
     };
   }, []);
 
   const handleClick = () => {
     if (!userProp || !messageToSend) return;
-    socket.emit("msg", { user: userProp, message: messageToSend });
-    console.log(socket);
-    setMessageToSend("");
+    socket.emit("chat", { user: userProp, message: messageToSend });
   };
-  
+
   return (
     <div className={styles.container}>
       <div>

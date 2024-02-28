@@ -69,6 +69,7 @@ function UserProfile() {
 
     try {
       await chatApi().post(`/`, data);
+      //leer respuesta y hacer navigate
     } catch (error) {
       console.error(error);
     }

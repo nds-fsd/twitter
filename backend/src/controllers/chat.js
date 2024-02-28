@@ -45,9 +45,7 @@ const createChat = async (req, res) => {
     });
 
     if (existingChat) {
-      return res
-        .status(100)
-        .json({ message: "A chat already exists with these users" });
+      return res.status(200).json(existingChat);
     }
 
     const newChat = await Chat.create({ user1, user2 });
