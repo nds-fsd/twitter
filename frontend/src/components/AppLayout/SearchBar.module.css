@@ -53,6 +53,15 @@
   color: black;
   font-size: 14px;
   padding: 1%;
+ 
+
+}
+span{
+  color: black;
+  cursor: pointer;
+}
+span:hover {
+  text-decoration: underline;
 }
 
 
