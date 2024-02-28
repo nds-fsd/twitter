@@ -10,6 +10,7 @@ body {
 .mainContainer {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
+  height: 100%;
 }
 
 .centerContainer {
@@ -19,18 +20,19 @@ body {
 }
 
 .navbar {
-  align-items: center;
   border-right: 1px solid #2f2f2f;
   display: flex;
   flex-direction: column;
-  padding-right: 15px;
+  height: 100%;
+  margin-left: 20%;
 }
 
 .right {
   padding-left: 15px;
+  border-left: 1px solid rgb(44, 44, 44);
 }
 
-@media (max-width: 1000px) {
+@media screen and  (width <= 1000px) {
   .mainContainer {
     border-right: 1px solid #2f2f2f;
     display: grid;

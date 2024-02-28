@@ -12,18 +12,16 @@ import LogOut from "./LogOut";
 function AppLayout({ children }) {
   return (
     <>
-      <div className={styles.centerContainer}>
-        <div className={styles.mainContainer}>
-          <div className={styles.navbar}>
-            {/* <Toast socket={socket} /> */}
-            <Navbar />
-            <LogOut />
-          </div>
-          <div>{children}</div>
-          <div className={styles.right}>
-            <SearchBar />
-            <WhoToFollow />
-          </div>
+      <div className={styles.mainContainer}>
+        <div className={styles.navbar}>
+          {/* <Toast socket={socket} /> */}
+          <Navbar />
+          <LogOut />
+        </div>
+        <div>{children}</div>
+        <div className={styles.right}>
+          <SearchBar />
+          <WhoToFollow />
         </div>
       </div>
     </>
