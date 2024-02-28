@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getUserSession } from "../../functions/localStorage.js";
 import Message from "./Message.jsx";
 import styles from "./Chat.module.css";
@@ -17,27 +18,25 @@ const Chat = ({}) => {
   const userProp = logedUser.username;
   const [messages, setMessages] = useState([]);
   const [messageToSend, setMessageToSend] = useState("");
+  const { chatId: chatId } = useParams();
 
   useEffect(() => {
-    socket.on("connection", () => {
-      setMessages((current) => [
-        ...current,
-        { user: "Bot", message: "Bienvenidx a la sala de chat 👋" },
-      ]);
-    });
-
-    socket.on("chat", ({ user, message }) => {
-      setMessages((current) => [...current, { user, message }]);
+    socket.on("reply", ({ message }) => {
+      setMessages((current) => [...current, { message }]);
     });
 
     return () => {
-      socket.off("chat");
+      socket.off("reply");
     };
   }, []);
 
   const handleClick = () => {
     if (!userProp || !messageToSend) return;
-    socket.emit("chat", { user: userProp, message: messageToSend });
+    socket.emit("chat", {
+      // user: userProp,
+      message: messageToSend,
+      room: chatId,
+    });
   };
 
   return (

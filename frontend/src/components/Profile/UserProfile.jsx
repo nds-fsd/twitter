@@ -68,8 +68,8 @@ function UserProfile() {
     };
 
     try {
-      await chatApi().post(`/`, data);
-      //leer respuesta y hacer navigate
+      const res = await chatApi().post(`/`, data);
+      navigate("/messages/" + loggedInUser.username + "/chat/" + res.data.id);
     } catch (error) {
       console.error(error);
     }
@@ -161,7 +161,6 @@ function UserProfile() {
                   <button
                     className={styles.editProfile}
                     onClick={() => {
-                      navigate("/messages/" + loggedInUser.username);
                       handleCreateChat();
                     }}
                   >
