@@ -199,24 +199,45 @@ const MeowView = () => {
                 usernamePhoto={parentMeowUsername}
               />
 
-              <div className={general.infoUserContainer}>
-                <div className={general.userData}>
-                  <p
-                    onClick={() => navigate("/user/" + parentMeowUsername)}
-                    className={general.nameSurname}
-                  >
-                    {parentMeowName} {parentMeowSurname}
+              <div style={{ width: "100%" }}>
+                {parentMeow.repostedMeowId && (
+                  <p className={general.repostedBy}>
+                    Reposted by: @{parentMeowUsername}
                   </p>
-                  <p className={general.username}>@{parentMeowUsername}</p>
-                </div>
-                <div className={general.buttonDateContainer}>
-                  {userId === parentMeow.author && (
-                    <DeleteEditMeow
-                      meow={parentMeow}
-                      setMeows={setParentMeow}
-                    />
-                  )}
-                  <p className={general.dateFormat}>{parentMeow.date}</p>
+                )}
+                <div className={general.infoUserContainer}>
+                  <div className={general.userData}>
+                    <p
+                      onClick={() =>
+                        navigate(
+                          "/user/" +
+                            (!parentMeow.repostedMeowId
+                              ? parentMeow.username
+                              : parentMeow.originalUsername)
+                        )
+                      }
+                      className={general.nameSurname}
+                    >
+                      {!parentMeow.repostedMeowId
+                        ? `${parentMeowName} ${parentMeowSurname}`
+                        : `${parentMeow.originalName} ${parentMeow.originalSurname}`}
+                    </p>
+                    <p className={general.username}>
+                      @
+                      {!parentMeow.repostedMeowId
+                        ? parentMeowUsername
+                        : parentMeow.originalUsername}
+                    </p>
+                  </div>
+                  <div className={general.buttonDateContainer}>
+                    {userId === parentMeow.author && (
+                      <DeleteEditMeow
+                        meow={parentMeow}
+                        setMeows={setParentMeow}
+                      />
+                    )}
+                    <p className={general.dateFormat}>{parentMeow.date}</p>
+                  </div>
                 </div>
               </div>
             </div>
