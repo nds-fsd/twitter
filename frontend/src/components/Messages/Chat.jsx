@@ -21,27 +21,17 @@ const Chat = ({}) => {
   const { chatId: chatId } = useParams();
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Socket connected successfully");
-      setMessages((current) => [
-        ...current,
-        { user: "Bot", text: "Bienvenidx a la sala de chat 👋" },
-      ]);
-    });
-
     socket.on("chat", ({ user, text }) => {
-      console.log("Received from back:", { user, text });
       setMessages((current) => [...current, { user, text }]);
     });
   }, []);
 
   const handleClick = () => {
     if (!userProp || !messageToSend) return;
-    console.log("Sending to back:", {
-      user: userProp,
-      text: messageToSend,
-      room: chatId,
-    });
+    setMessages((current) => [
+      ...current,
+      { user: userProp, text: messageToSend },
+    ]);
     socket.emit("chat", {
       user: userProp,
       text: messageToSend,

@@ -1,7 +1,7 @@
 const io = require("socket.io");
 const jwt = require("jsonwebtoken");
-const Chat = require("../schemas/pg/chat");
-const { Op } = require("sequelize");
+// const Chat = require("../schemas/pg/chat");
+// const { Op } = require("sequelize");
 
 const connectSocketIO = async (server) => {
   const socketIOInstance = io(server, { cors: { origins: ["*"] } });
@@ -22,33 +22,31 @@ const connectSocketIO = async (server) => {
   socketIOInstance.on("connect", async (socket) => {
     console.log(`New client connected ${socket.id} 🚀`);
 
-    try {
-      const chats = await Chat.findAll({
-        where: {
-          [Op.or]: [{ user1: socket.userid }, { user2: socket.userid }],
-        },
-      });
+    // try {
+    //   const chats = await Chat.findAll({
+    //     where: {
+    //       [Op.or]: [{ user1: socket.userid }, { user2: socket.userid }],
+    //     },
+    //   });
 
-      for (const chat of chats) {
-        const roomId = chat.id.toString();
-        socket.join(roomId);
-        socket.joinedRooms.add(roomId);
-      }
-      console.log(
-        `Socket ${socket.id} joined rooms:`,
-        Array.from(socket.joinedRooms)
-      );
-    } catch (error) {
-      console.error("Error retrieving chats:", error);
-    }
+    //   for (const chat of chats) {
+    //     const roomId = chat.id.toString();
+    //     socket.join(roomId);
+    //     socket.joinedRooms.add(roomId);
+    //   }
+    //   console.log(
+    //     `Socket ${socket.id} joined rooms:`,
+    //     Array.from(socket.joinedRooms)
+    //   );
+    // } catch (error) {
+    //   console.error("Error retrieving chats:", error);
+    // }
 
-    // socket.on("joinRoom", (room) => {
-    //   console.log("ha llegado al join room", room);
-    //   socket.join(room);
-    // });
+    socket.on("joinRoom", (room) => {
+      socket.join(room);
+    });
 
     socket.on("chat", (data) => {
-      console.log("Recived from front", data);
       socket.to(data.room).emit("chat", {
         user: data.user,
         text: data.text,

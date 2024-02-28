@@ -40,6 +40,7 @@ const ListOfChats = () => {
   };
 
   const joinChatRoom = (chatId) => {
+    socket.emit("joinRoom", chatId.toString());
     navigate(`/messages/${logedUser.username}/chat/${chatId}`);
   };
 
