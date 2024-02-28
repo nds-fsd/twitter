@@ -29,9 +29,13 @@
   height: 70px;
   justify-content: center;
   width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: black;
+  opacity: 0.9;
 }
 
-.titleBookmarksScroll {
+/* .titleBookmarksScroll {
   align-items: center;
   background-color: black;
   display: flex;
@@ -43,7 +47,7 @@
   z-index: 1;
   width: 100%;
 }
-
+ */
 .titleNotifications {
   color: var(--main-color);
   font-family: var(--main-font);

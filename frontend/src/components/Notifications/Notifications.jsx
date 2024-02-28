@@ -145,20 +145,22 @@ const Notifications = () => {
     });
   };
 
-  const [color, setColor] = useState(false);
+  /* const [color, setColor] = useState(false);
   const changeColor = () => {
-    if (window.scrollY >= 40) {
+    if (window.scrollY >= 70) {
       setColor(true);
     } else {
       setColor(false);
     }
   };
-  window.addEventListener("scroll", changeColor);
+  window.addEventListener("scroll", changeColor); */
 
   return (
     <div className={styles.bigContainer}>
       <div
-        className={color ? styles.titleBookmarksScroll : styles.titleBookmarks}
+        className={
+          /* color ? styles.titleBookmarksScroll :  */ styles.titleBookmarks
+        }
       >
         <h2 className={styles.titleNotifications}>Notifications</h2>
       </div>
