@@ -22,7 +22,7 @@ const Message = sequelize.define(
         key: "id",
       },
     },
-    message: {
+    text: {
       type: DataTypes.TEXT,
       allowNull: false,
     },

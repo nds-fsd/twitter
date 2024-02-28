@@ -19,7 +19,7 @@ const connectSocketIO = async (server) => {
     next();
   });
 
-  socketIOInstance.on("connection", async (socket) => {
+  socketIOInstance.on("connect", async (socket) => {
     console.log(`New client connected ${socket.id} 🚀`);
 
     try {
@@ -42,11 +42,11 @@ const connectSocketIO = async (server) => {
       console.error("Error retrieving chats:", error);
     }
 
-    socket.on("chat", (data) => {
-      socket.to(data.room).emit("reply", {
-        // user: socket.userid,
-        message: data.message,
-        // chat: data.room,
+    socket.on("reply", (data) => {
+      console.log("Recived from front", data);
+      socket.to(data.room).emit("chat", {
+        user: data.user,
+        text: data.text,
       });
     });
 

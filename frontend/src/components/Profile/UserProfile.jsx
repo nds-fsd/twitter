@@ -184,14 +184,23 @@ function UserProfile() {
 
             <br />
             <div className={styles.info}>
-              {town !== undefined ? <MapPin /> : ""}
-              {town !== undefined ? <p>{town}</p> : ""}
-              <CalendarDays />
-              <p>Joined on {dateOfRegister}</p>
+              {town !== undefined ? (
+                <div className={styles.infoTownAndJoined}>
+                  <MapPin />
+                  <p className={styles.grayFont}>{town}</p>
+                </div>
+              ) : (
+                ""
+              )}
+              <div className={styles.infoTownAndJoined}>
+                <CalendarDays />
+                <p className={styles.grayFont}>Joined on {dateOfRegister}</p>
+              </div>
             </div>
-            <div className={styles.info}>
+            <div className={styles.info} style={{ gap: "10px" }}>
               <p className={styles.grayFont}>
-                <span>{followingCounter} </span>Following
+                <span style={{ color: "white" }}>{followingCounter} </span>
+                Following
               </p>
               <p className={styles.grayFont}>
                 <span>{followerCounter} </span>Followers

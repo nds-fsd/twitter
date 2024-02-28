@@ -21,22 +21,33 @@ const Chat = ({}) => {
   const { chatId: chatId } = useParams();
 
   useEffect(() => {
-    socket.on("reply", ({ message }) => {
-      setMessages((current) => [...current, { message }]);
+    socket.on("connect", () => {
+      console.log("Socket connected successfully");
+      setMessages((current) => [
+        ...current,
+        { user: "Bot", text: "Bienvenidx a la sala de chat 👋" },
+      ]);
     });
 
-    return () => {
-      socket.off("reply");
-    };
+    socket.on("chat", ({ user, text }) => {
+      console.log("Received from back:", { user, text });
+      setMessages((current) => [...current, { user, text }]);
+    });
   }, []);
 
   const handleClick = () => {
     if (!userProp || !messageToSend) return;
-    socket.emit("chat", {
-      // user: userProp,
-      message: messageToSend,
+    console.log("Sending to back:", {
+      user: userProp,
+      text: messageToSend,
       room: chatId,
     });
+    socket.emit("reply", {
+      user: userProp,
+      text: messageToSend,
+      room: chatId,
+    });
+    setMessageToSend("");
   };
 
   return (
@@ -44,15 +55,16 @@ const Chat = ({}) => {
       <div>
         <ul>
           {messages.length > 0 &&
-            messages.map((message) => (
-              <li>
-                <Message user={message.user} text={message.message} />
+            messages.map((message, index) => (
+              <li key={index}>
+                <Message user={message.user} text={message.text} />
               </li>
             ))}
         </ul>
         <input
           placeholder="Tu mensaje"
           type="text"
+          value={messageToSend}
           onChange={(e) => setMessageToSend(e.target.value)}
         />
         <button onClick={handleClick}>Send message</button>

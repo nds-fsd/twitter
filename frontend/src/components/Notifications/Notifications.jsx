@@ -62,7 +62,7 @@ const Notifications = () => {
     if (notifications.length === 0) {
       return (
         <p className={styles.noNotification}>
-          You don't have notifications yet.
+          You don't have any notifications yet.
         </p>
       );
     }
@@ -145,9 +145,25 @@ const Notifications = () => {
     });
   };
 
+  /* const [color, setColor] = useState(false);
+  const changeColor = () => {
+    if (window.scrollY >= 70) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+  window.addEventListener("scroll", changeColor); */
+
   return (
-    <div>
-      <h2 className={styles.titleNotifications}>Notifications</h2>
+    <div className={styles.bigContainer}>
+      <div
+        className={
+          /* color ? styles.titleBookmarksScroll :  */ styles.titleBookmarks
+        }
+      >
+        <h2 className={styles.titleNotifications}>Notifications</h2>
+      </div>
       {generateNotificationDivs()}
       <Toaster position="top-right" reverseOrder={false} />
     </div>
