@@ -14,12 +14,6 @@
   height: 8%;
 }
 
-.repostedBy{
-  display: block;
-  color: antiquewhite;
-
-}
-
 .backContainer {
   background-color: black;
   display: flex;

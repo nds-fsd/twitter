@@ -29,8 +29,9 @@ function ListOFMeows() {
   const userId = id;
   const navigate = useNavigate();
 
-  console.log(meows);
-  console.log(username);
+console.log(meows)
+console.log(username)
+
 
   useEffect(() => {
     const getAllMeows = async () => {
@@ -195,13 +196,13 @@ function ListOFMeows() {
                     </div>
 
                     <div className={styles.buttonDateContainer}>
-                      {meow.author === userId && (
-                        <DeleteEditMeow
+                    {meow.author === userId&&(
+                      <DeleteEditMeow
                           meow={meow}
                           meows={meows}
-                          setMeows={setMeows}
-                        />
-                      )}
+                         setMeows={setMeows}
+                   />
+                          )}
                       <p className={styles.dateFormat}>{meow.date}</p>
                     </div>
                   </div>

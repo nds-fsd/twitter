@@ -31,28 +31,9 @@ const getMeowsBookmarked = async (req, res) => {
     const bookmarks = await Bookmark.find({ userId: userId });
     const meowsIdsBookmarked = bookmarks.map((bookmark) => bookmark.meowId);
 
-    let meowsBookmarked = await Meow.find({
+    const meowsBookmarked = await Meow.find({
       _id: { $in: meowsIdsBookmarked },
     });
-    const meowsWithOriginalAuthors = await Promise.all(
-      meowsBookmarked.map(async (meow) => {
-        if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findById(meow.repostedMeowId);
-          if (originalMeow) {
-            const originalAuthor = await User.findById(originalMeow.author);
-            return {
-              ...meow._doc,
-              originalName: originalAuthor.name,
-              originalSurname: originalAuthor.surname,
-              originalUsername: originalAuthor.username,
-             
-            };
-          }
-        }
-        return meow;
-      })
-    );
-    meowsBookmarked = meowsWithOriginalAuthors
 
     return res.status(200).json(meowsBookmarked);
   } catch (error) {

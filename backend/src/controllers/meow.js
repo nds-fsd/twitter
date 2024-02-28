@@ -72,31 +72,7 @@ const getProfileMeows = async (req, res) => {
       author: _id,
       parentMeow: undefined,
     });
-    const meowsWithOriginalAuthors = await Promise.all(
-      meowsProfile.map(async (meow) => {
-        if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findById(meow.repostedMeowId);
-          if (originalMeow) {
-            const originalAuthor = await User.findById(originalMeow.author);
-            return {
-              ...meow._doc,
-              originalName: originalAuthor.name,
-              originalSurname: originalAuthor.surname,
-              originalUsername: originalAuthor.username,
-              authorUsername: username,
-              authorName: user.name,
-              authorSurname: user.surname
-            };
-          }
-        }
-        return {...meow._doc,
-          authorUsername: username,
-          authorName: user.name,
-          authorSurname: user.surname
-        };
-      })
-    );
-    res.status(200).json({ meowsWithOriginalAuthors, user });
+    res.status(200).json({ meowsProfile, user });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
@@ -219,28 +195,9 @@ const updateMeow = async (req, res) => {
 
     const userFound = await User.findById(meowFound.author);
     const body = req.body;
-    const meowsToSend = []
     const meowUpdated = await Meow.findByIdAndUpdate(id, body, { new: true });
-    meowsToSend.push(meowUpdated)
-    const meowsWithOriginalAuthors = await Promise.all(
-      meowsToSend.map(async (meow) => {
-        if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findById(meow.repostedMeowId);
-          if (originalMeow) {
-            const originalAuthor = await User.findById(originalMeow.author);
-            return {
-              ...meow._doc,
-              originalName: originalAuthor.name,
-              originalSurname: originalAuthor.surname,
-              originalUsername: originalAuthor.username,
-            };
-          }
-        }
-        return meow;
-      })
-    );
 
-    return res.status(200).json({ userFound, meowsWithOriginalAuthors });
+    return res.status(200).json({ userFound, meowUpdated });
   } catch (error) {
     return res.status(500).json(error.message);
   }
