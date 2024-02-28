@@ -28,8 +28,10 @@ const RepostButton = ({ meow, authorUsername, setReloadProfilePage, reloadProfil
           if(isInUserRoute){
             setReloadProfilePage(!reloadProfilePage)
           } 
-
           return reload.setReload(!reload.reload);
+        
+
+       
         }
         const dataNotification = {
           recipient: recipientUsername,

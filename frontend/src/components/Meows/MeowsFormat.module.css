@@ -67,6 +67,14 @@
   padding-bottom: 3%;
 }
 
+.postContainer a {
+  color: var(--main-color);
+}
+
+.postContainer a:hover {
+  text-decoration: underline;
+}
+
 .iconsContainer {
   align-items: center;
   display: flex;
@@ -97,6 +105,14 @@
 .postContainerInView {
   margin-left: 50px;
   padding-bottom: 3%;
+}
+
+.postContainerInView a {
+  color: var(--main-color);
+}
+
+.postContainerInView a:hover {
+  text-decoration: underline;
 }
 
 .titleBookmarks {

@@ -18,6 +18,7 @@ function ListOFMeows() {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userMentions, setUserMentions] = useState([]);
   const [errorMessage, seterrorMessage] = useState("");
   const photoStyle = "meow";
   const { id, username } = getUserSession();
@@ -79,7 +80,35 @@ function ListOFMeows() {
         });
 
         const meowsToShow = meowsWithUsernames.map((meow) => formatDate(meow));
+        const possibleMentions = new Set();
 
+        meowsToShow.forEach((meowToReview) => {
+          const regex = /@([^@\s]+)/g;
+          const matchAll = meowToReview.text.matchAll(regex);
+          for (const match of matchAll) {
+            possibleMentions.add(match[1]);
+          }
+        });
+
+        const mentionDetails = await Promise.all(
+          [...possibleMentions].map(async (possibleMention) => {
+            try {
+              const userRes = await userApi().get(`/${possibleMention}`);
+              return possibleMention;
+            } catch (userError) {
+              console.error(
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+              );
+              return undefined;
+            }
+          })
+        );
+
+        const successfulMentions = mentionDetails.filter(
+          (mention) => mention !== undefined
+        );
+
+        setUserMentions(successfulMentions);
         setMeows(meowsToShow);
       } catch (error) {
         console.error(error);
@@ -95,6 +124,38 @@ function ListOFMeows() {
       setMeows((prevMeows) => updateMeowsWithNewMeow(prevMeows, newMeow));
     }
   }, [newMeow]);
+
+  const renderMeowText = (baseMeowText) => {
+    const regex = /@([^@\s]+)/g;
+    let lastIndex = 0;
+    const meowText = [];
+
+    baseMeowText.replace(regex, (match, mention, index) => {
+      if (index > lastIndex) {
+        const beforeMention = baseMeowText.substring(lastIndex, index);
+        meowText.push(beforeMention);
+      }
+
+      if (userMentions.includes(mention)) {
+        meowText.push(
+          <a key={index} href={`/user/${mention}`}>
+            {match}
+          </a>
+        );
+      } else {
+        meowText.push(<span key={index}>{match}</span>);
+      }
+
+      lastIndex = index + match.length;
+    });
+
+    if (lastIndex < baseMeowText.length) {
+      const remainingText = baseMeowText.substring(lastIndex);
+      meowText.push(remainingText);
+    }
+
+    return <p>{meowText}</p>;
+  };
 
   if (loading) return <Loading />;
 
@@ -186,7 +247,7 @@ function ListOFMeows() {
                 key={meow._id}
                 className={styles.postContainer}
               >
-                <p>{meow.text}</p>
+                {renderMeowText(meow.text)}
               </div>
               <div className={styles.iconsContainer}>
                 <AllMeowButtons

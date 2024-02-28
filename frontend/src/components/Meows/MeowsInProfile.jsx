@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { meowApi } from "../../functions/apiWrapper";
+import { meowApi, userApi } from "../../functions/apiWrapper.js";
 import styles from "./MeowsFormat.module.css";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../functions/dateFormat";
@@ -12,6 +12,7 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
   const [meows, setMeows] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const [userMentions, setUserMentions] = useState([]);
   const [reloadProfilePage, setReloadProfilePage] = useState(false)
   const photoStyle = "meow";
 const userId = getUserSession().id
@@ -28,13 +29,43 @@ const userId = getUserSession().id
         setMeows(meowsToShow.reverse());
         setName(res.data.user.name);
         setSurname(res.data.user.surname);
+
+        const possibleMentions = new Set();
+
+        meowsToShow.forEach((meowToReview) => {
+          const regex = /@([^@\s]+)/g;
+          const matchAll = meowToReview.text.matchAll(regex);
+          for (const match of matchAll) {
+            possibleMentions.add(match[1]);
+          }
+        });
+
+        const mentionDetails = await Promise.all(
+          [...possibleMentions].map(async (possibleMention) => {
+            try {
+              const userRes = await userApi().get(`/${possibleMention}`);
+              return possibleMention;
+            } catch (userError) {
+              console.error(
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+              );
+              return undefined;
+            }
+          })
+        );
+
+        const successfulMentions = mentionDetails.filter(
+          (mention) => mention !== undefined
+        );
+
+        setUserMentions(successfulMentions);
       } catch (error) {
         console.error(error);
       }
     };
     getProfileMeows();
   }, [username, reloadProfilePage]);
-  console.log(meows)
+
 
   return (
     <div className={styles.bigContainer}>
@@ -114,7 +145,7 @@ const userId = getUserSession().id
                 key={meow._id}
                 className={styles.postContainer}
               >
-                <p>{meow.text}</p>
+                {renderMeowText(meow.text)}
               </div>
               <div className={styles.iconsContainer}>
                 <AllMeowButtons
