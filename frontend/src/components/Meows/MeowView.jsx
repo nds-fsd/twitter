@@ -43,12 +43,13 @@ const MeowView = () => {
     const getDetails = async () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
-        const parentMeowToShow = formatDate(res.data.meowUpdated);
+        const parentMeowToShow = formatDate(res.data.meowsWithOriginalAuthors[0]);
+      
         setParentMeow(parentMeowToShow);
         setParentMeowName(res.data.userFound.name);
         setParentMeowSurname(res.data.userFound.surname);
         setParentMeowUsername(res.data.userFound.username);
-        setReplyCounter(res.data.meowUpdated.replies);
+        setReplyCounter(res.data.meowsWithOriginalAuthors[0].replies);
 
         const possibleMentions = new Set();
         const regex = /@([^@\s]+)/g;
@@ -82,7 +83,7 @@ const MeowView = () => {
     };
     getDetails();
   }, [id]);
-  console.log(parentMeow);
+  
 
   useEffect(() => {
     const getReplies = async () => {

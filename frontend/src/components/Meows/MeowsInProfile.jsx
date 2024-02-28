@@ -65,6 +65,37 @@ const userId = getUserSession().id
     };
     getProfileMeows();
   }, [username, reloadProfilePage]);
+  const renderMeowText = (baseMeowText) => {
+    const regex = /@([^@\s]+)/g;
+    let lastIndex = 0;
+    const meowText = [];
+
+    baseMeowText.replace(regex, (match, mention, index) => {
+      if (index > lastIndex) {
+        const beforeMention = baseMeowText.substring(lastIndex, index);
+        meowText.push(beforeMention);
+      }
+
+      if (userMentions.includes(mention)) {
+        meowText.push(
+          <a key={index} href={`/user/${mention}`}>
+            {match}
+          </a>
+        );
+      } else {
+        meowText.push(<span key={index}>{match}</span>);
+      }
+
+      lastIndex = index + match.length;
+    });
+
+    if (lastIndex < baseMeowText.length) {
+      const remainingText = baseMeowText.substring(lastIndex);
+      meowText.push(remainingText);
+    }
+
+    return <p>{meowText}</p>;
+  };
 
 
   return (
