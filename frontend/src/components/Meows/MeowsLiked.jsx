@@ -103,7 +103,6 @@ const MeowsLiked = ({ meowCounter, setMeowCounter }) => {
         );
 
         setUserMentions(successfulMentions);
-
         setMeows(meowsToShow);
       } catch (error) {
         setError(true);
