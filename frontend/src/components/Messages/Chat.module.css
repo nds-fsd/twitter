@@ -1,9 +1,25 @@
+.backContainer {
+  align-items: center;
+  background-color: black;
+  height: 70px;
+  display: flex;
+  padding-left: 5%;
+  position: sticky;
+  top: 0;
+  width: 95%;
+}
+
+.backText {
+  font-size: 20px;
+  margin: 10px;
+}
+
 .chatContainer {
   width: 90%;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin: 5%;
+  margin: 2% 5%;
 }
 
 ul {
@@ -17,7 +33,7 @@ ul {
   bottom: 0;
   display: flex;
   justify-content: space-between;
-  padding: 2% 5%;
+  padding: 3% 5%;
   position: sticky;
 }
 
