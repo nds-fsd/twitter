@@ -64,8 +64,8 @@ const Chat = ({}) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div>
+    <>
+      <div className={styles.chatContainer}>
         <ul>
           {messages.length > 0 &&
             messages.map((message, index) => (
@@ -78,15 +78,20 @@ const Chat = ({}) => {
               </li>
             ))}
         </ul>
+      </div>
+      <div className={styles.sendMessageContainer}>
         <input
           placeholder="Write your message"
           type="text"
           value={messageToSend}
           onChange={(e) => setMessageToSend(e.target.value)}
+          className={styles.messageInput}
         />
-        <button onClick={handleClick}>Send message</button>
+        <button onClick={handleClick} className={styles.sendButton}>
+          Send message
+        </button>
       </div>
-    </div>
+    </>
   );
 };
 

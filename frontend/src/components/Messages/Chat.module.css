@@ -1,13 +1,48 @@
-.container {
-  width: 100%;
+.chatContainer {
+  width: 90%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  margin: 5%;
 }
 
 ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+.sendMessageContainer {
+  background-color: black;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 5%;
+  position: sticky;
+}
+
+.messageInput {
+  border: 0;
+  border-radius: 20px;
+  color: black;
+  padding-left: 10px;
+  width: 70%;
+}
+
+.sendButton {
+  background-color: var(--main-color);
+  border: none;
+  color: white;
+  font-family: var(--main-font);
+  font-size: 14px;
+  font-weight: 500;
+  height: fit-content;
+  padding: 7px 15px;
+  width: max-content;
+}
+
+.sendButton:hover {
+  background-color: var(--color-hover);
 }
 
 /* input {
