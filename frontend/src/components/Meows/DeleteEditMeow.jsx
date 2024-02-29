@@ -26,7 +26,7 @@ const DeleteEditMeow = ({
   const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
   const textAreaRef = useRef();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   document.addEventListener("click", (e) => {
     if (divRef.current && divRef.current.contains(e.target)) {
@@ -57,7 +57,7 @@ const DeleteEditMeow = ({
       const res = await meowApi().patch(meow._id, { text: meowToEdit });
       setEditPopOut(false);
       if (isMeowViewRoute && !meow.parentMeow) {
-       return setMeows(res.data.meowUpdated)
+        return setMeows(res.data.meowUpdated);
       }
       const updatedMeows = meows.map((element) => {
         if (element._id === meow._id) {
@@ -67,7 +67,7 @@ const DeleteEditMeow = ({
       });
       setMeows(updatedMeows);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -76,9 +76,8 @@ const DeleteEditMeow = ({
       const res = await meowApi().delete(meow._id);
       setDeletePopOut(false);
       if (isMeowViewRoute && !meow.parentMeow) {
-        return navigate('/home')
-        
-       }
+        return navigate("/home");
+      }
       if (isMeowViewRoute) setReplyCounter(replyCounter - 1);
 
       const updatedMeows = meows.map((element) => {
@@ -97,7 +96,7 @@ const DeleteEditMeow = ({
 
       if (isUserRoute) setMeowCounter(meowCounter - 1);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

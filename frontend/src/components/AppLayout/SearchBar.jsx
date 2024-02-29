@@ -27,7 +27,6 @@ function SearchBar() {
     try {
       const response = await userApi().get(`search/${value}`);
       setResult(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
