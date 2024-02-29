@@ -24,7 +24,7 @@ const getUserByUsername = async (req, res) => {
     if (userFound) {
       res.status(200).json(userFound);
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(204).json({ error: "User not found" });
     }
   } catch (error) {
     return res.status(500).json(error.message);
