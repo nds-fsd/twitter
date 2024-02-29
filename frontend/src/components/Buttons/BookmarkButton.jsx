@@ -119,7 +119,7 @@ const BookmarkButton = ({ meow, authorUsername }) => {
       data-tooltip-content="Bookmark"
       data-tooltip-place="top"
     >
-      <p className={styles.buttonsText}>{meow.bookmarks}</p>
+      <p className={styles.buttonsText}>{bookmarkCounter}</p>
       <button
         id="bookmarkButton"
         type="button"

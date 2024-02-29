@@ -2,7 +2,7 @@ import styles from "./MeowView.module.css";
 import general from "./MeowsFormat.module.css";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { meowApi, notificationApi, userApi } from "../../functions/apiWrapper";
 import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
@@ -11,6 +11,7 @@ import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import AllMeowButtons from "../Buttons/AllMeowButtons";
 import { handleResize } from "../../functions/responsiveFunctions";
 import DeleteEditMeow from "./DeleteEditMeow";
+import { context } from "../../App";
 
 const MeowView = () => {
   function handleKeyDown(e) {
@@ -33,6 +34,7 @@ const MeowView = () => {
   const [userMentions, setUserMentions] = useState([]);
   const photoStyle = "meow";
   const userId = getUserSession().id;
+  const reload = useContext(context);
 
   useEffect(() => {
     const cleanup = handleResize(setPantallaPequena);
@@ -84,7 +86,7 @@ const MeowView = () => {
       }
     };
     getDetails();
-  }, [id]);
+  }, [id, allMeowReplies, reload.reload]);
 
   useEffect(() => {
     const getReplies = async () => {

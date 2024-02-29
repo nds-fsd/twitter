@@ -18,6 +18,7 @@ const RepostButton = ({
   const reload = useContext(context);
   const location = useLocation();
   const isInUserRoute = location.pathname.startsWith("/user");
+  const isInViewMeowRoute = location.pathname.startsWith("/meow");
   const navigate = useNavigate();
 
   const repostMeow = async () => {
@@ -32,6 +33,8 @@ const RepostButton = ({
         if (recipientUsername === loggedInUser.username) {
           if (isInUserRoute) {
             setReloadProfilePage(!reloadProfilePage);
+          }else if(isInViewMeowRoute){
+            navigate('/home')
           }
           return reload.setReload(!reload.reload);
         }
@@ -46,6 +49,9 @@ const RepostButton = ({
           `/`,
           dataNotification
         );
+        if(isInViewMeowRoute){
+          navigate('/home')
+        }
 
         if (notification.status === 201) {
         } else {
