@@ -169,15 +169,19 @@ function UserProfile() {
             <div className={styles.nameAndChatButton}>
               <p className={styles.name}>
                 {name} {surname}
-              </p>{" "}
-              <button
-                className={styles.editProfile}
-                onClick={() => {
-                  handleCreateChat();
-                }}
-              >
-                Chat
-              </button>
+              </p>
+              {isOwnProfile ? (
+                ""
+              ) : (
+                <button
+                  className={styles.editProfile}
+                  onClick={() => {
+                    handleCreateChat();
+                  }}
+                >
+                  Chat
+                </button>
+              )}
             </div>
             <p className={styles.grayFont}>@{username}</p>
             <p>
