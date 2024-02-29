@@ -175,7 +175,8 @@ function UserProfile() {
                 Following
               </p>
               <p className={styles.grayFont}>
-                <span>{followerCounter} </span>Followers
+                <span style={{ color: "white" }}>{followerCounter} </span>
+                Followers
               </p>
             </div>
           </div>

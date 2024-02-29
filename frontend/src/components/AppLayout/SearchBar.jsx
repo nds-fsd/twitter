@@ -22,7 +22,7 @@ function SearchBar() {
     setSubstring(e.target.value)
     const value = e.target.value;
     if(!value) return setResult([])
-    setSubstring(value); // Actualizamos el estado substring con el valor del campo de entrada
+    setSubstring(value);
 
     try {
       const response = await userApi().get(`search/${value}`);
@@ -49,7 +49,7 @@ function SearchBar() {
         <input
           className={styles.buscador}
           value={substring}
-          onChange={(e) =>{searchUsernames(e)} } // Llamamos a la función searchUsernames en el evento onChange
+          onChange={(e) =>{searchUsernames(e)} }
           placeholder="Search"
           type="text"
         />
