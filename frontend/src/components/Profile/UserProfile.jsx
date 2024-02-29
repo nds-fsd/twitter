@@ -158,14 +158,7 @@ function UserProfile() {
                     username={username}
                     photoStyle={photoStyle}
                   />
-                  <button
-                    className={styles.editProfile}
-                    onClick={() => {
-                      handleCreateChat();
-                    }}
-                  >
-                    Chat
-                  </button>
+
                   <FollowButton username={urlUsername} />
                 </>
               )}
@@ -173,15 +166,24 @@ function UserProfile() {
           </div>
           <br></br>
           <div className={styles.profileInfo}>
-            <p className={styles.name}>
-              {name} {surname}
-            </p>
+            <div className={styles.nameAndChatButton}>
+              <p className={styles.name}>
+                {name} {surname}
+              </p>{" "}
+              <button
+                className={styles.editProfile}
+                onClick={() => {
+                  handleCreateChat();
+                }}
+              >
+                Chat
+              </button>
+            </div>
             <p className={styles.grayFont}>@{username}</p>
             <p>
               <br />
               {description}
             </p>
-
             <br />
             <div className={styles.info}>
               {town !== undefined ? (

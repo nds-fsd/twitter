@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getUserSession } from "../../functions/localStorage.js";
 import Message from "./Message.jsx";
 import styles from "./Chat.module.css";
@@ -7,6 +7,7 @@ import io from "socket.io-client";
 import { getUserToken } from "../../functions/localStorage.js";
 import { messageApi } from "../../functions/apiWrapper.js";
 import { formatDate } from "../../functions/dateFormat.js";
+import { ArrowLeft } from "lucide-react";
 
 const socket = io("http://localhost:3001", {
   reconnection: false,
@@ -21,7 +22,7 @@ const Chat = ({}) => {
   const [messages, setMessages] = useState([]);
   const [messageToSend, setMessageToSend] = useState("");
   const { chatId: chatId } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -59,8 +60,14 @@ const Chat = ({}) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div>
+    <>
+      <div className={styles.backContainer}>
+        <ArrowLeft absoluteStrokeWidth />
+        <p onClick={() => navigate("/home")} className={styles.backText}>
+          Back
+        </p>
+      </div>
+      <div className={styles.chatContainer}>
         <ul>
           {messages.length > 0 &&
             messages.map((message, index) => (
@@ -73,15 +80,20 @@ const Chat = ({}) => {
               </li>
             ))}
         </ul>
+      </div>
+      <div className={styles.sendMessageContainer}>
         <input
           placeholder="Write your message"
           type="text"
           value={messageToSend}
           onChange={(e) => setMessageToSend(e.target.value)}
+          className={styles.messageInput}
         />
-        <button onClick={handleClick}>Send message</button>
+        <button onClick={handleClick} className={styles.sendButton}>
+          Send message
+        </button>
       </div>
-    </div>
+    </>
   );
 };
 
