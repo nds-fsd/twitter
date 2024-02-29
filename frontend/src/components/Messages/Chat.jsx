@@ -64,7 +64,7 @@ const Chat = ({}) => {
       <div className={styles.backContainer}>
         <ArrowLeft absoluteStrokeWidth />
         <p onClick={() => navigate("/home")} className={styles.backText}>
-          Post
+          Back
         </p>
       </div>
       <div className={styles.chatContainer}>
