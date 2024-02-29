@@ -30,13 +30,8 @@ const Message = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    date: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
-    timestamps: false,
     freezeTableName: true,
   }
 );

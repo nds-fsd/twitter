@@ -33,8 +33,9 @@ const Chat = ({}) => {
       }
     };
 
-    socket.on("chat", ({ user, text, date }) => {
-      setMessages((current) => [...current, { user, text, date }]);
+    socket.on("chat", async ({ username, text, createdAt }) => {
+      const formattedMessage = formatDate({ username, text, createdAt });
+      setMessages((current) => [...current, formattedMessage]);
     });
 
     fetchMessages();
@@ -44,19 +45,13 @@ const Chat = ({}) => {
     if (!userProp || !messageToSend) return;
     try {
       const data = {
-        user: userProp,
-        username: userProp,
-        text: messageToSend,
-        chatId,
-      };
-      socket.emit("chat", data);
-      setMessages((current) => [...current, data]);
-      await messageApi().post(`/${chatId}`, {
         user: logedUser.id,
         username: userProp,
         text: messageToSend,
-        chatId,
-      });
+        chat: parseInt(chatId),
+      };
+      socket.emit("chat", data);
+      setMessages((current) => [...current, data]);
       setMessageToSend("");
     } catch (error) {
       console.error("Error fetching messages:", error);
@@ -73,7 +68,7 @@ const Chat = ({}) => {
                 <Message
                   user={message.username}
                   text={message.text}
-                  date={message.date}
+                  date={message.createdAt}
                 />
               </li>
             ))}
