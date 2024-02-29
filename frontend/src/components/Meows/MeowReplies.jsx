@@ -15,8 +15,7 @@ const MeowReplies = ({
   const navigate = useNavigate();
   const meowsToShow = allMeowReplies.map((meow) => formatDate(meow));
   const photoStyle = "meow";
-  const userId = getUserSession().id
-
+  const userId = getUserSession().id;
   return (
     <>
       {meowsToShow && (
@@ -39,13 +38,15 @@ const MeowReplies = ({
                     <p className={styles.username}>@{meow.authorUsername}</p>
                   </div>
                   <div className={styles.buttonDateContainer}>
-                   {meow.author === userId && (<DeleteEditMeow
-                      meow={meow}
-                      meows={allMeowReplies}
-                      setMeows={setAllMeowReplies}
-                      setReplyCounter={setReplyCounter}
-                      replyCounter={replyCounter}
-                    />)} 
+                    {meow.author === userId && (
+                      <DeleteEditMeow
+                        meow={meow}
+                        meows={allMeowReplies}
+                        setMeows={setAllMeowReplies}
+                        setReplyCounter={setReplyCounter}
+                        replyCounter={replyCounter}
+                      />
+                    )}
                     <p className={styles.dateFormat}>{meow.date}</p>
                   </div>
                 </div>

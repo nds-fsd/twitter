@@ -33,24 +33,6 @@ function SearchBar() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (event.target.tagName === "SPAN") navigate(`user/${event.target.id}`);
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target)
-      ) {
-        setResult([]);
-        setSubstring("");
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [containerRef]);
-
-  useEffect(() => {
     window.addEventListener("scroll", changeColor);
     return () => {
       window.removeEventListener("scroll", changeColor);
@@ -61,33 +43,47 @@ function SearchBar() {
     <>
       <div
         ref={containerRef}
-        id="container"
-        className={color ? styles.searchScroll : styles.search}
+        onMouseLeave={() => {
+          setResult([]);
+          setSubstring("");
+        }}
       >
-        <input
-          className={styles.buscador}
-          value={substring}
-          onChange={(e) => {
-            searchUsernames(e);
-          }}
-          placeholder="Search"
-          type="text"
-        />
-      </div>
-      {result.length > 0 && (
-        <div className={styles.results}>
-          {result.map((user) => {
-            return (
-              <p className={styles.listOfUsers} key={user.username}>
-                <span id={user.username}>
-                  {user.name} {user.surname}
-                </span>{" "}
-                (@{user.username})
-              </p>
-            );
-          })}
+        <div
+          id="container"
+          className={color ? styles.searchScroll : styles.search}
+        >
+          <input
+            className={styles.buscador}
+            value={substring}
+            onChange={(e) => {
+              searchUsernames(e);
+            }}
+            placeholder="Search"
+            type="text"
+          />
         </div>
-      )}
+        {result.length > 0 && (
+          <div className={styles.results}>
+            {result.map((user) => {
+              return (
+                <p className={styles.listOfUsers} key={user.username}>
+                  <span
+                    onClick={() => {
+                      navigate(`/user/${user.username}`);
+                      setResult([]);
+                      setSubstring("");
+                    }}
+                    id={user.username}
+                  >
+                    {user.name} {user.surname}
+                  </span>{" "}
+                  (@{user.username})
+                </p>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </>
   );
 }
