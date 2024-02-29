@@ -5,6 +5,8 @@ import Message from "./Message.jsx";
 import styles from "./Chat.module.css";
 import io from "socket.io-client";
 import { getUserToken } from "../../functions/localStorage.js";
+import { messageApi } from "../../functions/apiWrapper.js";
+import { formatDate } from "../../functions/dateFormat.js";
 
 const socket = io("http://localhost:3001", {
   reconnection: false,
@@ -21,23 +23,44 @@ const Chat = ({}) => {
   const { chatId: chatId } = useParams();
 
   useEffect(() => {
-    socket.on("chat", ({ user, text }) => {
-      setMessages((current) => [...current, { user, text }]);
-    });
-  }, []);
+    const fetchMessages = async () => {
+      try {
+        const response = await messageApi().get(`/${chatId}`);
+        const data = await response.data.map((message) => formatDate(message));
+        setMessages(data);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    };
 
-  const handleClick = () => {
-    if (!userProp || !messageToSend) return;
-    setMessages((current) => [
-      ...current,
-      { user: userProp, text: messageToSend },
-    ]);
-    socket.emit("chat", {
-      user: userProp,
-      text: messageToSend,
-      room: chatId,
+    socket.on("chat", ({ user, text, date }) => {
+      setMessages((current) => [...current, { user, text, date }]);
     });
-    setMessageToSend("");
+
+    fetchMessages();
+  }, [chatId]);
+
+  const handleClick = async () => {
+    if (!userProp || !messageToSend) return;
+    try {
+      const data = {
+        user: userProp,
+        username: userProp,
+        text: messageToSend,
+        chatId,
+      };
+      socket.emit("chat", data);
+      setMessages((current) => [...current, data]);
+      await messageApi().post(`/${chatId}`, {
+        user: logedUser.id,
+        username: userProp,
+        text: messageToSend,
+        chatId,
+      });
+      setMessageToSend("");
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
   };
 
   return (
@@ -47,12 +70,16 @@ const Chat = ({}) => {
           {messages.length > 0 &&
             messages.map((message, index) => (
               <li key={index}>
-                <Message user={message.user} text={message.text} />
+                <Message
+                  user={message.username}
+                  text={message.text}
+                  date={message.date}
+                />
               </li>
             ))}
         </ul>
         <input
-          placeholder="Tu mensaje"
+          placeholder="Write your message"
           type="text"
           value={messageToSend}
           onChange={(e) => setMessageToSend(e.target.value)}

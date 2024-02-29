@@ -1,5 +1,3 @@
-const Userpg = require("../schemas/pg/userpg");
-const Chat = require("../schemas/pg/chat");
 const Message = require("../schemas/pg/message");
 
 const getMessage = async (req, res) => {
@@ -14,10 +12,17 @@ const getMessage = async (req, res) => {
 
 const postMessage = async (req, res) => {
   try {
-    const { user, chat, message } = req.body;
-    const newMessage = await Message.create({ user, chat, message });
+    const chatId = req.params.chatId;
+    const { user, username, text } = req.body;
+    const newMessage = await Message.create({
+      user,
+      username,
+      chat: chatId,
+      text,
+    });
     res.status(201).json(newMessage);
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json(error.message);
   }
 };

@@ -14,6 +14,10 @@ const Message = sequelize.define(
         key: "mongo_user_id",
       },
     },
+    username: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
     chat: {
       type: DataTypes.INTEGER,
       allowNull: false,

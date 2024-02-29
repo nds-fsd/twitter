@@ -19,15 +19,14 @@ function SearchBar() {
   };
 
   const searchUsernames = async (e) => {
-    setSubstring(e.target.value)
+    setSubstring(e.target.value);
     const value = e.target.value;
-    if(!value) return setResult([])
-    setSubstring(value); // Actualizamos el estado substring con el valor del campo de entrada
+    if (!value) return setResult([]);
+    setSubstring(value);
 
     try {
       const response = await userApi().get(`search/${value}`);
       setResult(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -35,11 +34,13 @@ function SearchBar() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (event.target.tagName === "SPAN") navigate(`user/${event.target.id}`)
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
-       setResult([])
-       setSubstring('')
-        console.log("Clic fuera del contenedor");
+      if (event.target.tagName === "SPAN") navigate(`user/${event.target.id}`);
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setResult([]);
+        setSubstring("");
       }
     };
 
@@ -58,11 +59,17 @@ function SearchBar() {
 
   return (
     <>
-      <div ref={containerRef} id="container" className={color ? styles.searchScroll : styles.search}>
+      <div
+        ref={containerRef}
+        id="container"
+        className={color ? styles.searchScroll : styles.search}
+      >
         <input
           className={styles.buscador}
           value={substring}
-          onChange={(e) =>{searchUsernames(e)} } // Llamamos a la función searchUsernames en el evento onChange
+          onChange={(e) => {
+            searchUsernames(e);
+          }}
           placeholder="Search"
           type="text"
         />
@@ -72,7 +79,10 @@ function SearchBar() {
           {result.map((user) => {
             return (
               <p className={styles.listOfUsers} key={user.username}>
-                <span id={user.username} >{user.name} {user.surname}</span> (@{user.username})
+                <span id={user.username}>
+                  {user.name} {user.surname}
+                </span>{" "}
+                (@{user.username})
               </p>
             );
           })}
