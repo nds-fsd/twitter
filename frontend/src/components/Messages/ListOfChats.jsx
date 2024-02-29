@@ -4,6 +4,7 @@ import { getUserSession } from "../../functions/localStorage.js";
 import { chatApi, userApi } from "../../functions/apiWrapper.js";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import { socket } from "./Chat.jsx";
+import styles from "./ListOfChats.module.css";
 
 const ListOfChats = () => {
   const logedUser = getUserSession();
@@ -46,15 +47,22 @@ const ListOfChats = () => {
 
   return (
     <div>
-      <h2>Chats</h2>
-      <div>
+      <div className={styles.tittleContainer}>
+        <h2 className={styles.tittle}>Chats</h2>
+      </div>
+
+      <div className={styles.chatsContainer}>
         {chat.map((chat) => (
-          <div key={chat.id} onClick={() => joinChatRoom(chat.id)}>
+          <div
+            key={chat.id}
+            onClick={() => joinChatRoom(chat.id)}
+            className={styles.chatList}
+          >
             <PhotoUserProfile
               usernamePhoto={username[chat.id]}
               photoStyle={photoStyle}
             />
-            {username[chat.id]}
+            <p className={styles.chatUsername}>{username[chat.id]}</p>
           </div>
         ))}
       </div>
