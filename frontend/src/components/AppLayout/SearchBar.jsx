@@ -21,7 +21,11 @@ function SearchBar() {
   const searchUsernames = async (e) => {
     setSubstring(e.target.value);
     const value = e.target.value;
+<<<<<<< HEAD
     if (!value) return setResult([]);
+=======
+    if(!value) return setResult([])
+>>>>>>> Sprint-5
     setSubstring(value);
 
     try {
