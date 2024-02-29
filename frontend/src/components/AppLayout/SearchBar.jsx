@@ -27,27 +27,12 @@ function SearchBar() {
     try {
       const response = await userApi().get(`search/${value}`);
       setResult(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (event.target.tagName === "SPAN") navigate(`user/${event.target.id}`)
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
-       setResult([])
-       setSubstring('')
-        console.log("Clic fuera del contenedor");
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [containerRef]);
+  
 
   useEffect(() => {
     window.addEventListener("scroll", changeColor);
@@ -58,7 +43,9 @@ function SearchBar() {
 
   return (
     <>
-      <div ref={containerRef} id="container" className={color ? styles.searchScroll : styles.search}>
+    <div ref={containerRef} onMouseLeave={()=>{ setResult([])
+                                           setSubstring('') } }  >
+    <div id="container" className={color ? styles.searchScroll : styles.search}>
         <input
           className={styles.buscador}
           value={substring}
@@ -72,12 +59,17 @@ function SearchBar() {
           {result.map((user) => {
             return (
               <p className={styles.listOfUsers} key={user.username}>
-                <span id={user.username} >{user.name} {user.surname}</span> (@{user.username})
-              </p>
+                <span onClick={()=> {navigate(`/user/${user.username}`)
+                         setResult([])
+                            setSubstring('')}} id={user.username} > 
+                        {user.name} {user.surname}</span> (@{user.username})
+                     </p>
             );
           })}
         </div>
       )}
+       </div>
+    
     </>
   );
 }
