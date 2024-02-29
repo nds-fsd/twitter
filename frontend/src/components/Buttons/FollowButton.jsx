@@ -35,6 +35,9 @@ const FollowButton = ({ username }) => {
 
       if (response.status === 200) {
         setIsFollowing(true);
+        if (username === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: username,
           sender: loggedInUser.username,
@@ -69,6 +72,9 @@ const FollowButton = ({ username }) => {
 
       if (response.status === 200) {
         setIsFollowing(false);
+        if (username === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: username,
           sender: loggedInUser.username,

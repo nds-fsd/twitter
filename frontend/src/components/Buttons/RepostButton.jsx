@@ -6,10 +6,20 @@ import styles from "../Buttons/IconButton.module.css";
 import { Repeat2 } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import { useLocation, useNavigate } from "react-router-dom";
 const loggedInUser = getUserSession();
 
-const RepostButton = ({ meow, authorUsername }) => {
+const RepostButton = ({
+  meow,
+  authorUsername,
+  setReloadProfilePage,
+  reloadProfilePage,
+}) => {
   const reload = useContext(context);
+  const location = useLocation();
+  const isInUserRoute = location.pathname.startsWith("/user");
+  const isInViewMeowRoute = location.pathname.startsWith("/meow");
+  const navigate = useNavigate();
 
   const repostMeow = async () => {
     try {
@@ -20,6 +30,14 @@ const RepostButton = ({ meow, authorUsername }) => {
 
       if (res.status === 201) {
         const recipientUsername = authorUsername || meow.authorUsername;
+        if (recipientUsername === loggedInUser.username) {
+          if (isInUserRoute) {
+            setReloadProfilePage(!reloadProfilePage);
+          }else if(isInViewMeowRoute){
+            navigate('/home')
+          }
+          return reload.setReload(!reload.reload);
+        }
         const dataNotification = {
           recipient: recipientUsername,
           sender: loggedInUser.username,
@@ -31,6 +49,10 @@ const RepostButton = ({ meow, authorUsername }) => {
           `/`,
           dataNotification
         );
+        if(isInViewMeowRoute){
+          navigate('/home')
+        }
+
         if (notification.status === 201) {
         } else {
           throw new Error(notification.data.error);

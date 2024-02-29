@@ -47,6 +47,9 @@ const LikeButton = ({ meow, authorUsername }) => {
       if (response.status === 200) {
         setIsLiked(true);
         const recipientUsername = authorUsername || meow.authorUsername;
+        if (recipientUsername === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: recipientUsername,
           sender: loggedInUser.username,
@@ -82,6 +85,9 @@ const LikeButton = ({ meow, authorUsername }) => {
       if (response.status === 200) {
         setIsLiked(false);
         const recipientUsername = authorUsername || meow.authorUsername;
+        if (recipientUsername === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: recipientUsername,
           sender: loggedInUser.username,

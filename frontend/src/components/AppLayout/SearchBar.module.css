@@ -37,8 +37,41 @@
   font-weight: lighter;
 }
 
+.results {
+  background-color: white;
+  border-radius: 20px;
+  height: fit-content;
+  opacity: 0.9;
+  padding: 7px 15px;
+  position: absolute;
+  top: 60px;
+  width: 20%;
+  z-index: 999;
+}
+
+.listOfUsers {
+  color: black;
+  font-size: 14px;
+  padding: 1%;
+ 
+
+}
+span{
+  color: black;
+  cursor: pointer;
+}
+span:hover {
+  text-decoration: underline;
+}
+
+
+
 @media (max-width: 1000px) {
   .search {
+    display: none;
+  }
+
+  .searchScroll {
     display: none;
   }
 }

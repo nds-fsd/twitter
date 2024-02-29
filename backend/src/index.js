@@ -1,45 +1,50 @@
 const express = require("express");
-const { connectDB } = require("./mongo");
-const router = require("./routers/index");
+const { connectMongoDB } = require("./connections/mongo.js");
+const { connectPostgresDB } = require("./connections/postgres.js");
+const { connectSocketIO } = require("./connections/socketio.js");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const bodyParser = require("body-parser");
-const morgan = require("morgan");
-// const http = require("http");
-// const socketIo = require("socket.io");
 dotenv.config();
+const router = require("./routers/index");
 
-const createApp = () => {
-  const app = express();
+const app = express();
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(cors());
 
-  app.use(bodyParser.json());
-  app.use(cors());
-  app.use(morgan("dev"));
+app.use("/", router);
 
-  // const server = http.createServer(app);
-  // const io = socketIo(server, { cors: { origins: ["*"] } });
+const server = require("http").createServer(app);
 
-  // io.on("connection", (socket) => {
-  //   console.log("User connected:", socket.id);
+connectMongoDB().then((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Connected to Mongo database!");
+  }
+});
 
-  //   socket.on("disconnect", () => {
-  //     console.log("User disconnected:", socket.id);
-  //   });
-  // });
+connectPostgresDB().then((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Connected to Postgres database!");
+  }
+});
 
-  // app.set("io", io);
+connectSocketIO(server).then((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Connected to WebSocket!");
+  }
+});
 
-  app.use("/", router);
+const port = process.env.PORT || 3001;
+server.listen(port, () => {
+  console.log(`Express server is up and running at ${port}`);
+});
 
-  connectDB().then((error) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Connected to database!");
-    }
-  });
-
-  return app;
-};
-
-module.exports = { createApp };
+module.exports = { app, server };

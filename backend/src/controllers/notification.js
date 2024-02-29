@@ -1,5 +1,5 @@
-const Notification = require("../schemas/notification");
-const User = require("../schemas/user");
+const Notification = require("../schemas/mongo/notification");
+const User = require("../schemas/mongo/user");
 
 const createNotification = async (req, res) => {
   try {
@@ -64,7 +64,7 @@ const getUserNotification = async (req, res) => {
     if (notifications.length > 0) {
       res.status(200).json(notifications);
     } else {
-      res.status(404).json({ error: "Notifications not found" });
+      res.status(204).json({ message: "No notifications yet" });
     }
   } catch (error) {
     console.log(error);

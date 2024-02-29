@@ -19,6 +19,12 @@ const Notifications = () => {
         const notificationResponse = await notificationApi().get(
           `/${urlUsername}`
         );
+
+        if (notificationResponse.status === 204) {
+          setNotifications([]);
+          return;
+        }
+
         const formattedNotifications = notificationResponse.data.map(
           async (notification) => {
             try {
@@ -53,6 +59,14 @@ const Notifications = () => {
   }, [notifications]);
 
   const generateNotificationDivs = () => {
+    if (notifications.length === 0) {
+      return (
+        <p className={styles.noNotification}>
+          You don't have any notifications yet.
+        </p>
+      );
+    }
+
     const lastNotifications = notifications.slice(-20).reverse();
 
     return lastNotifications.map((notification) => {
@@ -131,9 +145,25 @@ const Notifications = () => {
     });
   };
 
+  /* const [color, setColor] = useState(false);
+  const changeColor = () => {
+    if (window.scrollY >= 70) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+  window.addEventListener("scroll", changeColor); */
+
   return (
-    <div>
-      <h2 className={styles.titleNotifications}>Notifications</h2>
+    <div className={styles.bigContainer}>
+      <div
+        className={
+          /* color ? styles.titleBookmarksScroll :  */ styles.titleBookmarks
+        }
+      >
+        <h2 className={styles.titleNotifications}>Notifications</h2>
+      </div>
       {generateNotificationDivs()}
       <Toaster position="top-right" reverseOrder={false} />
     </div>

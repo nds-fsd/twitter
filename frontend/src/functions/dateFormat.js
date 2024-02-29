@@ -8,14 +8,17 @@ export function formatDate(dateToChange) {
     timeZoneName: "short",
   };
 
-  const dateString = dateToChange.date;
+  const dateString = dateToChange.date || dateToChange.createdAt;
   const dateObject = dateString ? new Date(dateString) : null;
   const formattedDate = dateObject
     ? new Intl.DateTimeFormat("es-ES", dateFormat).format(dateObject)
     : "Fecha no disponible";
 
+  const formattedDateString = formattedDate.slice(0, -3);
+  const dateKey = dateToChange.date !== undefined ? "date" : "createdAt";
+
   return {
     ...dateToChange,
-    date: formattedDate.slice(0, -3),
+    [dateKey]: formattedDateString,
   };
 }

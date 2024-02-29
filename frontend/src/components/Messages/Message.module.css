@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 5% 0;
+  width: 100%;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.username {
+  font-size: 15px;
+  font-weight: bold;
+  width: auto;
+}
+
+.date {
+  color: gray;
+  font-size: 13px;
+  font-style: italic;
+  width: fit-content;
+}
+
+.messageInfo {
+  width: 100%;
+}
+
+.text {
+  font-style: italic;
+  margin-left: 9%;
+}

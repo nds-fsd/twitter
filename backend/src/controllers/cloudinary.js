@@ -1,6 +1,5 @@
 const cloudinary = require("cloudinary").v2;
-const User = require("../schemas/user");
-// require("dotenv").config();
+const User = require("../schemas/mongo/user");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -14,6 +13,11 @@ const uploadUserProfilePhoto = async (req, res) => {
     overwrite: true,
     folder: "userProfile",
     public_id: `userProfile-${username}`,
+    transformation: {
+      height: 150,
+      width: 150,
+      crop: "thumb",
+    },
   };
 
   try {
@@ -26,9 +30,11 @@ const uploadUserProfilePhoto = async (req, res) => {
     const imageAsBase64 = `data:${
       userFile.mimetype
     };base64,${userFile.buffer.toString("base64")}`;
+
     cloudinary.uploader.upload(
       imageAsBase64,
       options,
+
       async (error, result) => {
         if (error) {
           console.error(error);
@@ -39,7 +45,6 @@ const uploadUserProfilePhoto = async (req, res) => {
           { username },
           { userProfilePhoto: result.secure_url, userProfilePhotoStatus: true }
         );
-
         return res.status(200).json(result);
       }
     );
@@ -55,6 +60,7 @@ const uploadBackgroundProfilePhoto = async (req, res) => {
     overwrite: true,
     folder: "backgroundProfile",
     public_id: `backgroundProfile-${username}`,
+    transformation: { aspect_ratio: "1.91", crop: "fill", width: 1200 },
   };
 
   try {
@@ -67,9 +73,11 @@ const uploadBackgroundProfilePhoto = async (req, res) => {
     const imageAsBase64 = `data:${
       backgroundFile.mimetype
     };base64,${backgroundFile.buffer.toString("base64")}`;
+
     cloudinary.uploader.upload(
       imageAsBase64,
       options,
+
       async (error, result) => {
         if (error) {
           console.error(error);

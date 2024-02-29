@@ -9,7 +9,6 @@
   background-color: black;
   height: 70px;
   width: 100%;
-  z-index: 0;
 }
 
 .nameContainerScroll {
@@ -34,6 +33,12 @@
   padding-left: 20px;
 }
 
+.nameAndChatButton {
+  align-items: center;
+  display: flex;
+  gap: 5%;
+}
+
 .name {
   cursor: pointer;
   font-size: 25px;
@@ -48,7 +53,6 @@
 
 .grayFont {
   color: gray;
-  cursor: pointer;
   font-size: 14px;
 }
 
@@ -65,8 +69,10 @@
   margin-top: -80px;
 }
 
-.tabsContainer {
-  border-right: 1px solid #2c2c2c;
+.tabsContainer span {
+  color: white;
+  cursor: pointer;
+  font-size: 17px;
 }
 
 .editProfile {
@@ -89,20 +95,14 @@
 }
 
 .info {
-  color: gray;
   display: flex;
-  gap: 10px;
-  margin: 2% 0px;
+  gap: 20px;
+  margin: 3% 0px;
 }
 
-.info p {
-  color: gray;
-}
-
-span {
-  color: white;
-  cursor: pointer;
-  font-size: 20px;
+.infoTownAndJoined {
+  display: flex;
+  gap: 5px;
 }
 
 .overlay {
@@ -114,7 +114,7 @@ span {
   top: 0;
   transition: opacity 0.3s ease;
   width: 100%;
-  z-index: 2;
+  z-index: 10;
 }
 
 .active {

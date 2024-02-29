@@ -86,3 +86,25 @@ export const notificationApi = () => {
     },
   });
 };
+
+export const chatApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/chat`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const messageApi = () => {
+  const token = getUserToken();
+  return axios.create({
+    baseURL: `${BASE_URL}/message`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

@@ -1,10 +1,8 @@
 import styles from "./DeleteEditMeow.module.css";
 import { useState, useRef, useEffect } from "react";
 import { MoreHorizontal, Trash2, FilePenLine } from "lucide-react";
-import del from "../../assets/delete.png";
-import edit from "../../assets/edit.png";
 import { meowApi } from "../../functions/apiWrapper";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import {
   ajustarAlturaTextArea,
   handleKeyDown,
@@ -28,6 +26,7 @@ const DeleteEditMeow = ({
   const [meowToEdit, setMeowToEdit] = useState(meow.text);
   const divRef = useRef();
   const textAreaRef = useRef();
+  const navigate = useNavigate();
 
   document.addEventListener("click", (e) => {
     if (divRef.current && divRef.current.contains(e.target)) {
@@ -57,6 +56,9 @@ const DeleteEditMeow = ({
     try {
       const res = await meowApi().patch(meow._id, { text: meowToEdit });
       setEditPopOut(false);
+      if (isMeowViewRoute && !meow.parentMeow) {
+        return setMeows(res.data.meowUpdated);
+      }
       const updatedMeows = meows.map((element) => {
         if (element._id === meow._id) {
           return { ...element, text: meowToEdit };
@@ -65,7 +67,7 @@ const DeleteEditMeow = ({
       });
       setMeows(updatedMeows);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -73,6 +75,9 @@ const DeleteEditMeow = ({
     try {
       const res = await meowApi().delete(meow._id);
       setDeletePopOut(false);
+      if (isMeowViewRoute && !meow.parentMeow) {
+        return navigate("/home");
+      }
       if (isMeowViewRoute) setReplyCounter(replyCounter - 1);
 
       const updatedMeows = meows.map((element) => {
@@ -91,7 +96,7 @@ const DeleteEditMeow = ({
 
       if (isUserRoute) setMeowCounter(meowCounter - 1);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -131,54 +136,64 @@ const DeleteEditMeow = ({
       </div>
 
       {editPopOut && (
-        <div className={styles.editPopOut}>
-          <p className={styles.editDeleteTitle}>Edit your Meow here</p>
-          <textarea
-            ref={textAreaRef}
-            className={styles.editTextArea}
-            onChange={(e) => {
-              handleKeyDown(e);
-              setMeowToEdit(e.target.value);
-            }}
-            value={meowToEdit}
-            name="text"
-            id="text"
-            cols="1"
-            rows="3"
-            maxLength="300"
-          ></textarea>
-          <div className={styles.buttonsDiv}>
-            <button
-              onClick={() => {
-                setEditPopOut(false);
-                setMeowToEdit(meow.text);
+        <>
+          <div
+            className={`${styles.overlay} ${editPopOut ? styles.active : ""}`}
+          />
+          <div className={styles.editPopOut}>
+            <p className={styles.editDeleteTitle}>Edit your Meow here</p>
+            <textarea
+              ref={textAreaRef}
+              className={styles.editTextArea}
+              onChange={(e) => {
+                handleKeyDown(e);
+                setMeowToEdit(e.target.value);
               }}
-              className={styles.cancelButton}
-            >
-              Cancel
-            </button>
-            <button onClick={updateMeow} className={styles.saveAndDelete}>
-              Edit
-            </button>
+              value={meowToEdit}
+              name="text"
+              id="text"
+              cols="1"
+              rows="3"
+              maxLength="300"
+            ></textarea>
+            <div className={styles.buttonsDiv}>
+              <button
+                onClick={() => {
+                  setEditPopOut(false);
+                  setMeowToEdit(meow.text);
+                }}
+                className={styles.cancelButton}
+              >
+                Cancel
+              </button>
+              <button onClick={updateMeow} className={styles.saveAndDelete}>
+                Edit
+              </button>
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {deletePopOut && (
-        <div className={styles.deletePopOut}>
-          <p className={styles.editDeleteTitle}>Are you sure?</p>
-          <div className={styles.buttonsDiv}>
-            <button
-              onClick={() => setDeletePopOut(false)}
-              className={styles.cancelButton}
-            >
-              Cancel
-            </button>
-            <button onClick={deleteMeow} className={styles.saveAndDelete}>
-              Delete
-            </button>
+        <>
+          <div
+            className={`${styles.overlay} ${deletePopOut ? styles.active : ""}`}
+          />
+          <div className={styles.deletePopOut}>
+            <p className={styles.editDeleteTitle}>Are you sure?</p>
+            <div className={styles.buttonsDiv}>
+              <button
+                onClick={() => setDeletePopOut(false)}
+                className={styles.cancelButton}
+              >
+                Cancel
+              </button>
+              <button onClick={deleteMeow} className={styles.saveAndDelete}>
+                Delete
+              </button>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );

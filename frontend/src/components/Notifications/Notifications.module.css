@@ -1,11 +1,10 @@
 .mainContainerNotifications {
   align-items: center;
+  border-bottom: 1px solid rgb(44, 44, 44);
   display: flex;
   justify-content: center;
   padding: 5% 2.5%;
   width: 95%;
-  border-right: 1px solid rgb(44, 44, 44);
-  border-top: 1px solid rgb(44, 44, 44);
 }
 
 .containerNotifications {
@@ -23,18 +22,45 @@
   font-size: 12px;
 }
 
-.titleNotifications {
+.titleBookmarks {
   align-items: center;
-  color: var(--main-color);
+  border-bottom: 1px solid rgb(44, 44, 44);
   display: flex;
-  font-family: var(--main-font);
-  font-size: 24px;
-  justify-content: center;
   height: 70px;
-  border-right: 1px solid rgb(44, 44, 44);
+  justify-content: center;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: black;
+  opacity: 0.9;
 }
 
-h2 {
+/* .titleBookmarksScroll {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  height: 70px;
+  justify-content: center;
+  opacity: 0.8;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}
+ */
+.titleNotifications {
+  color: var(--main-color);
+  font-family: var(--main-font);
+  font-size: 25px;
   margin: 0;
-  padding-bottom: 4%;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.noNotification {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
 }

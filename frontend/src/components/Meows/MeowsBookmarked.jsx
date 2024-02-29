@@ -8,15 +8,18 @@ import { context } from "../../App.jsx";
 import { formatDate } from "../../functions/dateFormat.js";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
 import AllMeowButtons from "../Buttons/AllMeowButtons.jsx";
+import DeleteEditMeow from "./DeleteEditMeow.jsx";
 
 const MeowsBookmarked = () => {
   const [meows, setMeows] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, seterrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [userMentions, setUserMentions] = useState([]);
   const photoStyle = "meow";
 
   const navigate = useNavigate();
+  const userId = getUserSession().id;
 
   const reload = useContext(context);
 
@@ -81,14 +84,75 @@ const MeowsBookmarked = () => {
 
         const meowsToShow = meowsWithUsernames.map((meow) => formatDate(meow));
 
+        const possibleMentions = new Set();
+
+        meowsToShow.forEach((meowToReview) => {
+          const regex = /@([^@\s]+)/g;
+          const matchAll = meowToReview.text.matchAll(regex);
+          for (const match of matchAll) {
+            possibleMentions.add(match[1]);
+          }
+        });
+
+        const mentionDetails = await Promise.all(
+          [...possibleMentions].map(async (possibleMention) => {
+            try {
+              const userRes = await userApi().get(`/${possibleMention}`);
+              return possibleMention;
+            } catch (userError) {
+              console.error(
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+              );
+              return undefined;
+            }
+          })
+        );
+
+        const successfulMentions = mentionDetails.filter(
+          (mention) => mention !== undefined
+        );
+
+        setUserMentions(successfulMentions);
         setMeows(meowsToShow);
       } catch (error) {
         setError(true);
-        seterrorMessage(error.message);
+        setErrorMessage(error.message);
       }
     };
     getAllMeows();
   }, [reload.reload]);
+
+  const renderMeowText = (baseMeowText) => {
+    const regex = /@([^@\s]+)/g;
+    let lastIndex = 0;
+    const meowText = [];
+
+    baseMeowText.replace(regex, (match, mention, index) => {
+      if (index > lastIndex) {
+        const beforeMention = baseMeowText.substring(lastIndex, index);
+        meowText.push(beforeMention);
+      }
+
+      if (userMentions.includes(mention)) {
+        meowText.push(
+          <a key={index} href={`/user/${mention}`}>
+            {match}
+          </a>
+        );
+      } else {
+        meowText.push(<span key={index}>{match}</span>);
+      }
+
+      lastIndex = index + match.length;
+    });
+
+    if (lastIndex < baseMeowText.length) {
+      const remainingText = baseMeowText.substring(lastIndex);
+      meowText.push(remainingText);
+    }
+
+    return <p>{meowText}</p>;
+  };
 
   if (loading) return <Loading />;
 
@@ -111,7 +175,9 @@ const MeowsBookmarked = () => {
       </div>
 
       {meows.length === 0 ? (
-        <p>You can Bookmark some meows to find them again easily.</p>
+        <p className={styles.noNotification}>
+          You can bookmark some meows to easily find them later.
+        </p>
       ) : (
         meows.map((meow) => {
           return (
@@ -121,23 +187,65 @@ const MeowsBookmarked = () => {
                   photoStyle={photoStyle}
                   usernamePhoto={meow.authorUsername}
                 />
-                <div className={styles.infoUserContainer}>
-                  <div className={styles.userData}>
-                    <p
-                      onClick={() => {
-                        navigate("/user/" + meow.authorUsername);
-                        reload.setReload(!reload.reload);
-                      }}
-                      className={styles.nameSurname}
-                    >
-                      {meow.nameAuthor} {meow.surnameAuthor}
+                {!meow.repostedMeowId && (
+                  <div className={styles.infoUserContainer}>
+                    <div className={styles.userData}>
+                      <p
+                        onClick={() => {
+                          navigate("/user/" + meow.authorUsername);
+                        }}
+                        className={styles.nameSurname}
+                      >
+                        {meow.nameAuthor} {meow.surnameAuthor}
+                      </p>
+                      <p className={styles.username}>@{meow.authorUsername}</p>
+                    </div>
+
+                    <div className={styles.buttonDateContainer}>
+                      {meow.author === userId && (
+                        <DeleteEditMeow
+                          meow={meow}
+                          meows={meows}
+                          setMeows={setMeows}
+                        />
+                      )}
+                      <p className={styles.dateFormat}>{meow.date}</p>
+                    </div>
+                  </div>
+                )}
+                {meow.repostedMeowId && (
+                  <div style={{ width: "100%" }}>
+                    <p className={styles.repostedBy}>
+                      Reposted by: @{meow.authorUsername}
                     </p>
-                    <p className={styles.username}>@{meow.authorUsername}</p>
+                    <div className={styles.infoUserContainer}>
+                      <div className={styles.userData}>
+                        <p
+                          onClick={() => {
+                            navigate("/user/" + meow.originalUsername);
+                            reload.setReload(!reload.reload);
+                          }}
+                          className={styles.nameSurname}
+                        >
+                          {meow.originalName} {meow.originalSurname}
+                        </p>
+                        <p className={styles.username}>
+                          @{meow.originalUsername}
+                        </p>
+                      </div>
+                      <div className={styles.buttonDateContainer}>
+                        {meow.author === userId && (
+                          <DeleteEditMeow
+                            meow={meow}
+                            meows={meows}
+                            setMeows={setMeows}
+                          />
+                        )}
+                        <p className={styles.dateFormat}>{meow.date}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className={styles.dateFormat}>{meow.date}</p>
-                  </div>
-                </div>
+                )}
               </div>
               <div
                 onClick={() => {
@@ -146,7 +254,7 @@ const MeowsBookmarked = () => {
                 key={meow._id}
                 className={styles.postContainer}
               >
-                <p>{meow.text}</p>
+                {renderMeowText(meow.text)}
               </div>
               <div className={styles.iconsContainer}>
                 <AllMeowButtons

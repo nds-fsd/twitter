@@ -1,12 +1,13 @@
 .container {
   align-items: center;
+  border-bottom: 1px solid rgb(44, 44, 44);
   display: flex;
   flex-direction: column;
   padding-top: 70px;
 }
 
 .containerPost {
-  align-items: center;
+  align-items: flex-start;
   border-bottom: 1px solid var(--sections-hover);
   display: flex;
   gap: 20px;
@@ -56,6 +57,6 @@
 }
 
 .postButton:hover {
-  background-color: #e94a00;
-  border: solid 1px #e94a00;
+  background-color: #496d37;
+  border: solid 1px #496d37;
 }

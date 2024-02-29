@@ -42,10 +42,6 @@ const LoginForm = ({ close, change, load }) => {
         success.setPreLoader(true);
       } catch (err) {
         setLoading(false);
-        if (err.code === "ERR_NETWORK") setServerError(true);
-        if (err.response.status !== 201 && err.response.status !== 400) {
-          setServerError(true);
-        }
 
         if (err.response.data.error.mail) {
           setMailNotFound(true);

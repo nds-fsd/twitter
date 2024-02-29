@@ -2,14 +2,16 @@ import styles from "./MeowView.module.css";
 import general from "./MeowsFormat.module.css";
 import MeowReplies from "./MeowReplies";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
-import { meowApi, notificationApi } from "../../functions/apiWrapper";
+import { useEffect, useState, useRef, useContext } from "react";
+import { meowApi, notificationApi, userApi } from "../../functions/apiWrapper";
 import { getUserSession } from "../../functions/localStorage";
 import { ArrowLeft } from "lucide-react";
 import { formatDate } from "../../functions/dateFormat";
 import PhotoUserProfile from "../Profile/PhotoUserProfile";
 import AllMeowButtons from "../Buttons/AllMeowButtons";
 import { handleResize } from "../../functions/responsiveFunctions";
+import DeleteEditMeow from "./DeleteEditMeow";
+import { context } from "../../App";
 
 const MeowView = () => {
   function handleKeyDown(e) {
@@ -29,7 +31,10 @@ const MeowView = () => {
   const [meowReply, setMeowReply] = useState("");
   const [replyCounter, setReplyCounter] = useState(parentMeow.replies);
   const [allMeowReplies, setAllMeowReplies] = useState([]);
+  const [userMentions, setUserMentions] = useState([]);
   const photoStyle = "meow";
+  const userId = getUserSession().id;
+  const reload = useContext(context);
 
   useEffect(() => {
     const cleanup = handleResize(setPantallaPequena);
@@ -40,18 +45,48 @@ const MeowView = () => {
     const getDetails = async () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
-        const parentMeowToShow = formatDate(res.data.meowUpdated);
+        const parentMeowToShow = formatDate(
+          res.data.meowsWithOriginalAuthors[0]
+        );
+
         setParentMeow(parentMeowToShow);
         setParentMeowName(res.data.userFound.name);
         setParentMeowSurname(res.data.userFound.surname);
         setParentMeowUsername(res.data.userFound.username);
-        setReplyCounter(res.data.meowUpdated.replies);
+        setReplyCounter(res.data.meowsWithOriginalAuthors[0].replies);
+
+        const possibleMentions = new Set();
+        const regex = /@([^@\s]+)/g;
+        const matchAll = parentMeowToShow.text.matchAll(regex);
+        for (const match of matchAll) {
+          possibleMentions.add(match[1]);
+        }
+
+        const mentionDetails = await Promise.all(
+          [...possibleMentions].map(async (possibleMention) => {
+            try {
+              const userRes = await userApi().get(`/${possibleMention}`);
+              return possibleMention;
+            } catch (userError) {
+              console.error(
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+              );
+              return undefined;
+            }
+          })
+        );
+
+        const successfulMentions = mentionDetails.filter(
+          (mention) => mention !== undefined
+        );
+
+        setUserMentions(successfulMentions);
       } catch (error) {
         console.error("Error fetching details:", error);
       }
     };
     getDetails();
-  }, [id]);
+  }, [id, allMeowReplies, reload.reload]);
 
   useEffect(() => {
     const getReplies = async () => {
@@ -65,6 +100,38 @@ const MeowView = () => {
     getReplies();
   }, []);
 
+  const renderMeowText = (baseMeowText) => {
+    const regex = /@([^@\s]+)/g;
+    let lastIndex = 0;
+    const meowText = [];
+
+    baseMeowText.replace(regex, (match, mention, index) => {
+      if (index > lastIndex) {
+        const beforeMention = baseMeowText.substring(lastIndex, index);
+        meowText.push(beforeMention);
+      }
+
+      if (userMentions.includes(mention)) {
+        meowText.push(
+          <a key={index} href={`/user/${mention}`}>
+            {match}
+          </a>
+        );
+      } else {
+        meowText.push(<span key={index}>{match}</span>);
+      }
+
+      lastIndex = index + match.length;
+    });
+
+    if (lastIndex < baseMeowText.length) {
+      const remainingText = baseMeowText.substring(lastIndex);
+      meowText.push(remainingText);
+    }
+
+    return <p>{meowText}</p>;
+  };
+
   const postReply = async () => {
     const newReply = {
       meow: meowReply,
@@ -77,6 +144,7 @@ const MeowView = () => {
       setAllMeowReplies([
         {
           text: meowReply,
+          author: userId,
           authorUsername: username,
           authorName: name,
           authorSurname: surname,
@@ -91,6 +159,9 @@ const MeowView = () => {
       setMeowReply("");
       setReplyCounter(replyCounter + 1);
       if (res.status === 201) {
+        if (parentMeowUsername === username) {
+          return;
+        }
         const dataNotification = {
           recipient: parentMeowUsername,
           sender: username,
@@ -129,23 +200,51 @@ const MeowView = () => {
                 photoStyle={photoStyle}
                 usernamePhoto={parentMeowUsername}
               />
-              <div className={general.infoUserContainer}>
-                <div className={general.userData}>
-                  <p
-                    onClick={() => navigate("/user/" + parentMeowUsername)}
-                    className={general.nameSurname}
-                  >
-                    {parentMeowName} {parentMeowSurname}
+
+              <div style={{ width: "100%" }}>
+                {parentMeow.repostedMeowId && (
+                  <p className={general.repostedBy}>
+                    Reposted by: @{parentMeowUsername}
                   </p>
-                  <p className={general.username}>@{parentMeowUsername}</p>
-                </div>
-                <div>
-                  <p className={general.dateFormat}>{parentMeow.date}</p>
+                )}
+                <div className={general.infoUserContainer}>
+                  <div className={general.userData}>
+                    <p
+                      onClick={() =>
+                        navigate(
+                          "/user/" +
+                            (!parentMeow.repostedMeowId
+                              ? parentMeow.username
+                              : parentMeow.originalUsername)
+                        )
+                      }
+                      className={general.nameSurname}
+                    >
+                      {!parentMeow.repostedMeowId
+                        ? `${parentMeowName} ${parentMeowSurname}`
+                        : `${parentMeow.originalName} ${parentMeow.originalSurname}`}
+                    </p>
+                    <p className={general.username}>
+                      @
+                      {!parentMeow.repostedMeowId
+                        ? parentMeowUsername
+                        : parentMeow.originalUsername}
+                    </p>
+                  </div>
+                  <div className={general.buttonDateContainer}>
+                    {userId === parentMeow.author && (
+                      <DeleteEditMeow
+                        meow={parentMeow}
+                        setMeows={setParentMeow}
+                      />
+                    )}
+                    <p className={general.dateFormat}>{parentMeow.date}</p>
+                  </div>
                 </div>
               </div>
             </div>
             <div className={general.postContainerInView}>
-              <p className={general.meow}>{parentMeow.text}</p>
+              <p className={general.meow}>{renderMeowText(parentMeow.text)}</p>
             </div>
             <div className={general.iconsContainer}>
               <AllMeowButtons meow={parentMeow} authorUsername={username} />

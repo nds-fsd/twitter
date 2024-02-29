@@ -2,8 +2,7 @@ import styles from "./EditProfileForm.module.css";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import { userApi } from "../../functions/apiWrapper";
-import UploadUserProfilePhoto from "./UploadUserProfilePhoto";
-import UploadBackgroundProfilePhoto from "./UploadBackgroundProfilePhoto";
+import DeleteProfile from "./DeleteProfile";
 import Swal from "sweetalert2";
 
 const EditProfileForm = ({
@@ -15,6 +14,7 @@ const EditProfileForm = ({
   const [error, setError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [hideSubmit, setHideSubmit] = useState(false);
 
   const {
     register,
@@ -26,6 +26,14 @@ const EditProfileForm = ({
     if (!isValid) {
       setDisabled(true);
     }
+  };
+
+  const onClickHideSubmit = () => {
+    setHideSubmit(true);
+  };
+
+  const onClickShowSubmit = () => {
+    setHideSubmit(false);
   };
 
   const onSubmit = async (data) => {
@@ -65,18 +73,16 @@ const EditProfileForm = ({
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <header>
+        <header style={{ margin: 0 }}>
           <span onClick={close} className={styles.x}>
             x
           </span>
         </header>
         <h2 className={styles.tittle}>Edit Profile</h2>
-        <div className={styles.flex}>
-          <div className={styles.uploadPhotosContainer}>
-            <UploadUserProfilePhoto username={username} />
-            <UploadBackgroundProfilePhoto username={username} />
-          </div>
-          <div>
+        {hideSubmit === true ? (
+          ""
+        ) : (
+          <div className={styles.flex}>
             <div className={styles.inputContainer}>
               <input
                 className={styles.inputFields}
@@ -166,17 +172,22 @@ const EditProfileForm = ({
               )}
             </div>
           </div>
-        </div>
+        )}
 
-        <div className={styles.inputContainer}>
-          <button
-            onMouseOut={() => setDisabled(false)}
-            onMouseOver={mouseOverSubmit}
-            disabled={isValid ? false : true}
-            className={!disabled ? styles.submit : styles.notValid}
-          >
-            Submit
-          </button>
+        <div className={styles.buttons}>
+          <DeleteProfile username={username} hide={onClickHideSubmit} show={onClickShowSubmit}/>
+          {hideSubmit === true ? (
+            ""
+          ) : (
+            <button
+              onMouseOut={() => setDisabled(false)}
+              onMouseOver={mouseOverSubmit}
+              disabled={isValid ? false : true}
+              className={!disabled ? styles.submit : styles.notValid}
+            >
+              Submit
+            </button>
+          )}
         </div>
       </form>
     </div>

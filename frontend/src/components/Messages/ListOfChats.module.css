@@ -1,0 +1,40 @@
+.tittleContainer {
+  align-items: center;
+  background-color: black;
+  border-bottom: 1px solid rgb(44, 44, 44);
+  height: 70px;
+  justify-content: center;
+  display: flex;
+  position: sticky;
+  top: 0;
+  width: 100%;
+
+}
+
+.tittle {
+    color: var(--main-color);
+    font-family: var(--main-font);
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.chatsContainer {
+    margin: 5%;
+}
+
+.chatList {
+    align-items: center;
+    display: flex;
+    margin: 5% 0;
+}
+
+.chatUsername {
+    cursor: pointer;
+}
+
+.chatUsername:hover {
+    color: var(--main-color);
+}

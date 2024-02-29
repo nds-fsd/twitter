@@ -1,10 +1,26 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./UploadPhoto.module.css";
-import { useState } from "react";
-import { cloudinaryApi } from "../../functions/apiWrapper";
+import { cloudinaryApi, userApi } from "../../functions/apiWrapper";
 import Loading from "../../effects/Loading";
 
 function UploadUserProfilePhoto({ username }) {
+  const [userProfilePhoto, setUserProfilePhoto] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const { username: urlUsername } = useParams();
+  const targetUsername = username ? username : urlUsername;
+
+  useEffect(() => {
+    userApi()
+      .get(`/${targetUsername}`)
+      .then((response) => {
+        const user = response.data;
+        setUserProfilePhoto(user.userProfilePhoto);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [targetUsername, isUploading]);
 
   const handleUploadUser = async (e) => {
     try {
@@ -20,15 +36,23 @@ function UploadUserProfilePhoto({ username }) {
       alert(error.message);
     }
   };
+
+  const handleProfilePhotoClick = () => {
+    document.getElementById("userFile").click();
+  };
+
   return (
-    <div className={styles.button}>
+    <div>
       {isUploading ? (
         <Loading />
       ) : (
         <>
-          <label htmlFor="userFile" className={styles.upload}>
-            Select User Photo
-          </label>
+          <img
+            src={userProfilePhoto}
+            alt="userProfilePhoto"
+            className={styles.userPhoto}
+            onClick={handleProfilePhotoClick}
+          />
           <input
             id="userFile"
             type="file"
@@ -40,4 +64,5 @@ function UploadUserProfilePhoto({ username }) {
     </div>
   );
 }
+
 export default UploadUserProfilePhoto;

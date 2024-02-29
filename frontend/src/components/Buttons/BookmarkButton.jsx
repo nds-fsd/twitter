@@ -47,6 +47,9 @@ const BookmarkButton = ({ meow, authorUsername }) => {
       if (response.status === 200) {
         setIsBookmarked(true);
         const recipientUsername = authorUsername || meow.authorUsername;
+        if (recipientUsername === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: recipientUsername,
           sender: loggedInUser.username,
@@ -82,6 +85,9 @@ const BookmarkButton = ({ meow, authorUsername }) => {
       if (response.status === 200) {
         setIsBookmarked(false);
         const recipientUsername = authorUsername || meow.authorUsername;
+        if (recipientUsername === loggedInUser.username) {
+          return;
+        }
         const dataNotification = {
           recipient: recipientUsername,
           sender: loggedInUser.username,
@@ -113,7 +119,7 @@ const BookmarkButton = ({ meow, authorUsername }) => {
       data-tooltip-content="Bookmark"
       data-tooltip-place="top"
     >
-      <p className={styles.buttonsText}>{meow.bookmarks}</p>
+      <p className={styles.buttonsText}>{bookmarkCounter}</p>
       <button
         id="bookmarkButton"
         type="button"
@@ -128,7 +134,7 @@ const BookmarkButton = ({ meow, authorUsername }) => {
         disabled={isLoading}
       >
         {isBookmarked ? (
-          <Bookmark color="grey" fill="#ff5200" strokeWidth={0} size={20} />
+          <Bookmark color="grey" fill="#568340" strokeWidth={0} size={20} />
         ) : (
           <Bookmark color="grey" size={20} />
         )}
