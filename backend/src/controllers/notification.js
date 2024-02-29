@@ -1,5 +1,5 @@
-const Notification = require("../schemas/notification");
-const User = require("../schemas/user");
+const Notification = require("../schemas/mongo/notification");
+const User = require("../schemas/mongo/user");
 
 const createNotification = async (req, res) => {
   try {

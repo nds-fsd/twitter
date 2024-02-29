@@ -1,5 +1,5 @@
-const Follow = require("../schemas/follow");
-const User = require("../schemas/user");
+const Follow = require("../schemas/mongo/follow");
+const User = require("../schemas/mongo/user");
 
 const checkFollowStatus = async (req, res) => {
   try {

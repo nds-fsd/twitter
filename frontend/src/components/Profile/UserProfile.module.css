@@ -9,7 +9,6 @@
   background-color: black;
   height: 70px;
   width: 100%;
-  z-index: 0;
 }
 
 .nameContainerScroll {
@@ -32,6 +31,12 @@
 
 .profileInfo {
   padding-left: 20px;
+}
+
+.nameAndChatButton {
+  align-items: center;
+  display: flex;
+  gap: 5%;
 }
 
 .name {
@@ -109,7 +114,7 @@
   top: 0;
   transition: opacity 0.3s ease;
   width: 100%;
-  z-index: 2;
+  z-index: 10;
 }
 
 .active {

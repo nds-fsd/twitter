@@ -13,12 +13,6 @@ body {
   height: 100%;
 }
 
-.centerContainer {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
 .navbar {
   border-right: 1px solid #2f2f2f;
   display: flex;

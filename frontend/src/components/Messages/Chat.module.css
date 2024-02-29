@@ -1,0 +1,87 @@
+.backContainer {
+  align-items: center;
+  background-color: black;
+  height: 70px;
+  display: flex;
+  padding-left: 5%;
+  position: sticky;
+  top: 0;
+  width: 95%;
+  cursor: pointer;
+}
+
+.backText {
+  font-size: 20px;
+  margin: 10px;
+}
+
+.chatContainer {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2% 5%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sendMessageContainer {
+  background-color: black;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 3% 5%;
+  position: sticky;
+}
+
+.messageInput {
+  border: 0;
+  border-radius: 20px;
+  color: black;
+  padding-left: 10px;
+  width: 70%;
+}
+
+.sendButton {
+  background-color: var(--main-color);
+  border: none;
+  color: white;
+  font-family: var(--main-font);
+  font-size: 14px;
+  font-weight: 500;
+  height: fit-content;
+  padding: 7px 15px;
+  width: max-content;
+}
+
+.sendButton:hover {
+  background-color: var(--color-hover);
+}
+
+/* input {
+  border-radius: 25%;
+  border: 1px solid #eee;
+  flex: 1;
+  margin: 4px;
+  padding: 0 8px;
+}
+
+input:focus {
+  outline: 0;
+}
+
+button {
+  background: #09f;
+  color: #fff;
+  border: 0;
+  margin: 4px;
+  border-radius: 4px;
+}
+
+button:hover {
+  background: #0cf;
+} */

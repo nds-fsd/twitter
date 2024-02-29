@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./UserProfile.module.css";
 import TabsProfile from "./TabsProfile.jsx";
-import { userApi } from "../../functions/apiWrapper.js";
+import { userApi, chatApi } from "../../functions/apiWrapper.js";
 import FollowButton from "../Buttons/FollowButton.jsx";
 import { getUserSession } from "../../functions/localStorage.js";
 import EditProfileForm from "./EditProfileForm.jsx";
@@ -15,6 +15,7 @@ import PhotoUserProfile from "./PhotoUserProfile.jsx";
 import PhotoBackgroundProfile from "./PhotoBackgroundProfile.jsx";
 
 function UserProfile() {
+  const [userId, setUserId] = useState("");
   const [name, setName] = useState("");
   const [meowsLiked, setMeowsLiked] = useState(false);
   const [meowsFiltered, setMeowsFiltered] = useState(true);
@@ -31,28 +32,20 @@ function UserProfile() {
   const loggedInUser = getUserSession();
   const isOwnProfile = loggedInUser && urlUsername === loggedInUser.username;
 
+  const tabs = [{ text: "Meows" }, { text: "Likes" }];
   const dataUserToEdit = { name, surname, description, town };
+  const photoStyle = "profile";
+
+  const navigate = useNavigate();
 
   const [popUpEditProfile, setPopUpEditProfile] = useState(false);
-  const handlePopUpEditProfileClick = () => {
-    setPopUpEditProfile(!popUpEditProfile);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      setPopUpEditProfile(false);
-    }
-  });
 
   useEffect(() => {
     userApi()
       .get(`/${urlUsername}`)
       .then((response) => {
         const user = response.data;
+        setUserId(user._id);
         setName(user.name);
         setSurname(user.surname);
         setUsername(user.username);
@@ -68,6 +61,34 @@ function UserProfile() {
       });
   }, [urlUsername]);
 
+  const handleCreateChat = async () => {
+    const data = {
+      user1: userId,
+      user2: loggedInUser.id,
+    };
+
+    try {
+      const res = await chatApi().post(`/`, data);
+      navigate("/messages/" + loggedInUser.username + "/chat/" + res.data.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handlePopUpEditProfileClick = () => {
+    setPopUpEditProfile(!popUpEditProfile);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      setPopUpEditProfile(false);
+    }
+  });
+
   const handleEditProfileSubmit = (data) => {
     setPopUpEditProfile(false);
     setName(data.name || name);
@@ -75,8 +96,6 @@ function UserProfile() {
     setDescription(data.description || description);
     setTown(data.town || town);
   };
-
-  const tabs = [{ text: "Meows" }, { text: "Likes" }];
 
   const [color, setColor] = useState(false);
   const changeColor = () => {
@@ -87,8 +106,6 @@ function UserProfile() {
     }
   };
   window.addEventListener("scroll", changeColor);
-
-  const photoStyle = "profile";
 
   useEffect(() => {
     if (popUpEditProfile) {
@@ -123,37 +140,50 @@ function UserProfile() {
             )}
             <div className={styles.photoContainer}>
               {isOwnProfile ? (
-                <UploadUserProfilePhoto
-                  username={username}
-                  photoStyle={photoStyle}
-                />
+                <>
+                  <UploadUserProfilePhoto
+                    username={username}
+                    photoStyle={photoStyle}
+                  />
+                  <button
+                    className={styles.editProfile}
+                    onClick={handlePopUpEditProfileClick}
+                  >
+                    Edit profile
+                  </button>
+                </>
               ) : (
-                <PhotoUserProfile username={username} photoStyle={photoStyle} />
-              )}
+                <>
+                  <PhotoUserProfile
+                    username={username}
+                    photoStyle={photoStyle}
+                  />
 
-              {isOwnProfile ? (
-                <button
-                  className={styles.editProfile}
-                  onClick={handlePopUpEditProfileClick}
-                >
-                  Edit profile
-                </button>
-              ) : (
-                <FollowButton username={urlUsername} />
+                  <FollowButton username={urlUsername} />
+                </>
               )}
             </div>
           </div>
           <br></br>
           <div className={styles.profileInfo}>
-            <p className={styles.name}>
-              {name} {surname}
-            </p>
+            <div className={styles.nameAndChatButton}>
+              <p className={styles.name}>
+                {name} {surname}
+              </p>{" "}
+              <button
+                className={styles.editProfile}
+                onClick={() => {
+                  handleCreateChat();
+                }}
+              >
+                Chat
+              </button>
+            </div>
             <p className={styles.grayFont}>@{username}</p>
             <p>
               <br />
               {description}
             </p>
-
             <br />
             <div className={styles.info}>
               {town !== undefined ? (

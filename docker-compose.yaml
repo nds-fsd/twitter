@@ -1,14 +1,44 @@
 version: "3.7"
 services:
+  metabase:
+    image: metabase/metabase:latest
+    restart: always
+    container_name: metabase-dev
+    hostname: metabase
+    volumes:
+      - ./metabase:/metabase-data
+      - ./metabase:/dev/random:ro
+    ports:
+      - "4000:3000"
+    networks:
+      - meower
   mongo:
     image: mongo:latest
     restart: always
     container_name: mongodb-dev
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: monorepo
-      MONGO_INITDB_ROOT_PASSWORD: monorepo
+    hostname: mongodb
+    env_file:
+      - .env
     volumes:
-      - ./data:/data/db
-      - ./data/log:/var/log/mongodb/
+      - ./mongodata:/data/db
+      - ./mongodata/log:/var/log/mongodb/
     ports:
       - "27017:27017"
+    networks:
+      - meower
+  postgres:
+    image: postgres:latest
+    restart: always
+    container_name: postgres-dev
+    hostname: postgres
+    env_file:
+      - .env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - meower
+networks:
+  meower:
+    driver: bridge

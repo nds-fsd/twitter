@@ -1,6 +1,6 @@
-const Bookmark = require("../schemas/bookmark");
-const Meow = require("../schemas/meow");
-const User = require("../schemas/user");
+const Bookmark = require("../schemas/mongo/bookmark");
+const Meow = require("../schemas/mongo/meow");
+const User = require("../schemas/mongo/user");
 
 const checkBookmarkStatus = async (req, res) => {
   try {
