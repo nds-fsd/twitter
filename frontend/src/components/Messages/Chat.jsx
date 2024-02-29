@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserSession } from "../../functions/localStorage.js";
 import Message from "./Message.jsx";
@@ -23,6 +23,8 @@ const Chat = ({}) => {
   const [messageToSend, setMessageToSend] = useState("");
   const { chatId: chatId } = useParams();
   const navigate = useNavigate();
+  const messagesEndRef = useRef(null);
+
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -41,6 +43,16 @@ const Chat = ({}) => {
 
     fetchMessages();
   }, [chatId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const handleClick = async () => {
     if (!userProp || !messageToSend) return;
@@ -63,7 +75,7 @@ const Chat = ({}) => {
     <>
       <div className={styles.backContainer}>
         <ArrowLeft absoluteStrokeWidth />
-        <p onClick={() => navigate("/home")} className={styles.backText}>
+        <p onClick={() => navigate(`/messages/${logedUser.username}`)} className={styles.backText}>
           Back
         </p>
       </div>
@@ -79,6 +91,7 @@ const Chat = ({}) => {
                 />
               </li>
             ))}
+          <div ref={messagesEndRef} />
         </ul>
       </div>
       <div className={styles.sendMessageContainer}>
