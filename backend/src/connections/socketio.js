@@ -1,5 +1,6 @@
 const io = require("socket.io");
 const jwt = require("jsonwebtoken");
+const Message = require("../schemas/pg/message");
 
 const connectSocketIO = async (server) => {
   const socketIOInstance = io(server, { cors: { origins: ["*"] } });
@@ -24,12 +25,23 @@ const connectSocketIO = async (server) => {
       socket.join(chatId);
     });
 
-    socket.on("chat", (data) => {
-      socket.to(data.chatId).emit("chat", {
-        user: data.user,
-        username: data.username,
-        text: data.text,
-      });
+    socket.on("chat", async (data) => {
+      try {
+        const newMessage = await Message.create({
+          user: data.user,
+          username: data.username,
+          text: data.text,
+          chat: data.chat,
+        });
+        const chatRoom = newMessage.chat.toString();
+        socket.to(chatRoom).emit("chat", {
+          username: newMessage.username,
+          text: newMessage.text,
+          createdAt: newMessage.createdAt,
+        });
+      } catch (error) {
+        console.error("Error saving message to database:", error);
+      }
     });
 
     socket.on("disconnect", () => {
