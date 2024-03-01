@@ -9,7 +9,7 @@ import { messageApi } from "../../functions/apiWrapper.js";
 import { formatDate } from "../../functions/dateFormat.js";
 import { ArrowLeft } from "lucide-react";
 
-const socket = io("http://localhost:3001", {
+const socket = io(process.env.REACT_APP_BACKEND_URL, {
   reconnection: false,
   auth: {
     token: getUserToken(),
@@ -75,7 +75,10 @@ const Chat = ({}) => {
     <>
       <div className={styles.backContainer}>
         <ArrowLeft absoluteStrokeWidth />
-        <p onClick={() => navigate(`/messages/${logedUser.username}`)} className={styles.backText}>
+        <p
+          onClick={() => navigate(`/messages/${logedUser.username}`)}
+          className={styles.backText}
+        >
           Back
         </p>
       </div>
