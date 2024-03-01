@@ -1,11 +1,8 @@
 const io = require("socket.io");
 const jwt = require("jsonwebtoken");
 const Message = require("../schemas/pg/message");
-const { connectPostgresDB } = require("./postgres");
 
 const connectSocketIO = async (server) => {
-  await connectPostgresDB();
-
   const socketIOInstance = io(server, { cors: { origins: ["*"] } });
 
   socketIOInstance.use((socket, next) => {
