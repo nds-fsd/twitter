@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { getUserSession } from "../../functions/localStorage.js";
 import { chatApi, userApi } from "../../functions/apiWrapper.js";
 import PhotoUserProfile from "../Profile/PhotoUserProfile.jsx";
-import { socket } from "./Chat.jsx";
 import styles from "./ListOfChats.module.css";
 
 const ListOfChats = () => {
@@ -41,7 +40,6 @@ const ListOfChats = () => {
   };
 
   const joinChatRoom = (chatId) => {
-    socket.emit("joinRoom", chatId.toString());
     navigate(`/messages/${logedUser.username}/chat/${chatId}`);
   };
 

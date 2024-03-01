@@ -26,6 +26,8 @@ const Chat = ({}) => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
+    socket.emit("joinRoom", chatId.toString());
+
     const fetchMessages = async () => {
       try {
         const response = await messageApi().get(`/${chatId}`);
@@ -113,4 +115,4 @@ const Chat = ({}) => {
   );
 };
 
-export { Chat, socket };
+export { Chat };
