@@ -31,7 +31,7 @@ As a Social application, Meower is designed to connect people and keep them upda
 - PostgreSQL
 - Axios
 - Docker (Dev Environment)
-- Metabase
+- Metabase (Dev Environment)
 - Mailgun
 - CSS
 
@@ -43,35 +43,7 @@ Copy the repository into your local device. You can find it also in https://gith
   gh repo clone nds-fsd/twitter
 ```
 
-Install Meower Project with npm
-
-```bash
-  npm install
-```
-
-Create Docker:
-
-```bash
-  docker compose up -d
-```
-
-Run the application using this command:
-
-```bash
-  npm run dev
-```
-
-To execute tests in main folder:
-
-```bash
-  npm run start:test
-```
-
-To execute tests in backend folder:
-
-```bash
-  npm run test
-```
+After that, create your .env files.
 
 Twitter folder .env
 
@@ -108,27 +80,86 @@ Frontend folder .env
 REACT_APP_BACKEND_URL = http://localhost:3001
 ```
 
+Install Meower Project with npm
+
+```bash
+  npm install
+```
+
+Create Docker:
+
+```bash
+  docker compose up -d
+```
+
+Run the application using this command:
+
+```bash
+  npm run dev
+```
+
+To execute tests in main folder:
+
+```bash
+  npm run start:test
+```
+
+To execute tests in backend folder:
+
+```bash
+  npm run test
+```
+
 ## UI
 
 ### Home
 
-![alt text](image.png)
+![alt text](./ReadmeImages/home.png)
 
 ### Feed
 
-![alt text](image-4.png)
+![alt text](./ReadmeImages/feed.png)
 
 ### Profile
 
-![alt text](image-5.png)
+![alt text](./ReadmeImages/profile.png)
 
 ### Chat
 
-![alt text](image-7.png)
+![alt text](./ReadmeImages/chat.png)
 
 ### Notifications list
 
-![alt text](image-6.png)
+![alt text](./ReadmeImages/notifications.png)
+
+# Other importan information
+
+## Coverage
+
+![alt text](./ReadmeImages/coverage.png)
+
+## Data Base Schema
+
+### PostgreSQL Schema
+
+![alt text](./ReadmeImages/PostgrSQLBD.png)
+
+### MongoDB Schema
+
+![alt text](./ReadmeImages/MongoDB.png)
+
+## Email template
+
+![alt text](./ReadmeImages/e-template.png)
+
+## Color Reference
+
+| Color          | Hex                                                              |
+| -------------- | ---------------------------------------------------------------- |
+| Main color     | ![#568340](https://via.placeholder.com/10/568340?text=+) #0a192f |
+| Color hover    | ![#496d37](https://via.placeholder.com/10/496d37?text=+) #f8f8f8 |
+| Sections color | ![#222222](https://via.placeholder.com/10/222222?text=+) #00b48a |
+| Sections hover | ![#2f2f2f](https://via.placeholder.com/10/2f2f2f?text=+) #00d1a0 |
 
 ## 🔗 Authors
 
@@ -151,32 +182,3 @@ REACT_APP_BACKEND_URL = http://localhost:3001
 
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/bethrb2003)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/elisabeth-remeseiro-blanch-704005211)
-
-# Other importan information
-
-## Coverage
-
-![alt text](image-1.png)
-
-## Data Base Schema
-
-### PostgreSQL Schema
-
-![alt text](image-3.png)
-
-### MongoDB Schema
-
-![alt text](DB.png)
-
-## Email template
-
-![alt text](image-2.png)
-
-## Color Reference
-
-| Color          | Hex                                                              |
-| -------------- | ---------------------------------------------------------------- |
-| Main color     | ![#568340](https://via.placeholder.com/10/568340?text=+) #0a192f |
-| Color hover    | ![#496d37](https://via.placeholder.com/10/496d37?text=+) #f8f8f8 |
-| Sections color | ![#222222](https://via.placeholder.com/10/222222?text=+) #00b48a |
-| Sections hover | ![#2f2f2f](https://via.placeholder.com/10/2f2f2f?text=+) #00d1a0 |
