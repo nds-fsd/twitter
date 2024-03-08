@@ -8,13 +8,13 @@ router.post(
   "/profile/",
   validateToken,
   upload.single("userFile"),
-  cloudinaryController.uploadUserProfilePhoto
+  cloudinaryController.uploadUserProfilePhoto,
 );
 router.post(
   "/background/",
   validateToken,
   upload.single("backgroundFile"),
-  cloudinaryController.uploadBackgroundProfilePhoto
+  cloudinaryController.uploadBackgroundProfilePhoto,
 );
 
 module.exports = router;

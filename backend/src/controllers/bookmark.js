@@ -49,7 +49,7 @@ const getMeowsBookmarked = async (req, res) => {
           }
         }
         return meow;
-      })
+      }),
     );
     meowsBookmarked = meowsWithOriginalAuthors;
 
@@ -101,7 +101,7 @@ const bookmarkMeow = async (req, res) => {
     await Meow.findByIdAndUpdate(
       meowId,
       { $inc: { bookmarks: 1 } },
-      { new: true }
+      { new: true },
     );
 
     return res.status(200).json({
@@ -149,7 +149,7 @@ const unbookmarkMeow = async (req, res) => {
     await Meow.findByIdAndUpdate(
       meowId,
       { $inc: { bookmarks: -1 } },
-      { new: true }
+      { new: true },
     );
 
     return res.status(200).json({

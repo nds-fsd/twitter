@@ -8,33 +8,32 @@
   position: sticky;
   top: 0;
   width: 100%;
-
 }
 
 .tittle {
-    color: var(--main-color);
-    font-family: var(--main-font);
-    font-size: 25px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    width: 100%;
+  color: var(--main-color);
+  font-family: var(--main-font);
+  font-size: 25px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
 }
 
 .chatsContainer {
-    margin: 5%;
+  margin: 5%;
 }
 
 .chatList {
-    align-items: center;
-    display: flex;
-    margin: 5% 0;
+  align-items: center;
+  display: flex;
+  margin: 5% 0;
 }
 
 .chatUsername {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .chatUsername:hover {
-    color: var(--main-color);
+  color: var(--main-color);
 }

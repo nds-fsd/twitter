@@ -47,7 +47,7 @@ const getMeowsLiked = async (req, res) => {
           }
         }
         return meow;
-      })
+      }),
     );
 
     return res.status(200).json(meowsWithOriginalAuthors);
@@ -142,7 +142,7 @@ const unlikeMeow = async (req, res) => {
     await Meow.findByIdAndUpdate(
       meowId,
       { $inc: { likes: -1 } },
-      { new: true }
+      { new: true },
     );
 
     return res.status(200).json({

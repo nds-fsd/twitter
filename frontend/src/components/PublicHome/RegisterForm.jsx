@@ -84,10 +84,10 @@ const RegisterForm = ({ close, change }) => {
   const minYear = today.getFullYear() - 14;
   const maxYear = today.getFullYear() - 100;
   const minAge = new Date(
-    [minYear, today.getMonth() + 1, today.getDate()].join("-")
+    [minYear, today.getMonth() + 1, today.getDate()].join("-"),
   );
   const maxAge = new Date(
-    [maxYear, today.getMonth() + 1, today.getDate()].join("-")
+    [maxYear, today.getMonth() + 1, today.getDate()].join("-"),
   );
 
   if (error) {

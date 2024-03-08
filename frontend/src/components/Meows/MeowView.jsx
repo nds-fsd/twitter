@@ -46,7 +46,7 @@ const MeowView = () => {
       try {
         const res = await meowApi().patch(id, { $inc: { views: 1 } });
         const parentMeowToShow = formatDate(
-          res.data.meowsWithOriginalAuthors[0]
+          res.data.meowsWithOriginalAuthors[0],
         );
 
         setParentMeow(parentMeowToShow);
@@ -69,15 +69,15 @@ const MeowView = () => {
               return possibleMention;
             } catch (userError) {
               console.error(
-                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`,
               );
               return undefined;
             }
-          })
+          }),
         );
 
         const successfulMentions = mentionDetails.filter(
-          (mention) => mention !== undefined
+          (mention) => mention !== undefined,
         );
 
         setUserMentions(successfulMentions);
@@ -115,7 +115,7 @@ const MeowView = () => {
         meowText.push(
           <a key={index} href={`/user/${mention}`}>
             {match}
-          </a>
+          </a>,
         );
       } else {
         meowText.push(<span key={index}>{match}</span>);
@@ -170,7 +170,7 @@ const MeowView = () => {
         };
         const notification = await notificationApi().post(
           `/`,
-          dataNotification
+          dataNotification,
         );
         if (notification.status === 201) {
         } else {
@@ -215,7 +215,7 @@ const MeowView = () => {
                           "/user/" +
                             (!parentMeow.repostedMeowId
                               ? parentMeow.username
-                              : parentMeow.originalUsername)
+                              : parentMeow.originalUsername),
                         )
                       }
                       className={general.nameSurname}

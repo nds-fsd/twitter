@@ -124,7 +124,7 @@ describe("Follow Controller TEST", () => {
         .expect(200);
 
       expect(resFollow.body.message).toBe(
-        "The user has been followed successfully"
+        "The user has been followed successfully",
       );
 
       getFollowerUser = await fakeRequest
@@ -169,7 +169,7 @@ describe("Follow Controller TEST", () => {
         .expect(200);
 
       expect(resFollow.body.message).toBe(
-        "You have successfully unfollowed the user"
+        "You have successfully unfollowed the user",
       );
 
       getFollowerUser = await fakeRequest

@@ -7,17 +7,17 @@ router.post("/", validateToken, notificationController.createNotification);
 router.patch(
   "/:notificationId",
   validateToken,
-  notificationController.editNotification
+  notificationController.editNotification,
 );
 router.get(
   "/:username",
   validateToken,
-  notificationController.getUserNotification
+  notificationController.getUserNotification,
 );
 router.delete(
   "/:notificationId",
   validateToken,
-  notificationController.deleteNotification
+  notificationController.deleteNotification,
 );
 
 module.exports = router;

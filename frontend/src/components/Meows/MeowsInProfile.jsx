@@ -24,7 +24,7 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
       try {
         const res = await meowApi().get(username);
         const meowsToShow = res.data.meowsWithOriginalAuthors.map((meow) =>
-          formatDate(meow)
+          formatDate(meow),
         );
         setMeows(meowsToShow.reverse());
         setName(res.data.user.name);
@@ -47,15 +47,15 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
               return possibleMention;
             } catch (userError) {
               console.error(
-                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`,
               );
               return undefined;
             }
-          })
+          }),
         );
 
         const successfulMentions = mentionDetails.filter(
-          (mention) => mention !== undefined
+          (mention) => mention !== undefined,
         );
 
         setUserMentions(successfulMentions);
@@ -80,7 +80,7 @@ function MeowsInProfile({ username, meowCounter, setMeowCounter }) {
         meowText.push(
           <a key={index} href={`/user/${mention}`}>
             {match}
-          </a>
+          </a>,
         );
       } else {
         meowText.push(<span key={index}>{match}</span>);

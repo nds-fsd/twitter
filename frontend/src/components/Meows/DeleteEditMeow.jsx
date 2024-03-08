@@ -90,8 +90,8 @@ const DeleteEditMeow = ({
       setMeows(
         updatedMeows.filter(
           (element) =>
-            element._id !== meow._id && element.repostedMeowId !== meow._id
-        )
+            element._id !== meow._id && element.repostedMeowId !== meow._id,
+        ),
       );
 
       if (isUserRoute) setMeowCounter(meowCounter - 1);

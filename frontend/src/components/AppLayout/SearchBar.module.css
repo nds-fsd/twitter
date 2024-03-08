@@ -53,18 +53,14 @@
   color: black;
   font-size: 14px;
   padding: 1%;
- 
-
 }
-span{
+span {
   color: black;
   cursor: pointer;
 }
 span:hover {
   text-decoration: underline;
 }
-
-
 
 @media (max-width: 1000px) {
   .search {

@@ -103,7 +103,7 @@ describe("Like Controller TEST", () => {
         .expect(200);
 
       expect(resUnlike.body.message).toBe(
-        "The meow has been unliked successfully"
+        "The meow has been unliked successfully",
       );
 
       getLikedMeow = await fakeRequest

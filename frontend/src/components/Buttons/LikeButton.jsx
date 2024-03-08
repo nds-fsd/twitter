@@ -41,7 +41,7 @@ const LikeButton = ({ meow, authorUsername }) => {
       const response = await likeApi().post(
         `/${meow._id}`,
         { meowId: meow._id },
-        {}
+        {},
       );
 
       if (response.status === 200) {
@@ -58,7 +58,7 @@ const LikeButton = ({ meow, authorUsername }) => {
         };
         const notification = await notificationApi().post(
           `/`,
-          dataNotification
+          dataNotification,
         );
         if (notification.status === 201) {
         } else {
@@ -96,7 +96,7 @@ const LikeButton = ({ meow, authorUsername }) => {
         };
         const notification = await notificationApi().post(
           `/`,
-          dataNotification
+          dataNotification,
         );
         if (notification.status === 201) {
         } else {

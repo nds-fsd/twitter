@@ -71,25 +71,26 @@ const searchUsers = async (req, res) => {
     const keywords = substring.split(" ");
 
     // Crear un arreglo de expresiones regulares para cada palabra clave
-    const regexKeywords = keywords.map(keyword => new RegExp(`^${keyword}`, 'i'));
+    const regexKeywords = keywords.map(
+      (keyword) => new RegExp(`^${keyword}`, "i"),
+    );
 
     // Crear una expresión regular para buscar coincidencias en name y surname
-    const regexNameSurname = new RegExp(`^${substring}`, 'i'); 
+    const regexNameSurname = new RegExp(`^${substring}`, "i");
 
     // Buscar usuarios que coincidan con el substring en name, surname o username
     const users = await User.find({
       $or: [
         { name: { $in: regexKeywords } },
         { surname: { $in: regexKeywords } },
-        { username: regexNameSurname }
-      ]
+        { username: regexNameSurname },
+      ],
     });
 
     // Filtrar usuarios únicos basados en su ID
-    const uniqueUsers = users.filter((user, index, self) => 
-      index === self.findIndex((u) => (
-        u._id === user._id
-      ))
+    const uniqueUsers = users.filter(
+      (user, index, self) =>
+        index === self.findIndex((u) => u._id === user._id),
     );
 
     res.status(200).json(uniqueUsers);
@@ -218,11 +219,11 @@ const deleteUser = async (req, res) => {
       for (const follow of userFollows) {
         await User.updateOne(
           { _id: follow.follower },
-          { $inc: { followingCounter: -1 } }
+          { $inc: { followingCounter: -1 } },
         );
         await User.updateOne(
           { _id: follow.followed },
-          { $inc: { followerCounter: -1 } }
+          { $inc: { followerCounter: -1 } },
         );
       }
       await Follow.deleteMany({

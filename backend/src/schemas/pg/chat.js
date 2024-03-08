@@ -30,7 +30,7 @@ const Chat = sequelize.define(
   {
     timestamps: false,
     freezeTableName: true,
-  }
+  },
 );
 
 module.exports = Chat;
