@@ -175,7 +175,11 @@ const EditProfileForm = ({
         )}
 
         <div className={styles.buttons}>
-          <DeleteProfile username={username} hide={onClickHideSubmit} show={onClickShowSubmit}/>
+          <DeleteProfile
+            username={username}
+            hide={onClickHideSubmit}
+            show={onClickShowSubmit}
+          />
           {hideSubmit === true ? (
             ""
           ) : (

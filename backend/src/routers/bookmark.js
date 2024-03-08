@@ -7,7 +7,7 @@ router.get("/:meowId", validateToken, bookmarkController.checkBookmarkStatus);
 router.get(
   "/user/:userId",
   validateToken,
-  bookmarkController.getMeowsBookmarked
+  bookmarkController.getMeowsBookmarked,
 );
 router.post("/:meowId", validateToken, bookmarkController.bookmarkMeow);
 router.delete("/:meowId", validateToken, bookmarkController.unbookmarkMeow);

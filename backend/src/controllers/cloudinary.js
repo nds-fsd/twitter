@@ -43,10 +43,10 @@ const uploadUserProfilePhoto = async (req, res) => {
 
         await User.findOneAndUpdate(
           { username },
-          { userProfilePhoto: result.secure_url, userProfilePhotoStatus: true }
+          { userProfilePhoto: result.secure_url, userProfilePhotoStatus: true },
         );
         return res.status(200).json(result);
-      }
+      },
     );
   } catch (error) {
     console.error(error);
@@ -89,10 +89,10 @@ const uploadBackgroundProfilePhoto = async (req, res) => {
           {
             backgroundProfilePhoto: result.secure_url,
             backgroundProfilePhotoStatus: true,
-          }
+          },
         );
         return res.status(200).json(result);
-      }
+      },
     );
   } catch (error) {
     console.error(error);

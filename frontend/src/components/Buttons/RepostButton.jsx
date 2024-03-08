@@ -33,8 +33,8 @@ const RepostButton = ({
         if (recipientUsername === loggedInUser.username) {
           if (isInUserRoute) {
             setReloadProfilePage(!reloadProfilePage);
-          }else if(isInViewMeowRoute){
-            navigate('/home')
+          } else if (isInViewMeowRoute) {
+            navigate("/home");
           }
           return reload.setReload(!reload.reload);
         }
@@ -47,10 +47,10 @@ const RepostButton = ({
 
         const notification = await notificationApi().post(
           `/`,
-          dataNotification
+          dataNotification,
         );
-        if(isInViewMeowRoute){
-          navigate('/home')
+        if (isInViewMeowRoute) {
+          navigate("/home");
         }
 
         if (notification.status === 201) {

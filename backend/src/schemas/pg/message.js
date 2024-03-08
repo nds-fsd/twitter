@@ -33,7 +33,7 @@ const Message = sequelize.define(
   },
   {
     freezeTableName: true,
-  }
+  },
 );
 
 module.exports = Message;

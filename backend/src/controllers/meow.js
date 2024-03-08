@@ -11,7 +11,7 @@ const getFeedMeows = async (req, res) => {
     const meowsYouFollow = await Meow.find({
       author: {
         $in: resultado.map((follow) =>
-          mongoose.Types.ObjectId(follow.followed)
+          mongoose.Types.ObjectId(follow.followed),
         ),
       },
     });
@@ -38,7 +38,7 @@ const getFeedMeows = async (req, res) => {
           }
         }
         return meow;
-      })
+      }),
     );
 
     return res.json(meowsWithOriginalAuthors);
@@ -95,7 +95,7 @@ const getProfileMeows = async (req, res) => {
           authorName: user.name,
           authorSurname: user.surname,
         };
-      })
+      }),
     );
     res.status(200).json({ meowsWithOriginalAuthors, user });
   } catch (error) {
@@ -116,7 +116,7 @@ const getMeowReplies = async (req, res) => {
 
       const authorDetails = await User.find(
         { _id: { $in: uniqueAuthorIds } },
-        "username name surname"
+        "username name surname",
       );
 
       const authorMap = authorDetails.reduce((map, user) => {
@@ -192,7 +192,7 @@ const repostMeow = async (req, res) => {
       meow.repostedMeowId = repost.repostedMeowId;
       await Meow.updateOne(
         { _id: meow.repostedMeowId },
-        { $inc: { reposts: 1 } }
+        { $inc: { reposts: 1 } },
       );
     } else {
       meow.repostedMeowId = repost._id;
@@ -238,7 +238,7 @@ const updateMeow = async (req, res) => {
           }
         }
         return meow;
-      })
+      }),
     );
 
     return res.status(200).json({ userFound, meowsWithOriginalAuthors });
@@ -258,14 +258,14 @@ const deleteMeow = async (req, res) => {
       if (meowFound.parentMeow) {
         await Meow.updateOne(
           { _id: meowFound.parentMeow },
-          { $inc: { replies: -1 } }
+          { $inc: { replies: -1 } },
         );
       }
       if (meowFound.repostedMeowId) {
         const originalMeow = await Meow.findById(meowFound.repostedMeowId);
         await Meow.updateOne(
           { _id: originalMeow._id },
-          { $inc: { reposts: -1 } }
+          { $inc: { reposts: -1 } },
         );
       }
       await Meow.deleteMany({ repostedMeowId: id });

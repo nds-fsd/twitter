@@ -46,7 +46,7 @@ const FollowButton = ({ username }) => {
         };
         const notification = await notificationApi().post(
           `/`,
-          dataNotification
+          dataNotification,
         );
         if (notification.status === 201) {
         } else {
@@ -83,7 +83,7 @@ const FollowButton = ({ username }) => {
         };
         const notification = await notificationApi().post(
           `/`,
-          dataNotification
+          dataNotification,
         );
         if (notification.status === 201) {
         } else {

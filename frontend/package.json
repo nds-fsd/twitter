@@ -30,6 +30,7 @@
     "@tanstack/react-query-devtools": "^5.20.1",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "cypress": "^13.6.3",
+    "prettier": "^3.2.5",
     "vite": "^5.0.4"
   }
 }

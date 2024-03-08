@@ -45,7 +45,7 @@ const MeowsBookmarked = () => {
         setMeows(data.reverse());
 
         const uniqueAuthorIds = Array.from(
-          new Set(data.map((meow) => meow.author))
+          new Set(data.map((meow) => meow.author)),
         );
         const authorDetails = await Promise.all(
           uniqueAuthorIds.map(async (authorId) => {
@@ -59,18 +59,18 @@ const MeowsBookmarked = () => {
               };
             } catch (userError) {
               console.error(
-                `Error fetching user with ID ${authorId}: ${userError.message}`
+                `Error fetching user with ID ${authorId}: ${userError.message}`,
               );
               return {
                 authorId,
                 username: "Unknown User",
               };
             }
-          })
+          }),
         );
         const meowsWithUsernames = data.map((meow) => {
           const authorDetail = authorDetails.find(
-            (detail) => detail.authorId === meow.author
+            (detail) => detail.authorId === meow.author,
           );
           return {
             ...meow,
@@ -101,15 +101,15 @@ const MeowsBookmarked = () => {
               return possibleMention;
             } catch (userError) {
               console.error(
-                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`
+                `Error fetching possible mention with username ${possibleMention}: ${userError.message}`,
               );
               return undefined;
             }
-          })
+          }),
         );
 
         const successfulMentions = mentionDetails.filter(
-          (mention) => mention !== undefined
+          (mention) => mention !== undefined,
         );
 
         setUserMentions(successfulMentions);
@@ -137,7 +137,7 @@ const MeowsBookmarked = () => {
         meowText.push(
           <a key={index} href={`/user/${mention}`}>
             {match}
-          </a>
+          </a>,
         );
       } else {
         meowText.push(<span key={index}>{match}</span>);

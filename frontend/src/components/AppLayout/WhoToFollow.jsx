@@ -13,7 +13,7 @@ const WhoToFollow = () => {
   const [showMore, setShowMore] = useState(true);
   const reload = useContext(context);
   const photoStyle = "component";
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const WhoToFollow = () => {
           if (response.status === 200) {
             if (Array.isArray(response.data)) {
               const filteredUsers = response.data.filter(
-                (user) => user.username !== userSession.username
+                (user) => user.username !== userSession.username,
               );
 
               const randomUsers = filteredUsers.sort(() => Math.random() - 0.5);
@@ -55,7 +55,7 @@ const WhoToFollow = () => {
 
   const singleUser = (user) => (
     <div key={user.username} className={styles.containerFollow}>
-      <PhotoUserProfile photoStyle={photoStyle} usernamePhoto={user.username}/>
+      <PhotoUserProfile photoStyle={photoStyle} usernamePhoto={user.username} />
       <div>
         <p
           className={styles.name}

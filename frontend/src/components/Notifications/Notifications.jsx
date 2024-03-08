@@ -17,7 +17,7 @@ const Notifications = () => {
     const fetchNotifications = async () => {
       try {
         const notificationResponse = await notificationApi().get(
-          `/${urlUsername}`
+          `/${urlUsername}`,
         );
 
         if (notificationResponse.status === 204) {
@@ -29,7 +29,7 @@ const Notifications = () => {
           async (notification) => {
             try {
               const userResponse = await userApi().get(
-                `/id/${notification.sender}`
+                `/id/${notification.sender}`,
               );
               return {
                 ...notification,
@@ -41,7 +41,7 @@ const Notifications = () => {
             } catch (error) {
               console.error("Error fetching user:", error);
             }
-          }
+          },
         );
         setNotifications(await Promise.all(formattedNotifications));
       } catch (error) {
@@ -111,7 +111,7 @@ const Notifications = () => {
 
       if (!notification.read) {
         toast.success(
-          `New notification: @${notification.username} ${actionText}`
+          `New notification: @${notification.username} ${actionText}`,
         );
       }
 

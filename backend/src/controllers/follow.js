@@ -67,11 +67,11 @@ const followUser = async (req, res) => {
 
     await User.updateOne(
       { _id: follower.id },
-      { $inc: { followingCounter: 1 } }
+      { $inc: { followingCounter: 1 } },
     );
     await User.updateOne(
       { _id: followed.id },
-      { $inc: { followerCounter: 1 } }
+      { $inc: { followerCounter: 1 } },
     );
 
     await follow.save();
