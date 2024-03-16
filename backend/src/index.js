@@ -5,8 +5,7 @@ const { connectSocketIO } = require("./connections/socketio.js");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 const router = require("./routers/index");
 
 const app = express();
@@ -18,29 +17,29 @@ app.use("/", router);
 
 const server = require("http").createServer(app);
 
-connectMongoDB().then((error) => {
-  if (error) {
-    console.log(error);
-  } else {
+connectMongoDB()
+  .then(() => {
     console.log("Connected to Mongo database!");
-  }
-});
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
-connectPostgresDB().then((error) => {
-  if (error) {
-    console.log(error);
-  } else {
+connectPostgresDB()
+  .then(() => {
     console.log("Connected to Postgres database!");
-  }
-});
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
-connectSocketIO(server).then((error) => {
-  if (error) {
-    console.log(error);
-  } else {
+connectSocketIO(server)
+  .then(() => {
     console.log("Connected to WebSocket!");
-  }
-});
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 const port = process.env.PORT || 3001;
 server.listen(port, () => {

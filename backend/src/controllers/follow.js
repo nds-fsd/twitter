@@ -34,7 +34,7 @@ const followUser = async (req, res) => {
   try {
     const username = req.body.username;
     const followerId = req.jwtPayload.id;
-    const follower = await User.findById(followerId);
+    const follower = await User.findById(followerId); // TODO instead of retrieving the user, use the data from the JWT
     const followed = await User.findOne({ username });
 
     if (!follower) {
@@ -75,6 +75,7 @@ const followUser = async (req, res) => {
     );
 
     await follow.save();
+    // TODO return the follow object
     return res.status(200).json({
       message: "The user has been followed successfully",
     });

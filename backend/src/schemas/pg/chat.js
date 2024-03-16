@@ -1,20 +1,15 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../../connections/postgres");
-const Userpg = require("./userpg");
+const UserExternal = require("./user");
 
 const Chat = sequelize.define(
-  "chat",
+  "chat_rooms",
   {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     user1: {
       type: DataTypes.STRING(24),
       allowNull: false,
       references: {
-        model: Userpg,
+        model: UserExternal,
         key: "mongo_user_id",
       },
     },
@@ -22,13 +17,12 @@ const Chat = sequelize.define(
       type: DataTypes.STRING(24),
       allowNull: false,
       references: {
-        model: Userpg,
+        model: UserExternal,
         key: "mongo_user_id",
       },
     },
   },
   {
-    timestamps: false,
     freezeTableName: true,
   },
 );

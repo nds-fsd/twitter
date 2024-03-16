@@ -165,7 +165,7 @@ const MeowView = () => {
         const dataNotification = {
           recipient: parentMeowUsername,
           sender: username,
-          action: "replie",
+          action: "reply",
           post: res.data.meowToSave._id,
         };
         const notification = await notificationApi().post(

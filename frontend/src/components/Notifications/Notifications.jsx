@@ -90,7 +90,7 @@ const Notifications = () => {
         case "unbookmark":
           actionText = `has unbookmarked one of your posts`;
           break;
-        case "replie":
+        case "reply":
           actionText = `commented one of your posts`;
           break;
         case "repost":
@@ -105,7 +105,7 @@ const Notifications = () => {
           notification.action !== "follow" &&
           notification.action !== "unfollow"
         ) {
-          navigate(`/meow/${notification.post}`);
+          navigate(`/meow/${notification.meow}`);
         }
       };
 

@@ -8,6 +8,8 @@ cloudinary.config({
 });
 
 const uploadUserProfilePhoto = async (req, res) => {
+  // TODO - use id from user coming in the validated JWT
+  //  Because using the username in body would allow any registered user to change any other user's profile photo
   const { username } = req.body;
   const options = {
     overwrite: true,
@@ -55,6 +57,8 @@ const uploadUserProfilePhoto = async (req, res) => {
 };
 
 const uploadBackgroundProfilePhoto = async (req, res) => {
+  // TODO - use id from user coming in the validated JWT
+  //  Because using the username in body would allow any registered user to change any other user's profile photo
   const { username } = req.body;
   const options = {
     overwrite: true,

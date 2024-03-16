@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const notificationController = require("../controllers/notification");
-const { validateToken } = require("../middlewares/index");
+const { validateToken } = require("../middlewares/token-validator");
 
 router.post("/", validateToken, notificationController.createNotification);
 router.patch(
@@ -10,7 +10,7 @@ router.patch(
   notificationController.editNotification,
 );
 router.get(
-  "/:username",
+  "/:username", // TODO - use query params to filter by username instead
   validateToken,
   notificationController.getUserNotification,
 );

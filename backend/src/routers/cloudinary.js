@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cloudinaryController = require("../controllers/cloudinary");
-const { validateToken } = require("../middlewares/index");
+const { validateToken } = require("../middlewares/token-validator");
 const upload = require("multer")();
 
 router.post(

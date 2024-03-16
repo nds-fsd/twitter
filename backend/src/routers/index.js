@@ -9,20 +9,18 @@ const cloudinaryRouter = require("./cloudinary");
 const notificationRouter = require("./notification");
 const messageRouter = require("./message");
 const chatRouter = require("./chat");
-const userpgRouter = require("./userpg");
 
 const router = express.Router();
 
-router.use("/meow", meowRouter);
-router.use("/user", userRouter);
-router.use("/follow", followRouter);
-router.use("/like", likeRouter);
-router.use("/bookmark", bookmarkRouter);
+router.use("/meows", meowRouter);
+router.use("/users", userRouter);
+router.use("/follows", followRouter);
+router.use("/likes", likeRouter);
+router.use("/bookmarks", bookmarkRouter);
 router.use("/cloudinary", cloudinaryRouter);
-router.use("/notification", notificationRouter);
+router.use("/notifications", notificationRouter);
 
-router.use("/userpg", userpgRouter);
-router.use("/chat", chatRouter);
-router.use("/message", messageRouter);
+router.use("/chats", chatRouter);
+router.use("/messages", messageRouter);
 
 module.exports = router;

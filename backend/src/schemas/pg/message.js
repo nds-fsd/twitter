@@ -1,16 +1,16 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../../connections/postgres");
-const Userpg = require("./userpg");
+const UserExternal = require("./user");
 const Chat = require("./chat");
 
 const Message = sequelize.define(
-  "message",
+  "messages",
   {
     user: {
       type: DataTypes.STRING(24),
       allowNull: false,
       references: {
-        model: Userpg,
+        model: UserExternal,
         key: "mongo_user_id",
       },
     },
@@ -18,7 +18,7 @@ const Message = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    chat: {
+    chat_room: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
