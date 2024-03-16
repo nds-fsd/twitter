@@ -6,7 +6,7 @@ const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 export const userApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/user`,
+    baseURL: `${BASE_URL}/users`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -14,17 +14,10 @@ export const userApi = () => {
   });
 };
 
-export const userRegisterApi = () => {
-  return axios.create({
-    baseURL: `${BASE_URL}/user/register`,
-    headers: { "Content-Type": "application/json" },
-  });
-};
-
 export const meowApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/meow`,
+    baseURL: `${BASE_URL}/meows`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -35,7 +28,7 @@ export const meowApi = () => {
 export const followApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/follow`,
+    baseURL: `${BASE_URL}/follows`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -46,7 +39,7 @@ export const followApi = () => {
 export const likeApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/like`,
+    baseURL: `${BASE_URL}/likes`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -57,7 +50,7 @@ export const likeApi = () => {
 export const bookmarkApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/bookmark`,
+    baseURL: `${BASE_URL}/bookmarks`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -79,7 +72,7 @@ export const cloudinaryApi = () => {
 export const notificationApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/notification`,
+    baseURL: `${BASE_URL}/notifications`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -90,7 +83,7 @@ export const notificationApi = () => {
 export const chatApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/chat`,
+    baseURL: `${BASE_URL}/chats`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -101,7 +94,7 @@ export const chatApi = () => {
 export const messageApi = () => {
   const token = getUserToken();
   return axios.create({
-    baseURL: `${BASE_URL}/message`,
+    baseURL: `${BASE_URL}/messages`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

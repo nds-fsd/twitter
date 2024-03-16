@@ -12,7 +12,9 @@ const createNotification = async (req, res) => {
     });
 
     if (!recipientUser || !senderUser) {
-      throw new Error("Recipient or sender user not found");
+      return res
+        .status(404)
+        .json({ error: "Recipient or sender user not found" });
     }
 
     const newNotification = new Notification({
@@ -26,7 +28,8 @@ const createNotification = async (req, res) => {
 
     res.status(201).json(newNotification);
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -44,7 +47,8 @@ const editNotification = async (req, res) => {
 
     res.status(200).json(notification);
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -67,8 +71,8 @@ const getUserNotification = async (req, res) => {
       res.status(204).json({ message: "No notifications yet" });
     }
   } catch (error) {
-    console.log(error);
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -79,12 +83,13 @@ const deleteNotification = async (req, res) => {
 
     if (notificationFound) {
       await Notification.findByIdAndDelete(notificationId);
-      res.status(201).json({ message: "Notification delteted successfully" });
+      res.status(201).json({ message: "Notification deleted successfully" });
     } else {
-      res.status(404).json({ error: "Error deleting notification" });
+      res.status(404).json({ error: "Notification not found" });
     }
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 

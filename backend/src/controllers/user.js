@@ -4,7 +4,7 @@ const Follow = require("../schemas/mongo/follow");
 const Bookmark = require("../schemas/mongo/bookmark");
 const Meow = require("../schemas/mongo/meow");
 const Notification = require("../schemas/mongo/notification");
-const Userpg = require("../schemas/pg/userpg");
+const UserExternal = require("../schemas/pg/user");
 const { sendWelcomeEmail } = require("../service/email-service");
 
 const getAllUsers = async (req, res) => {
@@ -12,10 +12,13 @@ const getAllUsers = async (req, res) => {
     const allUsers = await User.find();
     res.status(200).json(allUsers);
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
+// TODO - remove the controller below and add filtering capability to the one above
+//  through query parameters (e.g. /users?username=paquito...)
 const getUserByUsername = async (req, res) => {
   try {
     const username = req.params.username;
@@ -27,7 +30,8 @@ const getUserByUsername = async (req, res) => {
       res.status(204).json({ error: "User not found" });
     }
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -41,7 +45,8 @@ const getUserById = async (req, res) => {
       res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -60,9 +65,11 @@ const updateUser = async (req, res) => {
       res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
+
 const searchUsers = async (req, res) => {
   try {
     const { substring } = req.params;
@@ -95,7 +102,8 @@ const searchUsers = async (req, res) => {
 
     res.status(200).json(uniqueUsers);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -110,12 +118,12 @@ const createUser = async (req, res) => {
     // >> crear usuario en postgres
     try {
       const mongoUserId = createdUser._id.toString();
-      await Userpg.create({
+      await UserExternal.create({
         mongo_user_id: mongoUserId,
       });
     } catch (error) {
       console.error(error);
-      return res.status(500).json(error.message);
+      return res.status(500).json({ error: "Server error" });
     }
     // <<
 
@@ -129,11 +137,9 @@ const createUser = async (req, res) => {
         id: createdUser._id,
       },
     });
-    /*  if(createdUser){
-      await sendWelcomeEmail({name: createdUser.name, email: createdUser.mail});
-    } */
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -141,6 +147,11 @@ const loginUser = async (req, res) => {
   try {
     const { mail } = req.body;
     const foundUser = await User.findOne({ mail });
+
+    if (!foundUser || !foundUser.comparePassword(password))
+      return res
+        .status(400)
+        .json({ error: "Invalid username and/or password." });
 
     res.status(201).json({
       token: foundUser.generateJWT(),
@@ -153,7 +164,8 @@ const loginUser = async (req, res) => {
       },
     });
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -247,12 +259,12 @@ const deleteUser = async (req, res) => {
       // Eliminar usuario de Postgres SQL
       try {
         const mongoUserId = userFound._id.toString();
-        await Userpg.destroy({
+        await UserExternal.destroy({
           where: { mongo_user_id: mongoUserId },
         });
       } catch (error) {
         console.error(error);
-        return res.status(500).json(error.message);
+        return res.status(500).json({ error: "Server error" });
       }
 
       // Eliminar el usuario
@@ -263,7 +275,8 @@ const deleteUser = async (req, res) => {
       res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
-    return res.status(500).json({ error: "Internal server error" });
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 

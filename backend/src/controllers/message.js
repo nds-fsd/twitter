@@ -6,7 +6,8 @@ const getMessage = async (req, res) => {
     const messages = await Message.findAll({ where: { chat: chatId } });
     res.status(200).json(messages);
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -22,8 +23,8 @@ const postMessage = async (req, res) => {
     });
     res.status(201).json(newMessage);
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 

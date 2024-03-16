@@ -9,7 +9,7 @@ const validateAction = (value) => {
     "unlike",
     "bookmark",
     "unbookmark",
-    "replie",
+    "reply",
     "repost",
   ];
   return allowedActions.includes(value);
@@ -34,7 +34,7 @@ const notificationSchema = new Schema({
       message: "Invalid action",
     },
   },
-  post: {
+  meow: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "meow",
   },

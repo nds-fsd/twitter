@@ -7,12 +7,10 @@ const getFeedMeows = async (req, res) => {
   try {
     const id = req.jwtPayload.id;
 
-    const resultado = await Follow.find({ follower: id });
+    const result = await Follow.find({ follower: id });
     const meowsYouFollow = await Meow.find({
       author: {
-        $in: resultado.map((follow) =>
-          mongoose.Types.ObjectId(follow.followed),
-        ),
+        $in: result.map((follow) => mongoose.Types.ObjectId(follow.followed)),
       },
     });
     const ownMeows = await Meow.find({ author: id });
@@ -25,25 +23,24 @@ const getFeedMeows = async (req, res) => {
 
     const meowsWithOriginalAuthors = await Promise.all(
       meowsToSend.map(async (meow) => {
-        if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findById(meow.repostedMeowId);
-          if (originalMeow) {
-            const originalAuthor = await User.findById(originalMeow.author);
-            return {
-              ...meow._doc,
-              originalName: originalAuthor.name,
-              originalSurname: originalAuthor.surname,
-              originalUsername: originalAuthor.username,
-            };
-          }
-        }
-        return meow;
+        const originalMeow =
+          meow.repostedMeowId && (await Meow.findById(meow.repostedMeowId));
+        if (!originalMeow) return meow;
+
+        const originalAuthor = await User.findById(originalMeow.author);
+        return {
+          ...meow._doc,
+          originalName: originalAuthor.name,
+          originalSurname: originalAuthor.surname,
+          originalUsername: originalAuthor.username,
+        };
       }),
     );
 
     return res.json(meowsWithOriginalAuthors);
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -58,7 +55,8 @@ const getMeowById = async (req, res) => {
       res.status(404).json({ error: "Meow not found" });
     }
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -74,31 +72,30 @@ const getProfileMeows = async (req, res) => {
     });
     const meowsWithOriginalAuthors = await Promise.all(
       meowsProfile.map(async (meow) => {
-        if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findById(meow.repostedMeowId);
-          if (originalMeow) {
-            const originalAuthor = await User.findById(originalMeow.author);
-            return {
-              ...meow._doc,
-              originalName: originalAuthor.name,
-              originalSurname: originalAuthor.surname,
-              originalUsername: originalAuthor.username,
-              authorUsername: username,
-              authorName: user.name,
-              authorSurname: user.surname,
-            };
-          }
-        }
-        return {
+        const meowWithAuthor = {
           ...meow._doc,
           authorUsername: username,
           authorName: user.name,
           authorSurname: user.surname,
         };
+
+        const repostedMeow =
+          meow.repostedMeowId && (await Meow.findById(meow.repostedMeowId));
+        if (!repostedMeow) return meowWithAuthor;
+
+        const originalAuthor = await User.findById(repostedMeow.author);
+        return {
+          ...meow._doc,
+          originalName: originalAuthor.name,
+          originalSurname: originalAuthor.surname,
+          originalUsername: originalAuthor.username,
+          ...meowWithAuthor,
+        };
       }),
     );
     res.status(200).json({ meowsWithOriginalAuthors, user });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Server error" });
   }
 };
@@ -109,42 +106,43 @@ const getMeowReplies = async (req, res) => {
 
     const meowReplies = await Meow.find({ parentMeow: id });
 
-    if (meowReplies.length > 0) {
-      const uniqueAuthorIds = [
-        ...new Set(meowReplies.map((meow) => meow.author)),
-      ];
-
-      const authorDetails = await User.find(
-        { _id: { $in: uniqueAuthorIds } },
-        "username name surname",
-      );
-
-      const authorMap = authorDetails.reduce((map, user) => {
-        map[user._id] = {
-          username: user.username,
-          name: user.name,
-          surname: user.surname,
-        };
-        return map;
-      }, {});
-
-      const meowRepliesWithUsernames = meowReplies.map((meow) => {
-        const author = authorMap[meow.author];
-        return {
-          ...meow.toObject(),
-          authorUsername: author ? author.username : "Unknown User",
-          authorName: author ? author.name : "Unknown",
-          authorSurname: author ? author.surname : "Unknown",
-        };
-      });
-      return res.status(200).json(meowRepliesWithUsernames.reverse());
-    } else {
+    if (meowReplies.length === 0) {
       return res.status(204).json({
         message: "No replies found.",
       });
     }
+
+    const uniqueAuthorIds = [
+      ...new Set(meowReplies.map((meow) => meow.author)),
+    ];
+
+    const authorDetails = await User.find(
+      { _id: { $in: uniqueAuthorIds } },
+      "username name surname",
+    );
+
+    const authorMap = authorDetails.reduce((map, user) => {
+      map[user._id] = {
+        username: user.username,
+        name: user.name,
+        surname: user.surname,
+      };
+      return map;
+    }, {});
+
+    const meowRepliesWithUsernames = meowReplies.map((meow) => {
+      const author = authorMap[meow.author];
+      return {
+        ...meow.toObject(),
+        authorUsername: author ? author.username : "Unknown User",
+        authorName: author ? author.name : "Unknown",
+        authorSurname: author ? author.surname : "Unknown",
+      };
+    });
+    return res.status(200).json(meowRepliesWithUsernames.reverse());
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -174,7 +172,8 @@ const createMeow = async (req, res) => {
       .status(201)
       .json({ message: "Meow created successfully", meowToSave });
   } catch (error) {
-    return res.status(400).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -205,7 +204,8 @@ const repostMeow = async (req, res) => {
       .status(201)
       .json({ message: "Meow reposted successfully", meow });
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -243,7 +243,8 @@ const updateMeow = async (req, res) => {
 
     return res.status(200).json({ userFound, meowsWithOriginalAuthors });
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -277,7 +278,8 @@ const deleteMeow = async (req, res) => {
       res.status(404).json({ error: "Meow not found" });
     }
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 

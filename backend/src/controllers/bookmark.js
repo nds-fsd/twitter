@@ -8,14 +8,12 @@ const checkBookmarkStatus = async (req, res) => {
     const meowId = req.params.meowId;
 
     const bookmark = await Bookmark.findOne({
-      userId: userId,
-      meowId: meowId,
+      userId,
+      meowId,
     });
 
-    const isBookmarked = !!bookmark;
-
     return res.status(200).json({
-      isBookmarked: isBookmarked,
+      isBookmarked: Boolean(bookmark),
     });
   } catch (error) {
     return res.status(500).json({
@@ -28,36 +26,32 @@ const getMeowsBookmarked = async (req, res) => {
   try {
     const userId = req.jwtPayload.id;
 
-    const bookmarks = await Bookmark.find({ userId: userId });
-    const meowsIdsBookmarked = bookmarks.map((bookmark) => bookmark.meowId);
+    const bookmarks = await Bookmark.find({ userId });
+    const bookmarkedMeowIds = bookmarks.map((bookmark) => bookmark.meowId);
 
-    let meowsBookmarked = await Meow.find({
-      _id: { $in: meowsIdsBookmarked },
+    const bookmarkedMeows = await Meow.find({
+      _id: { $in: bookmarkedMeowIds },
     });
-    const meowsWithOriginalAuthors = await Promise.all(
-      meowsBookmarked.map(async (meow) => {
-        if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findById(meow.repostedMeowId);
-          if (originalMeow) {
-            const originalAuthor = await User.findById(originalMeow.author);
-            return {
-              ...meow._doc,
-              originalName: originalAuthor.name,
-              originalSurname: originalAuthor.surname,
-              originalUsername: originalAuthor.username,
-            };
-          }
-        }
-        return meow;
+    const bookmarkedMeowsWithOriginalAuthors = await Promise.all(
+      bookmarkedMeows.map(async (meow) => {
+        const repostedMeow =
+          meow.repostedMeowId && (await Meow.findById(meow.repostedMeowId));
+        if (!repostedMeow) return meow;
+
+        const originalAuthor = await User.findById(repostedMeow.author);
+        return {
+          ...meow._doc,
+          originalName: originalAuthor.name,
+          originalSurname: originalAuthor.surname,
+          originalUsername: originalAuthor.username,
+        };
       }),
     );
-    meowsBookmarked = meowsWithOriginalAuthors;
 
-    return res.status(200).json(meowsBookmarked);
+    return res.status(200).json(bookmarkedMeowsWithOriginalAuthors);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Error fetching data", message: error.message });
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -65,8 +59,6 @@ const bookmarkMeow = async (req, res) => {
   try {
     const meowId = req.params.meowId;
     const meow = await Meow.findById(meowId);
-    const userId = req.jwtPayload.id;
-    const user = await User.findById(userId);
 
     if (!meow) {
       return res.status(404).json({
@@ -74,15 +66,10 @@ const bookmarkMeow = async (req, res) => {
       });
     }
 
-    if (!user) {
-      return res.status(401).json({
-        error: "User not authenticated or does not exist",
-      });
-    }
-
+    const userId = req.jwtPayload.id;
     const existingBookmark = await Bookmark.findOne({
-      userId: userId,
-      meowId: meowId,
+      userId,
+      meowId,
     });
 
     if (existingBookmark) {
@@ -92,8 +79,8 @@ const bookmarkMeow = async (req, res) => {
     }
 
     const bookmark = new Bookmark({
-      userId: userId,
-      meowId: meowId,
+      userId,
+      meowId,
     });
 
     await bookmark.save();
@@ -118,8 +105,6 @@ const unbookmarkMeow = async (req, res) => {
   try {
     const meowId = req.params.meowId;
     const meow = await Meow.findById(meowId);
-    const userId = req.jwtPayload.id;
-    const user = await User.findById(userId);
 
     if (!meow) {
       return res.status(404).json({
@@ -127,15 +112,10 @@ const unbookmarkMeow = async (req, res) => {
       });
     }
 
-    if (!user) {
-      return res.status(401).json({
-        error: "User not authenticated or does not exist",
-      });
-    }
-
+    const userId = req.jwtPayload.id;
     const existingBookmark = await Bookmark.findOne({
-      userId: userId,
-      meowId: meowId,
+      userId,
+      meowId,
     });
 
     if (!existingBookmark) {

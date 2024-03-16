@@ -8,7 +8,8 @@ const getChat = async (req, res) => {
     const messages = await Message.findAll({ where: { chat: chatId } });
     res.status(200).json(messages);
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -22,7 +23,8 @@ const getUserChat = async (req, res) => {
     });
     res.json(chats);
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -52,7 +54,8 @@ const createChat = async (req, res) => {
 
     res.status(201).json(newChat);
   } catch (error) {
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 

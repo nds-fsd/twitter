@@ -40,7 +40,7 @@ const connectSocketIO = async (server) => {
           createdAt: newMessage.createdAt,
         });
       } catch (error) {
-        console.error("Error saving message to database:", error);
+        console.error(error);
       }
     });
 

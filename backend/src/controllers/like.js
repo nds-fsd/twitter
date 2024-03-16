@@ -8,14 +8,12 @@ const checkLikeStatus = async (req, res) => {
     const meowId = req.params.meowId;
 
     const like = await Like.findOne({
-      userId: userId,
-      meowId: meowId,
+      userId,
+      meowId,
     });
 
-    const isLiked = !!like;
-
     return res.status(200).json({
-      isLiked,
+      isLiked: Boolean(like),
     });
   } catch (error) {
     return res.status(500).json({
@@ -29,32 +27,29 @@ const getMeowsLiked = async (req, res) => {
     const userId = req.jwtPayload.id;
 
     const likes = await Like.find({ userId: userId });
-    const meowsIdsLiked = likes.map((like) => like.meowId);
+    const likedMeowIds = likes.map((like) => like.meowId);
 
-    const meowsLiked = await Meow.find({ _id: { $in: meowsIdsLiked } });
-    const meowsWithOriginalAuthors = await Promise.all(
-      meowsLiked.map(async (meow) => {
-        if (meow.repostedMeowId) {
-          const originalMeow = await Meow.findById(meow.repostedMeowId);
-          if (originalMeow) {
-            const originalAuthor = await User.findById(originalMeow.author);
-            return {
-              ...meow._doc,
-              originalName: originalAuthor.name,
-              originalSurname: originalAuthor.surname,
-              originalUsername: originalAuthor.username,
-            };
-          }
-        }
-        return meow;
+    const likedMeows = await Meow.find({ _id: { $in: likedMeowIds } });
+    const likedMeowsWithOriginalAuthors = await Promise.all(
+      likedMeows.map(async (meow) => {
+        const repostedMeow =
+          meow.repostedMeowId && (await Meow.findById(meow.repostedMeowId));
+        if (!repostedMeow) return meow;
+
+        const originalAuthor = await User.findById(repostedMeow.author);
+        return {
+          ...meow._doc,
+          originalName: originalAuthor.name,
+          originalSurname: originalAuthor.surname,
+          originalUsername: originalAuthor.username,
+        };
       }),
     );
 
-    return res.status(200).json(meowsWithOriginalAuthors);
+    return res.status(200).json(likedMeowsWithOriginalAuthors);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Error fetching data", message: error.message });
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -62,8 +57,6 @@ const likeMeow = async (req, res) => {
   try {
     const meowId = req.params.meowId;
     const meow = await Meow.findById(meowId);
-    const userId = req.jwtPayload.id;
-    const user = await User.findById(userId);
 
     if (!meow) {
       return res.status(404).json({
@@ -71,15 +64,10 @@ const likeMeow = async (req, res) => {
       });
     }
 
-    if (!user) {
-      return res.status(401).json({
-        error: "User not authenticated or does not exist",
-      });
-    }
-
+    const userId = req.jwtPayload.id;
     const existingLike = await Like.findOne({
-      userId: userId,
-      meowId: meowId,
+      userId,
+      meowId,
     });
 
     if (existingLike) {
@@ -89,8 +77,8 @@ const likeMeow = async (req, res) => {
     }
 
     const like = new Like({
-      userId: userId,
-      meowId: meowId,
+      userId,
+      meowId,
     });
 
     await like.save();
@@ -111,8 +99,6 @@ const unlikeMeow = async (req, res) => {
   try {
     const meowId = req.params.meowId;
     const meow = await Meow.findById(meowId);
-    const userId = req.jwtPayload.id;
-    const user = await User.findById(userId);
 
     if (!meow) {
       return res.status(404).json({
@@ -120,15 +106,10 @@ const unlikeMeow = async (req, res) => {
       });
     }
 
-    if (!user) {
-      return res.status(401).json({
-        error: "User not authenticated or does not exist",
-      });
-    }
-
+    const userId = req.jwtPayload.id;
     const existingLike = await Like.findOne({
-      userId: userId,
-      meowId: meowId,
+      userId,
+      meowId,
     });
 
     if (!existingLike) {
